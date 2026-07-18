@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home - SA Developer | Futuristic Portfolio</title>
+    
+    <!-- Meta SEO -->
+    <meta name="title" content=" ?? settings?.MetaTitle" />
+    <meta name="description" content=" ?? settings?.MetaDescription" />
+
+    <!-- Style Assets -->
+    <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/css/site.css?v=_AsCg26tz5AEuEUkSlAkaxleaV7SX1XANgtCji_hn6w" />
+    <link rel="stylesheet" href="/FuturisticPortfolio.styles.css?v=cXSw8uWbeBRRKqQImmDtUF9PgLFcp0jNpAJVcYp-LoE" />
+    
+    <!-- CDNs for Premium Libraries -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
+</head>
+<body>
+    <!-- Scroll Progress Bar -->
+    <div b-tjezjmjmzt id="scroll-progress"></div>
+
+    <!-- Interactive Ambient Glow -->
+    <div b-tjezjmjmzt class="ambient-glow"></div>
+
+    <!-- Custom Neon Cursor -->
+    <div b-tjezjmjmzt class="custom-cursor d-none d-lg-block"></div>
+    <div b-tjezjmjmzt class="custom-cursor-dot d-none d-lg-block"></div>
+
+    <!-- Loader Screen -->
+    <div b-tjezjmjmzt id="loader-screen">
+        <div b-tjezjmjmzt class="loader-spinner"></div>
+        <div b-tjezjmjmzt class="loader-text">INITIALIZING SYSTEMS...</div>
+    </div>
+
+    <!-- Particles Background -->
+    <div b-tjezjmjmzt id="particles-js"></div>
+
+    <!-- Header Navigation -->
+    <header b-tjezjmjmzt>
+        <nav b-tjezjmjmzt class="navbar navbar-expand-lg navbar-dark navbar-futuristic fixed-top py-3">
+            <div b-tjezjmjmzt class="container">
+                <a class="navbar-brand text-neon-purple fw-bold" href="/">
+                        <img b-tjezjmjmzt src="/images/logo.png" alt="Logo" class="d-inline-block align-top me-2" style="max-height:30px;" />
+                    <span b-tjezjmjmzt>&lt;SA Developer /&gt;</span>
+                </a>
+                <button b-tjezjmjmzt class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span b-tjezjmjmzt class="navbar-toggler-icon"></span>
+                </button>
+                <div b-tjezjmjmzt class="navbar-collapse collapse justify-content-end">
+                    <ul b-tjezjmjmzt class="navbar-nav gap-2">
+                        <li b-tjezjmjmzt class="nav-item">
+                            <a class="nav-link" href="/">Home</a>
+                        </li>
+                        <li b-tjezjmjmzt class="nav-item">
+                            <a b-tjezjmjmzt class="nav-link" href="/#about-section">About</a>
+                        </li>
+                        <li b-tjezjmjmzt class="nav-item">
+                            <a b-tjezjmjmzt class="nav-link" href="/#skills-section">Skills</a>
+                        </li>
+                        <li b-tjezjmjmzt class="nav-item">
+                            <a class="nav-link" href="/portfolio/">Projects</a>
+                        </li>
+                        <li b-tjezjmjmzt class="nav-item">
+                            <a class="nav-link" href="/blog/">Blog</a>
+                        </li>
+                        <li b-tjezjmjmzt class="nav-item">
+                            <a b-tjezjmjmzt class="nav-link" href="/#contact-section">Contact</a>
+                        </li>
+                        <li b-tjezjmjmzt class="nav-item d-flex align-items-center ms-lg-2 me-lg-1">
+                            <button b-tjezjmjmzt type="button" class="btn btn-link text-white p-2 border-0" id="theme-toggle-btn" style="text-decoration: none; box-shadow: none;" title="Toggle Theme">
+                                <i b-tjezjmjmzt class="fas fa-sun" id="theme-icon"></i>
+                            </button>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content Grid -->
+    <main b-tjezjmjmzt role="main" class="pt-5 mt-4 page-transition">
+        
+<!-- HERO SECTION -->
+<section class="d-flex align-items-center position-relative overflow-hidden" style="min-height: 100vh;">
+    <div class="container py-5 z-2">
+        <div class="row align-items-center">
+            <div class="col-lg-7 text-center text-lg-start" data-aos="fade-right">
+                <span class="badge bg-secondary mb-3 text-uppercase tracking-wider px-3 py-2" style="font-family: var(--font-heading);">SYSTEMS READY</span>
+                <h1 class="display-3 fw-bold text-white mb-2">
+                    Hi, I am <span class="text-neon-purple">SA Developer</span>
+                </h1>
+                <h2 class="h1 fw-semibold mb-4 text-neon-cyan">
+                    <span id="typed-subtitle"></span>
+                </h2>
+                <p class="lead text-muted mb-4 max-w-lg">
+                    Welcome to the nexus of high-performance architecture, clean database normalization, and interactive user interfaces.
+                </p>
+                <div class="d-flex flex-wrap justify-content-center justify-content-lg-start gap-3">
+                    <a class="btn btn-neon text-white" href="/Home/DownloadCv"><i class="fas fa-file-download me-2"></i> Download CV</a>
+                    <a href="#contact-section" class="btn btn-neon btn-neon-cyan text-white"><i class="fas fa-envelope me-2"></i> Establish Link</a>
+                </div>
+
+                <!-- System Diagnostic Badge -->
+                <div class="system-diagnostic-badge mt-4 p-2 rounded border border-secondary bg-dark font-monospace text-muted d-inline-block text-start" id="system-diagnostic" style="font-size: 0.75rem; border-color: rgba(255, 255, 255, 0.05) !important; background: rgba(17, 12, 28, 0.4) !important;">
+                    <i class="fas fa-microchip text-neon-cyan me-1"></i> [DIAGNOSTIC: Analyzing incoming connection...]
+                </div>
+            </div>
+            <div class="col-lg-5 mt-5 mt-lg-0 text-center" data-aos="zoom-in" data-aos-delay="200">
+                <div class="position-relative d-inline-block">
+                    <!-- Glassmorphic border ring around image -->
+                    <div class="position-absolute top-50 start-50 translate-middle rounded-circle border border-info border-3" style="width: 330px; height: 330px; opacity: 0.15; box-shadow: 0 0 30px var(--cyan-glow); animation: spin 10s linear infinite;"></div>
+                    <div class="position-absolute top-50 start-50 translate-middle rounded-circle border border-primary border-2" style="width: 350px; height: 350px; opacity: 0.25; box-shadow: 0 0 35px var(--primary); animation: spin 15s linear infinite reverse;"></div>
+                    
+                    <img src="/images/profile.png" alt="Profile" class="rounded-circle img-fluid border border-secondary shadow-lg relative z-2" style="width: 290px; height: 290px; object-fit: cover; box-shadow: 0 0 40px rgba(168,85,247,0.3);" />
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Hero Scroll Indicator -->
+    <div class="position-absolute bottom-3 start-50 translate-middle-x text-center z-2">
+        <a href="#latest-projects-section" class="text-white text-decoration-none opacity-70 hover-opacity-100">
+            <span class="d-block small text-uppercase tracking-widest mb-1 text-muted" style="font-family: var(--font-heading);">SCROLL TO PROCEED</span>
+            <i class="fas fa-chevron-down animate-bounce text-neon-purple fs-4"></i>
+        </a>
+    </div>
+</section>
+
+<!-- LATEST PROJECT SECTION (Appears immediately after Hero) -->
+<section id="latest-projects-section" class="py-5">
+    <div class="container py-5">
+        <div class="text-center mb-5" data-aos="fade-up">
+            <h2 class="display-5 text-white fw-bold"><span class="text-neon-purple">//</span> Latest Deployments</h2>
+            <p class="text-muted">Top recent systems loaded from the project databank.</p>
+        </div>
+        
+        <div class="row g-4 justify-content-center">
+        </div>
+        <div class="text-center mt-5">
+            <a class="btn btn-neon text-white" href="/portfolio/"><i class="fas fa-layer-group me-2"></i> Query Database for More</a>
+        </div>
+    </div>
+</section>
+
+<!-- ABOUT SECTION -->
+<section id="about-section" class="py-5 bg-dark bg-opacity-40">
+    <div class="container py-5">
+        <div class="row align-items-center">
+            <div class="col-lg-6" data-aos="fade-right">
+                <h2 class="display-5 text-white fw-bold mb-4"><span class="text-neon-cyan">//</span> Identity Core</h2>
+                <div class="text-muted leading-relaxed mb-4">
+                    <p>I am a <strong>Senior Software Architect & Full-Stack Engineer</strong> specializing in enterprise-grade web apps, cloud native structures, and high-performance backend systems. I build clean, secure, and beautiful digital experiences.</p>
+                </div>
+                <h4 class="text-white mt-4 fw-semibold">Core Principles & Mission</h4>
+                <p class="text-muted">My goal is to continue pushing the boundaries of web architecture, writing clean, maintainable, and self-documenting code, and helping teams deliver robust products using .NET 10, Cloud technologies, and sleek modern frontends.</p>
+                <div class="row g-4 mt-2">
+                    <div class="col-6">
+                        <div class="p-3 glass-panel text-center">
+                            <h3 class="text-neon-purple fw-bold mb-1">8+</h3>
+                            <span class="small text-muted">Years Experience</span>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="p-3 glass-panel text-center">
+                            <h3 class="text-neon-cyan fw-bold mb-1">24/7</h3>
+                            <span class="small text-muted">Active Node</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 mt-5 mt-lg-0" data-aos="fade-left">
+                <div class="glass-panel p-4 p-md-5">
+                    <h3 class="text-white fw-bold mb-4"><i class="fas fa-history me-2 text-neon-purple"></i> The Journey</h3>
+                    <p class="text-muted leading-relaxed">
+                        My engineering journey started over a decade ago. From crafting optimized SQL queries to architecting distributed microservices and rich frontends, I have worked with start-ups and tech giants to design systems that scale.
+                    </p>
+                    <div class="mt-4 pt-3 border-top border-secondary">
+                        <span class="d-block small text-muted mb-1">ACADEMIC BACKGROUND</span>
+                        <h5 class="text-white">Bachelor of Science in Computer Science</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SKILLS SECTION -->
+<section id="skills-section" class="py-5">
+    <div class="container py-5">
+        <div class="text-center mb-5" data-aos="fade-up">
+            <h2 class="display-5 text-white fw-bold"><span class="text-neon-purple">//</span> Skills Inventory</h2>
+            <p class="text-muted">Current engineering modules calibrated in the database.</p>
+        </div>
+        
+        <div class="row g-4">
+                    <div class="col-md-6 col-lg-4" data-aos="zoom-in">
+                        <div class="glass-panel p-4 h-100 skill-card">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <div class="d-flex align-items-center gap-3">
+                                    <div class="fs-2 text-neon-purple" style="color: #a855f7 !important; text-shadow: 0 0 10px #a855f7;"><i class="fab fa-microsoft"></i></div>
+                                    <h4 class="h5 text-white mb-0">ASP.NET Core MVC</h4>
+                                </div>
+                                <span class="badge bg-dark border border-secondary" style="color: #a855f7 !important;">95%</span>
+                            </div>
+                            <div class="skill-progress-bar">
+                                <div class="skill-progress-fill" data-percent="95" style="background: #a855f7 !important; box-shadow: 0 0 8px #a855f7;"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4" data-aos="zoom-in">
+                        <div class="glass-panel p-4 h-100 skill-card">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <div class="d-flex align-items-center gap-3">
+                                    <div class="fs-2 text-neon-purple" style="color: #3b82f6 !important; text-shadow: 0 0 10px #3b82f6;"><i class="fas fa-code"></i></div>
+                                    <h4 class="h5 text-white mb-0">C# / .NET 10</h4>
+                                </div>
+                                <span class="badge bg-dark border border-secondary" style="color: #3b82f6 !important;">98%</span>
+                            </div>
+                            <div class="skill-progress-bar">
+                                <div class="skill-progress-fill" data-percent="98" style="background: #3b82f6 !important; box-shadow: 0 0 8px #3b82f6;"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4" data-aos="zoom-in">
+                        <div class="glass-panel p-4 h-100 skill-card">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <div class="d-flex align-items-center gap-3">
+                                    <div class="fs-2 text-neon-purple" style="color: #06b6d4 !important; text-shadow: 0 0 10px #06b6d4;"><i class="fas fa-database"></i></div>
+                                    <h4 class="h5 text-white mb-0">SQL Server</h4>
+                                </div>
+                                <span class="badge bg-dark border border-secondary" style="color: #06b6d4 !important;">90%</span>
+                            </div>
+                            <div class="skill-progress-bar">
+                                <div class="skill-progress-fill" data-percent="90" style="background: #06b6d4 !important; box-shadow: 0 0 8px #06b6d4;"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4" data-aos="zoom-in">
+                        <div class="glass-panel p-4 h-100 skill-card">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <div class="d-flex align-items-center gap-3">
+                                    <div class="fs-2 text-neon-purple" style="color: #10b981 !important; text-shadow: 0 0 10px #10b981;"><i class="fas fa-project-diagram"></i></div>
+                                    <h4 class="h5 text-white mb-0">Entity Framework Core</h4>
+                                </div>
+                                <span class="badge bg-dark border border-secondary" style="color: #10b981 !important;">94%</span>
+                            </div>
+                            <div class="skill-progress-bar">
+                                <div class="skill-progress-fill" data-percent="94" style="background: #10b981 !important; box-shadow: 0 0 8px #10b981;"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4" data-aos="zoom-in">
+                        <div class="glass-panel p-4 h-100 skill-card">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <div class="d-flex align-items-center gap-3">
+                                    <div class="fs-2 text-neon-purple" style="color: #f59e0b !important; text-shadow: 0 0 10px #f59e0b;"><i class="fab fa-js"></i></div>
+                                    <h4 class="h5 text-white mb-0">JavaScript (ES6) / GSAP</h4>
+                                </div>
+                                <span class="badge bg-dark border border-secondary" style="color: #f59e0b !important;">85%</span>
+                            </div>
+                            <div class="skill-progress-bar">
+                                <div class="skill-progress-fill" data-percent="85" style="background: #f59e0b !important; box-shadow: 0 0 8px #f59e0b;"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4" data-aos="zoom-in">
+                        <div class="glass-panel p-4 h-100 skill-card">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <div class="d-flex align-items-center gap-3">
+                                    <div class="fs-2 text-neon-purple" style="color: #ef4444 !important; text-shadow: 0 0 10px #ef4444;"><i class="fab fa-git-alt"></i></div>
+                                    <h4 class="h5 text-white mb-0">Git &amp; CI/CD Pipelines</h4>
+                                </div>
+                                <span class="badge bg-dark border border-secondary" style="color: #ef4444 !important;">92%</span>
+                            </div>
+                            <div class="skill-progress-bar">
+                                <div class="skill-progress-fill" data-percent="92" style="background: #ef4444 !important; box-shadow: 0 0 8px #ef4444;"></div>
+                            </div>
+                        </div>
+                    </div>
+        </div>
+    </div>
+</section>
+
+<!-- SERVICES SECTION -->
+<section class="py-5 bg-dark bg-opacity-40">
+    <div class="container py-5">
+        <div class="text-center mb-5" data-aos="fade-up">
+            <h2 class="display-5 text-white fw-bold"><span class="text-neon-cyan">//</span> Operational Services</h2>
+            <p class="text-muted">High-value technical modules ready for integration.</p>
+        </div>
+        
+        <div class="row g-4">
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                <div class="glass-panel p-4 h-100 text-center skill-card">
+                    <div class="fs-1 text-neon-purple mb-3"><i class="fas fa-laptop-code"></i></div>
+                    <h3 class="h4 text-white mb-2">Web Application Development</h3>
+                    <p class="text-muted small">Crafting interactive and lightning-fast user interfaces using modern standards combined with high-grade ASP.NET MVC architecture.</p>
+                </div>
+            </div>
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                <div class="glass-panel p-4 h-100 text-center skill-card">
+                    <div class="fs-1 text-neon-cyan mb-3"><i class="fas fa-server"></i></div>
+                    <h3 class="h4 text-white mb-2">Backend Development</h3>
+                    <p class="text-muted small">Architecting secure and scalable API structures, utilizing Dependency Injection, Unit testing, and strict SOLID principles.</p>
+                </div>
+            </div>
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+                <div class="glass-panel p-4 h-100 text-center skill-card">
+                    <div class="fs-1 text-neon-blue mb-3"><i class="fas fa-database"></i></div>
+                    <h3 class="h4 text-white mb-2">Database Design & Tuning</h3>
+                    <p class="text-muted small">Relational normalization in SQL Server, setting up indexes, optimizing complex entity queries via Entity Framework Core.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FEATURED PROJECT SECTION -->
+
+<!-- EDUCATION & EXPERIENCE TIMELINE -->
+<section class="py-5 bg-dark bg-opacity-40">
+    <div class="container py-5">
+        <div class="text-center mb-5" data-aos="fade-up">
+            <h2 class="display-5 text-white fw-bold"><span class="text-neon-cyan">//</span> Chronology Nodes</h2>
+            <p class="text-muted">Education and Professional checkpoints in the pipeline.</p>
+        </div>
+        
+        <div class="row g-5">
+            <!-- Experience -->
+            <div class="col-lg-6" data-aos="fade-right">
+                <h3 class="h4 text-neon-purple fw-bold mb-4"><i class="fas fa-briefcase me-2"></i> Professional Experience</h3>
+                <div class="timeline-container">
+                </div>
+            </div>
+            
+            <!-- Education -->
+            <div class="col-lg-6" data-aos="fade-left">
+                <h3 class="h4 text-neon-cyan fw-bold mb-4"><i class="fas fa-graduation-cap me-2"></i> Education Databank</h3>
+                <div class="timeline-container">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- STATISTICS & COUNTERS -->
+<section class="py-5">
+    <div class="container py-5">
+        <div class="row g-4 justify-content-center">
+                    <div class="col-6 col-md-3" data-aos="zoom-in">
+                        <div class="glass-panel p-4 text-center">
+                            <div class="fs-1 text-neon-purple mb-2"><i class="fas fa-rocket"></i></div>
+                            <h2 class="display-5 text-white fw-bold counter-value" data-target="24">0</h2>
+                            <p class="text-muted small mb-0">Completed Projects</p>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-3" data-aos="zoom-in">
+                        <div class="glass-panel p-4 text-center">
+                            <div class="fs-1 text-neon-purple mb-2"><i class="fas fa-award"></i></div>
+                            <h2 class="display-5 text-white fw-bold counter-value" data-target="12">0</h2>
+                            <p class="text-muted small mb-0">Certifications</p>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-3" data-aos="zoom-in">
+                        <div class="glass-panel p-4 text-center">
+                            <div class="fs-1 text-neon-purple mb-2"><i class="fas fa-briefcase"></i></div>
+                            <h2 class="display-5 text-white fw-bold counter-value" data-target="8">0</h2>
+                            <p class="text-muted small mb-0">Years of Experience</p>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-3" data-aos="zoom-in">
+                        <div class="glass-panel p-4 text-center">
+                            <div class="fs-1 text-neon-purple mb-2"><i class="fas fa-laptop-code"></i></div>
+                            <h2 class="display-5 text-white fw-bold counter-value" data-target="15">0</h2>
+                            <p class="text-muted small mb-0">Technologies Mastered</p>
+                        </div>
+                    </div>
+        </div>
+    </div>
+</section>
+
+<!-- TESTIMONIALS SLIDER -->
+
+<!-- INTERACTIVE TECH STACK -->
+<section class="py-5">
+    <div class="container py-5 text-center">
+        <div class="text-center mb-5" data-aos="fade-up">
+            <h2 class="display-5 text-white fw-bold"><span class="text-neon-cyan">//</span> Calibrated Frameworks</h2>
+            <p class="text-muted">Interactive dashboard of frameworks, patterns and standards.</p>
+        </div>
+        
+        <div class="d-flex flex-wrap justify-content-center gap-4" data-aos="zoom-in">
+            <div class="tech-icon-box" title="C#"><i class="fas fa-code text-neon-purple"></i></div>
+            <div class="tech-icon-box" title="ASP.NET Core"><i class="fab fa-microsoft text-neon-cyan"></i></div>
+            <div class="tech-icon-box" title="SQL Server"><i class="fas fa-database text-neon-blue"></i></div>
+            <div class="tech-icon-box" title="JavaScript"><i class="fab fa-js text-warning"></i></div>
+            <div class="tech-icon-box" title="Git"><i class="fab fa-git-alt text-danger"></i></div>
+            <div class="tech-icon-box" title="HTML5"><i class="fab fa-html5 text-neon-cyan"></i></div>
+            <div class="tech-icon-box" title="CSS3"><i class="fab fa-css3-alt text-neon-purple"></i></div>
+            <div class="tech-icon-box" title="Bootstrap 5"><i class="fab fa-bootstrap text-primary"></i></div>
+        </div>
+    </div>
+</section>
+
+<!-- CONTACT SECTION -->
+<section id="contact-section" class="py-5">
+    <div class="container py-5">
+        <div class="text-center mb-5" data-aos="fade-up">
+            <h2 class="display-5 text-white fw-bold"><span class="text-neon-purple">//</span> Transmission Channel</h2>
+            <p class="text-muted">Commence connection link. Send queries or deployment briefs.</p>
+        </div>
+        
+        <div class="row g-5">
+            <div class="col-lg-6" data-aos="fade-right">
+                <div class="glass-panel p-4 p-md-5 h-100">
+                    <h3 class="text-white fw-bold mb-4"><i class="fas fa-envelope-open-text text-neon-purple me-2"></i> Get In Touch</h3>
+                    
+                    <form id="contact-form" method="post">
+                        
+                        <div class="mb-3">
+                            <label class="form-label text-muted small">IDENTITY NAME</label>
+                            <input type="text" name="Name" class="form-control bg-dark border-secondary text-white rounded-3 py-2" required placeholder="eg. recruiter/company name" />
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label text-muted small">TRANSMISSION EMAIL</label>
+                            <input type="email" name="Email" class="form-control bg-dark border-secondary text-white rounded-3 py-2" required placeholder="eg. client@domain.com" />
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label text-muted small">COMMUNICATION SUBJECT</label>
+                            <input type="text" name="Subject" class="form-control bg-dark border-secondary text-white rounded-3 py-2" required placeholder="eg. Hiring Proposition / Project Brief" />
+                        </div>
+                        <div class="mb-4">
+                            <label class="form-label text-muted small">TRANSMISSION CONTENT</label>
+                            <textarea name="Body" rows="4" class="form-control bg-dark border-secondary text-white rounded-3 py-2" required placeholder="Write your message here..."></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-neon w-100 text-white"><i class="fas fa-satellite-dish me-2"></i> Transmit Packet</button>
+                    <input name="__RequestVerificationToken" type="hidden" value="CfDJ8LjMxfGWG05NjdR1VASDLUueDgBhqFz9z2Zl-t-396rZzd9E7qcDQWmoPcP12Hn3KigJ1bK0Am9_Ti2Y68FPzN_CBiqw7g_ilntj67Ha_DdC7wanIQ_djObNc-ek3XNGchPv1vvhK5md_2TsKKIS3zk" /></form>
+                    <div id="contact-submit-status" class="mt-3" style="display: none;"></div>
+                </div>
+            </div>
+            
+            <div class="col-lg-6" data-aos="fade-left">
+                <div class="glass-panel p-4 p-md-5 h-100 d-flex flex-column">
+                    <h3 class="text-white fw-bold mb-4"><i class="fas fa-map-marked-alt text-neon-cyan me-2"></i> Geospatial Node</h3>
+                    <p class="text-muted small">Currently broadcast-locked in the cyber district metropolis.</p>
+                    <div class="flex-grow-1 rounded-3 overflow-hidden border border-secondary shadow mb-4" style="min-height: 250px;">
+                            <iframe src="https://www.openstreetmap.org/embed.html?bbox=-74.009%2C40.705%2C-73.999%2C40.715&amp;layer=mapnik&amp;marker=40.7128%2C-74.0060" width="100%" height="100%" style="border:0; filter: invert(90%) hue-rotate(240deg) brightness(85%);" allowfullscreen="" loading="lazy"></iframe>
+                    </div>
+                    <div class="d-flex flex-column gap-2 text-muted small">
+                        <span><i class="fas fa-envelope text-neon-purple me-2"></i> admin@portfolio.com</span>
+                        <span><i class="fas fa-phone-alt text-neon-cyan me-2"></i> &#x2B;1 (555) 019-2834</span>
+                        <span><i class="fas fa-map-pin text-neon-blue me-2"></i> Neo Metropolis, Cyber District 9</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+    </main>
+
+    <!-- Chat Bot Widget -->
+    <div b-tjezjmjmzt class="ai-chat-widget glass-panel" id="ai-chat-widget">
+        <div b-tjezjmjmzt class="ai-chat-header text-white">
+            <span b-tjezjmjmzt><i b-tjezjmjmzt class="fas fa-robot me-2"></i> Portfolio Agent (AI)</span>
+            <button b-tjezjmjmzt class="btn btn-sm btn-link text-white p-0" id="ai-chat-close"><i b-tjezjmjmzt class="fas fa-times"></i></button>
+        </div>
+        <div b-tjezjmjmzt class="ai-chat-messages" id="ai-messages-container">
+            <!-- Messages populated via client js -->
+        </div>
+        <div b-tjezjmjmzt class="ai-chat-input">
+            <input b-tjezjmjmzt type="text" placeholder="Inquire about skills, projects..." id="ai-user-message" autocomplete="off" />
+            <button b-tjezjmjmzt id="ai-send-message"><i b-tjezjmjmzt class="fas fa-paper-plane"></i></button>
+        </div>
+        <div b-tjezjmjmzt class="p-2 border-top border-secondary bg-dark">
+            <div b-tjezjmjmzt class="quick-chips-container">
+                <span b-tjezjmjmzt class="quick-chip" data-query="What is your tech stack?">Tech Stack</span>
+                <span b-tjezjmjmzt class="quick-chip" data-query="Tell me about your latest projects.">Projects</span>
+                <span b-tjezjmjmzt class="quick-chip" data-query="Can I download your resume?">Download CV</span>
+                <span b-tjezjmjmzt class="quick-chip" data-query="How can I contact you?">Contact info</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating Chat Trigger Button -->
+    <button b-tjezjmjmzt class="fab-btn" id="ai-chat-toggle">
+        <i b-tjezjmjmzt class="fas fa-comment-dots"></i>
+    </button>
+
+    <!-- Footer Area -->
+    <footer b-tjezjmjmzt class="glass-panel border-0 border-top mt-5 py-5 text-center text-md-start">
+        <div b-tjezjmjmzt class="container">
+            <div b-tjezjmjmzt class="row align-items-center">
+                <div b-tjezjmjmzt class="col-md-6 mb-3 mb-md-0">
+                    <h5 b-tjezjmjmzt class="text-neon-purple">&lt; SA Developer /&gt;</h5>
+                    <p b-tjezjmjmzt class="text-muted small mb-0">&#xA9; 2026 SA Developer. Built with ASP.NET 10 &amp; GSAP.</p>
+                </div>
+                <div b-tjezjmjmzt class="col-md-6 text-md-end">
+                    <div b-tjezjmjmzt class="d-flex justify-content-center justify-content-md-end gap-3">
+                                <a b-tjezjmjmzt href="https://github.com/saadsa9112-cloud" target="_blank" class="text-muted fs-4 transition clickable"><i b-tjezjmjmzt class="fab fa-github"></i></a>
+                                <a b-tjezjmjmzt href="https://linkedin.com" target="_blank" class="text-muted fs-4 transition clickable"><i b-tjezjmjmzt class="fab fa-linkedin"></i></a>
+                                <a b-tjezjmjmzt href="https://twitter.com" target="_blank" class="text-muted fs-4 transition clickable"><i b-tjezjmjmzt class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Command Palette Overlay -->
+    <div b-tjezjmjmzt class="command-palette-overlay" id="command-palette">
+        <div b-tjezjmjmzt class="command-palette-box glass-panel p-4">
+            <div b-tjezjmjmzt class="d-flex justify-content-between align-items-center mb-3">
+                <span b-tjezjmjmzt class="badge bg-secondary"><i b-tjezjmjmzt class="fas fa-terminal me-1"></i> CONTROL CONSOLE</span>
+                <span b-tjezjmjmzt class="small text-muted">Press <kbd b-tjezjmjmzt class="bg-dark text-neon-cyan px-2">ESC</kbd> to exit</span>
+            </div>
+            <input b-tjezjmjmzt type="text" class="form-control bg-dark border-secondary text-white mb-3 py-2" id="command-search" placeholder="Type a command or navigate..." autocomplete="off" />
+            <div b-tjezjmjmzt class="command-list" id="command-results">
+                <div b-tjezjmjmzt class="command-item clickable" data-action="nav" data-url="/"><i b-tjezjmjmzt class="fas fa-home me-2 text-neon-purple"></i> Go to Homepage <span b-tjezjmjmzt class="badge bg-dark ms-auto">G + H</span></div>
+                <div b-tjezjmjmzt class="command-item clickable" data-action="nav" data-url="/Portfolio"><i b-tjezjmjmzt class="fas fa-folder-open me-2 text-neon-cyan"></i> Browse Projects Databank <span b-tjezjmjmzt class="badge bg-dark ms-auto">G + P</span></div>
+                <div b-tjezjmjmzt class="command-item clickable" data-action="nav" data-url="/Blog"><i b-tjezjmjmzt class="fas fa-file-alt me-2 text-neon-blue"></i> Read Tech Logs <span b-tjezjmjmzt class="badge bg-dark ms-auto">G + B</span></div>
+                <div b-tjezjmjmzt class="command-item clickable" data-action="ai"><i b-tjezjmjmzt class="fas fa-robot me-2 text-warning"></i> Query AI Portfolio Agent <span b-tjezjmjmzt class="badge bg-dark ms-auto">A + I</span></div>
+                <div b-tjezjmjmzt class="command-item clickable" data-action="contact"><i b-tjezjmjmzt class="fas fa-satellite-dish me-2 text-success"></i> Establish Comms Link (Contact) <span b-tjezjmjmzt class="badge bg-dark ms-auto">C + O</span></div>
+                <div b-tjezjmjmzt class="command-item clickable" data-action="sound"><i b-tjezjmjmzt class="fas fa-volume-up me-2 text-neon-cyan"></i> Synthesize Audio Test <span b-tjezjmjmzt class="badge bg-dark ms-auto">S + N</span></div>
+                <div b-tjezjmjmzt class="command-item clickable text-danger border-danger" data-action="nav" data-url="/Admin/Dashboard"><i b-tjezjmjmzt class="fas fa-terminal me-2 text-danger"></i> sudo admin <span b-tjezjmjmzt class="badge bg-dark ms-auto">S + A</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cookie Consent Banner -->
+    <div b-tjezjmjmzt class="cookie-banner glass-panel p-3 text-start" id="cookie-banner" style="position: fixed; bottom: 20px; left: 20px; max-width: 400px; z-index: 100000; display: none; background: rgba(17, 12, 28, 0.9) !important; border-color: rgba(168, 85, 247, 0.3) !important;">
+        <div b-tjezjmjmzt class="d-flex align-items-center gap-2 mb-2">
+            <i b-tjezjmjmzt class="fas fa-cookie-bite text-warning fs-4"></i>
+            <h6 b-tjezjmjmzt class="mb-0 text-white fw-bold">Telemetry Access Consent</h6>
+        </div>
+        <p b-tjezjmjmzt class="small text-muted mb-3" style="font-size: 0.8rem; line-height: 1.4;">We use cookies to analyze user interest packets (like photo views, project details, or play clicks) for portfolio calibration.</p>
+        <div b-tjezjmjmzt class="d-flex gap-2">
+            <button b-tjezjmjmzt type="button" class="btn btn-sm btn-neon text-white px-3" id="cookie-accept-btn">Accept Consent</button>
+            <button b-tjezjmjmzt type="button" class="btn btn-sm btn-outline-secondary px-3" id="cookie-decline-btn">Reject</button>
+        </div>
+    </div>
+
+    <!-- Danger Security Alert Overlay -->
+    <div b-tjezjmjmzt class="danger-security-overlay" id="danger-security-overlay">
+        <i b-tjezjmjmzt class="fas fa-skull-crossbones text-danger mb-4" style="font-size: 5rem; animation: pulse 1s infinite alternate;"></i>
+        <div b-tjezjmjmzt class="glitch-title">SECURITY BREACH DETECTED</div>
+        <p b-tjezjmjmzt class="warning-desc">If you press this again, your tracking will start and you cannot hide yourself from us.</p>
+        <button b-tjezjmjmzt type="button" class="btn btn-outline-danger px-4 py-2 mt-4 font-monospace" id="danger-close-btn" style="border-radius: 0; text-transform: uppercase;">Abort Handshake</button>
+    </div>
+
+    <!-- Script Assets -->
+    <script src="/lib/jquery/dist/jquery.min.js"></script>
+    <script src="/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="/js/site.js?v=cXcfWv7E0orEAKs_YLuQld9_w8bSrAe9zx_VkXgpzRo"></script>
+    
+    <!-- Typed.js CDN for typing title inside Hero -->
+    <script src="https://unpkg.com/typed.js@2.0.16/dist/typed.umd.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // Typing Animation
+            new Typed('#typed-subtitle', {
+                strings: ['Senior Software Architect', 'ASP.NET Core Specialist', 'Full-Stack Developer', 'Database Designer'],
+                typeSpeed: 60,
+                backSpeed: 30,
+                loop: true
+            });
+
+            // Statistics Counter Animation
+            const counters = document.querySelectorAll('.counter-value');
+            const duration = 2000; // ms
+
+            const animateCounters = () => {
+                counters.forEach(counter => {
+                    const target = +counter.getAttribute('data-target');
+                    const startTime = performance.now();
+
+                    const update = (currentTime) => {
+                        const elapsed = currentTime - startTime;
+                        const progress = Math.min(elapsed / duration, 1);
+                        const value = Math.floor(progress * target);
+                        counter.innerText = value;
+
+                        if (progress < 1) {
+                            requestAnimationFrame(update);
+                        } else {
+                            counter.innerText = target;
+                        }
+                    };
+                    requestAnimationFrame(update);
+                });
+            };
+
+            // Observer to trigger counters on enter viewport
+            const statsSection = document.querySelector('.counter-value').closest('.row');
+            if (statsSection) {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            animateCounters();
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.15 });
+                observer.observe(statsSection);
+            }
+        });
+    </script>
+
+</body>
+</html>
