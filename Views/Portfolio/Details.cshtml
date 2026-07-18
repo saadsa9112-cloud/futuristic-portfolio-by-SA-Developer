@@ -1,0 +1,200 @@
+@model FuturisticPortfolio.Models.Entities.Project
+@{
+    ViewData["Title"] = Model.Title;
+    var prevProject = ViewBag.PrevProject as FuturisticPortfolio.Models.Entities.Project;
+    var nextProject = ViewBag.NextProject as FuturisticPortfolio.Models.Entities.Project;
+}
+
+<!-- Large Banner Header -->
+<section class="py-5 position-relative overflow-hidden" style="background: linear-gradient(180deg, rgba(168,85,247,0.15) 0%, rgba(9,5,20,0) 100%);">
+    <div class="container py-5 text-center" data-aos="zoom-in">
+        <span class="badge bg-secondary mb-3">@Model.Category?.Name</span>
+        <h1 class="display-3 text-white fw-bold">@Model.Title</h1>
+        <p class="lead text-neon-cyan max-w-lg mx-auto">@Model.Subtitle</p>
+        <p class="small text-muted mb-4"><i class="fas fa-eye me-1"></i> @Model.ViewCount System Views | <i class="fas fa-calendar-alt me-1"></i> @Model.Date.ToString("MMMM yyyy")</p>
+        
+        <div class="d-flex justify-content-center gap-3">
+            @if (!string.IsNullOrEmpty(Model.GitHubLink))
+            {
+                <a href="@Model.GitHubLink" target="_blank" class="btn btn-neon text-white"><i class="fab fa-github me-2"></i> GitHub Repository</a>
+            }
+            @if (!string.IsNullOrEmpty(Model.LiveDemo))
+            {
+                <a href="@Model.LiveDemo" target="_blank" class="btn btn-neon btn-neon-cyan text-white"><i class="fas fa-external-link-alt me-2"></i> Live Deployment</a>
+            }
+            @if (!string.IsNullOrEmpty(Model.DocumentationPdfPath))
+            {
+                <a href="@Model.DocumentationPdfPath" target="_blank" class="btn btn-outline-light rounded-pill border-secondary text-white"><i class="fas fa-file-pdf me-2"></i> Documentation</a>
+            }
+        </div>
+    </div>
+</section>
+
+<div class="container pb-5">
+    <div class="row g-5">
+        <!-- Main Core Case Study Details -->
+        <div class="col-lg-8" data-aos="fade-right">
+            <!-- Project Thumbnail / Primary Image -->
+            <div class="glass-panel overflow-hidden mb-5">
+                <img src="@Model.ThumbnailPath" alt="Project thumbnail" class="w-100 img-fluid" style="max-height: 450px; object-fit: cover;" />
+            </div>
+
+            <!-- Description -->
+            <div class="glass-panel p-4 p-md-5 mb-5">
+                <h3 class="text-white fw-bold mb-4"><span class="text-neon-purple">//</span> System Summary</h3>
+                <div class="text-muted leading-relaxed">
+                    @Html.Raw(Model.Description)
+                </div>
+            </div>
+
+            <!-- Challenges & Solutions -->
+            @if (!string.IsNullOrEmpty(Model.Challenges) || !string.IsNullOrEmpty(Model.Solutions))
+            {
+                <div class="row g-4 mb-5">
+                    <div class="col-md-6">
+                        <div class="glass-panel p-4 h-100 border-danger border-opacity-30">
+                            <h4 class="text-danger fw-bold mb-3"><i class="fas fa-exclamation-triangle me-2"></i> Execution Challenges</h4>
+                            <p class="text-muted small">@Model.Challenges</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="glass-panel p-4 h-100 border-success border-opacity-30">
+                            <h4 class="text-success fw-bold mb-3"><i class="fas fa-check-circle me-2"></i> Engineering Solutions</h4>
+                            <p class="text-muted small">@Model.Solutions</p>
+                        </div>
+                    </div>
+                </div>
+            }
+
+            <!-- Technical Architecture & DB Design -->
+            @if (!string.IsNullOrEmpty(Model.ArchitectureDescription) || !string.IsNullOrEmpty(Model.DatabaseDesignDescription))
+            {
+                <div class="glass-panel p-4 p-md-5 mb-5">
+                    @if (!string.IsNullOrEmpty(Model.ArchitectureDescription))
+                    {
+                        <h3 class="text-white fw-bold mb-3"><span class="text-neon-cyan">//</span> Architectural Topology</h3>
+                        <p class="text-muted leading-relaxed mb-5">@Model.ArchitectureDescription</p>
+                    }
+                    @if (!string.IsNullOrEmpty(Model.DatabaseDesignDescription))
+                    {
+                        <h3 class="text-white fw-bold mb-3"><span class="text-neon-blue">//</span> Relational Database Design</h3>
+                        <p class="text-muted leading-relaxed">@Model.DatabaseDesignDescription</p>
+                    }
+                </div>
+            }
+
+            <!-- Screenshots Gallery -->
+            @if (Model.ProjectImages != null && Model.ProjectImages.Any())
+            {
+                <div class="glass-panel p-4 p-md-5 mb-5">
+                    <h3 class="text-white fw-bold mb-4"><i class="fas fa-images me-2 text-neon-purple"></i> Screenshots Gallery</h3>
+                    <div class="row g-3">
+                        @foreach (var img in Model.ProjectImages)
+                        {
+                            <div class="col-6 col-md-4">
+                                <a href="@img.ImagePath" target="_blank" class="d-block rounded-3 overflow-hidden border border-secondary shadow hover-scale">
+                                    <img src="@img.ImagePath" alt="Gallery screen" class="img-fluid w-100" style="height: 120px; object-fit: cover;" />
+                                </a>
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
+
+            <!-- Video Gallery -->
+            @if (Model.ProjectVideos != null && Model.ProjectVideos.Any())
+            {
+                <div class="glass-panel p-4 p-md-5 mb-5">
+                    <h3 class="text-white fw-bold mb-4"><i class="fas fa-video me-2 text-neon-cyan"></i> Video Demonstration</h3>
+                    @foreach (var vid in Model.ProjectVideos)
+                    {
+                        <div class="ratio ratio-16x9 rounded-3 overflow-hidden border border-secondary shadow mb-3">
+                            @if (vid.IsExternal)
+                            {
+                                // Simple YouTube embed link parsing (assume it's formatted as standard embed or raw url)
+                                var embedUrl = vid.VideoPath;
+                                if (vid.VideoPath.Contains("youtube.com/watch?v="))
+                                {
+                                    embedUrl = vid.VideoPath.Replace("watch?v=", "embed/");
+                                }
+                                <iframe src="@embedUrl" title="YouTube video player" allowfullscreen></iframe>
+                            }
+                            else
+                            {
+                                <video controls class="w-100 h-100">
+                                    <source src="@vid.VideoPath" type="video/mp4">
+                                    Your browser does not support the video tag.
+                                </video>
+                            }
+                        </div>
+                    }
+                </div>
+            }
+        </div>
+
+        <!-- Sidebar Details -->
+        <div class="col-lg-4" data-aos="fade-left">
+            <div class="glass-panel p-4 position-sticky" style="top: 100px;">
+                <h3 class="h4 text-white fw-bold mb-4"><i class="fas fa-info-circle text-neon-purple me-2"></i> Deployment Specs</h3>
+                
+                <ul class="list-unstyled d-flex flex-column gap-3 text-muted small mb-4">
+                    <li class="d-flex justify-content-between border-bottom border-secondary pb-2">
+                        <span>CALIBRATION</span>
+                        <span class="text-white fw-semibold">@Model.Date.ToString("yyyy")</span>
+                    </li>
+                    <li class="d-flex justify-content-between border-bottom border-secondary pb-2">
+                        <span>OPERATIONAL STATUS</span>
+                        <span class="badge bg-success">@Model.Status</span>
+                    </li>
+                    <li class="d-flex justify-content-between border-bottom border-secondary pb-2">
+                        <span>DATABASE SYSTEM</span>
+                        <span class="text-white">SQL Server 2022</span>
+                    </li>
+                    <li class="d-flex justify-content-between border-bottom border-secondary pb-2">
+                        <span>CORE ENGINE</span>
+                        <span class="text-white">ASP.NET MVC 10</span>
+                    </li>
+                </ul>
+
+                <h4 class="h5 text-white fw-bold mb-3"><i class="fas fa-layer-group text-neon-cyan me-2"></i> Tech Stack</h4>
+                <div class="d-flex flex-wrap gap-2 mb-4">
+                    @if (Model.Technologies != null)
+                    {
+                        foreach (var tech in Model.Technologies.Split(','))
+                        {
+                            <span class="badge bg-dark border border-secondary text-white">@tech.Trim()</span>
+                        }
+                    }
+                </div>
+
+                @if (!string.IsNullOrEmpty(Model.TimelineDescription))
+                {
+                    <h4 class="h5 text-white fw-bold mb-3"><i class="fas fa-clock text-neon-blue me-2"></i> Timeline Specs</h4>
+                    <p class="text-muted small leading-relaxed">@Model.TimelineDescription</p>
+                }
+            </div>
+        </div>
+    </div>
+
+    <!-- Relative Project Navigation -->
+    <div class="border-top border-secondary mt-5 pt-4 d-flex justify-content-between align-items-center" data-aos="fade-up">
+        <div>
+            @if (prevProject != null)
+            {
+                <a href="/Portfolio/Details/@prevProject.Id" class="text-decoration-none text-muted hover-text-primary">
+                    <small class="d-block text-uppercase text-muted">PREVIOUS SYSTEM</small>
+                    <span class="fw-semibold text-white"><i class="fas fa-chevron-left me-1"></i> @prevProject.Title</span>
+                </a>
+            }
+        </div>
+        <div>
+            @if (nextProject != null)
+            {
+                <a href="/Portfolio/Details/@nextProject.Id" class="text-decoration-none text-muted hover-text-cyan text-end d-block">
+                    <small class="d-block text-uppercase text-muted">NEXT SYSTEM</small>
+                    <span class="fw-semibold text-white">@nextProject.Title <i class="fas fa-chevron-right ms-1"></i></span>
+                </a>
+            }
+        </div>
+    </div>
+</div>

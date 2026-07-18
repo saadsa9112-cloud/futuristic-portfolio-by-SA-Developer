@@ -1,0 +1,83 @@
+@model List<FuturisticPortfolio.Models.Entities.Project>
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    ViewData["Title"] = "Manage Projects";
+}
+
+<div class="d-flex justify-content-between align-items-center pb-2 mb-4 border-bottom border-secondary">
+    <h1 class="h2 text-white fw-bold"><i class="fas fa-folder-open text-neon-purple me-2"></i> Manage Projects</h1>
+    <a asp-action="Create" class="btn btn-neon text-white"><i class="fas fa-plus me-1"></i> Add Project</a>
+</div>
+
+<div class="glass-panel p-4">
+    <div class="table-responsive">
+        <table class="table table-dark table-hover align-middle mb-0">
+            <thead>
+                <tr class="text-muted small">
+                    <th>THUMBNAIL</th>
+                    <th>PROJECT TITLE</th>
+                    <th>CATEGORY</th>
+                    <th>STATUS</th>
+                    <th>FEATURED</th>
+                    <th>ORDER</th>
+                    <th class="text-end">ACTIONS</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model == null || !Model.Any())
+                {
+                    <tr>
+                        <td colspan="7" class="text-center py-5 text-muted">No projects found. Deploy a new project database record to begin.</td>
+                    </tr>
+                }
+                else
+                {
+                    foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                <img src="@item.ThumbnailPath" alt="Thumb" class="rounded border border-secondary" style="width: 60px; height: 40px; object-fit: cover;" />
+                            </td>
+                            <td>
+                                <span class="fw-semibold text-white">@item.Title</span>
+                                <small class="d-block text-muted text-truncate" style="max-width: 250px;">@item.Subtitle</small>
+                            </td>
+                            <td><span class="badge bg-dark border border-secondary text-neon-cyan">@item.Category?.Name</span></td>
+                            <td>
+                                @if (item.Status == "Published")
+                                {
+                                    <span class="badge bg-success bg-opacity-20 text-success border border-success border-opacity-30">Published</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-warning bg-opacity-20 text-warning border border-warning border-opacity-30">Draft</span>
+                                }
+                            </td>
+                            <td>
+                                @if (item.FeaturedOption)
+                                {
+                                    <span class="text-neon-purple fs-5"><i class="fas fa-star"></i></span>
+                                }
+                                else
+                                {
+                                    <span class="text-muted">-</span>
+                                }
+                            </td>
+                            <td><code>@item.DisplayOrder</code></td>
+                            <td class="text-end">
+                                <div class="d-flex justify-content-end gap-2">
+                                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-info rounded-pill px-3"><i class="fas fa-edit me-1"></i> Edit</a>
+                                    
+                                    <form asp-action="Delete" asp-route-id="@item.Id" method="post" onsubmit="return confirm('Confirm deletion of this project node? All associated files and screenshots will be permanently destroyed.');" class="d-inline">
+                                        @Html.AntiForgeryToken()
+                                        <button type="submit" class="btn btn-sm btn-outline-danger rounded-pill px-3"><i class="fas fa-trash-alt me-1"></i> Delete</button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,114 @@
+@model FuturisticPortfolio.Models.Entities.Blog
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    ViewData["Title"] = "Publish Tech Log Node";
+}
+
+<div class="d-flex justify-content-between align-items-center pb-2 mb-4 border-bottom border-secondary">
+    <h1 class="h2 text-white fw-bold"><i class="fas fa-plus-circle text-neon-purple me-2"></i> Publish Tech Log</h1>
+    <a asp-action="Index" class="btn btn-outline-secondary rounded-pill px-3"><i class="fas fa-arrow-left me-1"></i> Cancel</a>
+</div>
+
+<form asp-action="Create" method="post" enctype="multipart/form-data" id="blog-form">
+    @Html.AntiForgeryToken()
+    <div asp-validation-summary="ModelOnly" class="text-danger small mb-3"></div>
+
+    <div class="row g-4">
+        <!-- Main Form Column -->
+        <div class="col-lg-8">
+            <div class="glass-panel p-4 mb-4">
+                <h3 class="h5 text-white fw-bold mb-4">// Article Body Content</h3>
+
+                <div class="mb-3">
+                    <label class="form-label text-muted small">ARTICLE TITLE</label>
+                    <input asp-for="Title" class="form-control bg-dark border-secondary text-white" required placeholder="eg. Architecting Web Apps on .NET 10" />
+                    <span asp-validation-for="Title" class="text-danger small"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label text-muted small">URL SLUG (OPTIONAL, AUTO GENERATED IF EMPTY)</label>
+                    <input asp-for="Slug" class="form-control bg-dark border-secondary text-white" placeholder="eg. architecting-web-apps-dotnet-10" />
+                    <span asp-validation-for="Slug" class="text-danger small"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label text-muted small">RICH TEXT ARTICLE CONTENT</label>
+                    <div id="editor-container" style="height: 380px;" class="bg-dark text-white border-secondary"></div>
+                    <input type="hidden" asp-for="Content" id="hidden-content-input" required />
+                    <span asp-validation-for="Content" class="text-danger small"></span>
+                </div>
+            </div>
+
+            <!-- SEO Specifications -->
+            <div class="glass-panel p-4 mb-4">
+                <h3 class="h5 text-white fw-bold mb-4">// SEO Calibration & Tags</h3>
+                
+                <div class="mb-3">
+                    <label class="form-label text-muted small">META TITLE (SEO)</label>
+                    <input asp-for="MetaTitle" class="form-control bg-dark border-secondary text-white" placeholder="SEO optimized search title..." />
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label text-muted small">META DESCRIPTION (SEO)</label>
+                    <textarea asp-for="MetaDescription" rows="3" class="form-control bg-dark border-secondary text-white" placeholder="SEO optimized description text..."></textarea>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sidebar Options Column -->
+        <div class="col-lg-4">
+            <div class="glass-panel p-4 mb-4">
+                <h3 class="h5 text-white fw-bold mb-4">// Calibration Specs</h3>
+
+                <div class="mb-3">
+                    <label class="form-label text-muted small">ARTICLE CATEGORY</label>
+                    <select asp-for="CategoryId" class="form-select bg-dark border-secondary text-muted" asp-items="ViewBag.CategoryId">
+                        <option value="">Choose Category</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label text-muted small">TAGS (COMMA SEPARATED)</label>
+                    <input asp-for="Tags" class="form-control bg-dark border-secondary text-white" placeholder="WebDev, Dotnet, Coding" />
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label text-muted small">COVER LOG IMAGE (PNG/JPG)</label>
+                    <input type="file" name="CoverImage" class="form-control bg-dark border-secondary text-muted" />
+                </div>
+            </div>
+
+            <div class="mb-4">
+                <button type="submit" class="btn btn-neon w-100 text-white"><i class="fas fa-satellite-dish me-1"></i> Publish Article Node</button>
+            </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // Quill Rich text editor initialization
+            const quill = new Quill('#editor-container', {
+                theme: 'snow',
+                placeholder: 'Write article content details here...',
+                modules: {
+                    toolbar: [
+                        [{ 'header': [1, 2, 3, false] }],
+                        ['bold', 'italic', 'underline', 'strike'],
+                        ['blockquote', 'code-block'],
+                        [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+                        ['link', 'clean']
+                    ]
+                }
+            });
+
+            // Sync hidden content field on submit
+            const form = document.getElementById("blog-form");
+            form.addEventListener("submit", (e) => {
+                const hiddenInput = document.getElementById("hidden-content-input");
+                hiddenInput.value = quill.root.innerHTML;
+            });
+        });
+    </script>
+}

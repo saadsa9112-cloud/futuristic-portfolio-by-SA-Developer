@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Admin Portal</title>
+    
+    <!-- CSS Assets -->
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    
+    <!-- External Icon library & Fonts -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <!-- Rich Text Editor CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet" />
+
+    <style>
+        .admin-sidebar {
+            background: rgba(12, 8, 24, 0.95);
+            backdrop-filter: blur(12px);
+            border-right: 1px solid rgba(255, 255, 255, 0.05);
+            min-height: 100vh;
+        }
+        .admin-sidebar .nav-link {
+            color: var(--text-muted);
+            transition: var(--transition-smooth);
+            font-family: var(--font-heading);
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-radius: 8px;
+            margin-bottom: 4px;
+        }
+        .admin-sidebar .nav-link:hover,
+        .admin-sidebar .nav-link.active {
+            background: rgba(168, 85, 247, 0.12);
+            color: var(--primary);
+            box-shadow: inset 3px 0 0 var(--primary);
+        }
+    </style>
+</head>
+<body class="bg-dark text-light">
+
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar Navigation Node -->
+            <nav class="col-md-3 col-lg-2 d-md-block admin-sidebar collapse pt-4 px-3">
+                <div class="mb-4 px-3">
+                    <h5 class="text-neon-purple fw-bold mb-0">&lt; NEO ADMIN &gt;</h5>
+                    <span class="small text-muted">Core Calibrations v10.0</span>
+                </div>
+                <div class="position-sticky">
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Dashboard" asp-action="Index">
+                                <i class="fas fa-chart-pie"></i> Dashboard
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Projects" asp-action="Index">
+                                <i class="fas fa-folder-open"></i> Projects CRUD
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Skills" asp-action="Index">
+                                <i class="fas fa-sliders-h"></i> Skills CRUD
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Blogs" asp-action="Index">
+                                <i class="fas fa-file-alt"></i> Tech Logs
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Experiences" asp-action="Index">
+                                <i class="fas fa-briefcase"></i> Experience
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Educations" asp-action="Index">
+                                <i class="fas fa-graduation-cap"></i> Education
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Certificates" asp-action="Index">
+                                <i class="fas fa-award"></i> Certificates
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Testimonials" asp-action="Index">
+                                <i class="fas fa-comments"></i> Testimonials
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Messages" asp-action="Index">
+                                <i class="fas fa-inbox"></i> Inbox Messages
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Visitors" asp-action="Index">
+                                <i class="fas fa-network-wired"></i> Visitor Auditing
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Settings" asp-action="Index">
+                                <i class="fas fa-cog"></i> Settings & Export
+                            </a>
+                        </li>
+                        <li class="nav-item mt-4 pt-3 border-top border-secondary">
+                            <a class="nav-link text-danger" asp-controller="Auth" asp-action="Logout" asp-area="Admin">
+                                <i class="fas fa-sign-out-alt"></i> Disconnect Link
+                            </a>
+                        </li>
+                        <li class="nav-item mt-2">
+                            <a class="nav-link text-neon-cyan" asp-controller="Home" asp-action="Index" asp-area="" target="_blank">
+                                <i class="fas fa-external-link-alt"></i> View Public Site
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <!-- Main Panel Content -->
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 py-4" style="min-height: 100vh;">
+                @RenderBody()
+            </main>
+        </div>
+    </div>
+
+    <!-- Script Assets -->
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Chart.js CDN for graphs -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Rich Text Editor JS -->
+    <script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
+    <!-- Custom scripts wrapper -->
+    <script>
+        // Set active class in sidebar relative to route
+        document.addEventListener("DOMContentLoaded", () => {
+            const currentPath = window.location.pathname;
+            const links = document.querySelectorAll(".admin-sidebar .nav-link");
+            links.forEach(l => {
+                if (currentPath.includes(l.getAttribute("href"))) {
+                    l.classList.add("active");
+                }
+            });
+        });
+    </script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

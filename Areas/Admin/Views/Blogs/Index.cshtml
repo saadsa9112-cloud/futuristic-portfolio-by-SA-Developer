@@ -1,0 +1,68 @@
+@model List<FuturisticPortfolio.Models.Entities.Blog>
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    ViewData["Title"] = "Manage Tech Logs";
+}
+
+<div class="d-flex justify-content-between align-items-center pb-2 mb-4 border-bottom border-secondary">
+    <h1 class="h2 text-white fw-bold"><i class="fas fa-file-alt text-neon-purple me-2"></i> Manage Tech Logs (Blogs)</h1>
+    <a asp-action="Create" class="btn btn-neon text-white"><i class="fas fa-plus me-1"></i> Write Article</a>
+</div>
+
+<div class="glass-panel p-4">
+    <div class="table-responsive">
+        <table class="table table-dark table-hover align-middle mb-0">
+            <thead>
+                <tr class="text-muted small">
+                    <th>COVER</th>
+                    <th>ARTICLE TITLE</th>
+                    <th>SLUG</th>
+                    <th>CATEGORY</th>
+                    <th>PUBLISH DATE</th>
+                    <th>VIEWS</th>
+                    <th class="text-end">ACTIONS</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model == null || !Model.Any())
+                {
+                    <tr>
+                        <td colspan="7" class="text-center py-4 text-muted">No blog logs loaded in the databank.</td>
+                    </tr>
+                }
+                else
+                {
+                    foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @if (!string.IsNullOrEmpty(item.ImagePath))
+                                {
+                                    <img src="@item.ImagePath" alt="Cover" class="rounded border border-secondary" style="width: 50px; height: 35px; object-fit: cover;" />
+                                }
+                                else
+                                {
+                                    <span class="text-muted">No Image</span>
+                                }
+                            </td>
+                            <td><span class="fw-semibold text-white">@item.Title</span></td>
+                            <td><code>/@item.Slug</code></td>
+                            <td><span class="badge bg-dark border border-secondary text-neon-cyan">@item.Category?.Name</span></td>
+                            <td class="text-muted small">@item.CreatedDate.ToString("yyyy-MM-dd HH:mm")</td>
+                            <td><code>@item.ViewCount</code></td>
+                            <td class="text-end">
+                                <div class="d-flex justify-content-end gap-2">
+                                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-info rounded-pill px-3">Edit</a>
+                                    <form asp-action="Delete" asp-route-id="@item.Id" method="post" onsubmit="return confirm('Confirm deletion of this blog post?');" class="d-inline">
+                                        @Html.AntiForgeryToken()
+                                        <button type="submit" class="btn btn-sm btn-outline-danger rounded-pill px-3">Delete</button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

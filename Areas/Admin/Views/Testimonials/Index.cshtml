@@ -1,0 +1,64 @@
+@model List<FuturisticPortfolio.Models.Entities.Testimonial>
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    ViewData["Title"] = "Manage Testimonials";
+}
+
+<div class="d-flex justify-content-between align-items-center pb-2 mb-4 border-bottom border-secondary">
+    <h1 class="h2 text-white fw-bold"><i class="fas fa-comments text-neon-purple me-2"></i> Manage Testimonials</h1>
+    <a asp-action="Create" class="btn btn-neon text-white"><i class="fas fa-plus me-1"></i> Add Feedback</a>
+</div>
+
+<div class="glass-panel p-4">
+    <div class="table-responsive">
+        <table class="table table-dark table-hover align-middle mb-0">
+            <thead>
+                <tr class="text-muted small">
+                    <th>CLIENT PHOTO</th>
+                    <th>CLIENT NAME</th>
+                    <th>TITLE / COMPANY</th>
+                    <th>FEEDBACK PARAGRAPH</th>
+                    <th>RATING</th>
+                    <th class="text-end">ACTIONS</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model == null || !Model.Any())
+                {
+                    <tr>
+                        <td colspan="6" class="text-center py-4 text-muted">No client feedbacks logged.</td>
+                    </tr>
+                }
+                else
+                {
+                    foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                <img src="@item.ClientImagePath" class="rounded-circle border border-secondary" style="width: 45px; height: 45px; object-fit: cover;" />
+                            </td>
+                            <td><span class="fw-semibold text-white">@item.ClientName</span></td>
+                            <td><span class="text-neon-cyan">@item.ClientTitle</span></td>
+                            <td class="text-muted small text-truncate" style="max-width: 300px;">@item.Feedback</td>
+                            <td class="text-warning">
+                                @for (int r = 0; r < item.Rating; r++)
+                                {
+                                    <i class="fas fa-star"></i>
+                                }
+                            </td>
+                            <td class="text-end">
+                                <div class="d-flex justify-content-end gap-2">
+                                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-info rounded-pill px-3">Edit</a>
+                                    <form asp-action="Delete" asp-route-id="@item.Id" method="post" onsubmit="return confirm('Confirm deletion?');" class="d-inline">
+                                        @Html.AntiForgeryToken()
+                                        <button type="submit" class="btn btn-sm btn-outline-danger rounded-pill px-3">Delete</button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

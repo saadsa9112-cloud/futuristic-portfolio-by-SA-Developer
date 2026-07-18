@@ -1,0 +1,68 @@
+@model List<FuturisticPortfolio.Models.Entities.Certificate>
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    ViewData["Title"] = "Manage Certificates";
+}
+
+<div class="d-flex justify-content-between align-items-center pb-2 mb-4 border-bottom border-secondary">
+    <h1 class="h2 text-white fw-bold"><i class="fas fa-award text-neon-purple me-2"></i> Manage Certificates</h1>
+    <a asp-action="Create" class="btn btn-neon text-white"><i class="fas fa-plus me-1"></i> Upload Certificate</a>
+</div>
+
+<div class="glass-panel p-4">
+    <div class="table-responsive">
+        <table class="table table-dark table-hover align-middle mb-0">
+            <thead>
+                <tr class="text-muted small">
+                    <th>IMAGE BADGE</th>
+                    <th>CERTIFICATE NAME</th>
+                    <th>ISSUER ORGANIZATION</th>
+                    <th>CALIBRATION DATE</th>
+                    <th>PDF LINK</th>
+                    <th class="text-end">ACTIONS</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model == null || !Model.Any())
+                {
+                    <tr>
+                        <td colspan="6" class="text-center py-4 text-muted">No certificates found.</td>
+                    </tr>
+                }
+                else
+                {
+                    foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                <img src="@item.ImagePath" class="rounded border border-secondary" style="width: 50px; height: 50px; object-fit: cover;" />
+                            </td>
+                            <td><span class="fw-semibold text-white">@item.Name</span></td>
+                            <td><span class="text-neon-cyan">@item.Organization</span></td>
+                            <td>@item.Date.ToString("yyyy-MM-dd")</td>
+                            <td>
+                                @if (!string.IsNullOrEmpty(item.PdfPath))
+                                {
+                                    <a href="@item.PdfPath" target="_blank" class="badge bg-secondary border border-secondary text-white text-decoration-none">View PDF</a>
+                                }
+                                else
+                                {
+                                    <span class="text-muted">-</span>
+                                }
+                            </td>
+                            <td class="text-end">
+                                <div class="d-flex justify-content-end gap-2">
+                                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-info rounded-pill px-3">Edit</a>
+                                    <form asp-action="Delete" asp-route-id="@item.Id" method="post" onsubmit="return confirm('Confirm deletion?');" class="d-inline">
+                                        @Html.AntiForgeryToken()
+                                        <button type="submit" class="btn btn-sm btn-outline-danger rounded-pill px-3">Delete</button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

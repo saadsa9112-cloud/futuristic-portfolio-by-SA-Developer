@@ -1,0 +1,191 @@
+@model FuturisticPortfolio.Models.Entities.Project
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    ViewData["Title"] = "Deploy New Project Node";
+}
+
+<div class="d-flex justify-content-between align-items-center pb-2 mb-4 border-bottom border-secondary">
+    <h1 class="h2 text-white fw-bold"><i class="fas fa-plus-circle text-neon-purple me-2"></i> Deploy Project Node</h1>
+    <a asp-action="Index" class="btn btn-outline-secondary rounded-pill px-3"><i class="fas fa-arrow-left me-1"></i> Cancel</a>
+</div>
+
+<form asp-action="Create" method="post" enctype="multipart/form-data" id="project-form">
+    @Html.AntiForgeryToken()
+    <div asp-validation-summary="ModelOnly" class="text-danger small mb-3"></div>
+
+    <div class="row g-4">
+        <!-- Main Form Columns -->
+        <div class="col-lg-8">
+            <div class="glass-panel p-4 mb-4">
+                <h3 class="h5 text-white fw-bold mb-4">// System Configuration</h3>
+
+                <div class="mb-3">
+                    <label class="form-label text-muted small">PROJECT TITLE</label>
+                    <input asp-for="Title" class="form-control bg-dark border-secondary text-white" required placeholder="eg. Enterprise Cloud Api Service" />
+                    <span asp-validation-for="Title" class="text-danger small"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label text-muted small">PROJECT SUBTITLE (SHORT OVERVIEW)</label>
+                    <input asp-for="Subtitle" class="form-control bg-dark border-secondary text-white" required placeholder="eg. Microservice architecture built on .NET 10 core." />
+                    <span asp-validation-for="Subtitle" class="text-danger small"></span>
+                </div>
+
+                <!-- Rich Content Editor for main description -->
+                <div class="mb-3">
+                    <label class="form-label text-muted small">DETAILED SYSTEM SPECIFICATIONS (DESCRIPTION)</label>
+                    <!-- Quill container -->
+                    <div id="editor-container" style="height: 300px;" class="bg-dark text-white border-secondary"></div>
+                    <!-- Hidden input to store contents -->
+                    <input type="hidden" asp-for="Description" id="hidden-description-input" required />
+                    <span asp-validation-for="Description" class="text-danger small"></span>
+                </div>
+            </div>
+
+            <!-- Case Study Specifics Section -->
+            <div class="glass-panel p-4 mb-4">
+                <h3 class="h5 text-white fw-bold mb-4">// Case Study Specifications</h3>
+                
+                <div class="mb-3">
+                    <label class="form-label text-muted small">EXECUTION CHALLENGES (OPTIONAL)</label>
+                    <textarea asp-for="Challenges" rows="3" class="form-control bg-dark border-secondary text-white" placeholder="Describe the challenges encountered during execution..."></textarea>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label text-muted small">ENGINEERING SOLUTIONS (OPTIONAL)</label>
+                    <textarea asp-for="Solutions" rows="3" class="form-control bg-dark border-secondary text-white" placeholder="Describe the technical solutions implemented..."></textarea>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label text-muted small">ARCHITECTURAL TOPOLOGY (OPTIONAL)</label>
+                    <textarea asp-for="ArchitectureDescription" rows="3" class="form-control bg-dark border-secondary text-white" placeholder="Describe the system design layout, layering, etc..."></textarea>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label text-muted small">RELATIONAL DATABASE SCHEMA LAYOUT (OPTIONAL)</label>
+                    <textarea asp-for="DatabaseDesignDescription" rows="3" class="form-control bg-dark border-secondary text-white" placeholder="Describe the database structures, tables, indices..."></textarea>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label text-muted small">DEVELOPMENT TIMELINE SPECIFICATIONS (OPTIONAL)</label>
+                    <textarea asp-for="TimelineDescription" rows="2" class="form-control bg-dark border-secondary text-white" placeholder="Describe the phases, sprint layouts..."></textarea>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sidebar Parameters Columns -->
+        <div class="col-lg-4">
+            <div class="glass-panel p-4 mb-4">
+                <h3 class="h5 text-white fw-bold mb-4">// Calibration Metadata</h3>
+
+                <div class="mb-3">
+                    <label class="form-label text-muted small">CATEGORY RELATION</label>
+                    <select asp-for="CategoryId" class="form-select bg-dark border-secondary text-muted" asp-items="ViewBag.CategoryId">
+                        <option value="">Choose Category</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label text-muted small">CALIBRATION DATE</label>
+                    <input asp-for="Date" type="date" class="form-control bg-dark border-secondary text-white" value="@DateTime.UtcNow.ToString("yyyy-MM-dd")" />
+                    <span asp-validation-for="Date" class="text-danger small"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label text-muted small">DISPLAY ORDER INDEX</label>
+                    <input asp-for="DisplayOrder" type="number" class="form-control bg-dark border-secondary text-white" value="0" />
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label text-muted small">DEPLOYMENT STATUS</label>
+                    <select asp-for="Status" class="form-select bg-dark border-secondary text-muted">
+                        <option value="Published">Published</option>
+                        <option value="Draft">Draft</option>
+                    </select>
+                </div>
+
+                <div class="mb-3 form-check">
+                    <input asp-for="FeaturedOption" class="form-check-input bg-dark border-secondary" />
+                    <label class="form-check-label text-muted small" asp-for="FeaturedOption">Showcase featured on Hero</label>
+                </div>
+            </div>
+
+            <div class="glass-panel p-4 mb-4">
+                <h3 class="h5 text-white fw-bold mb-4">// Hyperlinks & Assets</h3>
+
+                <div class="mb-3">
+                    <label class="form-label text-muted small">TECHNOLOGIES TAGS (COMMA SEPARATED)</label>
+                    <input asp-for="Technologies" class="form-control bg-dark border-secondary text-white" placeholder="eg. C#, ASP.NET MVC, EF Core, SQL Server" />
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label text-muted small">GITHUB REPOSITORY URL</label>
+                    <input asp-for="GitHubLink" type="url" class="form-control bg-dark border-secondary text-white" placeholder="https://github.com/..." />
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label text-muted small">LIVE DEPLOYMENT DEMO URL</label>
+                    <input asp-for="LiveDemo" type="url" class="form-control bg-dark border-secondary text-white" placeholder="https://..." />
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label text-muted small">DOCUMENTATION PDF PATH (OPTIONAL)</label>
+                    <input asp-for="DocumentationPdfPath" class="form-control bg-dark border-secondary text-white" placeholder="/uploads/documents/doc.pdf" />
+                </div>
+            </div>
+
+            <!-- Uploads Cards -->
+            <div class="glass-panel p-4 mb-4">
+                <h3 class="h5 text-white fw-bold mb-4">// System Upload Modules</h3>
+
+                <div class="mb-3">
+                    <label class="form-label text-muted small">PRIMARY IMAGE THUMBNAIL (REQUIRED)</label>
+                    <input type="file" name="Thumbnail" class="form-control bg-dark border-secondary text-muted" required />
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label text-muted small">MULTIPLE GALLERY SCREENSHOTS</label>
+                    <input type="file" name="Gallery" multiple class="form-control bg-dark border-secondary text-muted" />
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label text-muted small">EXTERNAL VIDEO EMBED LINK (OPTIONAL)</label>
+                    <input type="text" name="VideoPath" class="form-control bg-dark border-secondary text-white" placeholder="https://www.youtube.com/watch?v=..." />
+                </div>
+            </div>
+
+            <div class="mb-4">
+                <button type="submit" class="btn btn-neon w-100 text-white"><i class="fas fa-check-circle me-1"></i> Deploy Database Record</button>
+            </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // Quill Rich Text editor initialization
+            const quill = new Quill('#editor-container', {
+                theme: 'snow',
+                placeholder: 'Write detailed system blueprints here...',
+                modules: {
+                    toolbar: [
+                        [{ 'header': [1, 2, 3, false] }],
+                        ['bold', 'italic', 'underline', 'strike'],
+                        ['blockquote', 'code-block'],
+                        [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+                        ['link', 'clean']
+                    ]
+                }
+            });
+
+            // Populate hidden input text area on submit
+            const form = document.getElementById("project-form");
+            form.addEventListener("submit", (e) => {
+                const hiddenInput = document.getElementById("hidden-description-input");
+                // quill.root.innerHTML contains quill rich text formatted as HTML
+                hiddenInput.value = quill.root.innerHTML;
+            });
+        });
+    </script>
+}

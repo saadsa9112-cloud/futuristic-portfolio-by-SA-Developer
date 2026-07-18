@@ -1,0 +1,225 @@
+@model FuturisticPortfolio.Models.Entities.Settings
+@using FuturisticPortfolio.Models.Entities
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    ViewData["Title"] = "Global Configurations";
+    var socialLinks = ViewBag.SocialLinks as List<SocialLink>;
+}
+
+<div class="d-flex justify-content-between align-items-center pb-2 mb-4 border-bottom border-secondary">
+    <h1 class="h2 text-white fw-bold"><i class="fas fa-cogs text-neon-purple me-2"></i> Global Configurations</h1>
+    <span class="badge bg-secondary px-3 py-2">CALIBRATIONS ENGINE</span>
+</div>
+
+<div class="row g-4">
+    <!-- Main Configuration Panel -->
+    <div class="col-lg-8">
+        <div class="glass-panel p-4 mb-4">
+            <h3 class="h5 text-neon-purple fw-bold mb-4">// Core Settings & Branding</h3>
+            
+            <form asp-action="EditSettings" method="post" enctype="multipart/form-data">
+                @Html.AntiForgeryToken()
+                <input type="hidden" asp-for="Id" />
+                <input type="hidden" asp-for="LogoPath" />
+                <input type="hidden" asp-for="FaviconPath" />
+                <input type="hidden" asp-for="CvFilePath" />
+                <input type="hidden" asp-for="AboutPicturePath" />
+                
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label class="form-label text-muted small">SITE DISPLAY NAME</label>
+                        <input asp-for="SiteName" class="form-control bg-dark border-secondary text-white" required />
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label text-muted small">THEME VARIANT</label>
+                        <select asp-for="Theme" class="form-select bg-dark border-secondary text-muted">
+                            <option value="dark">Dark Neon Mode</option>
+                            <option value="light">Light Glass Mode</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label text-muted small">PRIMARY NEON GLOW HEX</label>
+                        <input asp-for="PrimaryColorHex" class="form-control bg-dark border-secondary text-white" />
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label text-muted small">FOOTER TEXT</label>
+                        <input asp-for="FooterText" class="form-control bg-dark border-secondary text-white" />
+                    </div>
+
+                    <!-- SEO Metas -->
+                    <div class="col-md-6">
+                        <label class="form-label text-muted small">META TITLE (SEO)</label>
+                        <input asp-for="MetaTitle" class="form-control bg-dark border-secondary text-white" />
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label text-muted small">GOOGLE ANALYTICS ID</label>
+                        <input asp-for="GoogleAnalyticsId" class="form-control bg-dark border-secondary text-white" />
+                    </div>
+                    <div class="col-12">
+                        <label class="form-label text-muted small">META DESCRIPTION (SEO)</label>
+                        <textarea asp-for="MetaDescription" rows="2" class="form-control bg-dark border-secondary text-white"></textarea>
+                    </div>
+
+                    <h3 class="h5 text-neon-cyan fw-bold mt-4 mb-2">// About Me Biography Specs</h3>
+
+                    <div class="col-md-6">
+                        <label class="form-label text-muted small">TOTAL YEARS EXPERIENCE</label>
+                        <input asp-for="YearsOfExperience" type="number" class="form-control bg-dark border-secondary text-white" />
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label text-muted small">ACADEMIC DEGREE SUMMARY</label>
+                        <input asp-for="EducationShort" class="form-control bg-dark border-secondary text-white" />
+                    </div>
+                    <div class="col-12">
+                        <label class="form-label text-muted small">BIOGRAPHY PARAGRAPH (HTML SUPPORTED)</label>
+                        <textarea asp-for="Biography" rows="4" class="form-control bg-dark border-secondary text-white"></textarea>
+                    </div>
+                    <div class="col-12">
+                        <label class="form-label text-muted small">PROFESSIONAL JOURNEY BLUEPRINT</label>
+                        <textarea asp-for="Journey" rows="3" class="form-control bg-dark border-secondary text-white"></textarea>
+                    </div>
+                    <div class="col-12">
+                        <label class="form-label text-muted small">MISSION GOALS SUMMARY</label>
+                        <textarea asp-for="Goals" rows="2" class="form-control bg-dark border-secondary text-white"></textarea>
+                    </div>
+
+                    <h3 class="h5 text-neon-blue fw-bold mt-4 mb-2">// Contact & Comms Links</h3>
+
+                    <div class="col-md-4">
+                        <label class="form-label text-muted small">CONTACT EMAIL</label>
+                        <input asp-for="ContactEmail" type="email" class="form-control bg-dark border-secondary text-white" />
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label text-muted small">CONTACT PHONE</label>
+                        <input asp-for="ContactPhone" class="form-control bg-dark border-secondary text-white" />
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label text-muted small">CONTACT ADDRESS</label>
+                        <input asp-for="ContactAddress" class="form-control bg-dark border-secondary text-white" />
+                    </div>
+                    <div class="col-12">
+                        <label class="form-label text-muted small">OPENSTREETMAP EMBED LINK URL</label>
+                        <input asp-for="OpenStreetMapEmbedUrl" class="form-control bg-dark border-secondary text-white" />
+                    </div>
+
+                    <h3 class="h5 text-neon-purple fw-bold mt-4 mb-2">// SMTP & Mail Calibration Specs</h3>
+
+                    <div class="col-md-4">
+                        <label class="form-label text-muted small">SMTP SERVER HOST</label>
+                        <input asp-for="SmtpHost" class="form-control bg-dark border-secondary text-white" placeholder="smtp.gmail.com" />
+                    </div>
+                    <div class="col-md-2">
+                        <label class="form-label text-muted small">SMTP PORT</label>
+                        <input asp-for="SmtpPort" class="form-control bg-dark border-secondary text-white" placeholder="587" />
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label text-muted small">SMTP USERNAME</label>
+                        <input asp-for="SmtpUsername" class="form-control bg-dark border-secondary text-white" placeholder="sender@gmail.com" />
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label text-muted small">SMTP PASSWORD (APP PASSWORD)</label>
+                        <input type="password" name="SmtpPassword" class="form-control bg-dark border-secondary text-white" placeholder="Leave blank to keep current" />
+                    </div>
+                    <div class="col-12 mt-2">
+                        <div class="form-check form-switch">
+                            <input asp-for="SmtpEnableSsl" class="form-check-input bg-dark border-secondary" type="checkbox" id="SmtpEnableSsl" />
+                            <label class="form-check-label text-muted small ms-2" for="SmtpEnableSsl">ENABLE SECURE SSL / TLS ENCRYPTION</label>
+                        </div>
+                    </div>
+
+                    <h3 class="h5 text-neon-purple fw-bold mt-4 mb-2">// File Upload Modules</h3>
+
+                    <div class="col-md-6">
+                        <label class="form-label text-muted small">REPLACE BRANDING LOGO (PNG/JPG)</label>
+                        <input type="file" name="Logo" class="form-control bg-dark border-secondary text-muted" />
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label text-muted small">REPLACE BRANDING FAVICON (ICO)</label>
+                        <input type="file" name="Favicon" class="form-control bg-dark border-secondary text-muted" />
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label text-muted small">REPLACE PROFILE PICTURE (PNG/JPG)</label>
+                        <input type="file" name="AboutPic" class="form-control bg-dark border-secondary text-muted" />
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label text-muted small">REPLACE CV/RESUME PDF FILE (PDF ONLY)</label>
+                        <input type="file" name="CV" class="form-control bg-dark border-secondary text-muted" />
+                    </div>
+
+                    <div class="col-12 mt-4">
+                        <button type="submit" class="btn btn-neon w-100 text-white"><i class="fas fa-save me-1"></i> Save Calibrations</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Sidebar Data Tools Panel -->
+    <div class="col-lg-4">
+        <!-- Databank Backup & Restore -->
+        <div class="glass-panel p-4 mb-4">
+            <h3 class="h5 text-white fw-bold mb-4"><i class="fas fa-database text-neon-purple me-2"></i> Databank Backup Tools</h3>
+            
+            <a asp-action="ExportData" class="btn btn-neon w-100 text-white mb-3"><i class="fas fa-file-export me-1"></i> Export Data (JSON)</a>
+            
+            <form asp-action="ImportData" method="post" enctype="multipart/form-data" onsubmit="return confirm('WARNING: Restoring from a backup will clear your current databases! Proceed?');" class="border-top border-secondary pt-3">
+                @Html.AntiForgeryToken()
+                <label class="form-label text-muted small mb-2">RESTORE DATABANK CONFIG FILE</label>
+                <input type="file" name="backupFile" class="form-control bg-dark border-secondary text-muted mb-3" required />
+                <button type="submit" class="btn btn-outline-danger w-100 rounded-pill"><i class="fas fa-file-import me-1"></i> Import & Override</button>
+            </form>
+        </div>
+
+        <!-- Manage Social Links -->
+        <div class="glass-panel p-4 mb-4">
+            <h3 class="h5 text-white fw-bold mb-4"><i class="fas fa-share-alt text-neon-cyan me-2"></i> Social Media Links</h3>
+            
+            <div class="table-responsive mb-3">
+                <table class="table table-dark table-borderless align-middle mb-0 small">
+                    <tbody>
+                        @if (socialLinks == null || !socialLinks.Any())
+                        {
+                            <tr>
+                                <td class="text-center text-muted">No social links configured.</td>
+                            </tr>
+                        }
+                        else
+                        {
+                            foreach (var link in socialLinks)
+                            {
+                                <tr>
+                                    <td><i class="@link.IconClass text-neon-cyan me-2"></i> @link.PlatformName</td>
+                                    <td class="text-end">
+                                        <form asp-action="DeleteSocialLink" asp-route-id="@link.Id" method="post" class="d-inline">
+                                            @Html.AntiForgeryToken()
+                                            <button type="submit" class="btn btn-link text-danger p-0"><i class="fas fa-trash-alt"></i></button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Add Social Link Form -->
+            <form asp-action="AddSocialLink" method="post" class="border-top border-secondary pt-3">
+                @Html.AntiForgeryToken()
+                <div class="mb-2">
+                    <label class="form-label text-muted small">PLATFORM NAME</label>
+                    <input type="text" name="PlatformName" class="form-control bg-dark border-secondary text-white py-1" required placeholder="GitHub / LinkedIn" />
+                </div>
+                <div class="mb-2">
+                    <label class="form-label text-muted small">TARGET URL</label>
+                    <input type="url" name="Url" class="form-control bg-dark border-secondary text-white py-1" required placeholder="https://..." />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label text-muted small">ICON CLASS (FONT AWESOME)</label>
+                    <input type="text" name="IconClass" class="form-control bg-dark border-secondary text-white py-1" required placeholder="fab fa-github" />
+                </div>
+                <button type="submit" class="btn btn-sm btn-neon btn-neon-cyan w-100 text-white"><i class="fas fa-plus me-1"></i> Add Link</button>
+            </form>
+        </div>
+    </div>
+</div>

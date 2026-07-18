@@ -1,0 +1,339 @@
+@using FuturisticPortfolio.Models.Entities
+@using System.Text.Json
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    ViewData["Title"] = "System Analytics Dashboard";
+    var recentLogs = ViewBag.RecentLogs as List<ActivityLog>;
+    var recentMessages = ViewBag.RecentMessages as List<Message>;
+    var chartLabels = ViewBag.ChartLabels as List<string>;
+    var chartData = ViewBag.ChartData as List<int>;
+    var recentVisitors = ViewBag.RecentVisitors as List<Visitor>;
+}
+
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-4 border-bottom border-secondary">
+    <h1 class="h2 text-white fw-bold"><i class="fas fa-chart-network text-neon-purple me-2"></i> System Analytics Dashboard</h1>
+    <span class="badge bg-secondary px-3 py-2">LIVE NODE CALIBRATION</span>
+</div>
+
+<!-- STAT CARDS ROW -->
+<div class="row g-4 mb-4">
+    <!-- Projects -->
+    <div class="col-md-3">
+        <div class="glass-panel p-3 h-100 d-flex flex-column justify-content-between">
+            <div>
+                <span class="small text-muted text-uppercase tracking-wider">Total Deployments</span>
+                <h3 class="display-6 text-white fw-bold mb-0 mt-1">@ViewBag.TotalProjects</h3>
+            </div>
+            <div class="d-flex justify-content-between align-items-center mt-3 pt-2 border-top border-secondary">
+                <span class="small text-neon-purple">Featured: @ViewBag.FeaturedProject</span>
+                <i class="fas fa-folder-open text-muted fs-4"></i>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Skills -->
+    <div class="col-md-3">
+        <div class="glass-panel p-3 h-100 d-flex flex-column justify-content-between">
+            <div>
+                <span class="small text-muted text-uppercase tracking-wider">Calibrated Skills</span>
+                <h3 class="display-6 text-white fw-bold mb-0 mt-1">@ViewBag.TotalSkills</h3>
+            </div>
+            <div class="d-flex justify-content-between align-items-center mt-3 pt-2 border-top border-secondary">
+                <span class="small text-neon-cyan">Active stack parameters</span>
+                <i class="fas fa-sliders-h text-muted fs-4"></i>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Blog Views -->
+    <div class="col-md-3">
+        <div class="glass-panel p-3 h-100 d-flex flex-column justify-content-between">
+            <div>
+                <span class="small text-muted text-uppercase tracking-wider">Log View Count</span>
+                <h3 class="display-6 text-white fw-bold mb-0 mt-1">@ViewBag.TotalBlogViews</h3>
+            </div>
+            <div class="d-flex justify-content-between align-items-center mt-3 pt-2 border-top border-secondary">
+                <span class="small text-neon-blue">Total Reads logged</span>
+                <i class="fas fa-eye text-muted fs-4"></i>
+            </div>
+        </div>
+    </div>
+
+    <!-- CV Downloads -->
+    <div class="col-md-3">
+        <div class="glass-panel p-3 h-100 d-flex flex-column justify-content-between">
+            <div>
+                <span class="small text-muted text-uppercase tracking-wider">CV File Downloads</span>
+                <h3 class="display-6 text-white fw-bold mb-0 mt-1">@ViewBag.CvDownloads</h3>
+            </div>
+            <div class="d-flex justify-content-between align-items-center mt-3 pt-2 border-top border-secondary">
+                <span class="small text-neon-cyan">Resume file transmissions</span>
+                <i class="fas fa-file-download text-muted fs-4"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row g-4 mb-4">
+    <!-- Today / All-time Visitors -->
+    <div class="col-md-4">
+        <div class="glass-panel p-4 h-100">
+            <h3 class="h5 text-white fw-bold mb-3"><i class="fas fa-user-friends me-2 text-neon-purple"></i> Web Traffic Nodes</h3>
+            <div class="row g-3 text-center my-2">
+                <div class="col-6">
+                    <div class="p-3 bg-dark bg-opacity-50 border border-secondary rounded-3">
+                        <h4 class="text-white fw-bold mb-0">@ViewBag.TodayVisitors</h4>
+                        <span class="small text-muted">Today's Visits</span>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="p-3 bg-dark bg-opacity-50 border border-secondary rounded-3">
+                        <h4 class="text-neon-cyan fw-bold mb-0">@ViewBag.TotalVisitors</h4>
+                        <span class="small text-muted">All-Time Nodes</span>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-4 pt-3 border-top border-secondary">
+                <span class="small text-muted">UNREAD COMM-CHANNELS</span>
+                <div class="d-flex justify-content-between align-items-center mt-1">
+                    <h5 class="text-danger fw-bold mb-0">@ViewBag.UnreadMessages Message(s)</h5>
+                    <a asp-controller="Messages" asp-action="Index" class="btn btn-outline-danger btn-sm rounded-pill">View Inbox</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Visitor Line Chart -->
+    <div class="col-md-8">
+        <div class="glass-panel p-4 h-100">
+            <h3 class="h5 text-white fw-bold mb-3"><i class="fas fa-analytics me-2 text-neon-cyan"></i> Visitor Node Activity (Last 7 Days)</h3>
+            <div style="height: 220px; width: 100%;">
+                <canvas id="visitorChart"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row g-4">
+    <!-- Recent Messages -->
+    <div class="col-md-6">
+        <div class="glass-panel p-4 h-100">
+            <h3 class="h5 text-white fw-bold mb-3"><i class="fas fa-inbox text-neon-blue me-2"></i> Recent Comms Inbound</h3>
+            <div class="list-group list-group-flush bg-transparent">
+                @if (recentMessages == null || !recentMessages.Any())
+                {
+                    <div class="text-center py-4 text-muted small">Inbox is empty. No messages logged.</div>
+                }
+                else
+                {
+                    foreach (var msg in recentMessages)
+                    {
+                        var readClass = msg.IsRead ? "" : "border-start border-danger border-3";
+                        var readText = msg.IsRead ? "text-muted" : "text-white fw-semibold";
+                        <div class="list-group-item bg-transparent text-light border-secondary p-3 mb-2 glass-panel @readClass">
+                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                <span class="@readText small">@msg.Name</span>
+                                <span class="small text-muted">@msg.CreatedDate.ToString("dd MMM yyyy")</span>
+                            </div>
+                            <h6 class="mb-1 text-neon-cyan fs-6">@msg.Subject</h6>
+                            <div class="d-flex justify-content-between align-items-center mt-2">
+                                <span class="small text-muted text-truncate" style="max-width: 70%;">@msg.Body</span>
+                                <a href="/Admin/Messages/Details/@msg.Id" class="btn btn-sm btn-outline-light rounded-pill px-3">View</a>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+
+    <!-- Activity Log -->
+    <div class="col-md-6">
+        <div class="glass-panel p-4 h-100">
+            <h3 class="h5 text-white fw-bold mb-3"><i class="fas fa-history text-neon-purple me-2"></i> Administrative Activity Logs</h3>
+            <div class="table-responsive">
+                <table class="table table-dark table-hover table-borderless align-middle mb-0">
+                    <thead>
+                        <tr class="text-muted small">
+                            <th>TIMESTAMP</th>
+                            <th>ACTION</th>
+                            <th>DETAILS</th>
+                        </tr>
+                    </thead>
+                    <tbody class="small">
+                        @if (recentLogs == null || !recentLogs.Any())
+                        {
+                            <tr>
+                                <td colspan="3" class="text-center text-muted py-4">No recent administrator activity logs found.</td>
+                            </tr>
+                        }
+                        else
+                        {
+                            foreach (var log in recentLogs)
+                            {
+                                <tr>
+                                    <td class="text-muted" style="width: 120px;">@log.Timestamp.ToString("dd/MM HH:mm")</td>
+                                    <td><span class="badge bg-dark border border-secondary text-neon-cyan">@log.Action</span></td>
+                                    <td class="text-light">@log.Details</td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row g-4 mt-2">
+    <div class="col-12">
+        <div class="glass-panel p-4">
+            <h3 class="h5 text-white fw-bold mb-3"><i class="fas fa-network-wired text-success me-2"></i> Live Incoming Network Nodes (Visitor Access Logs)</h3>
+            <div class="table-responsive">
+                <table class="table table-dark table-hover align-middle mb-0">
+                    <thead>
+                        <tr class="text-muted small">
+                            <th>VISIT DATE</th>
+                            <th>IP ADDRESS</th>
+                            <th>COUNTRY</th>
+                            <th>TARGET NODE (PAGE)</th>
+                            <th>PLATFORM / DEVICE</th>
+                            <th>BROWSER ENGINE</th>
+                            <th>TIME SPENT</th>
+                            <th>RAW SIGNATURE</th>
+                        </tr>
+                    </thead>
+                    <tbody class="small">
+                        @if (recentVisitors == null || !recentVisitors.Any())
+                        {
+                            <tr>
+                                <td colspan="8" class="text-center text-muted py-4">No visitor logs found.</td>
+                            </tr>
+                        }
+                        else
+                        {
+                            foreach (var vis in recentVisitors)
+                            {
+                                <tr>
+                                    <td class="text-muted">@vis.VisitDate.ToString("dd MMM yyyy HH:mm")</td>
+                                    <td><span class="badge bg-secondary font-monospace text-neon-cyan px-2">@vis.IpAddress</span></td>
+                                    <td>
+                                        <i class="fas fa-map-marker-alt text-neon-purple me-1"></i>
+                                        <span>@(vis.Country ?? "Local IP")</span>
+                                    </td>
+                                    <td><code class="text-white">@vis.PagePath</code></td>
+                                    <td>
+                                        <i class="fab @GetDeviceIcon(vis.UserAgent) me-1"></i>
+                                        <span>@GetDeviceName(vis.UserAgent)</span>
+                                    </td>
+                                    <td>
+                                        <i class="fas fa-globe text-neon-blue me-1"></i>
+                                        <span>@GetBrowserName(vis.UserAgent)</span>
+                                    </td>
+                                    <td>
+                                        @if (vis.TimeSpentSeconds > 0)
+                                        {
+                                            <span class="text-success fw-semibold"><i class="fas fa-clock me-1 text-success"></i> @(vis.TimeSpentSeconds)s</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="text-muted small">Just Landed</span>
+                                        }
+                                    </td>
+                                    <td class="text-muted text-truncate" style="max-width: 150px;" title="@vis.UserAgent">@vis.UserAgent</td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // Chart.js Graph Initialization
+            const ctx = document.getElementById('visitorChart').getContext('2d');
+            
+            // Raw arrays compiled from backend Model Viewbag
+            const labels = @Html.Raw(JsonSerializer.Serialize(chartLabels));
+            const dataValues = @Html.Raw(JsonSerializer.Serialize(chartData));
+
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Page Views',
+                        data: dataValues,
+                        borderColor: '#06b6d4',
+                        backgroundColor: 'rgba(6, 182, 212, 0.15)',
+                        borderWidth: 2,
+                        tension: 0.35,
+                        fill: true,
+                        pointBackgroundColor: '#a855f7',
+                        pointBorderColor: '#fff',
+                        pointHoverRadius: 6
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false }
+                    },
+                    scales: {
+                        y: {
+                            grid: { color: 'rgba(255, 255, 255, 0.05)' },
+                            ticks: { color: '#9ca3af', stepSize: 1 }
+                        },
+                        x: {
+                            grid: { color: 'rgba(255, 255, 255, 0.05)' },
+                            ticks: { color: '#9ca3af' }
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+}
+
+@functions {
+    public string GetDeviceIcon(string? userAgent)
+    {
+        if (string.IsNullOrEmpty(userAgent)) return "fa-laptop";
+        userAgent = userAgent.ToLower();
+        if (userAgent.Contains("iphone") || userAgent.Contains("ipad")) return "fa-apple text-neon-cyan";
+        if (userAgent.Contains("android")) return "fa-android text-success";
+        if (userAgent.Contains("windows")) return "fa-windows text-primary";
+        if (userAgent.Contains("macintosh")) return "fa-apple text-light";
+        if (userAgent.Contains("linux")) return "fa-linux text-warning";
+        return "fa-laptop text-muted";
+    }
+
+    public string GetDeviceName(string? userAgent)
+    {
+        if (string.IsNullOrEmpty(userAgent)) return "Generic Client";
+        if (userAgent.Contains("iPhone")) return "iPhone (iOS)";
+        if (userAgent.Contains("iPad")) return "iPad (iOS)";
+        if (userAgent.Contains("Android")) return "Android Device";
+        if (userAgent.Contains("Windows")) return "Windows PC";
+        if (userAgent.Contains("Macintosh")) return "MacBook / iMac";
+        if (userAgent.Contains("Linux")) return "Linux Client";
+        return "Desktop Node";
+    }
+
+    public string GetBrowserName(string? userAgent)
+    {
+        if (string.IsNullOrEmpty(userAgent)) return "Browser";
+        if (userAgent.Contains("Edg")) return "Edge";
+        if (userAgent.Contains("Chrome") && !userAgent.Contains("Edg")) return "Chrome";
+        if (userAgent.Contains("Safari") && !userAgent.Contains("Chrome")) return "Safari";
+        if (userAgent.Contains("Firefox")) return "Firefox";
+        return "Web Browser";
+    }
+}
+

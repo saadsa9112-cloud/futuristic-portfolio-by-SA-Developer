@@ -1,0 +1,153 @@
+@using FuturisticPortfolio.Models.Entities
+@model List<Visitor>
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    ViewData["Title"] = "Visitor Node Auditing Console";
+    var searchIp = ViewBag.SearchIp as string;
+    var filterCountry = ViewBag.FilterCountry as string;
+}
+
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-4 border-bottom border-secondary">
+    <h1 class="h2 text-white fw-bold"><i class="fas fa-network-wired text-neon-cyan me-2"></i> Visitor Node Auditing</h1>
+    <span class="badge bg-secondary px-3 py-2">AUDIT SYSTEM ACTIVE</span>
+</div>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success border border-success bg-dark text-success mb-4 font-monospace small" role="alert" style="border-color: rgba(40, 167, 69, 0.25) !important;">
+        <i class="fas fa-check-circle me-1"></i> @TempData["SuccessMessage"]
+    </div>
+}
+
+<div class="glass-panel p-4 mb-4">
+    <h5 class="text-white mb-3 font-monospace"><i class="fas fa-filter text-neon-purple me-1"></i> Filter Diagnostics</h5>
+    <form method="get" class="row g-3">
+        <div class="col-md-5">
+            <input type="text" name="searchIp" value="@searchIp" class="form-control bg-dark border-secondary text-white font-monospace" placeholder="Query IP Address..." />
+        </div>
+        <div class="col-md-5">
+            <input type="text" name="filterCountry" value="@filterCountry" class="form-control bg-dark border-secondary text-white" placeholder="Filter by Country..." />
+        </div>
+        <div class="col-md-2 d-grid">
+            <button type="submit" class="btn btn-neon text-white"><i class="fas fa-search me-1"></i> Scan</button>
+        </div>
+    </form>
+</div>
+
+<div class="glass-panel p-4">
+    <div class="table-responsive">
+        <table class="table table-dark table-hover align-middle mb-0">
+            <thead>
+                <tr class="text-muted small">
+                    <th>VISIT DATE</th>
+                    <th>IP ADDRESS</th>
+                    <th>COUNTRY</th>
+                    <th>TARGET NODE</th>
+                    <th>DEVICE PLATFORM</th>
+                    <th>BROWSER</th>
+                    <th>TIME SPENT</th>
+                    <th>ACTIONS</th>
+                </tr>
+            </thead>
+            <tbody class="small">
+                @if (Model == null || !Model.Any())
+                {
+                    <tr>
+                        <td colspan="8" class="text-center text-muted py-4">No visitor nodes matched the audit filters.</td>
+                    </tr>
+                }
+                else
+                {
+                    foreach (var v in Model)
+                    {
+                        <tr>
+                            <td class="text-muted">@v.VisitDate.ToString("dd MMM yyyy HH:mm")</td>
+                            <td><span class="badge bg-secondary font-monospace text-neon-cyan px-2">@v.IpAddress</span></td>
+                            <td>
+                                <i class="fas fa-map-marker-alt text-neon-purple me-1"></i>
+                                <span>@(v.Country ?? "Local Loopback")</span>
+                            </td>
+                            <td><code class="text-white">@v.PagePath</code></td>
+                            <td>
+                                <i class="fab @GetDeviceIcon(v.UserAgent) me-1"></i>
+                                <span>@GetDeviceName(v.UserAgent)</span>
+                            </td>
+                            <td>
+                                <i class="fas fa-globe text-neon-blue me-1"></i>
+                                <span>@GetBrowserName(v.UserAgent)</span>
+                            </td>
+                            <td>
+                                @if (v.TimeSpentSeconds > 0)
+                                {
+                                    <span class="text-success fw-semibold"><i class="fas fa-clock me-1 text-success"></i> @(v.TimeSpentSeconds)s</span>
+                                }
+                                else
+                                {
+                                    <span class="text-muted small">Just Landed</span>
+                                }
+                            </td>
+                            <td>
+                                <div class="d-flex gap-2">
+                                    <a href="/Admin/Visitors/Details/@v.Id" class="btn btn-sm btn-neon btn-neon-cyan text-white px-3"><i class="fas fa-eye me-1"></i> Audit Logs</a>
+                                    
+                                    @if ((ViewBag.BlockedIps as List<string>)?.Contains(v.IpAddress) == true)
+                                    {
+                                        <form asp-action="UnblockIp" method="post" class="d-inline">
+                                            @Html.AntiForgeryToken()
+                                            <input type="hidden" name="ip" value="@v.IpAddress" />
+                                            <button type="submit" class="btn btn-sm btn-outline-success px-3 rounded"><i class="fas fa-unlock me-1"></i> Unblock</button>
+                                        </form>
+                                    }
+                                    else
+                                    {
+                                        <form asp-action="BlockIp" method="post" class="d-inline">
+                                            @Html.AntiForgeryToken()
+                                            <input type="hidden" name="ip" value="@v.IpAddress" />
+                                            <button type="submit" class="btn btn-sm btn-outline-danger px-3 rounded" onclick="return confirm('Are you sure you want to blacklist this node? They will be immediately blocked from accessing the site.');"><i class="fas fa-ban me-1"></i> Block</button>
+                                        </form>
+                                    }
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@functions {
+    public string GetDeviceIcon(string? userAgent)
+    {
+        if (string.IsNullOrEmpty(userAgent)) return "fa-laptop";
+        userAgent = userAgent.ToLower();
+        if (userAgent.Contains("iphone") || userAgent.Contains("ipad")) return "fa-apple text-neon-cyan";
+        if (userAgent.Contains("android")) return "fa-android text-success";
+        if (userAgent.Contains("windows")) return "fa-windows text-primary";
+        if (userAgent.Contains("macintosh")) return "fa-apple text-light";
+        if (userAgent.Contains("linux")) return "fa-linux text-warning";
+        return "fa-laptop text-muted";
+    }
+
+    public string GetDeviceName(string? userAgent)
+    {
+        if (string.IsNullOrEmpty(userAgent)) return "Generic Client";
+        if (userAgent.Contains("iPhone")) return "iPhone (iOS)";
+        if (userAgent.Contains("iPad")) return "iPad (iOS)";
+        if (userAgent.Contains("Android")) return "Android Device";
+        if (userAgent.Contains("Windows")) return "Windows PC";
+        if (userAgent.Contains("Macintosh")) return "MacBook / iMac";
+        if (userAgent.Contains("Linux")) return "Linux Client";
+        return "Desktop Node";
+    }
+
+    public string GetBrowserName(string? userAgent)
+    {
+        if (string.IsNullOrEmpty(userAgent)) return "Browser";
+        if (userAgent.Contains("Edg")) return "Edge";
+        if (userAgent.Contains("Chrome") && !userAgent.Contains("Edg")) return "Chrome";
+        if (userAgent.Contains("Safari") && !userAgent.Contains("Chrome")) return "Safari";
+        if (userAgent.Contains("Firefox")) return "Firefox";
+        return "Web Browser";
+    }
+}

@@ -1,0 +1,82 @@
+@model FuturisticPortfolio.Models.Entities.Blog
+@{
+    ViewData["Title"] = Model.Title;
+    ViewData["MetaTitle"] = Model.MetaTitle ?? Model.Title;
+    ViewData["MetaDescription"] = Model.MetaDescription ?? (Model.Content.Length > 160 ? Model.Content.Substring(0, 157) + "..." : Model.Content);
+    var recentBlogs = ViewBag.RecentBlogs as List<FuturisticPortfolio.Models.Entities.Blog>;
+}
+
+<!-- Article Reading Progress Header -->
+<section class="py-5 position-relative overflow-hidden" style="background: linear-gradient(180deg, rgba(6,182,212,0.15) 0%, rgba(9,5,20,0) 100%);">
+    <div class="container py-4 text-center animate-fade-in" data-aos="zoom-in">
+        <span class="badge bg-secondary mb-3">@Model.Category?.Name</span>
+        <h1 class="display-4 text-white fw-bold">@Model.Title</h1>
+        <p class="small text-muted"><i class="fas fa-calendar-alt me-1"></i> Published on @Model.CreatedDate.ToString("MMMM dd, yyyy") | <i class="fas fa-eye me-1"></i> @Model.ViewCount Reads</p>
+        <a asp-action="Index" class="btn btn-sm btn-outline-secondary rounded-pill text-white mt-2"><i class="fas fa-arrow-left me-1"></i> Back to Tech Logs</a>
+    </div>
+</section>
+
+<div class="container pb-5">
+    <div class="row g-5">
+        <!-- Main Content Area -->
+        <div class="col-lg-8" data-aos="fade-right">
+            @if (!string.IsNullOrEmpty(Model.ImagePath))
+            {
+                <div class="glass-panel overflow-hidden mb-5">
+                    <img src="@Model.ImagePath" alt="Article image" class="img-fluid w-100" style="max-height: 400px; object-fit: cover;" />
+                </div>
+            }
+
+            <div class="glass-panel p-4 p-md-5">
+                <!-- Rich Content Render -->
+                <div class="text-muted leading-relaxed article-rich-content">
+                    @Html.Raw(Model.Content)
+                </div>
+                
+                <div class="border-top border-secondary mt-5 pt-4">
+                    <h5 class="text-white mb-3">Tags:</h5>
+                    <div class="d-flex flex-wrap gap-2">
+                        @if (Model.Tags != null)
+                        {
+                            foreach (var tag in Model.Tags.Split(','))
+                            {
+                                <a href="/Blog?search=@tag.Trim()" class="badge bg-dark border border-secondary text-neon-cyan text-decoration-none">#@tag.Trim()</a>
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sidebar Area -->
+        <div class="col-lg-4" data-aos="fade-left">
+            <!-- Recent Articles -->
+            <div class="glass-panel p-4 mb-4">
+                <h3 class="h5 text-white fw-bold mb-4"><i class="fas fa-book-open text-neon-purple me-2"></i> Recent Logs</h3>
+                <ul class="list-unstyled d-flex flex-column gap-3 mb-0">
+                    @if (recentBlogs != null)
+                    {
+                        foreach (var post in recentBlogs)
+                        {
+                            <li>
+                                <a href="/Blog/Details?slug=@post.Slug" class="text-decoration-none d-block">
+                                    <h5 class="text-white h6 mb-1 hover-text-primary">@post.Title</h5>
+                                    <small class="text-muted text-uppercase" style="font-size: 0.7rem;">@post.CreatedDate.ToString("MMM dd, yyyy")</small>
+                                </a>
+                            </li>
+                        }
+                    }
+                </ul>
+            </div>
+
+            <!-- Share Console -->
+            <div class="glass-panel p-4">
+                <h3 class="h5 text-white fw-bold mb-3"><i class="fas fa-share-alt text-neon-cyan me-2"></i> Share Node</h3>
+                <div class="d-flex gap-2">
+                    <a href="https://twitter.com/intent/tweet?url=@Context.Request.Path" target="_blank" class="btn btn-outline-secondary border-secondary rounded-circle text-white d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;"><i class="fab fa-twitter"></i></a>
+                    <a href="https://www.linkedin.com/sharing/share-offsite/?url=@Context.Request.Path" target="_blank" class="btn btn-outline-secondary border-secondary rounded-circle text-white d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

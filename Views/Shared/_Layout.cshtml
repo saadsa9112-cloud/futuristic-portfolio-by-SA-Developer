@@ -1,0 +1,200 @@
+@using FuturisticPortfolio.Models.Entities
+@{
+    var settings = ViewBag.Settings as Settings;
+    var socialLinks = ViewBag.SocialLinks as List<SocialLink>;
+    var siteName = settings?.SiteName ?? "Futuristic Portfolio";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - @siteName</title>
+    
+    <!-- Meta SEO -->
+    <meta name="title" content="@ViewData["MetaTitle"] ?? settings?.MetaTitle" />
+    <meta name="description" content="@ViewData["MetaDescription"] ?? settings?.MetaDescription" />
+
+    <!-- Style Assets -->
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/FuturisticPortfolio.styles.css" asp-append-version="true" />
+    
+    <!-- CDNs for Premium Libraries -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
+</head>
+<body>
+    <!-- Scroll Progress Bar -->
+    <div id="scroll-progress"></div>
+
+    <!-- Interactive Ambient Glow -->
+    <div class="ambient-glow"></div>
+
+    <!-- Custom Neon Cursor -->
+    <div class="custom-cursor d-none d-lg-block"></div>
+    <div class="custom-cursor-dot d-none d-lg-block"></div>
+
+    <!-- Loader Screen -->
+    <div id="loader-screen">
+        <div class="loader-spinner"></div>
+        <div class="loader-text">INITIALIZING SYSTEMS...</div>
+    </div>
+
+    <!-- Particles Background -->
+    <div id="particles-js"></div>
+
+    <!-- Header Navigation -->
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark navbar-futuristic fixed-top py-3">
+            <div class="container">
+                <a class="navbar-brand text-neon-purple fw-bold" asp-controller="Home" asp-action="Index">
+                    @if (settings != null && !string.IsNullOrEmpty(settings.LogoPath))
+                    {
+                        <img src="@settings.LogoPath" alt="Logo" class="d-inline-block align-top me-2" style="max-height:30px;" />
+                    }
+                    <span>&lt;@settings?.SiteName.Split('|')[0].Trim() /&gt;</span>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse justify-content-end">
+                    <ul class="navbar-nav gap-2">
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Home" asp-action="Index">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/#about-section">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/#skills-section">Skills</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Portfolio" asp-action="Index">Projects</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Blog" asp-action="Index">Blog</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/#contact-section">Contact</a>
+                        </li>
+                        <li class="nav-item d-flex align-items-center ms-lg-2 me-lg-1">
+                            <button type="button" class="btn btn-link text-white p-2 border-0" id="theme-toggle-btn" style="text-decoration: none; box-shadow: none;" title="Toggle Theme">
+                                <i class="fas fa-sun" id="theme-icon"></i>
+                            </button>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content Grid -->
+    <main role="main" class="pt-5 mt-4 page-transition">
+        @RenderBody()
+    </main>
+
+    <!-- Chat Bot Widget -->
+    <div class="ai-chat-widget glass-panel" id="ai-chat-widget">
+        <div class="ai-chat-header text-white">
+            <span><i class="fas fa-robot me-2"></i> Portfolio Agent (AI)</span>
+            <button class="btn btn-sm btn-link text-white p-0" id="ai-chat-close"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="ai-chat-messages" id="ai-messages-container">
+            <!-- Messages populated via client js -->
+        </div>
+        <div class="ai-chat-input">
+            <input type="text" placeholder="Inquire about skills, projects..." id="ai-user-message" autocomplete="off" />
+            <button id="ai-send-message"><i class="fas fa-paper-plane"></i></button>
+        </div>
+        <div class="p-2 border-top border-secondary bg-dark">
+            <div class="quick-chips-container">
+                <span class="quick-chip" data-query="What is your tech stack?">Tech Stack</span>
+                <span class="quick-chip" data-query="Tell me about your latest projects.">Projects</span>
+                <span class="quick-chip" data-query="Can I download your resume?">Download CV</span>
+                <span class="quick-chip" data-query="How can I contact you?">Contact info</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating Chat Trigger Button -->
+    <button class="fab-btn" id="ai-chat-toggle">
+        <i class="fas fa-comment-dots"></i>
+    </button>
+
+    <!-- Footer Area -->
+    <footer class="glass-panel border-0 border-top mt-5 py-5 text-center text-md-start">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6 mb-3 mb-md-0">
+                    <h5 class="text-neon-purple">&lt; @(settings?.SiteName.Split('|')[0].Trim() ?? "Neo Core") /&gt;</h5>
+                    <p class="text-muted small mb-0">@settings?.FooterText</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <div class="d-flex justify-content-center justify-content-md-end gap-3">
+                        @if (socialLinks != null)
+                        {
+                            foreach (var link in socialLinks)
+                            {
+                                <a href="@link.Url" target="_blank" class="text-muted fs-4 transition clickable"><i class="@link.IconClass"></i></a>
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Command Palette Overlay -->
+    <div class="command-palette-overlay" id="command-palette">
+        <div class="command-palette-box glass-panel p-4">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <span class="badge bg-secondary"><i class="fas fa-terminal me-1"></i> CONTROL CONSOLE</span>
+                <span class="small text-muted">Press <kbd class="bg-dark text-neon-cyan px-2">ESC</kbd> to exit</span>
+            </div>
+            <input type="text" class="form-control bg-dark border-secondary text-white mb-3 py-2" id="command-search" placeholder="Type a command or navigate..." autocomplete="off" />
+            <div class="command-list" id="command-results">
+                <div class="command-item clickable" data-action="nav" data-url="/"><i class="fas fa-home me-2 text-neon-purple"></i> Go to Homepage <span class="badge bg-dark ms-auto">G + H</span></div>
+                <div class="command-item clickable" data-action="nav" data-url="/Portfolio"><i class="fas fa-folder-open me-2 text-neon-cyan"></i> Browse Projects Databank <span class="badge bg-dark ms-auto">G + P</span></div>
+                <div class="command-item clickable" data-action="nav" data-url="/Blog"><i class="fas fa-file-alt me-2 text-neon-blue"></i> Read Tech Logs <span class="badge bg-dark ms-auto">G + B</span></div>
+                <div class="command-item clickable" data-action="ai"><i class="fas fa-robot me-2 text-warning"></i> Query AI Portfolio Agent <span class="badge bg-dark ms-auto">A + I</span></div>
+                <div class="command-item clickable" data-action="contact"><i class="fas fa-satellite-dish me-2 text-success"></i> Establish Comms Link (Contact) <span class="badge bg-dark ms-auto">C + O</span></div>
+                <div class="command-item clickable" data-action="sound"><i class="fas fa-volume-up me-2 text-neon-cyan"></i> Synthesize Audio Test <span class="badge bg-dark ms-auto">S + N</span></div>
+                <div class="command-item clickable text-danger border-danger" data-action="nav" data-url="/Admin/Dashboard"><i class="fas fa-terminal me-2 text-danger"></i> sudo admin <span class="badge bg-dark ms-auto">S + A</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cookie Consent Banner -->
+    <div class="cookie-banner glass-panel p-3 text-start" id="cookie-banner" style="position: fixed; bottom: 20px; left: 20px; max-width: 400px; z-index: 100000; display: none; background: rgba(17, 12, 28, 0.9) !important; border-color: rgba(168, 85, 247, 0.3) !important;">
+        <div class="d-flex align-items-center gap-2 mb-2">
+            <i class="fas fa-cookie-bite text-warning fs-4"></i>
+            <h6 class="mb-0 text-white fw-bold">Telemetry Access Consent</h6>
+        </div>
+        <p class="small text-muted mb-3" style="font-size: 0.8rem; line-height: 1.4;">We use cookies to analyze user interest packets (like photo views, project details, or play clicks) for portfolio calibration.</p>
+        <div class="d-flex gap-2">
+            <button type="button" class="btn btn-sm btn-neon text-white px-3" id="cookie-accept-btn">Accept Consent</button>
+            <button type="button" class="btn btn-sm btn-outline-secondary px-3" id="cookie-decline-btn">Reject</button>
+        </div>
+    </div>
+
+    <!-- Danger Security Alert Overlay -->
+    <div class="danger-security-overlay" id="danger-security-overlay">
+        <i class="fas fa-skull-crossbones text-danger mb-4" style="font-size: 5rem; animation: pulse 1s infinite alternate;"></i>
+        <div class="glitch-title">SECURITY BREACH DETECTED</div>
+        <p class="warning-desc">If you press this again, your tracking will start and you cannot hide yourself from us.</p>
+        <button type="button" class="btn btn-outline-danger px-4 py-2 mt-4 font-monospace" id="danger-close-btn" style="border-radius: 0; text-transform: uppercase;">Abort Handshake</button>
+    </div>
+
+    <!-- Script Assets -->
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

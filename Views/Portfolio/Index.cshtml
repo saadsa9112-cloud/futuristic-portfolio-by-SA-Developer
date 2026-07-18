@@ -1,0 +1,125 @@
+@model List<FuturisticPortfolio.Models.Entities.Project>
+@using FuturisticPortfolio.Models.Entities
+@{
+    ViewData["Title"] = "Projects Databank";
+    var categories = ViewBag.Categories as List<Category>;
+    var currentCategory = ViewBag.CurrentCategory as int?;
+    var search = ViewBag.Search as string;
+    var currentPage = (int)ViewBag.CurrentPage;
+    var totalPages = (int)ViewBag.TotalPages;
+}
+
+<div class="container py-5">
+    <!-- Header Page Description -->
+    <div class="text-center mb-5" data-aos="fade-up">
+        <h1 class="display-4 text-white fw-bold"><span class="text-neon-purple">//</span> Projects Databank</h1>
+        <p class="text-muted">Explore system deployments, services architectures, and source repositories.</p>
+    </div>
+
+    <!-- Search & Filter Controls Panel -->
+    <div class="glass-panel p-4 mb-5" data-aos="fade-up">
+        <form method="get" class="row g-3 align-items-center">
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-text bg-dark border-secondary text-muted"><i class="fas fa-search"></i></span>
+                    <input type="text" name="search" class="form-control bg-dark border-secondary text-white" placeholder="Search by title, technologies..." value="@search" />
+                </div>
+            </div>
+            
+            <div class="col-md-4">
+                <select name="categoryId" class="form-select bg-dark border-secondary text-muted" onchange="this.form.submit()">
+                    <option value="">All Categories</option>
+                    @if (categories != null)
+                    {
+                        foreach (var cat in categories)
+                        {
+                            var selectedClass = currentCategory == cat.Id ? "selected" : null;
+                            if (currentCategory == cat.Id)
+                            {
+                                <option value="@cat.Id" selected="selected">@cat.Name</option>
+                            }
+                            else
+                            {
+                                <option value="@cat.Id">@cat.Name</option>
+                            }
+                        }
+                    }
+                </select>
+            </div>
+            
+            <div class="col-md-3 d-flex gap-2">
+                <button type="submit" class="btn btn-neon w-100 text-white"><i class="fas fa-filter me-1"></i> Filter</button>
+                <a asp-action="Index" class="btn btn-outline-secondary rounded-pill px-3"><i class="fas fa-undo"></i></a>
+            </div>
+        </form>
+    </div>
+
+    <!-- Projects Grid -->
+    <div class="row g-4">
+        @if (Model == null || !Model.Any())
+        {
+            <div class="col-12 text-center py-5" data-aos="fade-up">
+                <div class="fs-1 text-neon-purple mb-3"><i class="fas fa-folder-open"></i></div>
+                <h3 class="text-white">Query Returned Zero Nodes</h3>
+                <p class="text-muted">No projects match the specified filter queries.</p>
+            </div>
+        }
+        else
+        {
+            foreach (var project in Model)
+            {
+                <div class="col-md-6 col-lg-4" data-aos="fade-up">
+                    <div class="card glass-panel h-100 border-0 overflow-hidden skill-card">
+                        <div class="position-relative overflow-hidden" style="height: 220px;">
+                            <img src="@project.ThumbnailPath" alt="Project thumbnail" class="card-img-top w-100 h-100" style="object-fit: cover;" />
+                            <div class="position-absolute top-0 end-0 m-3">
+                                <span class="badge bg-dark border border-secondary text-white">@project.Category?.Name</span>
+                            </div>
+                        </div>
+                        <div class="card-body d-flex flex-column">
+                            <h3 class="h4 card-title text-white fw-bold">@project.Title</h3>
+                            <p class="card-text text-muted small flex-grow-1">@project.Subtitle</p>
+                            
+                            <div class="d-flex flex-wrap gap-1 mb-4">
+                                @if (project.Technologies != null)
+                                {
+                                    foreach (var tag in project.Technologies.Split(','))
+                                    {
+                                        <span class="badge bg-dark border border-secondary text-neon-cyan small">@tag.Trim()</span>
+                                    }
+                                }
+                            </div>
+                            
+                            <div class="d-flex gap-2 mt-auto">
+                                <a href="/Portfolio/Details/@project.Id" class="btn btn-outline-light btn-sm flex-grow-1 border-secondary rounded-pill text-white hover-bg-light hover-text-dark">Details</a>
+                                @if (!string.IsNullOrEmpty(project.GitHubLink))
+                                {
+                                    <a href="@project.GitHubLink" target="_blank" class="btn btn-outline-info btn-sm rounded-circle"><i class="fab fa-github"></i></a>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+
+    <!-- Pagination Controls -->
+    @if (totalPages > 1)
+    {
+        <nav class="mt-5" data-aos="fade-up">
+            <ul class="pagination justify-content-center gap-2">
+                @for (int i = 1; i <= totalPages; i++)
+                {
+                    var activeClass = i == currentPage ? "active" : "";
+                    var activeStyle = i == currentPage ? "background-color: var(--primary); border-color: var(--primary);" : "background: var(--bg-card); border: 1px solid rgba(255,255,255,0.08);";
+                    <li class="page-item @activeClass">
+                        <a href="/Portfolio?search=@search&categoryId=@currentCategory&page=@i" class="page-link rounded-circle text-center text-white d-flex align-items-center justify-content-center" style="width: 40px; height: 40px; @activeStyle">
+                            @i
+                        </a>
+                    </li>
+                }
+            </ul>
+        </nav>
+    }
+</div>

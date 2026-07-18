@@ -1,0 +1,236 @@
+@model FuturisticPortfolio.Models.Entities.Project
+@using FuturisticPortfolio.Models.Entities
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    ViewData["Title"] = "Configure Project Node";
+    var galleryImages = ViewBag.GalleryImages as List<ProjectImage>;
+    var videoPath = ViewBag.VideoPath as string;
+}
+
+<div class="d-flex justify-content-between align-items-center pb-2 mb-4 border-bottom border-secondary">
+    <h1 class="h2 text-white fw-bold"><i class="fas fa-edit text-neon-purple me-2"></i> Configure Project Node</h1>
+    <a asp-action="Index" class="btn btn-outline-secondary rounded-pill px-3"><i class="fas fa-arrow-left me-1"></i> Cancel</a>
+</div>
+
+<form asp-action="Edit" method="post" enctype="multipart/form-data" id="project-form">
+    @Html.AntiForgeryToken()
+    <input type="hidden" asp-for="Id" />
+    <input type="hidden" asp-for="ThumbnailPath" />
+    <div asp-validation-summary="ModelOnly" class="text-danger small mb-3"></div>
+
+    <div class="row g-4">
+        <!-- Main Edit Form Column -->
+        <div class="col-lg-8">
+            <div class="glass-panel p-4 mb-4">
+                <h3 class="h5 text-white fw-bold mb-4">// System Configuration</h3>
+
+                <div class="mb-3">
+                    <label class="form-label text-muted small">PROJECT TITLE</label>
+                    <input asp-for="Title" class="form-control bg-dark border-secondary text-white" required />
+                    <span asp-validation-for="Title" class="text-danger small"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label text-muted small">PROJECT SUBTITLE</label>
+                    <input asp-for="Subtitle" class="form-control bg-dark border-secondary text-white" required />
+                    <span asp-validation-for="Subtitle" class="text-danger small"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label text-muted small">DETAILED SYSTEM SPECIFICATIONS (DESCRIPTION)</label>
+                    <div id="editor-container" style="height: 300px;" class="bg-dark text-white border-secondary"></div>
+                    <input type="hidden" asp-for="Description" id="hidden-description-input" required />
+                    <span asp-validation-for="Description" class="text-danger small"></span>
+                </div>
+            </div>
+
+            <div class="glass-panel p-4 mb-4">
+                <h3 class="h5 text-white fw-bold mb-4">// Case Study Specifications</h3>
+                
+                <div class="mb-3">
+                    <label class="form-label text-muted small">EXECUTION CHALLENGES (OPTIONAL)</label>
+                    <textarea asp-for="Challenges" rows="3" class="form-control bg-dark border-secondary text-white"></textarea>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label text-muted small">ENGINEERING SOLUTIONS (OPTIONAL)</label>
+                    <textarea asp-for="Solutions" rows="3" class="form-control bg-dark border-secondary text-white"></textarea>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label text-muted small">ARCHITECTURAL TOPOLOGY (OPTIONAL)</label>
+                    <textarea asp-for="ArchitectureDescription" rows="3" class="form-control bg-dark border-secondary text-white"></textarea>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label text-muted small">RELATIONAL DATABASE SCHEMA LAYOUT (OPTIONAL)</label>
+                    <textarea asp-for="DatabaseDesignDescription" rows="3" class="form-control bg-dark border-secondary text-white"></textarea>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label text-muted small">DEVELOPMENT TIMELINE SPECIFICATIONS (OPTIONAL)</label>
+                    <textarea asp-for="TimelineDescription" rows="2" class="form-control bg-dark border-secondary text-white"></textarea>
+                </div>
+            </div>
+
+            <!-- Active Gallery Images list to let admin delete screenshots -->
+            @if (galleryImages != null && galleryImages.Any())
+            {
+                <div class="glass-panel p-4 mb-4">
+                    <h3 class="h5 text-white fw-bold mb-4">// Active Screenshots Databank</h3>
+                    <div class="row g-3">
+                        @foreach (var img in galleryImages)
+                        {
+                            <div class="col-md-3 col-6 text-center" id="img-node-@img.Id">
+                                <div class="position-relative rounded overflow-hidden mb-2" style="height: 100px;">
+                                    <img src="@img.ImagePath" alt="Gallery screen" class="w-100 h-100" style="object-fit: cover;" />
+                                </div>
+                                <button type="button" class="btn btn-sm btn-outline-danger w-100 rounded-pill" onclick="deleteGalleryImage(@img.Id)"><i class="fas fa-trash-alt me-1"></i> Delete</button>
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+
+        <!-- Sidebar Parameter Edit Column -->
+        <div class="col-lg-4">
+            <div class="glass-panel p-4 mb-4">
+                <h3 class="h5 text-white fw-bold mb-4">// Calibration Metadata</h3>
+
+                <div class="mb-3">
+                    <label class="form-label text-muted small">CATEGORY RELATION</label>
+                    <select asp-for="CategoryId" class="form-select bg-dark border-secondary text-muted" asp-items="ViewBag.CategoryId">
+                        <option value="">Choose Category</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label text-muted small">CALIBRATION DATE</label>
+                    <input asp-for="Date" type="date" class="form-control bg-dark border-secondary text-white" value="@Model.Date.ToString("yyyy-MM-dd")" />
+                    <span asp-validation-for="Date" class="text-danger small"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label text-muted small">DISPLAY ORDER INDEX</label>
+                    <input asp-for="DisplayOrder" type="number" class="form-control bg-dark border-secondary text-white" />
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label text-muted small">DEPLOYMENT STATUS</label>
+                    <select asp-for="Status" class="form-select bg-dark border-secondary text-muted">
+                        <option value="Published">Published</option>
+                        <option value="Draft">Draft</option>
+                    </select>
+                </div>
+
+                <div class="mb-3 form-check">
+                    <input asp-for="FeaturedOption" class="form-check-input bg-dark border-secondary" />
+                    <label class="form-check-label text-muted small" asp-for="FeaturedOption">Showcase featured on Hero</label>
+                </div>
+            </div>
+
+            <div class="glass-panel p-4 mb-4">
+                <h3 class="h5 text-white fw-bold mb-4">// Hyperlinks & Assets</h3>
+
+                <div class="mb-3">
+                    <label class="form-label text-muted small">TECHNOLOGIES TAGS</label>
+                    <input asp-for="Technologies" class="form-control bg-dark border-secondary text-white" />
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label text-muted small">GITHUB REPOSITORY URL</label>
+                    <input asp-for="GitHubLink" type="url" class="form-control bg-dark border-secondary text-white" />
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label text-muted small">LIVE DEPLOYMENT DEMO URL</label>
+                    <input asp-for="LiveDemo" type="url" class="form-control bg-dark border-secondary text-white" />
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label text-muted small">DOCUMENTATION PDF PATH (OPTIONAL)</label>
+                    <input asp-for="DocumentationPdfPath" class="form-control bg-dark border-secondary text-white" />
+                </div>
+            </div>
+
+            <!-- Uploads Files Cards -->
+            <div class="glass-panel p-4 mb-4">
+                <h3 class="h5 text-white fw-bold mb-4">// System Upload Modules</h3>
+
+                <div class="mb-3">
+                    <label class="form-label text-muted small">REPLACE IMAGE THUMBNAIL (OPTIONAL)</label>
+                    <div class="mb-2">
+                        <img src="@Model.ThumbnailPath" class="rounded border border-secondary" style="height: 50px; object-fit: cover;" />
+                        <span class="text-muted small ms-2">Current Image</span>
+                    </div>
+                    <input type="file" name="Thumbnail" class="form-control bg-dark border-secondary text-muted" />
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label text-muted small">UPLOAD MORE GALLERY SCREENSHOTS</label>
+                    <input type="file" name="Gallery" multiple class="form-control bg-dark border-secondary text-muted" />
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label text-muted small">EXTERNAL VIDEO EMBED LINK</label>
+                    <input type="text" name="VideoPath" class="form-control bg-dark border-secondary text-white" value="@videoPath" placeholder="https://www.youtube.com/watch?v=..." />
+                </div>
+            </div>
+
+            <div class="mb-4">
+                <button type="submit" class="btn btn-neon w-100 text-white"><i class="fas fa-check-circle me-1"></i> Update Database Record</button>
+            </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // Quill Rich text editor initialization
+            const quill = new Quill('#editor-container', {
+                theme: 'snow',
+                placeholder: 'Write detailed system blueprints here...',
+                modules: {
+                    toolbar: [
+                        [{ 'header': [1, 2, 3, false] }],
+                        ['bold', 'italic', 'underline', 'strike'],
+                        ['blockquote', 'code-block'],
+                        [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+                        ['link', 'clean']
+                    ]
+                }
+            });
+
+            // Set Initial values
+            quill.root.innerHTML = `@Html.Raw(Model.Description)`;
+
+            // Sync hidden field on submit
+            const form = document.getElementById("project-form");
+            form.addEventListener("submit", (e) => {
+                const hiddenInput = document.getElementById("hidden-description-input");
+                hiddenInput.value = quill.root.innerHTML;
+            });
+        });
+
+        // AJAX gallery image deletion
+        function deleteGalleryImage(imgId) {
+            if (confirm("Confirm deletion of this screenshot node? This action is immediate and irreversible.")) {
+                fetch("/Admin/Projects/DeleteImage/" + imgId, {
+                    method: "POST"
+                })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.success) {
+                        const imgNode = document.getElementById("img-node-" + imgId);
+                        if (imgNode) imgNode.remove();
+                    } else {
+                        alert("Deletion failed.");
+                    }
+                })
+                .catch(() => alert("Network transmission failure."));
+            }
+        }
+    </script>
+}

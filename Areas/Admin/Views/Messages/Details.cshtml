@@ -1,0 +1,87 @@
+@model FuturisticPortfolio.Models.Entities.Message
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    ViewData["Title"] = "Comm Packet Details";
+}
+
+<div class="d-flex justify-content-between align-items-center pb-2 mb-4 border-bottom border-secondary">
+    <h1 class="h2 text-white fw-bold"><i class="fas fa-satellite text-neon-purple me-2"></i> Message Transmit Details</h1>
+    <a asp-action="Index" class="btn btn-outline-secondary rounded-pill px-3"><i class="fas fa-arrow-left me-1"></i> Back to Inbox</a>
+</div>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success border border-success bg-dark text-success mb-4 font-monospace small" role="alert" style="border-color: rgba(40, 167, 69, 0.25) !important;">
+        <i class="fas fa-check-circle me-1"></i> @TempData["SuccessMessage"]
+    </div>
+}
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger border border-danger bg-dark text-danger mb-4 font-monospace small" role="alert" style="border-color: rgba(220, 53, 69, 0.25) !important;">
+        <i class="fas fa-exclamation-triangle me-1"></i> @TempData["ErrorMessage"]
+    </div>
+}
+
+<div class="row g-4">
+    <!-- Message content card -->
+    <div class="col-lg-6">
+        <div class="glass-panel p-4 p-md-5 h-100">
+            <span class="badge bg-secondary mb-3">COMMS PACKET</span>
+            <h3 class="text-white fw-bold">@Model.Subject</h3>
+            
+            <div class="my-4 p-3 bg-dark bg-opacity-50 border border-secondary rounded-3 small">
+                <div class="d-flex justify-content-between mb-2">
+                    <span class="text-muted">TRANSMITTER:</span>
+                    <span class="text-white fw-semibold">@Model.Name</span>
+                </div>
+                <div class="d-flex justify-content-between mb-2">
+                    <span class="text-muted">EMAIL:</span>
+                    <span class="text-neon-cyan">@Model.Email</span>
+                </div>
+                <div class="d-flex justify-content-between">
+                    <span class="text-muted">TIMESTAMP:</span>
+                    <span class="text-white">@Model.CreatedDate.ToString("yyyy-MM-dd HH:mm:ss UTC")</span>
+                </div>
+            </div>
+
+            <div class="border-top border-secondary pt-4 mt-4">
+                <span class="d-block small text-muted mb-2">TRANSMITTED MESSAGE</span>
+                <p class="text-light leading-relaxed bg-dark p-3 rounded" style="white-space: pre-wrap;">@Model.Body</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Reply Section card -->
+    <div class="col-lg-6">
+        <div class="glass-panel p-4 p-md-5 h-100 d-flex flex-column">
+            @if (string.IsNullOrEmpty(Model.ReplyText))
+            {
+                <span class="badge bg-danger mb-3">PENDING REPLY</span>
+                <h3 class="text-white fw-bold mb-4">// Transmit Reply Packet</h3>
+                
+                <form asp-action="Reply" method="post" class="flex-grow-1 d-flex flex-column">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" name="id" value="@Model.Id" />
+                    
+                    <div class="mb-4 flex-grow-1">
+                        <label class="form-label text-muted small">REPLY PACKET BODY</label>
+                        <textarea name="replyText" rows="10" class="form-control bg-dark border-secondary text-white h-100" style="min-height: 200px;" required placeholder="Draft your response here..."></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-neon w-100 text-white mt-auto"><i class="fas fa-paper-plane me-1"></i> Transmit Reply Packet</button>
+                </form>
+            }
+            else
+            {
+                <span class="badge bg-success mb-3">REPLY TRANSMITTED</span>
+                <h3 class="text-white fw-bold mb-3">// Logged Response Details</h3>
+                <small class="text-muted d-block mb-4">Replied on: @Model.RepliedDate?.ToString("yyyy-MM-dd HH:mm:ss UTC")</small>
+                
+                <div class="border-top border-secondary pt-3 flex-grow-1">
+                    <span class="d-block small text-muted mb-2">SENT RESPONSE TEXT</span>
+                    <p class="text-light leading-relaxed bg-dark bg-opacity-70 p-3 rounded border border-success border-opacity-20" style="white-space: pre-wrap;">@Model.ReplyText</p>
+                </div>
+            }
+        </div>
+    </div>
+</div>

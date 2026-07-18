@@ -1,0 +1,64 @@
+@model FuturisticPortfolio.Models.ViewModels.LoginViewModel
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Neo Core - Admin Authorization Link</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</head>
+<body class="bg-dark text-light d-flex align-items-center justify-content-center" style="min-height: 100vh;">
+
+    <!-- Background Ambient Glow -->
+    <div class="ambient-glow" style="top:50%; left:50%; width: 500px; height: 500px;"></div>
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-5">
+                <!-- Terminal style Authorization Card -->
+                <div class="glass-panel p-5 shadow-lg border border-primary border-opacity-30">
+                    <div class="text-center mb-4">
+                        <span class="badge bg-secondary mb-2">SECURE SHIELD</span>
+                        <h2 class="text-white fw-bold"><i class="fas fa-terminal text-neon-purple me-2"></i> Auth Terminal</h2>
+                        <p class="text-muted small">Establish admin database authorization link.</p>
+                    </div>
+
+                    <form asp-action="Login" method="post">
+                        @Html.AntiForgeryToken()
+                        <div asp-validation-summary="ModelOnly" class="text-danger small mb-3"></div>
+
+                        <div class="mb-3">
+                            <label class="form-label text-muted small">IDENTITY EMAIL</label>
+                            <input asp-for="Email" class="form-control bg-dark border-secondary text-white py-2" placeholder="admin@portfolio.com" required autocomplete="username" />
+                            <span asp-validation-for="Email" class="text-danger small"></span>
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="form-label text-muted small">SECURITY KEYCODE (PASSWORD)</label>
+                            <input asp-for="Password" type="password" class="form-control bg-dark border-secondary text-white py-2" placeholder="••••••••" required autocomplete="current-password" />
+                            <span asp-validation-for="Password" class="text-danger small"></span>
+                        </div>
+
+                        <div class="mb-4 form-check">
+                            <input asp-for="RememberMe" class="form-check-input bg-dark border-secondary" />
+                            <label class="form-check-label text-muted small" asp-for="RememberMe">Maintain Active Cache Session</label>
+                        </div>
+
+                        <button type="submit" class="btn btn-neon w-100 text-white"><i class="fas fa-key me-2"></i> Authorize Link</button>
+                    </form>
+                    
+                    <div class="text-center mt-4">
+                        <a href="/" class="text-muted small text-decoration-none hover-text-primary"><i class="fas fa-arrow-left me-1"></i> Disconnect & Return Home</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
