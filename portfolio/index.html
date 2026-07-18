@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Projects Databank - SA Developer | Futuristic Portfolio</title>
+    
+    <!-- Meta SEO -->
+    <meta name="title" content=" ?? settings?.MetaTitle" />
+    <meta name="description" content=" ?? settings?.MetaDescription" />
+
+    <!-- Style Assets -->
+    <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/css/site.css?v=_AsCg26tz5AEuEUkSlAkaxleaV7SX1XANgtCji_hn6w" />
+    <link rel="stylesheet" href="/FuturisticPortfolio.styles.css?v=cXSw8uWbeBRRKqQImmDtUF9PgLFcp0jNpAJVcYp-LoE" />
+    
+    <!-- CDNs for Premium Libraries -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
+</head>
+<body>
+    <!-- Scroll Progress Bar -->
+    <div b-tjezjmjmzt id="scroll-progress"></div>
+
+    <!-- Interactive Ambient Glow -->
+    <div b-tjezjmjmzt class="ambient-glow"></div>
+
+    <!-- Custom Neon Cursor -->
+    <div b-tjezjmjmzt class="custom-cursor d-none d-lg-block"></div>
+    <div b-tjezjmjmzt class="custom-cursor-dot d-none d-lg-block"></div>
+
+    <!-- Loader Screen -->
+    <div b-tjezjmjmzt id="loader-screen">
+        <div b-tjezjmjmzt class="loader-spinner"></div>
+        <div b-tjezjmjmzt class="loader-text">INITIALIZING SYSTEMS...</div>
+    </div>
+
+    <!-- Particles Background -->
+    <div b-tjezjmjmzt id="particles-js"></div>
+
+    <!-- Header Navigation -->
+    <header b-tjezjmjmzt>
+        <nav b-tjezjmjmzt class="navbar navbar-expand-lg navbar-dark navbar-futuristic fixed-top py-3">
+            <div b-tjezjmjmzt class="container">
+                <a class="navbar-brand text-neon-purple fw-bold" href="/">
+                        <img b-tjezjmjmzt src="/images/logo.png" alt="Logo" class="d-inline-block align-top me-2" style="max-height:30px;" />
+                    <span b-tjezjmjmzt>&lt;SA Developer /&gt;</span>
+                </a>
+                <button b-tjezjmjmzt class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span b-tjezjmjmzt class="navbar-toggler-icon"></span>
+                </button>
+                <div b-tjezjmjmzt class="navbar-collapse collapse justify-content-end">
+                    <ul b-tjezjmjmzt class="navbar-nav gap-2">
+                        <li b-tjezjmjmzt class="nav-item">
+                            <a class="nav-link" href="/">Home</a>
+                        </li>
+                        <li b-tjezjmjmzt class="nav-item">
+                            <a b-tjezjmjmzt class="nav-link" href="/#about-section">About</a>
+                        </li>
+                        <li b-tjezjmjmzt class="nav-item">
+                            <a b-tjezjmjmzt class="nav-link" href="/#skills-section">Skills</a>
+                        </li>
+                        <li b-tjezjmjmzt class="nav-item">
+                            <a class="nav-link" href="/portfolio/">Projects</a>
+                        </li>
+                        <li b-tjezjmjmzt class="nav-item">
+                            <a class="nav-link" href="/blog/">Blog</a>
+                        </li>
+                        <li b-tjezjmjmzt class="nav-item">
+                            <a b-tjezjmjmzt class="nav-link" href="/#contact-section">Contact</a>
+                        </li>
+                        <li b-tjezjmjmzt class="nav-item d-flex align-items-center ms-lg-2 me-lg-1">
+                            <button b-tjezjmjmzt type="button" class="btn btn-link text-white p-2 border-0" id="theme-toggle-btn" style="text-decoration: none; box-shadow: none;" title="Toggle Theme">
+                                <i b-tjezjmjmzt class="fas fa-sun" id="theme-icon"></i>
+                            </button>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content Grid -->
+    <main b-tjezjmjmzt role="main" class="pt-5 mt-4 page-transition">
+        
+<div class="container py-5">
+    <!-- Header Page Description -->
+    <div class="text-center mb-5" data-aos="fade-up">
+        <h1 class="display-4 text-white fw-bold"><span class="text-neon-purple">//</span> Projects Databank</h1>
+        <p class="text-muted">Explore system deployments, services architectures, and source repositories.</p>
+    </div>
+
+    <!-- Search & Filter Controls Panel -->
+    <div class="glass-panel p-4 mb-5" data-aos="fade-up">
+        <form method="get" class="row g-3 align-items-center">
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-text bg-dark border-secondary text-muted"><i class="fas fa-search"></i></span>
+                    <input type="text" name="search" class="form-control bg-dark border-secondary text-white" placeholder="Search by title, technologies..." />
+                </div>
+            </div>
+            
+            <div class="col-md-4">
+                <select name="categoryId" class="form-select bg-dark border-secondary text-muted" onchange="this.form.submit()">
+                    <option value="">All Categories</option>
+                                <option value="1">Web Applications</option>
+                                <option value="2">Backend Services</option>
+                                <option value="3">Cloud Infrastructure</option>
+                </select>
+            </div>
+            
+            <div class="col-md-3 d-flex gap-2">
+                <button type="submit" class="btn btn-neon w-100 text-white"><i class="fas fa-filter me-1"></i> Filter</button>
+                <a class="btn btn-outline-secondary rounded-pill px-3" href="/portfolio/"><i class="fas fa-undo"></i></a>
+            </div>
+        </form>
+    </div>
+
+    <!-- Projects Grid -->
+    <div class="row g-4">
+            <div class="col-12 text-center py-5" data-aos="fade-up">
+                <div class="fs-1 text-neon-purple mb-3"><i class="fas fa-folder-open"></i></div>
+                <h3 class="text-white">Query Returned Zero Nodes</h3>
+                <p class="text-muted">No projects match the specified filter queries.</p>
+            </div>
+    </div>
+
+    <!-- Pagination Controls -->
+</div>
+
+    </main>
+
+    <!-- Chat Bot Widget -->
+    <div b-tjezjmjmzt class="ai-chat-widget glass-panel" id="ai-chat-widget">
+        <div b-tjezjmjmzt class="ai-chat-header text-white">
+            <span b-tjezjmjmzt><i b-tjezjmjmzt class="fas fa-robot me-2"></i> Portfolio Agent (AI)</span>
+            <button b-tjezjmjmzt class="btn btn-sm btn-link text-white p-0" id="ai-chat-close"><i b-tjezjmjmzt class="fas fa-times"></i></button>
+        </div>
+        <div b-tjezjmjmzt class="ai-chat-messages" id="ai-messages-container">
+            <!-- Messages populated via client js -->
+        </div>
+        <div b-tjezjmjmzt class="ai-chat-input">
+            <input b-tjezjmjmzt type="text" placeholder="Inquire about skills, projects..." id="ai-user-message" autocomplete="off" />
+            <button b-tjezjmjmzt id="ai-send-message"><i b-tjezjmjmzt class="fas fa-paper-plane"></i></button>
+        </div>
+        <div b-tjezjmjmzt class="p-2 border-top border-secondary bg-dark">
+            <div b-tjezjmjmzt class="quick-chips-container">
+                <span b-tjezjmjmzt class="quick-chip" data-query="What is your tech stack?">Tech Stack</span>
+                <span b-tjezjmjmzt class="quick-chip" data-query="Tell me about your latest projects.">Projects</span>
+                <span b-tjezjmjmzt class="quick-chip" data-query="Can I download your resume?">Download CV</span>
+                <span b-tjezjmjmzt class="quick-chip" data-query="How can I contact you?">Contact info</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating Chat Trigger Button -->
+    <button b-tjezjmjmzt class="fab-btn" id="ai-chat-toggle">
+        <i b-tjezjmjmzt class="fas fa-comment-dots"></i>
+    </button>
+
+    <!-- Footer Area -->
+    <footer b-tjezjmjmzt class="glass-panel border-0 border-top mt-5 py-5 text-center text-md-start">
+        <div b-tjezjmjmzt class="container">
+            <div b-tjezjmjmzt class="row align-items-center">
+                <div b-tjezjmjmzt class="col-md-6 mb-3 mb-md-0">
+                    <h5 b-tjezjmjmzt class="text-neon-purple">&lt; SA Developer /&gt;</h5>
+                    <p b-tjezjmjmzt class="text-muted small mb-0">&#xA9; 2026 SA Developer. Built with ASP.NET 10 &amp; GSAP.</p>
+                </div>
+                <div b-tjezjmjmzt class="col-md-6 text-md-end">
+                    <div b-tjezjmjmzt class="d-flex justify-content-center justify-content-md-end gap-3">
+                                <a b-tjezjmjmzt href="https://github.com/saadsa9112-cloud" target="_blank" class="text-muted fs-4 transition clickable"><i b-tjezjmjmzt class="fab fa-github"></i></a>
+                                <a b-tjezjmjmzt href="https://linkedin.com" target="_blank" class="text-muted fs-4 transition clickable"><i b-tjezjmjmzt class="fab fa-linkedin"></i></a>
+                                <a b-tjezjmjmzt href="https://twitter.com" target="_blank" class="text-muted fs-4 transition clickable"><i b-tjezjmjmzt class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Command Palette Overlay -->
+    <div b-tjezjmjmzt class="command-palette-overlay" id="command-palette">
+        <div b-tjezjmjmzt class="command-palette-box glass-panel p-4">
+            <div b-tjezjmjmzt class="d-flex justify-content-between align-items-center mb-3">
+                <span b-tjezjmjmzt class="badge bg-secondary"><i b-tjezjmjmzt class="fas fa-terminal me-1"></i> CONTROL CONSOLE</span>
+                <span b-tjezjmjmzt class="small text-muted">Press <kbd b-tjezjmjmzt class="bg-dark text-neon-cyan px-2">ESC</kbd> to exit</span>
+            </div>
+            <input b-tjezjmjmzt type="text" class="form-control bg-dark border-secondary text-white mb-3 py-2" id="command-search" placeholder="Type a command or navigate..." autocomplete="off" />
+            <div b-tjezjmjmzt class="command-list" id="command-results">
+                <div b-tjezjmjmzt class="command-item clickable" data-action="nav" data-url="/"><i b-tjezjmjmzt class="fas fa-home me-2 text-neon-purple"></i> Go to Homepage <span b-tjezjmjmzt class="badge bg-dark ms-auto">G + H</span></div>
+                <div b-tjezjmjmzt class="command-item clickable" data-action="nav" data-url="/Portfolio"><i b-tjezjmjmzt class="fas fa-folder-open me-2 text-neon-cyan"></i> Browse Projects Databank <span b-tjezjmjmzt class="badge bg-dark ms-auto">G + P</span></div>
+                <div b-tjezjmjmzt class="command-item clickable" data-action="nav" data-url="/Blog"><i b-tjezjmjmzt class="fas fa-file-alt me-2 text-neon-blue"></i> Read Tech Logs <span b-tjezjmjmzt class="badge bg-dark ms-auto">G + B</span></div>
+                <div b-tjezjmjmzt class="command-item clickable" data-action="ai"><i b-tjezjmjmzt class="fas fa-robot me-2 text-warning"></i> Query AI Portfolio Agent <span b-tjezjmjmzt class="badge bg-dark ms-auto">A + I</span></div>
+                <div b-tjezjmjmzt class="command-item clickable" data-action="contact"><i b-tjezjmjmzt class="fas fa-satellite-dish me-2 text-success"></i> Establish Comms Link (Contact) <span b-tjezjmjmzt class="badge bg-dark ms-auto">C + O</span></div>
+                <div b-tjezjmjmzt class="command-item clickable" data-action="sound"><i b-tjezjmjmzt class="fas fa-volume-up me-2 text-neon-cyan"></i> Synthesize Audio Test <span b-tjezjmjmzt class="badge bg-dark ms-auto">S + N</span></div>
+                <div b-tjezjmjmzt class="command-item clickable text-danger border-danger" data-action="nav" data-url="/Admin/Dashboard"><i b-tjezjmjmzt class="fas fa-terminal me-2 text-danger"></i> sudo admin <span b-tjezjmjmzt class="badge bg-dark ms-auto">S + A</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cookie Consent Banner -->
+    <div b-tjezjmjmzt class="cookie-banner glass-panel p-3 text-start" id="cookie-banner" style="position: fixed; bottom: 20px; left: 20px; max-width: 400px; z-index: 100000; display: none; background: rgba(17, 12, 28, 0.9) !important; border-color: rgba(168, 85, 247, 0.3) !important;">
+        <div b-tjezjmjmzt class="d-flex align-items-center gap-2 mb-2">
+            <i b-tjezjmjmzt class="fas fa-cookie-bite text-warning fs-4"></i>
+            <h6 b-tjezjmjmzt class="mb-0 text-white fw-bold">Telemetry Access Consent</h6>
+        </div>
+        <p b-tjezjmjmzt class="small text-muted mb-3" style="font-size: 0.8rem; line-height: 1.4;">We use cookies to analyze user interest packets (like photo views, project details, or play clicks) for portfolio calibration.</p>
+        <div b-tjezjmjmzt class="d-flex gap-2">
+            <button b-tjezjmjmzt type="button" class="btn btn-sm btn-neon text-white px-3" id="cookie-accept-btn">Accept Consent</button>
+            <button b-tjezjmjmzt type="button" class="btn btn-sm btn-outline-secondary px-3" id="cookie-decline-btn">Reject</button>
+        </div>
+    </div>
+
+    <!-- Danger Security Alert Overlay -->
+    <div b-tjezjmjmzt class="danger-security-overlay" id="danger-security-overlay">
+        <i b-tjezjmjmzt class="fas fa-skull-crossbones text-danger mb-4" style="font-size: 5rem; animation: pulse 1s infinite alternate;"></i>
+        <div b-tjezjmjmzt class="glitch-title">SECURITY BREACH DETECTED</div>
+        <p b-tjezjmjmzt class="warning-desc">If you press this again, your tracking will start and you cannot hide yourself from us.</p>
+        <button b-tjezjmjmzt type="button" class="btn btn-outline-danger px-4 py-2 mt-4 font-monospace" id="danger-close-btn" style="border-radius: 0; text-transform: uppercase;">Abort Handshake</button>
+    </div>
+
+    <!-- Script Assets -->
+    <script src="/lib/jquery/dist/jquery.min.js"></script>
+    <script src="/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="/js/site.js?v=cXcfWv7E0orEAKs_YLuQld9_w8bSrAe9zx_VkXgpzRo"></script>
+    
+</body>
+</html>
