@@ -432,43 +432,249 @@ Designed and developed a responsive portfolio website showcasing projects, techn
         </div>
     </section>
 
-<!-- EDUCATION & EXPERIENCE TIMELINE -->
-<section class="py-5 bg-dark bg-opacity-40">
-    <div class="container py-5">
-        <div class="text-center mb-5" data-aos="fade-up">
-            <h2 class="display-5 text-white fw-bold"><span class="text-neon-cyan">//</span> Chronology Nodes</h2>
-            <p class="text-muted">Education and Professional checkpoints in the pipeline.</p>
+<!-- PROFESSIONAL EXPERIENCE & CAREER ROADMAP SECTION -->
+<section id="experience-section" class="py-5 position-relative overflow-hidden">
+    <!-- Ambient Background Glows -->
+    <div class="position-absolute top-50 start-0 translate-middle-y rounded-circle filter-blur opacity-20" style="width: 450px; height: 450px; background: radial-gradient(circle, var(--purple-glow) 0%, transparent 70%); pointer-events: none;"></div>
+    <div class="position-absolute top-50 end-0 translate-middle-y rounded-circle filter-blur opacity-20" style="width: 450px; height: 450px; background: radial-gradient(circle, var(--cyan-glow) 0%, transparent 70%); pointer-events: none;"></div>
+
+    <div class="container py-4 position-relative z-2">
+        <!-- SECTION HEADER -->
+        <div class="text-center max-w-2xl mx-auto mb-5" data-aos="fade-up">
+            <div class="d-inline-flex align-items-center gap-2 px-3 py-1.5 rounded-pill glass-panel border border-secondary mb-3">
+                <span class="pulse-dot bg-success rounded-circle" style="width:8px; height:8px; display:inline-block; box-shadow: 0 0 10px #10b981;"></span>
+                <span class="small font-monospace text-neon-cyan fw-semibold tracking-wider text-uppercase">🟢 Currently Building</span>
+            </div>
+            <h2 class="display-4 text-white fw-bold tracking-tight mb-3">
+                <span class="text-neon-purple">//</span> Professional Experience
+            </h2>
+            <h3 class="h3 text-white fw-semibold mb-3">Building My Professional Journey</h3>
+            <p class="text-muted lead max-w-xl mx-auto fs-6">
+                I am actively building enterprise-grade software solutions, continuously learning modern technologies, and preparing for professional opportunities. This section will soon showcase internships, freelance projects, industry experience, and career milestones.
+            </p>
         </div>
-        
-        <div class="row g-5">
-            <!-- Experience -->
-            <div class="col-lg-6" data-aos="fade-right">
-                <h3 class="h4 text-neon-purple fw-bold mb-4"><i class="fas fa-briefcase me-2"></i> Professional Experience</h3>
-                <div class="timeline-container">
+
+        <!-- STATUS PILLS ROW -->
+        <div class="d-flex flex-wrap justify-content-center gap-2 mb-5" data-aos="fade-up" data-aos-delay="100">
+            <span class="badge glass-panel border border-success text-success px-3 py-2 rounded-pill font-monospace small"><i class="fas fa-briefcase me-1.5"></i> Open for Internship</span>
+            <span class="badge glass-panel border border-info text-neon-cyan px-3 py-2 rounded-pill font-monospace small"><i class="fas fa-bolt me-1.5"></i> Open for Freelancing</span>
+            <span class="badge glass-panel border border-secondary text-neon-purple px-3 py-2 rounded-pill font-monospace small"><i class="fas fa-handshake me-1.5"></i> Open for Collaboration</span>
+            <span class="badge glass-panel border border-warning text-warning px-3 py-2 rounded-pill font-monospace small"><i class="fas fa-rocket me-1.5"></i> Building Production-Ready Projects</span>
+            <span class="badge glass-panel border border-light text-white px-3 py-2 rounded-pill font-monospace small"><i class="fas fa-lightbulb me-1.5"></i> Learning Every Day</span>
+        </div>
+
+        <div class="row g-4 mb-5">
+            <!-- CURRENT FOCUS GRID (8 GLOWING CARDS) -->
+            <div class="col-lg-7" data-aos="fade-right">
+                <div class="glass-panel p-4 p-md-5 h-100 border-0 position-relative overflow-hidden">
+                    <div class="d-flex align-items-center justify-content-between mb-4">
+                        <h3 class="h4 text-white fw-bold mb-0 d-flex align-items-center gap-2">
+                            <i class="fas fa-microchip text-neon-purple fs-4"></i> Current Focus Areas
+                        </h3>
+                        <span class="badge bg-dark border border-secondary text-muted font-monospace">ACTIVE MODULES</span>
+                    </div>
+
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <div class="p-3 glass-panel rounded-3 h-100 skill-card border-secondary hover-border-purple transition">
+                                <div class="fs-3 text-neon-purple mb-2"><i class="fab fa-microsoft"></i></div>
+                                <h5 class="text-white h6 fw-semibold mb-1">Enterprise ASP.NET Core MVC</h5>
+                                <p class="text-muted small mb-0">Architecting full-stack web applications with Dependency Injection and C# .NET 10.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="p-3 glass-panel rounded-3 h-100 skill-card border-secondary hover-border-cyan transition">
+                                <div class="fs-3 text-neon-cyan mb-2"><i class="fas fa-brain"></i></div>
+                                <h5 class="text-white h6 fw-semibold mb-1">AI Powered Web Solutions</h5>
+                                <p class="text-muted small mb-0">Integrating AI chat agents, NLP assistants, and prompt engineering into web systems.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="p-3 glass-panel rounded-3 h-100 skill-card border-secondary hover-border-blue transition">
+                                <div class="fs-3 text-neon-blue mb-2"><i class="fas fa-network-wired"></i></div>
+                                <h5 class="text-white h6 fw-semibold mb-1">REST API Development</h5>
+                                <p class="text-muted small mb-0">Building secure, normalized JSON endpoints and third-party webhook integrations.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="p-3 glass-panel rounded-3 h-100 skill-card border-secondary hover-border-yellow transition">
+                                <div class="fs-3 text-warning mb-2"><i class="fas fa-database"></i></div>
+                                <h5 class="text-white h6 fw-semibold mb-1">Database Design & SQL Server</h5>
+                                <p class="text-muted small mb-0">Relational schema design, index optimization, and Entity Framework Core migrations.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="p-3 glass-panel rounded-3 h-100 skill-card border-secondary hover-border-purple transition">
+                                <div class="fs-3 text-neon-purple mb-2"><i class="fas fa-cubes"></i></div>
+                                <h5 class="text-white h6 fw-semibold mb-1">Clean Architecture</h5>
+                                <p class="text-muted small mb-0">Enforcing Repository Pattern, Unit of Work, and strict SOLID software principles.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="p-3 glass-panel rounded-3 h-100 skill-card border-secondary hover-border-cyan transition">
+                                <div class="fs-3 text-neon-cyan mb-2"><i class="fas fa-palette"></i></div>
+                                <h5 class="text-white h6 fw-semibold mb-1">UI/UX Improvements</h5>
+                                <p class="text-muted small mb-0">Creating dark mode glassmorphism interfaces with neon accents and micro-animations.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="p-3 glass-panel rounded-3 h-100 skill-card border-secondary hover-border-green transition">
+                                <div class="fs-3 text-success mb-2"><i class="fas fa-puzzle-piece"></i></div>
+                                <h5 class="text-white h6 fw-semibold mb-1">Problem Solving</h5>
+                                <p class="text-muted small mb-0">Tackling complex algorithmic logic, bug diagnostics, and performance optimization.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="p-3 glass-panel rounded-3 h-100 skill-card border-secondary hover-border-purple transition">
+                                <div class="fs-3 text-neon-purple mb-2"><i class="fas fa-graduation-cap"></i></div>
+                                <h5 class="text-white h6 fw-semibold mb-1">Continuous Learning</h5>
+                                <p class="text-muted small mb-0">Mastering modern frameworks, security standards, and production deployment pipelines.</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            
-            <!-- Education -->
-            <div class="col-lg-6" data-aos="fade-left">
-                <h3 class="h4 text-neon-cyan fw-bold mb-4"><i class="fas fa-graduation-cap me-2"></i> Education Databank</h3>
-                <div class="timeline-container">
-                            <div class="timeline-item">
-                                <span class="badge bg-dark border border-secondary text-neon-purple mb-2">
-                                    2025 - 2029
-                                </span>
-                                <h4 class="text-white h5 fw-semibold mb-1">Bachelor of Science in Business Computing (BSBC)</h4>
-                                <h5 class="text-muted h6 mb-3">Sohail University, Karachi</h5>
-                                <p class="text-muted small">Comprehensive undergraduate program focused on software development, programming, databases, software engineering, cybersecurity, artificial intelligence, cloud computing, business management, and information systems.</p>
+
+            <!-- RIGHT COLUMN: ROADMAP TIMELINE + CAREER PROGRESS GAUGE -->
+            <div class="col-lg-5" data-aos="fade-left">
+                <div class="d-flex flex-column gap-4 h-100">
+                    <!-- CAREER PROGRESS RADIAL GAUGE CARD -->
+                    <div class="glass-panel p-4 text-center position-relative overflow-hidden">
+                        <div class="d-flex align-items-center justify-content-between mb-3">
+                            <h4 class="h6 text-white fw-bold mb-0 text-uppercase tracking-wider font-monospace"><i class="fas fa-chart-line text-neon-cyan me-2"></i> Career Progress</h4>
+                            <span class="badge bg-success bg-opacity-20 text-success border border-success border-opacity-30 small">ON TRACK</span>
+                        </div>
+                        
+                        <div class="position-relative d-inline-flex align-items-center justify-content-center my-2">
+                            <!-- SVG RADIAL CIRCLE -->
+                            <svg width="140" height="140" viewBox="0 0 120 120" style="transform: rotate(-90deg);">
+                                <circle cx="60" cy="60" r="50" stroke="rgba(255,255,255,0.08)" stroke-width="10" fill="none" />
+                                <circle cx="60" cy="60" r="50" stroke="url(#progress-gradient)" stroke-width="10" fill="none" stroke-dasharray="314" stroke-dashoffset="110" stroke-linecap="round" style="transition: stroke-dashoffset 2s ease-in-out;" />
+                                <defs>
+                                    <linearGradient id="progress-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" stop-color="#a855f7" />
+                                        <stop offset="100%" stop-color="#00f3ff" />
+                                    </linearGradient>
+                                </defs>
+                            </svg>
+                            <div class="position-absolute text-center">
+                                <h2 class="display-6 fw-bold text-white mb-0 font-monospace counter-value" data-target="65">65%</h2>
+                                <span class="d-block text-neon-purple small fw-semibold">LEVEL UP</span>
                             </div>
-                            <div class="timeline-item">
-                                <span class="badge bg-dark border border-secondary text-neon-purple mb-2">
-                                    2024 - 2027
-                                </span>
-                                <h4 class="text-white h5 fw-semibold mb-1">Advanced Diploma in Software Engineering (ADSE)</h4>
-                                <h5 class="text-muted h6 mb-3">Aptech Learning, Karachi</h5>
-                                <p class="text-muted small">Comprehensive diploma covering software development, object-oriented programming, database management, web development, software engineering principles, Git, and practical application development.</p>
+                        </div>
+                        <p class="text-neon-cyan font-monospace small mb-0 mt-2"><i class="fas fa-seedling me-1"></i> Growing Every Day</p>
+                    </div>
+
+                    <!-- FUTURISTIC CAREER ROADMAP -->
+                    <div class="glass-panel p-4 flex-grow-1 border-0">
+                        <h4 class="h5 text-white fw-bold mb-4 d-flex align-items-center gap-2">
+                            <i class="fas fa-route text-neon-cyan"></i> Career Roadmap
+                        </h4>
+                        
+                        <div class="roadmap-timeline position-relative ps-4">
+                            <!-- VERTICAL GLOWING LINE -->
+                            <div class="position-absolute top-0 bottom-0 start-0 border-start border-2 border-secondary" style="left: 12px !important; opacity: 0.3;"></div>
+
+                            <!-- NODE 1 -->
+                            <div class="roadmap-item mb-4 position-relative" data-aos="fade-up" data-aos-delay="100">
+                                <span class="position-absolute top-0 translate-middle-x rounded-circle bg-dark border border-secondary p-1" style="left: -16px; width: 14px; height: 14px; background: #a855f7 !important; box-shadow: 0 0 10px #a855f7;"></span>
+                                <span class="badge bg-dark border border-secondary text-neon-purple font-monospace mb-1">2024</span>
+                                <h6 class="text-white fw-semibold mb-0">Started Advanced Diploma in Software Engineering</h6>
+                                <small class="text-muted">Aptech Learning, Karachi</small>
                             </div>
+
+                            <!-- NODE 2 -->
+                            <div class="roadmap-item mb-4 position-relative" data-aos="fade-up" data-aos-delay="200">
+                                <span class="position-absolute top-0 translate-middle-x rounded-circle bg-dark border border-info p-1" style="left: -16px; width: 14px; height: 14px; background: #00f3ff !important; box-shadow: 0 0 10px #00f3ff;"></span>
+                                <span class="badge bg-dark border border-secondary text-neon-cyan font-monospace mb-1">2025</span>
+                                <h6 class="text-white fw-semibold mb-0">Started Bachelor of Science in Business Computing</h6>
+                                <small class="text-muted">Sohail University, Karachi</small>
+                            </div>
+
+                            <!-- NODE 3 -->
+                            <div class="roadmap-item mb-4 position-relative" data-aos="fade-up" data-aos-delay="300">
+                                <span class="position-absolute top-0 translate-middle-x rounded-circle bg-dark border border-success p-1" style="left: -16px; width: 14px; height: 14px; background: #10b981 !important; box-shadow: 0 0 10px #10b981;"></span>
+                                <span class="badge bg-dark border border-secondary text-success font-monospace mb-1">2025 – PRESENT</span>
+                                <h6 class="text-white fw-semibold mb-0">Developing Enterprise-Level Portfolio & CMS Projects</h6>
+                                <small class="text-muted">ASP.NET Core MVC & C# Architecture</small>
+                            </div>
+
+                            <!-- NODE 4 -->
+                            <div class="roadmap-item mb-4 position-relative" data-aos="fade-up" data-aos-delay="400">
+                                <span class="position-absolute top-0 translate-middle-x rounded-circle bg-dark border border-warning p-1" style="left: -16px; width: 14px; height: 14px; background: #f59e0b !important;"></span>
+                                <span class="badge bg-dark border border-secondary text-warning font-monospace mb-1">NEXT GOAL</span>
+                                <h6 class="text-white fw-semibold mb-0">Professional Internship</h6>
+                                <small class="text-muted">Software Engineering & Development Team</small>
+                            </div>
+
+                            <!-- NODE 5 -->
+                            <div class="roadmap-item position-relative" data-aos="fade-up" data-aos-delay="500">
+                                <span class="position-absolute top-0 translate-middle-x rounded-circle bg-dark border border-primary p-1" style="left: -16px; width: 14px; height: 14px; background: #3b82f6 !important;"></span>
+                                <span class="badge bg-dark border border-secondary text-neon-blue font-monospace mb-1">FUTURE GOAL</span>
+                                <h6 class="text-white fw-semibold mb-0">Software Engineer</h6>
+                                <small class="text-muted">Leading Enterprise Solution Architecture</small>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+            </div>
+        </div>
+
+        <!-- CURRENT ACTIVE PROJECTS SHOWCASE (ANIMATED CARDS) -->
+        <div class="mb-5" data-aos="fade-up">
+            <div class="text-center mb-4">
+                <h3 class="h4 text-white fw-bold mb-1"><i class="fas fa-layer-group text-neon-purple me-2"></i> Current Projects</h3>
+                <p class="text-muted small">Active development modules built with clean architecture.</p>
+            </div>
+            <div class="row g-3">
+                <div class="col-md-4 col-sm-6" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="p-3 glass-panel rounded-3 text-center skill-card hover-lift transition">
+                        <div class="fs-2 text-neon-purple mb-2"><i class="fas fa-university"></i></div>
+                        <h5 class="text-white h6 fw-semibold mb-1">Enterprise University CMS</h5>
+                        <span class="badge bg-dark border border-secondary text-neon-cyan small">ASP.NET Core & SQL</span>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="p-3 glass-panel rounded-3 text-center skill-card hover-lift transition">
+                        <div class="fs-2 text-neon-cyan mb-2"><i class="fas fa-file-invoice-dollar"></i></div>
+                        <h5 class="text-white h6 fw-semibold mb-1">AI Resume Builder</h5>
+                        <span class="badge bg-dark border border-secondary text-neon-purple small">C# AI Integration</span>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6" data-aos="zoom-in" data-aos-delay="300">
+                    <div class="p-3 glass-panel rounded-3 text-center skill-card hover-lift transition">
+                        <div class="fs-2 text-neon-blue mb-2"><i class="fas fa-globe"></i></div>
+                        <h5 class="text-white h6 fw-semibold mb-1">Portfolio CMS</h5>
+                        <span class="badge bg-dark border border-secondary text-neon-cyan small">ASP.NET Core MVC</span>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-6" data-aos="zoom-in" data-aos-delay="400">
+                    <div class="p-3 glass-panel rounded-3 text-center skill-card hover-lift transition">
+                        <div class="fs-2 text-warning mb-2"><i class="fas fa-chart-line"></i></div>
+                        <h5 class="text-white h6 fw-semibold mb-1">Business Management System</h5>
+                        <span class="badge bg-dark border border-secondary text-warning small">Relational Database & C#</span>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-12" data-aos="zoom-in" data-aos-delay="500">
+                    <div class="p-3 glass-panel rounded-3 text-center skill-card hover-lift transition">
+                        <div class="fs-2 text-success mb-2"><i class="fas fa-cloud"></i></div>
+                        <h5 class="text-white h6 fw-semibold mb-1">Future SaaS Products</h5>
+                        <span class="badge bg-dark border border-secondary text-success small">Cloud Scalability</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- MOTIVATIONAL QUOTE & CALL TO ACTION -->
+        <div class="glass-panel p-4 p-md-5 text-center position-relative overflow-hidden" data-aos="zoom-in">
+            <i class="fas fa-quote-left text-neon-purple opacity-20 display-1 position-absolute top-0 start-0 translate-middle-x"></i>
+            <p class="lead text-white font-italic max-w-2xl mx-auto mb-4 fs-5" style="line-height: 1.6;">
+                "Every great software engineer starts with curiosity, consistency, and real-world projects. My journey is just getting started."
+            </p>
+            <div class="d-flex flex-wrap justify-content-center gap-3">
+                <a href="#latest-projects-section" class="btn btn-neon text-white px-4 py-2"><i class="fas fa-folder-open me-2"></i> View Latest Projects</a>
+                <a class="btn btn-neon btn-neon-cyan text-white px-4 py-2" href="/Home/DownloadCv"><i class="fas fa-file-download me-2"></i> Download Resume</a>
+                <a href="#contact-section" class="btn btn-outline-light border-secondary px-4 py-2 rounded-pill hover-text-white"><i class="fas fa-paper-plane me-2"></i> Contact Me</a>
             </div>
         </div>
     </div>
@@ -566,7 +772,7 @@ Designed and developed a responsive portfolio website showcasing projects, techn
                         </div>
                         
                         <button type="submit" class="btn btn-neon w-100 text-white"><i class="fas fa-satellite-dish me-2"></i> Transmit Packet</button>
-                    <input name="__RequestVerificationToken" type="hidden" value="CfDJ8LjMxfGWG05NjdR1VASDLUuytulIpEgP-xmRL9MvLEo8BGHXMXA6tj9TZulGfXepYTm9S2aMorhjykvgi7pwetE1jUT9w6m_V2qb76vHjIWsxQqJ_H-q5EXXeQQ5EAHsuFU6XbmvF_W5mGEgey2L6T0" /></form>
+                    <input name="__RequestVerificationToken" type="hidden" value="CfDJ8LjMxfGWG05NjdR1VASDLUsCL05SekC8LEDhFYeZRwzjej1Y1mlr247OhbvrOWeyOAYjqPdC3yv0hbCfBSYcKYRY0Gr9hcprQLihmwnVD__6ihAm-FONuu-7HjGlHQYxbNizP0CGS1EQL5wrozx8iKo" /></form>
                     <div id="contact-submit-status" class="mt-3" style="display: none;"></div>
                 </div>
             </div>
