@@ -939,6 +939,34 @@ body.light-theme footer h6 {
     color: #151225 !important;
 }
 
+/* Base Footer Navigation Link Styling */
+.footer-nav-link {
+    color: var(--text-muted, #C9C5D8);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px !important;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    background: transparent !important;
+    border: none !important;
+    padding: 3px 0 !important;
+    font-size: 0.92rem;
+}
+
+.footer-nav-link i {
+    font-size: 0.75rem;
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.footer-nav-link:hover {
+    color: var(--primary, #A855F7) !important;
+    transform: translateX(5px);
+}
+
+.footer-nav-link:hover i {
+    color: var(--cyan-glow, #00D9FF) !important;
+}
+
 body.light-theme .footer-nav-link {
     color: #4F4B61 !important;
     background: transparent !important;
@@ -946,6 +974,7 @@ body.light-theme .footer-nav-link {
     padding: 3px 0 !important;
     display: inline-flex;
     align-items: center;
+    gap: 10px !important;
     transition: transform 0.3s ease, color 0.3s ease;
 }
 
@@ -956,7 +985,7 @@ body.light-theme .footer-nav-link i {
 
 body.light-theme .footer-nav-link:hover {
     color: #8B3DFF !important;
-    transform: translateX(4px);
+    transform: translateX(5px);
 }
 
 body.light-theme .footer-nav-link:hover i {

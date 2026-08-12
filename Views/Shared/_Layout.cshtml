@@ -149,31 +149,30 @@
                 <div class="col-lg-2 col-md-6">
                     <h5 class="text-white fw-semibold mb-3">Navigation</h5>
                     <ul class="list-unstyled mb-0 d-flex flex-column gap-2 footer-nav-list">
-                        <li><a asp-controller="Home" asp-action="Index" class="footer-nav-link"><i class="fas fa-chevron-right me-1.5 small text-neon-purple"></i> Home</a></li>
-                        <li><a asp-controller="Home" asp-action="About" class="footer-nav-link"><i class="fas fa-chevron-right me-1.5 small text-neon-purple"></i> About</a></li>
-                        <li><a href="/Home/About#skills-section" class="footer-nav-link"><i class="fas fa-chevron-right me-1.5 small text-neon-purple"></i> Skills</a></li>
-                        <li><a asp-controller="Portfolio" asp-action="Index" class="footer-nav-link"><i class="fas fa-chevron-right me-1.5 small text-neon-purple"></i> Projects</a></li>
-                        <li><a asp-controller="Blog" asp-action="Index" class="footer-nav-link"><i class="fas fa-chevron-right me-1.5 small text-neon-purple"></i> Tech Logs</a></li>
-                        <li><a href="/#contact-section" class="footer-nav-link"><i class="fas fa-chevron-right me-1.5 small text-neon-purple"></i> Contact</a></li>
+                        <li><a asp-controller="Home" asp-action="Index" class="footer-nav-link"><i class="fas fa-chevron-right text-neon-purple"></i> <span>Home</span></a></li>
+                        <li><a asp-controller="Home" asp-action="About" class="footer-nav-link"><i class="fas fa-chevron-right text-neon-purple"></i> <span>About</span></a></li>
+                        <li><a href="/Home/About#skills-section" class="footer-nav-link"><i class="fas fa-chevron-right text-neon-purple"></i> <span>Skills</span></a></li>
+                        <li><a asp-controller="Portfolio" asp-action="Index" class="footer-nav-link"><i class="fas fa-chevron-right text-neon-purple"></i> <span>Projects</span></a></li>
+                        <li><a asp-controller="Blog" asp-action="Index" class="footer-nav-link"><i class="fas fa-chevron-right text-neon-purple"></i> <span>Tech Logs</span></a></li>
+                        <li><a href="/#contact-section" class="footer-nav-link"><i class="fas fa-chevron-right text-neon-purple"></i> <span>Contact</span></a></li>
                     </ul>
                 </div>
 
                 <!-- Education & Credentials Column (3 cols) -->
                 <div class="col-lg-3 col-md-6">
                     <h5 class="text-white fw-semibold mb-3">Education &amp; Diplomas</h5>
-                    <ul class="list-unstyled text-muted small mb-0 d-flex flex-column gap-2.5">
-                        <li>
-                            <span class="d-block text-neon-cyan font-monospace fw-semibold" style="font-size: 0.8rem;"><i class="fas fa-graduation-cap me-1"></i> CURRENT DEGREE</span>
-                            <span class="text-white fw-medium">BSBC</span> — Sohail University (2025–2029)
-                        </li>
-                        <li>
-                            <span class="d-block text-neon-purple font-monospace fw-semibold" style="font-size: 0.8rem;"><i class="fas fa-certificate me-1"></i> PROFESSIONAL DIPLOMA</span>
-                            <span class="text-white fw-medium">ADSE</span> — Aptech Learning (2024–2027)
-                        </li>
-                        <li class="mt-1">
-                            <span class="badge glass-panel border border-secondary text-muted px-3 py-1.5 font-monospace small"><i class="fas fa-microchip me-1.5 text-neon-cyan"></i> Software Engineering</span>
-                        </li>
-                    </ul>
+                    <div class="d-flex flex-column gap-3">
+                        <div class="p-3 rounded-3 glass-panel border border-secondary border-opacity-30">
+                            <span class="d-block text-neon-cyan font-monospace fw-semibold mb-1" style="font-size: 0.78rem;"><i class="fas fa-graduation-cap me-1.5"></i> CURRENT DEGREE</span>
+                            <div class="text-white fw-semibold fs-6">BSBC</div>
+                            <div class="text-muted small">Sohail University (2025–2029)</div>
+                        </div>
+                        <div class="p-3 rounded-3 glass-panel border border-secondary border-opacity-30">
+                            <span class="d-block text-neon-purple font-monospace fw-semibold mb-1" style="font-size: 0.78rem;"><i class="fas fa-certificate me-1.5"></i> PROFESSIONAL DIPLOMA</span>
+                            <div class="text-white fw-semibold fs-6">ADSE</div>
+                            <div class="text-muted small">Aptech Learning (2024–2027)</div>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- Contact & Social Networks Column (3 cols) -->
