@@ -14,7 +14,7 @@
 
     <!-- Style Assets -->
     <link rel="stylesheet" href="../lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="../css/site.css?v=1786522652167" />
+    <link rel="stylesheet" href="../css/site.css?v=1786522952899" />
     <link rel="stylesheet" href="../FuturisticPortfolio.styles.css?v=cXSw8uWbeBRRKqQImmDtUF9PgLFcp0jNpAJVcYp-LoE" />
     
     <!-- CDNs for Premium Libraries -->
@@ -137,9 +137,9 @@
 
     </main>
 
-    <!-- Chat Bot Widget (Saad's AI Assistant) -->
+    <!-- Saad's AI Assistant Widget -->
     <div b-tjezjmjmzt class="ai-chat-widget glass-panel" id="ai-chat-widget" role="dialog" aria-labelledby="ai-chat-title" aria-modal="true">
-        <!-- Widget Header -->
+        <!-- Header -->
         <div b-tjezjmjmzt class="ai-chat-header d-flex justify-content-between align-items-center px-3 py-2.5">
             <div b-tjezjmjmzt class="d-flex align-items-center gap-2.5">
                 <div b-tjezjmjmzt class="ai-avatar-badge rounded-circle d-flex align-items-center justify-content-center">
@@ -153,21 +153,26 @@
                     </div>
                 </div>
             </div>
-            <button b-tjezjmjmzt class="btn btn-sm text-muted p-1 hover-text-white transition border-0 bg-transparent" id="ai-chat-close" aria-label="Close Assistant">
-                <i b-tjezjmjmzt class="fas fa-times fs-6"></i>
-            </button>
+            <div b-tjezjmjmzt class="d-flex align-items-center gap-1">
+                <button b-tjezjmjmzt class="btn btn-sm text-muted p-1 hover-text-white transition border-0 bg-transparent" id="ai-chat-reset" title="Reset Chat" aria-label="Reset Conversation">
+                    <i b-tjezjmjmzt class="fas fa-redo-alt fs-6"></i>
+                </button>
+                <button b-tjezjmjmzt class="btn btn-sm text-muted p-1 hover-text-white transition border-0 bg-transparent" id="ai-chat-close" title="Close" aria-label="Close Assistant">
+                    <i b-tjezjmjmzt class="fas fa-times fs-6"></i>
+                </button>
+            </div>
         </div>
 
-        <!-- Messages Body Area -->
+        <!-- Messages Container -->
         <div b-tjezjmjmzt class="ai-chat-messages" id="ai-messages-container" aria-live="polite">
-            <!-- Messages populated via JavaScript -->
+            <!-- Populated dynamically via JS -->
         </div>
 
-        <!-- Quick Action Bar -->
+        <!-- Quick Chips Bar -->
         <div b-tjezjmjmzt class="ai-quick-bar px-3 py-2 border-top border-secondary border-opacity-20">
             <div b-tjezjmjmzt class="quick-chips-container d-flex gap-1.5 overflow-x-auto pb-1" id="quick-action-chips">
-                <button b-tjezjmjmzt class="quick-chip" data-query="WhatsApp Contact"><i b-tjezjmjmzt class="fab fa-whatsapp me-1 text-success"></i> WhatsApp</button>
-                <button b-tjezjmjmzt class="quick-chip" data-query="Download CV"><i b-tjezjmjmzt class="fas fa-file-download me-1 text-danger"></i> Download CV</button>
+                <button b-tjezjmjmzt class="quick-chip chip-whatsapp" data-query="WhatsApp Contact"><i b-tjezjmjmzt class="fab fa-whatsapp me-1 text-success"></i> WhatsApp</button>
+                <button b-tjezjmjmzt class="quick-chip chip-cv" data-query="Download CV"><i b-tjezjmjmzt class="fas fa-file-download me-1 text-danger"></i> Download CV</button>
                 <button b-tjezjmjmzt class="quick-chip" data-query="Projects"><i b-tjezjmjmzt class="fas fa-folder-open me-1 text-neon-cyan"></i> Projects</button>
                 <button b-tjezjmjmzt class="quick-chip" data-query="Tech Stack"><i b-tjezjmjmzt class="fas fa-code me-1 text-neon-purple"></i> Tech Stack</button>
                 <button b-tjezjmjmzt class="quick-chip" data-query="Education"><i b-tjezjmjmzt class="fas fa-graduation-cap me-1 text-info"></i> Education</button>
@@ -176,7 +181,7 @@
             </div>
         </div>
 
-        <!-- Input Box Area -->
+        <!-- Input Area -->
         <div b-tjezjmjmzt class="ai-chat-input p-2.5 d-flex align-items-center gap-2 border-top border-secondary border-opacity-20">
             <textarea b-tjezjmjmzt class="form-control ai-input-field border-0 shadow-none text-white bg-transparent" placeholder="Ask me about Saad's projects, skills, education..." id="ai-user-message" rows="1" autocomplete="off" aria-label="Ask Saad's AI Assistant"></textarea>
             <button b-tjezjmjmzt class="btn btn-gradient-send rounded-circle d-flex align-items-center justify-content-center transition flex-shrink-0" id="ai-send-message" aria-label="Send Message">
@@ -186,7 +191,7 @@
     </div>
 
     <!-- Floating Chat Trigger Button -->
-    <button b-tjezjmjmzt class="fab-btn d-flex align-items-center justify-content-center shadow-lg" id="ai-chat-toggle" title="Ask Saad's AI Assistant" aria-label="Ask Saad's AI Assistant">
+    <button b-tjezjmjmzt class="fab-btn d-flex align-items-center justify-content-center shadow-lg" id="ai-chat-toggle" title="Saad's AI Assistant" aria-label="Ask Saad's AI Assistant">
         <i b-tjezjmjmzt class="fas fa-robot fs-4 text-white"></i>
     </button>
 
@@ -372,7 +377,7 @@
     <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="../js/site.js?v=1786522652167"></script>
+    <script src="../js/site.js?v=1786522952899"></script>
     <script src="../js/hms-telemetry.js?v=5hUu86zj9Iv2YHukAHxmlvrlFy4NbzNsW7A5vJsOc1s"></script>
     
 </body>
