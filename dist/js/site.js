@@ -79,37 +79,46 @@ document.addEventListener("DOMContentLoaded", () => {
         const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
         statsElements.forEach(section => {
+            if (section.dataset.countersAnimated === "true") return;
+
             const counters = section.querySelectorAll(".counter-number");
 
             const animateCounters = () => {
+                section.dataset.countersAnimated = "true";
+
                 counters.forEach(counter => {
                     const target = parseInt(counter.getAttribute("data-target"), 10) || 0;
-                    if (prefersReducedMotion) {
+
+                    if (prefersReducedMotion || target <= 0) {
                         counter.textContent = target;
                         return;
                     }
 
                     const duration = 1400; // Smooth 1.4s duration
                     const startTime = performance.now();
+                    let lastValue = -1;
 
-                    const updateCount = (currentTime) => {
-                        const elapsedTime = currentTime - startTime;
-                        const progress = Math.min(elapsedTime / duration, 1);
+                    const step = (currentTime) => {
+                        const elapsed = currentTime - startTime;
+                        const progress = Math.min(elapsed / duration, 1);
 
-                        // Ease-out quad interpolation
+                        // Ease-out quad formula
                         const easeOutProgress = 1 - (1 - progress) * (1 - progress);
-                        const currentCount = Math.floor(easeOutProgress * target);
+                        const currentInt = Math.min(Math.floor(easeOutProgress * (target + 1)), target);
 
-                        counter.textContent = currentCount;
+                        if (currentInt !== lastValue) {
+                            counter.textContent = currentInt;
+                            lastValue = currentInt;
+                        }
 
-                        if (progress < 1) {
-                            requestAnimationFrame(updateCount);
+                        if (progress < 1 && currentInt < target) {
+                            requestAnimationFrame(step);
                         } else {
-                            counter.textContent = target;
+                            counter.textContent = target; // Permanent final stop
                         }
                     };
 
-                    requestAnimationFrame(updateCount);
+                    requestAnimationFrame(step);
                 });
             };
 
@@ -121,7 +130,7 @@ document.addEventListener("DOMContentLoaded", () => {
                             obs.unobserve(entry.target);
                         }
                     });
-                }, { threshold: 0.2 });
+                }, { threshold: 0.15 });
 
                 observer.observe(section);
             } else {
