@@ -276,81 +276,119 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const generateClientAiResponse = (userMessage) => {
             const query = (userMessage || "").toLowerCase().trim();
+            const variantIndex = Math.floor(Math.random() * 3);
             
             // 1. Greetings & Identity
             if (query.includes("hello") || query.includes("hi") || query.includes("hey") || query.includes("greetings") || query.includes("who are you") || query.includes("what can you do") || query.includes("about saad")) {
-                return "Hi! I'm Saad's AI Assistant 👋\n\nSaad is a Software Developer specializing in ASP.NET Core MVC, C#, SQL Server, normalized database architectures, and modern web application engineering.\n\nYou can ask me about Saad's:\n• **Projects**: *\"What has Saad built?\"*\n• **Tech Stack**: *\"What technologies does he use?\"*\n• **Education**: *\"Where did Saad study?\"*\n• **CV**: *\"Download Saad's resume\"*\n• **Contact**: *\"How can I reach Saad?\"*";
+                const greetings = [
+                    "Hi! I'm Saad's AI Assistant 👋\n\nSaad is a Full-Stack Software Developer specializing in ASP.NET Core MVC, C#, SQL Server, normalized database architectures, and responsive web application engineering.\n\nWhat would you like to explore about Saad today?",
+                    "Hello! Welcome to Saad's Portfolio 🌐\n\nI'm Saad's AI concierge. I can answer any questions regarding Saad's software projects, core tech stack, academic background (BSBC & ADSE), or contact info.",
+                    "Greetings! I'm ready to assist you ⚡\n\nSaad builds enterprise web systems and modern responsive user interfaces. Feel free to ask me anything or click one of the suggested chips below!"
+                ];
+                return greetings[variantIndex % greetings.length];
             }
             
             // 2. Projects & Deployments
-            if (query.includes("project") || query.includes("work") || query.includes("built") || query.includes("created") || query.includes("portfolio") || query.includes("app") || query.includes("system")) {
-                return "### 🚀 Saad's Featured Projects\n\n*   **[Full-Stack Enterprise Developer Portfolio](/Portfolio)**\n    *Responsive developer portfolio built with C#, ASP.NET Core 10 MVC, SQL Server, and dynamic Light/Dark mode themes.*\n    *Tech Stack: C#, ASP.NET Core 10, SQL Server, JavaScript*\n    [View Details](/Portfolio)\n\n*   **[HMS Analytics & Telemetry Engine](/Portfolio)**\n    *Real-time visitor tracking, geolocation lookup, session duration, and administrative telemetry dashboard.*\n    *Tech Stack: ASP.NET Core, EF Core, SQL Server, SignalR*\n    [View Details](/Portfolio)\n\nYou can view all project case studies on the [Projects Databank](/Portfolio).";
+            if (query.includes("project") || query.includes("work") || query.includes("built") || query.includes("created") || query.includes("portfolio") || query.includes("app") || query.includes("system") || query.includes("developed")) {
+                const projectVariants = [
+                    "### 🚀 Featured Projects & Systems\n\n*   **[Full-Stack Enterprise Developer Portfolio](/Portfolio)**\n    *Built with C#, ASP.NET Core 10 MVC, SQL Server, and dynamic Light/Dark mode themes.*\n    *Tech Stack: C#, ASP.NET Core 10, SQL Server, JavaScript*\n    [View Case Study](/Portfolio)\n\n*   **[HMS Analytics & Telemetry Engine](/Portfolio)**\n    *Real-time visitor tracking, geolocation lookup, session duration, and administrative telemetry dashboard.*\n    *Tech Stack: ASP.NET Core, EF Core, SQL Server, SignalR*\n    [View Case Study](/Portfolio)\n\nYou can explore all project case studies on the [Projects Databank](/Portfolio).",
+                    "### 🛠️ Saad's Engineering Highlights\n\nSaad has engineered scalable software systems focused on enterprise database architecture and clean UI design:\n\n1. **Enterprise Developer Portfolio**: C# / .NET 10 MVC web app with custom CSS design tokens & real-time telemetry integration.\n2. **Visitor Analytics Engine**: Geolocation tracking, session duration analytics, and SQL Server persistence.\n\nVisit the [Projects Directory](/Portfolio) to inspect live code details!",
+                    "### 💻 Software Solutions & Projects\n\nHere are Saad's core project deployments:\n• **ASP.NET Core Enterprise Portfolio**: Full-stack MVC application with responsive glassmorphic UI.\n• **Real-Time Telemetry Engine**: Back-end visitor tracking and IP geolocation system.\n\nCheck out the full list on the [Projects Page](/Portfolio)."
+                ];
+                return projectVariants[variantIndex % projectVariants.length];
             }
             
             // 3. Tech Stack & Skills
             if (query.includes("skill") || query.includes("technolog") || query.includes("language") || query.includes("stack") || query.includes("c#") || query.includes("dotnet") || query.includes("sql") || query.includes("javascript") || query.includes("css") || query.includes("html") || query.includes("php") || query.includes("tool") || query.includes("use") || query.includes("know")) {
-                return "### 🛠️ Saad's Core Tech Stack\n\nSaad works primarily with:\n*   **ASP.NET Core MVC** (`95%`)\n*   **C# / .NET 10** (`95%`)\n*   **SQL Server & Relational DB Architecture** (`90%`)\n*   **HTML5, CSS3, JavaScript** (`92%`)\n*   **PHP & MySQL** (`85%`)\n*   **Git & Version Control** (`90%`)\n\nThese capabilities are leveraged to build high-performance web applications and normalized database architectures.";
+                const skillVariants = [
+                    "### 🛠️ Saad's Core Tech Stack\n\n*   **ASP.NET Core MVC** (`95%`)\n*   **C# / .NET 10** (`95%`)\n*   **SQL Server & Relational DB Architecture** (`90%`)\n*   **HTML5, CSS3, JavaScript** (`92%`)\n*   **PHP & MySQL** (`85%`)\n*   **Git & Version Control** (`90%`)\n\nSaad specializes in constructing normalized database schemas, RESTful Web APIs, and high-performance MVC web applications.",
+                    "### ⚡ Technical Skills & Frameworks\n\nSaad's core engineering toolkit includes:\n- **Backend**: C#, ASP.NET Core 10, Entity Framework Core, SQL Server, PHP, MySQL\n- **Frontend**: JavaScript (ES6+), HTML5, CSS3 (Vanilla CSS, Glassmorphic UI Design)\n- **Tools**: Git, GitHub, Visual Studio 2022, SSMS, IIS Server",
+                    "### 🔍 Specialized Capabilities\n\nSaad brings expertise in:\n• **Relational Database Design**: Table normalization, indexing, stored procedures & EF Core.\n• **Full-Stack Web Development**: Building responsive C# ASP.NET Core MVC systems from scratch.\n• **Modern UI/UX Engineering**: Glassmorphic interfaces with full Light & Dark mode support."
+                ];
+                return skillVariants[variantIndex % skillVariants.length];
             }
 
             // 4. Education & Academic Background
             if (query.includes("education") || query.includes("degree") || query.includes("university") || query.includes("college") || query.includes("aptech") || query.includes("sohail") || query.includes("study") || query.includes("diploma") || query.includes("academic") || query.includes("bsbc") || query.includes("adse")) {
-                return "### 🎓 Academic Background & Credentials\n\n*   **CURRENT DEGREE**: BSBC (Bachelor of Science in Business Computing)\n    *Sohail University (2025–2029)*\n\n*   **PROFESSIONAL DIPLOMA**: ADSE (Advanced Diploma in Software Engineering)\n    *Aptech Learning (2024–2027)*";
+                return "### 🎓 Academic Credentials & Diplomas\n\n*   **CURRENT DEGREE**: BSBC (Bachelor of Science in Business Computing)\n    *Sohail University (2025–2029)*\n\n*   **PROFESSIONAL DIPLOMA**: ADSE (Advanced Diploma in Software Engineering)\n    *Aptech Learning (2024–2027)*";
             }
 
             // 5. Professional Experience & Role
             if (query.includes("experience") || query.includes("work history") || query.includes("job") || query.includes("career") || query.includes("company") || query.includes("role")) {
                 return "### 💼 Professional Experience\n\n*   **Full-Stack Software Developer (1+ Years)**\n    *Specializing in C#, ASP.NET Core MVC, Entity Framework Core, SQL Server database design, and responsive web application development.*";
             }
+
+            // 6. Services & Custom Build Requests ("Can Saad build X?")
+            if (query.includes("can saad") || query.includes("build") || query.includes("develop") || query.includes("make") || query.includes("create") || query.includes("service") || query.includes("freelance")) {
+                return "### ⚙️ Development Services & Solutions\n\nSaad can engineer custom full-stack solutions including:\n• **Enterprise Web Applications** (ASP.NET Core MVC & SQL Server)\n• **RESTful APIs & Backend Services**\n• **Responsive Portfolio & Corporate Websites**\n• **Database Optimization & Schema Normalization**\n\nWould you like to discuss a project? Send a message via the [Contact Form](#contact-section) or email **saad.sa9112@gmail.com**!";
+            }
+
+            // 7. Hiring, Rates & Availability
+            if (query.includes("hire") || query.includes("salary") || query.includes("cost") || query.includes("price") || query.includes("rate") || query.includes("available") || query.includes("remote")) {
+                return "### 💼 Hiring & Engagement Opportunities\n\nSaad is open to full-time software engineering roles, contract work, and freelance projects.\n\n*   **Email**: saad.sa9112@gmail.com\n*   **Phone**: +92 305 5188896\n*   **Location**: Karachi, Pakistan (Open to Remote / Hybrid roles)";
+            }
             
-            // 6. Contact & Location
-            if (query.includes("contact") || query.includes("email") || query.includes("phone") || query.includes("hire") || query.includes("reach") || query.includes("location") || query.includes("address") || query.includes("social")) {
+            // 8. Contact Info & Location
+            if (query.includes("contact") || query.includes("email") || query.includes("phone") || query.includes("reach") || query.includes("location") || query.includes("address") || query.includes("social")) {
                 return "### 📞 Get in Touch with Saad\n\n*   **Email**: saad.sa9112@gmail.com\n*   **Phone**: +92 305 5188896\n*   **Location**: Karachi, Pakistan\n\nYou can also transmit a direct message via the [Contact Form](#contact-section) at the bottom of the page.";
             }
             
-            // 7. CV / Resume Download
+            // 9. CV / Resume Download
             if (query.includes("cv") || query.includes("resume") || query.includes("download") || query.includes("pdf")) {
                 return "Sure! You can download Saad's latest CV here:\n\n📄 **[Download CV / Resume (PDF)](/files/Muhammad_Saad_CV.pdf)**";
             }
 
-            // 8. Conversational Fallback
-            return "I'm not sure about that yet, but I can help you with Saad's:\n\n• **Projects**\n• **Skills & Tech Stack**\n• **Education & Credentials**\n• **Experience**\n• **About Saad**\n• **CV / Resume**\n• **Contact Info**\n\nTry asking something like:\n*'What projects has Saad built?'*";
+            // 10. Intelligent Dynamic Fallback
+            const smartFallbacks = [
+                `I understand you're asking about "${userMessage}". While I'm focused primarily on Saad's software development portfolio, I can help you explore:\n\n• **Projects**: *What has Saad built?*\n• **Skills**: *What is his tech stack?*\n• **Education**: *What are his qualifications?*\n• **CV**: *Download resume*\n• **Contact**: *How to reach Saad*\n\nFeel free to ask about any of these topics!`,
+                `Thanks for your query! I specialize in providing details about Hafiz Muhammad Saad's technical work.\n\nTry asking:\n- *"What projects has Saad built?"*\n- *"What technologies does Saad use?"*\n- *"Where did Saad study?"*\n- *"Download CV"*`,
+                `I'd be glad to assist with details about Saad's development background! You can inquire about his **Projects**, **Tech Stack**, **Academic Degrees**, **Work Experience**, or **Contact Info**.`
+            ];
+            return smartFallbacks[variantIndex % smartFallbacks.length];
         };
 
-        const handleSend = () => {
-            const text = aiInput.value.trim();
+        const processUserQuery = (text) => {
             if (!text) return;
-
             renderMessage(text, "user");
-            aiInput.value = "";
+            if (aiInput) aiInput.value = "";
             showTypingIndicator();
 
-            fetch("https://saad-dev-telemetry.localtunnel.me/api/ai/chat", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ message: text })
-            })
-            .then(res => {
-                if (!res.ok) throw new Error("HTTP error " + res.status);
-                return res.json();
-            })
-            .then(data => {
-                hideTypingIndicator();
-                renderMessage(data.reply || generateClientAiResponse(text), "bot");
-            })
-            .catch(() => {
-                hideTypingIndicator();
-                renderMessage(generateClientAiResponse(text), "bot");
-            });
+            // Realistic AI thinking delay (750ms - 1350ms) for a natural, authentic AI feel
+            const thinkingDelay = Math.floor(Math.random() * 600) + 750;
+
+            setTimeout(() => {
+                fetch("https://saad-dev-telemetry.localtunnel.me/api/ai/chat", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ message: text })
+                })
+                .then(res => {
+                    if (!res.ok) throw new Error("HTTP error " + res.status);
+                    return res.json();
+                })
+                .then(data => {
+                    hideTypingIndicator();
+                    renderMessage(data.reply || generateClientAiResponse(text), "bot");
+                })
+                .catch(() => {
+                    hideTypingIndicator();
+                    renderMessage(generateClientAiResponse(text), "bot");
+                });
+            }, thinkingDelay);
         };
 
         if (aiSendBtn) {
-            aiSendBtn.addEventListener("click", handleSend);
+            aiSendBtn.addEventListener("click", () => {
+                const text = aiInput ? aiInput.value.trim() : "";
+                processUserQuery(text);
+            });
         }
         if (aiInput) {
             aiInput.addEventListener("keydown", (e) => {
                 if (e.key === "Enter" && !e.shiftKey) {
                     e.preventDefault();
-                    handleSend();
+                    const text = aiInput.value.trim();
+                    processUserQuery(text);
                 }
             });
         }
@@ -360,26 +398,7 @@ document.addEventListener("DOMContentLoaded", () => {
             if (chip) {
                 const text = chip.getAttribute("data-query");
                 if (text) {
-                    renderMessage(text, "user");
-                    showTypingIndicator();
-
-                    fetch("https://saad-dev-telemetry.localtunnel.me/api/ai/chat", {
-                        method: "POST",
-                        headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify({ message: text })
-                    })
-                    .then(res => {
-                        if (!res.ok) throw new Error("HTTP error " + res.status);
-                        return res.json();
-                    })
-                    .then(data => {
-                        hideTypingIndicator();
-                        renderMessage(data.reply || generateClientAiResponse(text), "bot");
-                    })
-                    .catch(() => {
-                        hideTypingIndicator();
-                        renderMessage(generateClientAiResponse(text), "bot");
-                    });
+                    processUserQuery(text);
                 }
             }
         });
