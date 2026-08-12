@@ -49,15 +49,21 @@
 <!-- QUICK STATS STRIP -->
 @if (statistics != null && statistics.Any())
 {
-    <section class="py-4 border-y border-secondary border-opacity-20 bg-dark bg-opacity-30">
+    <section class="py-4 border-y border-secondary border-opacity-20 bg-dark bg-opacity-30" id="stats-section">
         <div class="container">
             <div class="row g-3 text-center justify-content-center">
                 @foreach (var stat in statistics)
                 {
+                    var isPlusSuffix = stat.Title.Contains("Project", StringComparison.OrdinalIgnoreCase) ||
+                                       stat.Title.Contains("Experience", StringComparison.OrdinalIgnoreCase) ||
+                                       stat.Title.Contains("Coding", StringComparison.OrdinalIgnoreCase) ||
+                                       stat.Title.Contains("Year", StringComparison.OrdinalIgnoreCase);
                     <div class="col-6 col-md-3">
                         <div class="p-3">
-                            <h3 class="text-neon-purple fw-bold display-6 mb-0">@stat.Value</h3>
-                            <span class="text-muted small">@stat.Title</span>
+                            <h3 class="text-neon-purple fw-bold display-6 mb-0 d-inline-flex align-items-center justify-content-center">
+                                <span class="counter-number" data-target="@stat.Value">0</span>@if (isPlusSuffix) {<span class="counter-suffix">+</span>}
+                            </h3>
+                            <span class="text-muted small d-block mt-1">@stat.Title</span>
                         </div>
                     </div>
                 }

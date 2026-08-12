@@ -72,6 +72,67 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // ==========================================
+    // 3b. Professional Animated Count-Up Counters
+    // ==========================================
+    const initCounters = () => {
+        const statsElements = document.querySelectorAll("#stats-section, #about-stats-section");
+        const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+        statsElements.forEach(section => {
+            const counters = section.querySelectorAll(".counter-number");
+
+            const animateCounters = () => {
+                counters.forEach(counter => {
+                    const target = parseInt(counter.getAttribute("data-target"), 10) || 0;
+                    if (prefersReducedMotion) {
+                        counter.textContent = target;
+                        return;
+                    }
+
+                    const duration = 1400; // Smooth 1.4s duration
+                    const startTime = performance.now();
+
+                    const updateCount = (currentTime) => {
+                        const elapsedTime = currentTime - startTime;
+                        const progress = Math.min(elapsedTime / duration, 1);
+
+                        // Ease-out quad interpolation
+                        const easeOutProgress = 1 - (1 - progress) * (1 - progress);
+                        const currentCount = Math.floor(easeOutProgress * target);
+
+                        counter.textContent = currentCount;
+
+                        if (progress < 1) {
+                            requestAnimationFrame(updateCount);
+                        } else {
+                            counter.textContent = target;
+                        }
+                    };
+
+                    requestAnimationFrame(updateCount);
+                });
+            };
+
+            if ("IntersectionObserver" in window) {
+                const observer = new IntersectionObserver((entries, obs) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            animateCounters();
+                            obs.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.2 });
+
+                observer.observe(section);
+            } else {
+                animateCounters();
+            }
+        });
+    };
+
+    initCounters();
+
+    // ==========================================
     // 3. Synthesized Sound Effects Engine (Web Audio API)
     // ==========================================
     const playSynthSound = (type) => {
