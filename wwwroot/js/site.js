@@ -418,6 +418,7 @@ document.addEventListener("DOMContentLoaded", () => {
             .replace(/\[Download CV \(PDF\)\]\((.*?)\)/g, '<a href="$1" download="Muhammad_Saad_CV.pdf" class="btn btn-sm text-white px-3 py-1.5 rounded-pill shadow-sm d-inline-flex align-items-center gap-1.5 my-1.5 hover-scale transition" style="background: linear-gradient(135deg, #8B3DFF, #009FC2); font-weight: 600;"><i class="fas fa-file-download fs-6"></i> Download CV (PDF)</a>')
             .replace(/\[Download Resume \(PDF\)\]\((.*?)\)/g, '<a href="$1" download="Muhammad_Saad_CV.pdf" class="btn btn-sm text-white px-3 py-1.5 rounded-pill shadow-sm d-inline-flex align-items-center gap-1.5 my-1.5 hover-scale transition" style="background: linear-gradient(135deg, #8B3DFF, #009FC2); font-weight: 600;"><i class="fas fa-file-download fs-6"></i> Download CV (PDF)</a>')
             .replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2" class="text-neon-cyan fw-medium text-decoration-underline">$1</a>')
+            .replace(/(\+92\s?305\s?5188896|03055188896)/g, '<a href="https://wa.me/923055188896?text=Hi%20Saad,%20I%20saw%20your%20portfolio%20and%20would%20like%20to%20connect!" target="_blank" rel="noopener noreferrer" class="text-success fw-bold text-decoration-none d-inline-flex align-items-center gap-1"><i class="fab fa-whatsapp"></i> $1</a>')
             .replace(/\* (.*)/g, '<li class="mb-1">$1</li>')
             .replace(/• (.*)/g, '<li class="mb-1">$1</li>')
             .replace(/\n/g, '<br>');
