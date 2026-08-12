@@ -16,39 +16,37 @@ namespace FuturisticPortfolio.Services
         {
             if (string.IsNullOrWhiteSpace(userMessage))
             {
-                return "Greetings, user. Command terminal online. Please type a query to proceed.";
+                return "Hi! I'm Saad's AI Assistant 👋 How can I help you explore Saad's portfolio today?";
             }
 
-            var query = userMessage.ToLowerInvariant();
+            var query = userMessage.ToLowerInvariant().Trim();
             var response = new StringBuilder();
 
-            // 1. Check for Greetings
-            if (query.Contains("hello") || query.Contains("hi") || query.Contains("hey") || query.Contains("greetings"))
+            // 1. Check for Greetings & Conversation
+            if (query.Contains("hello") || query.Contains("hi") || query.Contains("hey") || query.Contains("greetings") || query.Contains("who are you") || query.Contains("how are you"))
             {
-                var settings = (await _unitOfWork.Settings.GetAllAsync()).FirstOrDefault();
-                var devName = settings?.SiteName.Replace("| Futuristic Portfolio", "").Trim() ?? "Chief Architect";
-                response.AppendLine($"### System Initialized. Hello! 🌐");
-                response.AppendLine($"I am the **AI Portfolio Assistant** for {devName}.");
-                response.AppendLine("You can query me about:");
-                response.AppendLine("- **Skills**: *\"What is your tech stack?\"*");
-                response.AppendLine("- **Projects**: *\"Tell me about your latest projects.\"*");
-                response.AppendLine("- **Experience**: *\"Where have you worked?\"*");
-                response.AppendLine("- **Contact**: *\"How can I reach you?\"*");
-                response.AppendLine("- **CV**: *\"Can I download your resume?\"*");
+                response.AppendLine("Hi! I'm Saad's AI Assistant 👋");
+                response.AppendLine("\nI'm a conversational portfolio assistant for Hafiz Muhammad Saad (Full-Stack Software Developer).");
+                response.AppendLine("\nYou can ask me about:");
+                response.AppendLine("• **Projects**: *\"What has Saad built?\"*");
+                response.AppendLine("• **Tech Stack**: *\"What technologies does he use?\"*");
+                response.AppendLine("• **Education**: *\"Where did Saad study?\"*");
+                response.AppendLine("• **CV**: *\"Download Saad's resume\"*");
+                response.AppendLine("• **Contact**: *\"How to connect on WhatsApp?\"*");
                 return response.ToString();
             }
 
             // 2. Check for Projects
-            if (query.Contains("project") || query.Contains("work") || query.Contains("portfolio") || query.Contains("app") || query.Contains("system"))
+            if (query.Contains("project") || query.Contains("work") || query.Contains("portfolio") || query.Contains("app") || query.Contains("system") || query.Contains("built") || query.Contains("created"))
             {
                 var projects = (await _unitOfWork.Projects.FindAsync(p => p.Status == "Published"))
                                .OrderBy(p => p.DisplayOrder)
                                .Take(3);
 
-                response.AppendLine("### 🚀 Featured System Deployments (Projects)");
+                response.AppendLine("### 🚀 Featured Systems & Projects");
                 if (!projects.Any())
                 {
-                    response.AppendLine("No system deployments are logged at this moment. Please check back later.");
+                    response.AppendLine("Saad has built enterprise portfolio apps and telemetry systems. You can view all work on the [Projects Page](/Portfolio).");
                 }
                 else
                 {
@@ -60,64 +58,6 @@ namespace FuturisticPortfolio.Services
                             response.AppendLine($"    *Tech Stack: {project.Technologies}*");
                         }
                     }
-                    response.AppendLine("\nYou can view all my work on the [Projects Page](/Portfolio).");
-                }
-                return response.ToString();
-            }
-
-            // 3. Check for Skills
-            if (query.Contains("skill") || query.Contains("technolog") || query.Contains("language") || query.Contains("stack") || query.Contains("know") || query.Contains("c#") || query.Contains("dotnet") || query.Contains("sql") || query.Contains("javascript") || query.Contains("css"))
-            {
-                var skills = (await _unitOfWork.Skills.GetAllAsync())
-                             .OrderBy(s => s.DisplayOrder)
-                             .Take(6);
-
-                response.AppendLine("### 🛠️ Core Tech Stack & Capabilities");
-                if (!skills.Any())
-                {
-                    response.AppendLine("Technical configurations are currently offline.");
-                }
-                else
-                {
-                    foreach (var skill in skills)
-                    {
-                        response.AppendLine($"*   **{skill.Name}** — Proficiency: `{skill.Percentage}%`");
-                    }
-                    response.AppendLine("\nThese capabilities are leveraged to build high-performance web APIs, secure databases, and interactive user interfaces.");
-                }
-                return response.ToString();
-            }
-
-            // 4. Check for Contact
-            if (query.Contains("contact") || query.Contains("email") || query.Contains("phone") || query.Contains("hire") || query.Contains("reach") || query.Contains("address") || query.Contains("social"))
-            {
-                var settings = (await _unitOfWork.Settings.GetAllAsync()).FirstOrDefault();
-                response.AppendLine("### 📞 Secure Comms Link (Contact Info)");
-                if (settings == null)
-                {
-                    response.AppendLine("Comms links are currently offline.");
-                }
-                else
-                {
-                    response.AppendLine($"*   **Email**: {settings.ContactEmail}");
-                    response.AppendLine($"*   **Phone**: {settings.ContactPhone}");
-                    response.AppendLine($"*   **Location**: {settings.ContactAddress}");
-                    response.AppendLine($"\nYou can also transmit a direct message via the [Contact Form](#contact-section) at the bottom of the home page.");
-                }
-                return response.ToString();
-            }
-
-            // 5. Check for CV/Resume
-            if (query.Contains("cv") || query.Contains("resume") || query.Contains("download"))
-            {
-                var settings = (await _unitOfWork.Settings.GetAllAsync()).FirstOrDefault();
-                response.AppendLine("### 📄 Secure Document Transmission");
-                if (settings != null && !string.IsNullOrEmpty(settings.CvFilePath))
-                {
-                    response.AppendLine($"You can securely download my latest CV directly via this link: [Download CV/Resume]({settings.CvFilePath}).");
-                }
-                else
-                {
                     response.AppendLine("CV transmission is currently disabled, or the file is being updated. You can ask for my details directly here.");
                 }
                 return response.ToString();
