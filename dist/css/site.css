@@ -797,16 +797,24 @@ body.light-theme .small {
     color: #777286 !important;
 }
 
-/* 4. Navbar Component Styling */
+/* 4. Light Mode Header / Navbar Component Styling */
+body.light-theme header nav.navbar-futuristic,
 body.light-theme .navbar-futuristic {
-    background: rgba(248, 249, 252, 0.9) !important;
-    border-bottom: 1px solid #E5E7EF !important;
-    backdrop-filter: blur(16px) !important;
+    background: rgba(241, 240, 247, 0.92) !important;
+    backdrop-filter: blur(14px) !important;
+    -webkit-backdrop-filter: blur(14px) !important;
+    border-bottom: 1px solid #E3E1EB !important;
+    box-shadow: 0 4px 20px rgba(20, 15, 40, 0.04), 0 0 40px rgba(139, 61, 255, 0.04) !important;
+}
+
+body.light-theme .navbar-futuristic .navbar-brand {
+    color: #8B3DFF !important;
 }
 
 body.light-theme .navbar-futuristic .nav-link {
-    color: #4F4B61 !important;
+    color: #3F3A50 !important;
     font-weight: 500;
+    transition: color 0.3s ease;
 }
 
 body.light-theme .navbar-futuristic .nav-link:hover {
@@ -814,14 +822,24 @@ body.light-theme .navbar-futuristic .nav-link:hover {
 }
 
 body.light-theme .navbar-futuristic .nav-link.active {
-    color: #009FC2 !important;
+    color: #7C3AED !important;
     font-weight: 600;
 }
 
+body.light-theme .navbar-futuristic #theme-toggle-btn i,
+body.light-theme .navbar-futuristic button[data-bs-target="#preferencesModal"] i {
+    color: #8B3DFF !important;
+}
+
+body.light-theme .navbar-futuristic #theme-toggle-btn:hover i,
+body.light-theme .navbar-futuristic button[data-bs-target="#preferencesModal"]:hover i {
+    color: #009FC2 !important;
+}
+
 body.light-theme .navbar-collapse {
-    background: #FFFFFF !important;
-    border: 1px solid #E5E7EF !important;
-    box-shadow: 0 10px 30px rgba(25, 20, 50, 0.12) !important;
+    background: #F1F0F7 !important;
+    border: 1px solid #E3E1EB !important;
+    box-shadow: 0 10px 30px rgba(20, 15, 40, 0.08) !important;
 }
 
 /* 5. Statistics Bar */
