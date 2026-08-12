@@ -239,7 +239,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // ==========================================
-    // 8. Dynamic AI Portfolio Assistant Chat Widget
+    // 8. Saad's AI Assistant Widget (Production-Ready UI/UX)
     // ==========================================
     const aiToggleBtn = document.getElementById("ai-chat-toggle");
     const aiWidget = document.getElementById("ai-chat-widget");
@@ -249,12 +249,14 @@ document.addEventListener("DOMContentLoaded", () => {
     const aiMessages = document.getElementById("ai-messages-container");
 
     if (aiToggleBtn && aiWidget) {
+        const welcomeMessage = "Hi! I'm Saad's AI Assistant 👋\n\nI can help you explore Saad's skills, projects, education, experience, and technical background.\n\nWhat would you like to know?";
+
         aiToggleBtn.addEventListener("click", () => {
             aiWidget.classList.toggle("active");
             if (aiWidget.classList.contains("active")) {
-                aiInput.focus();
-                if (aiMessages && aiMessages.children.length <= 1) {
-                    sendBotMessage("### System Online. 🤖\nHello! I am the **AI Portfolio Assistant**. How can I help you today? \n\n*Try clicking one of the suggested chips below!*");
+                if (aiInput) aiInput.focus();
+                if (aiMessages && aiMessages.children.length === 0) {
+                    renderMessage(welcomeMessage, "bot");
                 }
             }
         });
@@ -265,34 +267,53 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         }
 
+        // Global Escape key listener to close assistant widget
+        document.addEventListener("keydown", (e) => {
+            if (e.key === "Escape" && aiWidget.classList.contains("active")) {
+                aiWidget.classList.remove("active");
+            }
+        });
+
         const generateClientAiResponse = (userMessage) => {
-            const query = (userMessage || "").toLowerCase();
+            const query = (userMessage || "").toLowerCase().trim();
             
-            if (query.includes("hello") || query.includes("hi") || query.includes("hey") || query.includes("greetings")) {
-                return "### System Initialized. Hello! 🌐\nI am the **AI Portfolio Assistant** for Hafiz Muhammad Saad (HMS Developer).\n\nYou can query me about:\n- **Skills**: *\"What is your tech stack?\"*\n- **Projects**: *\"Tell me about your latest projects.\"*\n- **Experience**: *\"Where have you worked?\"*\n- **Education**: *\"Tell me about your degree.\"*\n- **Contact**: *\"How can I reach you?\"*\n- **CV**: *\"Can I download your resume?\"*";
+            // 1. Greetings & Identity
+            if (query.includes("hello") || query.includes("hi") || query.includes("hey") || query.includes("greetings") || query.includes("who are you") || query.includes("what can you do") || query.includes("about saad")) {
+                return "Hi! I'm Saad's AI Assistant 👋\n\nSaad is a Software Developer specializing in ASP.NET Core MVC, C#, SQL Server, normalized database architectures, and modern web application engineering.\n\nYou can ask me about Saad's:\n• **Projects**: *\"What has Saad built?\"*\n• **Tech Stack**: *\"What technologies does he use?\"*\n• **Education**: *\"Where did Saad study?\"*\n• **CV**: *\"Download Saad's resume\"*\n• **Contact**: *\"How can I reach Saad?\"*";
             }
             
-            if (query.includes("project") || query.includes("work") || query.includes("portfolio") || query.includes("app") || query.includes("system")) {
-                return "### 🚀 Featured System Deployments (Projects)\n*   **[Full-Stack Enterprise Developer Portfolio](/Portfolio)**: Built with C#, ASP.NET Core 10 MVC, SQL Server, and custom CSS design system.\n*   **[HMS Analytics & Visitor Telemetry Engine](/Portfolio)**: Real-time traffic, IP lookup, geolocation, and session analytics platform.\n\nYou can view all my work on the [Projects Databank](/Portfolio).";
+            // 2. Projects & Deployments
+            if (query.includes("project") || query.includes("work") || query.includes("built") || query.includes("created") || query.includes("portfolio") || query.includes("app") || query.includes("system")) {
+                return "### 🚀 Saad's Featured Projects\n\n*   **[Full-Stack Enterprise Developer Portfolio](/Portfolio)**\n    *Responsive developer portfolio built with C#, ASP.NET Core 10 MVC, SQL Server, and dynamic Light/Dark mode themes.*\n    *Tech Stack: C#, ASP.NET Core 10, SQL Server, JavaScript*\n    [View Details](/Portfolio)\n\n*   **[HMS Analytics & Telemetry Engine](/Portfolio)**\n    *Real-time visitor tracking, geolocation lookup, session duration, and administrative telemetry dashboard.*\n    *Tech Stack: ASP.NET Core, EF Core, SQL Server, SignalR*\n    [View Details](/Portfolio)\n\nYou can view all project case studies on the [Projects Databank](/Portfolio).";
             }
             
-            if (query.includes("skill") || query.includes("technolog") || query.includes("language") || query.includes("stack") || query.includes("know") || query.includes("c#") || query.includes("dotnet") || query.includes("sql") || query.includes("javascript") || query.includes("css") || query.includes("php")) {
-                return "### 🛠️ Core Tech Stack & Capabilities\n*   **C# / ASP.NET Core 10 MVC** — Proficiency: `95%`\n*   **SQL Server & Relational DB Architecture** — Proficiency: `90%`\n*   **HTML5, CSS3, JavaScript & Modern UI/UX** — Proficiency: `92%`\n*   **PHP & MySQL Development** — Proficiency: `85%`\n*   **RESTful Web APIs & Telemetry Systems** — Proficiency: `88%`\n\nThese capabilities are leveraged to build high-performance web applications, normalized databases, and interactive user interfaces.";
+            // 3. Tech Stack & Skills
+            if (query.includes("skill") || query.includes("technolog") || query.includes("language") || query.includes("stack") || query.includes("c#") || query.includes("dotnet") || query.includes("sql") || query.includes("javascript") || query.includes("css") || query.includes("html") || query.includes("php") || query.includes("tool") || query.includes("use") || query.includes("know")) {
+                return "### 🛠️ Saad's Core Tech Stack\n\nSaad works primarily with:\n*   **ASP.NET Core MVC** (`95%`)\n*   **C# / .NET 10** (`95%`)\n*   **SQL Server & Relational DB Architecture** (`90%`)\n*   **HTML5, CSS3, JavaScript** (`92%`)\n*   **PHP & MySQL** (`85%`)\n*   **Git & Version Control** (`90%`)\n\nThese capabilities are leveraged to build high-performance web applications and normalized database architectures.";
             }
 
-            if (query.includes("education") || query.includes("degree") || query.includes("university") || query.includes("aptech") || query.includes("sohail") || query.includes("study") || query.includes("diploma")) {
-                return "### 🎓 Academic Credentials & Diplomas\n*   **CURRENT DEGREE**: BSBC (Bachelor of Science in Business Computing) — Sohail University (2025–2029)\n*   **PROFESSIONAL DIPLOMA**: ADSE (Advanced Diploma in Software Engineering) — Aptech Learning (2024–2027)";
-            }
-            
-            if (query.includes("contact") || query.includes("email") || query.includes("phone") || query.includes("hire") || query.includes("reach") || query.includes("location") || query.includes("social")) {
-                return "### 📞 Secure Comms Link (Contact Info)\n*   **Email**: saad.sa9112@gmail.com\n*   **Phone**: +92 305 5188896\n*   **Location**: Karachi, Pakistan\n\nYou can also transmit a direct message via the [Contact Form](#contact-section) at the bottom of the home page.";
-            }
-            
-            if (query.includes("cv") || query.includes("resume") || query.includes("download")) {
-                return "### 📄 Secure Document Transmission\nYou can download my latest CV directly: [Download Resume (PDF)](/files/Muhammad_Saad_CV.pdf).";
+            // 4. Education & Academic Background
+            if (query.includes("education") || query.includes("degree") || query.includes("university") || query.includes("college") || query.includes("aptech") || query.includes("sohail") || query.includes("study") || query.includes("diploma") || query.includes("academic") || query.includes("bsbc") || query.includes("adse")) {
+                return "### 🎓 Academic Background & Credentials\n\n*   **CURRENT DEGREE**: BSBC (Bachelor of Science in Business Computing)\n    *Sohail University (2025–2029)*\n\n*   **PROFESSIONAL DIPLOMA**: ADSE (Advanced Diploma in Software Engineering)\n    *Aptech Learning (2024–2027)*";
             }
 
-            return "### ⚡ AI Portfolio Assistant Online\nMy neural patterns are standing by! You can ask me:\n- *\"What is your tech stack?\"*\n- *\"Show me your projects.\"*\n- *\"Tell me about your education.\"*\n- *\"How can I contact you?\"*\n- *\"Download CV\"*";
+            // 5. Professional Experience & Role
+            if (query.includes("experience") || query.includes("work history") || query.includes("job") || query.includes("career") || query.includes("company") || query.includes("role")) {
+                return "### 💼 Professional Experience\n\n*   **Full-Stack Software Developer (1+ Years)**\n    *Specializing in C#, ASP.NET Core MVC, Entity Framework Core, SQL Server database design, and responsive web application development.*";
+            }
+            
+            // 6. Contact & Location
+            if (query.includes("contact") || query.includes("email") || query.includes("phone") || query.includes("hire") || query.includes("reach") || query.includes("location") || query.includes("address") || query.includes("social")) {
+                return "### 📞 Get in Touch with Saad\n\n*   **Email**: saad.sa9112@gmail.com\n*   **Phone**: +92 305 5188896\n*   **Location**: Karachi, Pakistan\n\nYou can also transmit a direct message via the [Contact Form](#contact-section) at the bottom of the page.";
+            }
+            
+            // 7. CV / Resume Download
+            if (query.includes("cv") || query.includes("resume") || query.includes("download") || query.includes("pdf")) {
+                return "Sure! You can download Saad's latest CV here:\n\n📄 **[Download CV / Resume (PDF)](/files/Muhammad_Saad_CV.pdf)**";
+            }
+
+            // 8. Conversational Fallback
+            return "I'm not sure about that yet, but I can help you with Saad's:\n\n• **Projects**\n• **Skills & Tech Stack**\n• **Education & Credentials**\n• **Experience**\n• **About Saad**\n• **CV / Resume**\n• **Contact Info**\n\nTry asking something like:\n*'What projects has Saad built?'*";
         };
 
         const handleSend = () => {
@@ -327,13 +348,17 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         if (aiInput) {
             aiInput.addEventListener("keydown", (e) => {
-                if (e.key === "Enter") handleSend();
+                if (e.key === "Enter" && !e.shiftKey) {
+                    e.preventDefault();
+                    handleSend();
+                }
             });
         }
 
         document.addEventListener("click", (e) => {
-            if (e.target && e.target.classList.contains("quick-chip")) {
-                const text = e.target.getAttribute("data-query");
+            const chip = e.target.closest(".quick-chip");
+            if (chip) {
+                const text = chip.getAttribute("data-query");
                 if (text) {
                     renderMessage(text, "user");
                     showTypingIndicator();
@@ -366,15 +391,16 @@ document.addEventListener("DOMContentLoaded", () => {
         msgDiv.className = `chat-message ${sender}`;
 
         let formattedText = text
-            .replace(/### (.*)/g, '<h6>$1</h6>')
+            .replace(/### (.*)/g, '<h6 class="fw-bold mb-2">$1</h6>')
             .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
             .replace(/\*(.*?)\*/g, '<em>$1</em>')
-            .replace(/`(.*?)`/g, '<code>$1</code>')
-            .replace(/\* (.*)/g, '<li>$1</li>')
+            .replace(/`(.*?)`/g, '<code class="px-1.5 py-0.5 rounded bg-dark border border-secondary text-neon-cyan">$1</code>')
+            .replace(/\* (.*)/g, '<li class="mb-1">$1</li>')
+            .replace(/• (.*)/g, '<li class="mb-1">$1</li>')
             .replace(/\n/g, '<br>');
 
         if (formattedText.includes("<li>")) {
-            formattedText = `<ul>${formattedText}</ul>`;
+            formattedText = `<ul class="ps-3 mb-0">${formattedText}</ul>`;
         }
 
         msgDiv.innerHTML = formattedText;
@@ -382,16 +408,12 @@ document.addEventListener("DOMContentLoaded", () => {
         aiMessages.scrollTop = aiMessages.scrollHeight;
     }
 
-    function sendBotMessage(text) {
-        renderMessage(text, "bot");
-    }
-
     function showTypingIndicator() {
         if (!aiMessages) return;
         const typingDiv = document.createElement("div");
         typingDiv.id = "ai-typing-indicator";
-        typingDiv.className = "chat-message bot";
-        typingDiv.innerHTML = `<div class="typing-indicator"><span></span><span></span><span></span></div>`;
+        typingDiv.className = "chat-message bot d-flex align-items-center gap-2";
+        typingDiv.innerHTML = `<span class="small text-muted font-monospace">AI is thinking...</span> <div class="typing-indicator ms-1"><span></span><span></span><span></span></div>`;
         aiMessages.appendChild(typingDiv);
         aiMessages.scrollTop = aiMessages.scrollHeight;
     }
