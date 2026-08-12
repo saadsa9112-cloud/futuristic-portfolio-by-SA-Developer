@@ -279,7 +279,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const variantIndex = Math.floor(Math.random() * 3);
             
             // 1. Greetings & Identity
-            if (query.includes("hello") || query.includes("hi") || query.includes("hey") || query.includes("greetings") || query.includes("who are you") || query.includes("what can you do") || query.includes("about saad")) {
+            if (query.includes("hello") || query.includes("hi") || query.includes("hey") || query.includes("greetings") || query.includes("who are you") || query.includes("what can you do") || query.includes("about saad") || query.includes("how are you")) {
                 const greetings = [
                     "Hi! I'm Saad's AI Assistant 👋\n\nSaad is a Full-Stack Software Developer specializing in ASP.NET Core MVC, C#, SQL Server, normalized database architectures, and responsive web application engineering.\n\nWhat would you like to explore about Saad today?",
                     "Hello! Welcome to Saad's Portfolio 🌐\n\nI'm Saad's AI concierge. I can answer any questions regarding Saad's software projects, core tech stack, academic background (BSBC & ADSE), or contact info.",
@@ -320,27 +320,27 @@ document.addEventListener("DOMContentLoaded", () => {
 
             // 6. Services & Custom Build Requests ("Can Saad build X?")
             if (query.includes("can saad") || query.includes("build") || query.includes("develop") || query.includes("make") || query.includes("create") || query.includes("service") || query.includes("freelance")) {
-                return "### ⚙️ Development Services & Solutions\n\nSaad can engineer custom full-stack solutions including:\n• **Enterprise Web Applications** (ASP.NET Core MVC & SQL Server)\n• **RESTful APIs & Backend Services**\n• **Responsive Portfolio & Corporate Websites**\n• **Database Optimization & Schema Normalization**\n\nWould you like to discuss a project? Send a message via the [Contact Form](#contact-section) or email **saad.sa9112@gmail.com**!";
+                return "### ⚙️ Development Services & Solutions\n\nSaad can engineer custom full-stack solutions including:\n• **Enterprise Web Applications** (ASP.NET Core MVC & SQL Server)\n• **RESTful APIs & Backend Services**\n• **Responsive Portfolio & Corporate Websites**\n• **Database Optimization & Schema Normalization**\n\nWould you like to discuss a project directly on WhatsApp?\n\n[Chat on WhatsApp](https://wa.me/923055188896?text=Hi%20Saad,%20I%20have%20a%20project%20inquiry!)";
             }
 
             // 7. Hiring, Rates & Availability
             if (query.includes("hire") || query.includes("salary") || query.includes("cost") || query.includes("price") || query.includes("rate") || query.includes("available") || query.includes("remote")) {
-                return "### 💼 Hiring & Engagement Opportunities\n\nSaad is open to full-time software engineering roles, contract work, and freelance projects.\n\n*   **Email**: saad.sa9112@gmail.com\n*   **Phone**: +92 305 5188896\n*   **Location**: Karachi, Pakistan (Open to Remote / Hybrid roles)";
+                return "### 💼 Hiring & Engagement Opportunities\n\nSaad is open to full-time software engineering roles, contract work, and freelance projects.\n\n*   **Email**: saad.sa9112@gmail.com\n*   **Phone**: +92 305 5188896\n*   **Location**: Karachi, Pakistan\n\n[Chat on WhatsApp](https://wa.me/923055188896?text=Hi%20Saad,%20I%20saw%20your%20portfolio%20and%20would%20like%20to%20discuss%20an%20opportunity!)";
             }
             
-            // 8. Contact Info & Location
-            if (query.includes("contact") || query.includes("email") || query.includes("phone") || query.includes("reach") || query.includes("location") || query.includes("address") || query.includes("social")) {
-                return "### 📞 Get in Touch with Saad\n\n*   **Email**: saad.sa9112@gmail.com\n*   **Phone**: +92 305 5188896\n*   **Location**: Karachi, Pakistan\n\nYou can also transmit a direct message via the [Contact Form](#contact-section) at the bottom of the page.";
+            // 8. Contact Info & Location & WhatsApp Direct Redirect
+            if (query.includes("contact") || query.includes("email") || query.includes("phone") || query.includes("whatsapp") || query.includes("reach") || query.includes("location") || query.includes("address") || query.includes("number")) {
+                return "### 📞 Get in Touch with Saad\n\n*   **Email**: saad.sa9112@gmail.com\n*   **Phone**: +92 305 5188896\n*   **Location**: Karachi, Pakistan\n\nClick below to open a direct chat with Saad on WhatsApp:\n\n[Chat on WhatsApp](https://wa.me/923055188896?text=Hi%20Saad,%20I%20viewed%20your%20portfolio%20and%20would%20like%20to%20connect!)";
             }
             
-            // 9. CV / Resume Download
+            // 9. CV / Resume Download Direct Link
             if (query.includes("cv") || query.includes("resume") || query.includes("download") || query.includes("pdf")) {
-                return "Sure! You can download Saad's latest CV here:\n\n📄 **[Download CV / Resume (PDF)](/files/Muhammad_Saad_CV.pdf)**";
+                return "Sure! You can download Saad's latest CV directly below:\n\n[Download CV (PDF)](/files/Muhammad_Saad_CV.pdf)";
             }
 
             // 10. Intelligent Dynamic Fallback
             const smartFallbacks = [
-                `I understand you're asking about "${userMessage}". While I'm focused primarily on Saad's software development portfolio, I can help you explore:\n\n• **Projects**: *What has Saad built?*\n• **Skills**: *What is his tech stack?*\n• **Education**: *What are his qualifications?*\n• **CV**: *Download resume*\n• **Contact**: *How to reach Saad*\n\nFeel free to ask about any of these topics!`,
+                `I understand you're asking about "${userMessage}". While I'm focused primarily on Saad's software development portfolio, I can help you explore:\n\n• **Projects**: *What has Saad built?*\n• **Skills**: *What is his tech stack?*\n• **Education**: *What are his qualifications?*\n• **CV**: *Download resume*\n• **Contact**: *Connect on WhatsApp*\n\n[Chat on WhatsApp](https://wa.me/923055188896?text=Hi%20Saad!)`,
                 `Thanks for your query! I specialize in providing details about Hafiz Muhammad Saad's technical work.\n\nTry asking:\n- *"What projects has Saad built?"*\n- *"What technologies does Saad use?"*\n- *"Where did Saad study?"*\n- *"Download CV"*`,
                 `I'd be glad to assist with details about Saad's development background! You can inquire about his **Projects**, **Tech Stack**, **Academic Degrees**, **Work Experience**, or **Contact Info**.`
             ];
@@ -414,6 +414,10 @@ document.addEventListener("DOMContentLoaded", () => {
             .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
             .replace(/\*(.*?)\*/g, '<em>$1</em>')
             .replace(/`(.*?)`/g, '<code class="px-1.5 py-0.5 rounded bg-dark border border-secondary text-neon-cyan">$1</code>')
+            .replace(/\[Chat on WhatsApp\]\((.*?)\)/g, '<a href="$1" target="_blank" rel="noopener noreferrer" class="btn btn-sm text-white px-3 py-1.5 rounded-pill shadow-sm d-inline-flex align-items-center gap-1.5 my-1.5 hover-scale transition" style="background: #25D366; font-weight: 600;"><i class="fab fa-whatsapp fs-6"></i> Chat on WhatsApp</a>')
+            .replace(/\[Download CV \(PDF\)\]\((.*?)\)/g, '<a href="$1" download="Muhammad_Saad_CV.pdf" class="btn btn-sm text-white px-3 py-1.5 rounded-pill shadow-sm d-inline-flex align-items-center gap-1.5 my-1.5 hover-scale transition" style="background: linear-gradient(135deg, #8B3DFF, #009FC2); font-weight: 600;"><i class="fas fa-file-download fs-6"></i> Download CV (PDF)</a>')
+            .replace(/\[Download Resume \(PDF\)\]\((.*?)\)/g, '<a href="$1" download="Muhammad_Saad_CV.pdf" class="btn btn-sm text-white px-3 py-1.5 rounded-pill shadow-sm d-inline-flex align-items-center gap-1.5 my-1.5 hover-scale transition" style="background: linear-gradient(135deg, #8B3DFF, #009FC2); font-weight: 600;"><i class="fas fa-file-download fs-6"></i> Download CV (PDF)</a>')
+            .replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2" class="text-neon-cyan fw-medium text-decoration-underline">$1</a>')
             .replace(/\* (.*)/g, '<li class="mb-1">$1</li>')
             .replace(/• (.*)/g, '<li class="mb-1">$1</li>')
             .replace(/\n/g, '<br>');
