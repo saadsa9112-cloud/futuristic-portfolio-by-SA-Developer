@@ -134,6 +134,11 @@ async function run() {
             html = html.replace(/url\("\/images\//g, `url("${relativePrefix}images/`);
             html = html.replace(/href="\/FuturisticPortfolio.styles.css/gi, `href="${relativePrefix}FuturisticPortfolio.styles.css`);
 
+            // Cache-busting query strings for mobile browser caches
+            const cacheBuster = Date.now();
+            html = html.replace(/site\.css(?:\?v=[^"]*)?/gi, `site.css?v=${cacheBuster}`);
+            html = html.replace(/site\.js(?:\?v=[^"]*)?/gi, `site.js?v=${cacheBuster}`);
+
             // Save file
             const destPath = path.join(DIST_DIR, page.dest);
             const destFolder = path.dirname(destPath);
