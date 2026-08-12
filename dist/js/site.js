@@ -265,6 +265,36 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         }
 
+        const generateClientAiResponse = (userMessage) => {
+            const query = (userMessage || "").toLowerCase();
+            
+            if (query.includes("hello") || query.includes("hi") || query.includes("hey") || query.includes("greetings")) {
+                return "### System Initialized. Hello! 🌐\nI am the **AI Portfolio Assistant** for Hafiz Muhammad Saad (HMS Developer).\n\nYou can query me about:\n- **Skills**: *\"What is your tech stack?\"*\n- **Projects**: *\"Tell me about your latest projects.\"*\n- **Experience**: *\"Where have you worked?\"*\n- **Education**: *\"Tell me about your degree.\"*\n- **Contact**: *\"How can I reach you?\"*\n- **CV**: *\"Can I download your resume?\"*";
+            }
+            
+            if (query.includes("project") || query.includes("work") || query.includes("portfolio") || query.includes("app") || query.includes("system")) {
+                return "### 🚀 Featured System Deployments (Projects)\n*   **[Full-Stack Enterprise Developer Portfolio](/Portfolio)**: Built with C#, ASP.NET Core 10 MVC, SQL Server, and custom CSS design system.\n*   **[HMS Analytics & Visitor Telemetry Engine](/Portfolio)**: Real-time traffic, IP lookup, geolocation, and session analytics platform.\n\nYou can view all my work on the [Projects Databank](/Portfolio).";
+            }
+            
+            if (query.includes("skill") || query.includes("technolog") || query.includes("language") || query.includes("stack") || query.includes("know") || query.includes("c#") || query.includes("dotnet") || query.includes("sql") || query.includes("javascript") || query.includes("css") || query.includes("php")) {
+                return "### 🛠️ Core Tech Stack & Capabilities\n*   **C# / ASP.NET Core 10 MVC** — Proficiency: `95%`\n*   **SQL Server & Relational DB Architecture** — Proficiency: `90%`\n*   **HTML5, CSS3, JavaScript & Modern UI/UX** — Proficiency: `92%`\n*   **PHP & MySQL Development** — Proficiency: `85%`\n*   **RESTful Web APIs & Telemetry Systems** — Proficiency: `88%`\n\nThese capabilities are leveraged to build high-performance web applications, normalized databases, and interactive user interfaces.";
+            }
+
+            if (query.includes("education") || query.includes("degree") || query.includes("university") || query.includes("aptech") || query.includes("sohail") || query.includes("study") || query.includes("diploma")) {
+                return "### 🎓 Academic Credentials & Diplomas\n*   **CURRENT DEGREE**: BSBC (Bachelor of Science in Business Computing) — Sohail University (2025–2029)\n*   **PROFESSIONAL DIPLOMA**: ADSE (Advanced Diploma in Software Engineering) — Aptech Learning (2024–2027)";
+            }
+            
+            if (query.includes("contact") || query.includes("email") || query.includes("phone") || query.includes("hire") || query.includes("reach") || query.includes("location") || query.includes("social")) {
+                return "### 📞 Secure Comms Link (Contact Info)\n*   **Email**: saad.sa9112@gmail.com\n*   **Phone**: +92 305 5188896\n*   **Location**: Karachi, Pakistan\n\nYou can also transmit a direct message via the [Contact Form](#contact-section) at the bottom of the home page.";
+            }
+            
+            if (query.includes("cv") || query.includes("resume") || query.includes("download")) {
+                return "### 📄 Secure Document Transmission\nYou can download my latest CV directly: [Download Resume (PDF)](/files/Muhammad_Saad_CV.pdf).";
+            }
+
+            return "### ⚡ AI Portfolio Assistant Online\nMy neural patterns are standing by! You can ask me:\n- *\"What is your tech stack?\"*\n- *\"Show me your projects.\"*\n- *\"Tell me about your education.\"*\n- *\"How can I contact you?\"*\n- *\"Download CV\"*";
+        };
+
         const handleSend = () => {
             const text = aiInput.value.trim();
             if (!text) return;
@@ -278,14 +308,17 @@ document.addEventListener("DOMContentLoaded", () => {
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ message: text })
             })
-            .then(res => res.json())
+            .then(res => {
+                if (!res.ok) throw new Error("HTTP error " + res.status);
+                return res.json();
+            })
             .then(data => {
                 hideTypingIndicator();
-                renderMessage(data.reply, "bot");
+                renderMessage(data.reply || generateClientAiResponse(text), "bot");
             })
             .catch(() => {
                 hideTypingIndicator();
-                renderMessage("System offline. Comms connection failure. Please try again.", "bot");
+                renderMessage(generateClientAiResponse(text), "bot");
             });
         };
 
@@ -310,14 +343,17 @@ document.addEventListener("DOMContentLoaded", () => {
                         headers: { "Content-Type": "application/json" },
                         body: JSON.stringify({ message: text })
                     })
-                    .then(res => res.json())
+                    .then(res => {
+                        if (!res.ok) throw new Error("HTTP error " + res.status);
+                        return res.json();
+                    })
                     .then(data => {
                         hideTypingIndicator();
-                        renderMessage(data.reply, "bot");
+                        renderMessage(data.reply || generateClientAiResponse(text), "bot");
                     })
                     .catch(() => {
                         hideTypingIndicator();
-                        renderMessage("Connection error. Could not query local agent.", "bot");
+                        renderMessage(generateClientAiResponse(text), "bot");
                     });
                 }
             }
