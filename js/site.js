@@ -17,9 +17,65 @@ document.addEventListener("DOMContentLoaded", () => {
     let adminAccessAttempts = 0;
 
     // ==========================================
-    // 2. Synthesized Sound Effects Engine (Web Audio API)
+    // 2. Site Preferences State Manager
+    // ==========================================
+    const getPreferences = () => {
+        const defaultPrefs = { sound: false, glitch: false, particles: true, diagnostic: true };
+        try {
+            const saved = localStorage.getItem("sitePreferences");
+            return saved ? { ...defaultPrefs, ...JSON.parse(saved) } : defaultPrefs;
+        } catch (e) {
+            return defaultPrefs;
+        }
+    };
+
+    let preferences = getPreferences();
+
+    const applyPreferencesUI = () => {
+        const soundToggle = document.getElementById("pref-sound-toggle");
+        const glitchToggle = document.getElementById("pref-glitch-toggle");
+        const particlesToggle = document.getElementById("pref-particles-toggle");
+        const diagnosticToggle = document.getElementById("pref-diagnostic-toggle");
+
+        if (soundToggle) soundToggle.checked = preferences.sound;
+        if (glitchToggle) glitchToggle.checked = preferences.glitch;
+        if (particlesToggle) particlesToggle.checked = preferences.particles;
+        if (diagnosticToggle) diagnosticToggle.checked = preferences.diagnostic;
+
+        const particlesEl = document.getElementById("particles-js");
+        if (particlesEl) particlesEl.style.display = preferences.particles ? "block" : "none";
+
+        const diagnosticEl = document.getElementById("system-diagnostic");
+        if (diagnosticEl) diagnosticEl.style.display = preferences.diagnostic ? "inline-block" : "none";
+    };
+
+    applyPreferencesUI();
+
+    const savePrefBtn = document.getElementById("save-preferences-btn");
+    if (savePrefBtn) {
+        savePrefBtn.addEventListener("click", () => {
+            const soundToggle = document.getElementById("pref-sound-toggle");
+            const glitchToggle = document.getElementById("pref-glitch-toggle");
+            const particlesToggle = document.getElementById("pref-particles-toggle");
+            const diagnosticToggle = document.getElementById("pref-diagnostic-toggle");
+
+            preferences = {
+                sound: !!(soundToggle && soundToggle.checked),
+                glitch: !!(glitchToggle && glitchToggle.checked),
+                particles: !!(particlesToggle && particlesToggle.checked),
+                diagnostic: !!(diagnosticToggle && diagnosticToggle.checked)
+            };
+
+            localStorage.setItem("sitePreferences", JSON.stringify(preferences));
+            applyPreferencesUI();
+        });
+    }
+
+    // ==========================================
+    // 3. Synthesized Sound Effects Engine (Web Audio API)
     // ==========================================
     const playSynthSound = (type) => {
+        if (!preferences.sound) return;
         try {
             const AudioCtx = window.AudioContext || window.webkitAudioContext;
             if (!AudioCtx) return;
@@ -157,13 +213,14 @@ document.addEventListener("DOMContentLoaded", () => {
     // ==========================================
     // 7. Skill Bars Viewport Animation Trigger
     // ==========================================
-    const skillSection = document.getElementById("skills-section");
-    if (skillSection) {
+    const fills = document.querySelectorAll(".skill-progress-fill");
+    if (fills.length > 0) {
         const fillSkillBars = () => {
-            const fills = document.querySelectorAll(".skill-progress-fill");
             fills.forEach(bar => {
                 const percent = bar.getAttribute("data-percent");
-                bar.style.width = `${percent}%`;
+                if (percent) {
+                    bar.style.width = `${percent}%`;
+                }
             });
         };
 
@@ -174,9 +231,11 @@ document.addEventListener("DOMContentLoaded", () => {
                     observer.unobserve(entry.target);
                 }
             });
-        }, { threshold: 0.15 });
+        }, { threshold: 0.1 });
 
-        observer.observe(skillSection);
+        fills.forEach(fill => observer.observe(fill));
+        // Fallback immediate fill
+        setTimeout(fillSkillBars, 300);
     }
 
     // ==========================================
@@ -440,6 +499,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         function triggerDangerLockdown(triggerSource) {
+            if (!preferences.glitch) return;
             playSynthSound('alert');
             const dangerOverlay = document.getElementById("danger-security-overlay");
             const dangerCloseBtn = document.getElementById("danger-close-btn");

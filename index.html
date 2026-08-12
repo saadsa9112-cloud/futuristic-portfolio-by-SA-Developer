@@ -11,7 +11,7 @@
 
     <!-- Style Assets -->
     <link rel="stylesheet" href="./lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="./css/site.css?v=_AsCg26tz5AEuEUkSlAkaxleaV7SX1XANgtCji_hn6w" />
+    <link rel="stylesheet" href="./css/site.css?v=kWIuDVNHVsD26ODUE1RX9nDjnkSTF_gYCMl6wVeR0P8" />
     <link rel="stylesheet" href="./FuturisticPortfolio.styles.css?v=cXSw8uWbeBRRKqQImmDtUF9PgLFcp0jNpAJVcYp-LoE" />
     
     <!-- CDNs for Premium Libraries -->
@@ -56,10 +56,7 @@
                             <a class="nav-link" href="./">Home</a>
                         </li>
                         <li b-tjezjmjmzt class="nav-item">
-                            <a b-tjezjmjmzt class="nav-link" href="./#about-section">About</a>
-                        </li>
-                        <li b-tjezjmjmzt class="nav-item">
-                            <a b-tjezjmjmzt class="nav-link" href="./#skills-section">Skills</a>
+                            <a class="nav-link" href="./about/">About</a>
                         </li>
                         <li b-tjezjmjmzt class="nav-item">
                             <a class="nav-link" href="./portfolio/">Projects</a>
@@ -75,6 +72,11 @@
                                 <i b-tjezjmjmzt class="fas fa-sun" id="theme-icon"></i>
                             </button>
                         </li>
+                        <li b-tjezjmjmzt class="nav-item d-flex align-items-center me-1">
+                            <button b-tjezjmjmzt type="button" class="btn btn-link text-white p-2 border-0" data-bs-toggle="modal" data-bs-target="#preferencesModal" title="Site Preferences & Settings">
+                                <i b-tjezjmjmzt class="fas fa-cog text-neon-cyan"></i>
+                            </button>
+                        </li>
 
                     </ul>
                 </div>
@@ -85,71 +87,148 @@
     <!-- Main Content Grid -->
     <main b-tjezjmjmzt role="main" class="pt-5 mt-4 page-transition">
         
-
 <!-- HERO SECTION -->
-<section class="d-flex align-items-center position-relative overflow-hidden" style="min-height: 100vh;">
+<section class="d-flex align-items-center position-relative overflow-hidden" style="min-height: 90vh; padding-top: 80px;">
     <div class="container py-5 z-2">
         <div class="row align-items-center">
             <div class="col-lg-7 text-center text-lg-start" data-aos="fade-right">
-                <span class="badge bg-secondary mb-3 text-uppercase tracking-wider px-3 py-2" style="font-family: var(--font-heading);">SYSTEMS READY</span>
-                <h1 class="display-3 fw-bold text-white mb-2 text-nowrap">
+                <span class="badge bg-secondary mb-3 text-uppercase tracking-wider px-3 py-2 font-monospace">WELCOME TO MY PORTFOLIO</span>
+                <h1 class="display-3 fw-bold text-white mb-2 text-lg-nowrap">
                     Hi, I am <span class="text-neon-purple">Hafiz Muhammad Saad</span>
                 </h1>
                 <h2 class="h1 fw-semibold mb-4 text-neon-cyan">
                     <span id="typed-subtitle"></span>
                 </h2>
                 <p class="lead text-muted mb-4 max-w-lg">
-                    Welcome to the nexus of high-performance architecture, clean database normalization, and interactive user interfaces.
+                    Crafting high-performance ASP.NET Core applications, clean relational databases, and modern interactive user interfaces.
                 </p>
                 <div class="d-flex flex-wrap justify-content-center justify-content-lg-start gap-3">
                     <a href="./files/Muhammad_Saad_CV.pdf" download="Muhammad_Saad_CV.pdf" target="_blank" class="btn btn-neon text-white"><i class="fas fa-file-download me-2"></i> Download CV</a>
-                    <a href="#contact-section" class="btn btn-neon btn-neon-cyan text-white"><i class="fas fa-envelope me-2"></i> Establish Link</a>
+                    <a class="btn btn-neon btn-neon-cyan text-white" href="./portfolio/"><i class="fas fa-layer-group me-2"></i> View Projects</a>
+                    <a href="#contact-section" class="btn btn-outline-light border-secondary px-4 rounded-pill hover-text-white"><i class="fas fa-paper-plane me-2"></i> Contact Me</a>
                 </div>
 
-                <!-- System Diagnostic Badge -->
+                <!-- Diagnostic Badge (Can be toggled in Preferences) -->
                 <div class="system-diagnostic-badge mt-4 p-2 rounded border border-secondary bg-dark font-monospace text-muted d-inline-block text-start" id="system-diagnostic" style="font-size: 0.75rem; border-color: rgba(255, 255, 255, 0.05) !important; background: rgba(17, 12, 28, 0.4) !important;">
-                    <i class="fas fa-microchip text-neon-cyan me-1"></i> [DIAGNOSTIC: Analyzing incoming connection...]
+                    <i class="fas fa-microchip text-neon-cyan me-1"></i> [SYSTEM STATUS: Online | ASP.NET Core 10 &amp; SQL Server Active]
                 </div>
             </div>
             <div class="col-lg-5 mt-5 mt-lg-0 text-center" data-aos="zoom-in" data-aos-delay="200">
                 <div class="position-relative d-inline-block">
-                    <!-- Glassmorphic border ring around image -->
-                    <div class="position-absolute top-50 start-50 translate-middle rounded-circle border border-info border-3" style="width: 330px; height: 330px; opacity: 0.15; box-shadow: 0 0 30px var(--cyan-glow); animation: spin 10s linear infinite;"></div>
-                    <div class="position-absolute top-50 start-50 translate-middle rounded-circle border border-primary border-2" style="width: 350px; height: 350px; opacity: 0.25; box-shadow: 0 0 35px var(--primary); animation: spin 15s linear infinite reverse;"></div>
+                    <div class="position-absolute top-50 start-50 translate-middle rounded-circle border border-info border-3 profile-ring-inner" style="width: 330px; height: 330px; opacity: 0.15; box-shadow: 0 0 30px var(--cyan-glow); animation: spin 10s linear infinite;"></div>
+                    <div class="position-absolute top-50 start-50 translate-middle rounded-circle border border-primary border-2 profile-ring-outer" style="width: 350px; height: 350px; opacity: 0.25; box-shadow: 0 0 35px var(--primary); animation: spin 15s linear infinite reverse;"></div>
                     
-                    <img src="./images/profile.png" alt="Profile" class="rounded-circle img-fluid border border-secondary shadow-lg relative z-2" style="width: 290px; height: 290px; object-fit: cover; box-shadow: 0 0 40px rgba(168,85,247,0.3);" />
+                    <img src="./images/profile.png" alt="Hafiz Muhammad Saad Profile" class="rounded-circle img-fluid border border-secondary shadow-lg relative z-2 profile-img-responsive" style="width: 280px; height: 280px; object-fit: cover; box-shadow: 0 0 40px rgba(168,85,247,0.3);" />
                 </div>
             </div>
         </div>
     </div>
-    
-    <!-- Hero Scroll Indicator -->
-    <div class="position-absolute bottom-3 start-50 translate-middle-x text-center z-2">
-        <a href="#latest-projects-section" class="text-white text-decoration-none opacity-70 hover-opacity-100">
-            <span class="d-block small text-uppercase tracking-widest mb-1 text-muted" style="font-family: var(--font-heading);">SCROLL TO PROCEED</span>
-            <i class="fas fa-chevron-down animate-bounce text-neon-purple fs-4"></i>
-        </a>
+</section>
+
+<!-- QUICK STATS STRIP -->
+<section class="py-4 border-y border-secondary border-opacity-20 bg-dark bg-opacity-30">
+    <div class="container">
+        <div class="row g-3 text-center">
+            <div class="col-6 col-md-3">
+                <div class="p-3">
+                    <h3 class="text-neon-purple fw-bold display-6 mb-0">1+</h3>
+                    <span class="text-muted small">Years Experience</span>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="p-3">
+                    <h3 class="text-neon-cyan fw-bold display-6 mb-0">2</h3>
+                    <span class="text-muted small">Degrees / Diplomas</span>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="p-3">
+                    <h3 class="text-neon-blue fw-bold display-6 mb-0">9</h3>
+                    <span class="text-muted small">Core Tech Stack</span>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="p-3">
+                    <h3 class="text-success fw-bold display-6 mb-0">24/7</h3>
+                    <span class="text-muted small">Telemetry Engine</span>
+                </div>
+            </div>
+        </div>
     </div>
 </section>
 
-<!-- LATEST PROJECT SECTION (Appears immediately after Hero) -->
-    <section id="latest-projects-section" class="py-4">
-        <div class="container py-3">
-            <div class="text-center mb-4" data-aos="fade-up">
-                <h2 class="display-5 text-white fw-bold"><span class="text-neon-purple">//</span> Latest Deployments</h2>
-                <p class="text-muted">Top recent systems loaded from the project databank.</p>
+<!-- ABOUT TEASER SECTION -->
+<section class="py-5">
+    <div class="container py-4">
+        <div class="row align-items-center">
+            <div class="col-lg-6" data-aos="fade-right">
+                <span class="badge bg-dark border border-secondary text-neon-purple font-monospace mb-2">ABOUT THE DEVELOPER</span>
+                <h2 class="display-5 text-white fw-bold mb-3">Software Engineering &amp; Business Computing</h2>
+                <p class="text-muted leading-relaxed mb-4">
+                    Pursuing <strong>Advanced Diploma in Software Engineering (ADSE)</strong> at Aptech Learning and <strong>BSBC</strong> at Sohail University. Passionate about object-oriented programming, clean code architecture, relational databases, and modern web application development.
+                </p>
+                
+                <div class="d-flex flex-wrap gap-2 mb-4">
+                    <span class="badge bg-dark border border-info font-monospace p-2" style="color: #00D9FF !important; border-color: rgba(0, 217, 255, 0.5) !important; box-shadow: 0 0 10px rgba(0, 217, 255, 0.2);"><i class="fas fa-graduation-cap me-1"></i> Sohail University (BSBC) — CURRENT DEGREE</span>
+                    <span class="badge bg-dark border border-secondary font-monospace p-2" style="color: #A855F7 !important; border-color: rgba(168, 85, 247, 0.4) !important; box-shadow: 0 0 10px rgba(168, 85, 247, 0.2);"><i class="fas fa-university me-1"></i> Aptech Learning (ADSE) — PROFESSIONAL DIPLOMA</span>
+                </div>
+
+                <a class="btn btn-neon text-white" href="./about/"><i class="fas fa-user-circle me-2"></i> Read Full Story &amp; Roadmap</a>
+            </div>
+
+            <div class="col-lg-6 mt-4 mt-lg-0" data-aos="fade-left">
+                <div class="glass-panel p-4 p-md-5 border-0">
+                    <h4 class="text-white fw-bold mb-3"><i class="fas fa-layer-group text-neon-cyan me-2"></i> Core Specializations</h4>
+                    <ul class="list-unstyled text-muted small d-flex flex-column gap-3 mb-0">
+                        <li class="d-flex align-items-center gap-3">
+                            <i class="fas fa-check-circle text-neon-purple fs-5"></i>
+                            <div>
+                                <strong class="text-white d-block">ASP.NET Core 10 MVC Architecture</strong>
+                                Clean Controllers, ViewModels, Dependency Injection, and Razor layouts.
+                            </div>
+                        </li>
+                        <li class="d-flex align-items-center gap-3">
+                            <i class="fas fa-check-circle text-neon-cyan fs-5"></i>
+                            <div>
+                                <strong class="text-white d-block">SQL Server Database Normalization</strong>
+                                Entity Framework Core migrations, LINQ optimization, and indexing.
+                            </div>
+                        </li>
+                        <li class="d-flex align-items-center gap-3">
+                            <i class="fas fa-check-circle text-neon-blue fs-5"></i>
+                            <div>
+                                <strong class="text-white d-block">Telemetry &amp; Visitor Intelligence</strong>
+                                Real-time background queues, SignalR updates, and geolocation parsers.
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- LATEST PROJECTS TEASER SECTION -->
+    <section class="py-5 bg-dark bg-opacity-40">
+        <div class="container py-4">
+            <div class="d-flex flex-wrap justify-content-between align-items-end mb-4" data-aos="fade-up">
+                <div>
+                    <span class="badge bg-dark border border-secondary text-neon-cyan font-monospace mb-2">PORTFOLIO SHOWCASE</span>
+                    <h2 class="display-5 text-white fw-bold mb-0">Featured Projects</h2>
+                </div>
+                <a class="btn btn-outline-light border-secondary rounded-pill hover-text-white mt-3 mt-md-0" href="./portfolio/"><i class="fas fa-th-large me-2"></i> Explore All Projects databank</a>
             </div>
             
             <div class="row g-4 justify-content-center">
-                    <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="col-md-6" data-aos="fade-up" data-aos-delay="100">
                         <div class="card glass-panel h-100 border-0 overflow-hidden skill-card">
-                            <div class="position-relative overflow-hidden" style="height: 200px;">
+                            <div class="position-relative overflow-hidden" style="height: 220px;">
                                 <img src="./images/hero-bg.jpg" alt="Project thumbnail" class="card-img-top w-100 h-100" style="object-fit: cover; transition: transform 0.5s;" />
                                 <div class="position-absolute top-0 end-0 m-3">
                                     <span class="badge bg-dark border border-secondary"></span>
                                 </div>
                             </div>
-                            <div class="card-body d-flex flex-column">
+                            <div class="card-body d-flex flex-column p-4">
                                 <h4 class="card-title text-white fw-semibold">Portfolio Website</h4>
                                 <p class="card-text text-muted small">Modern Responsive Developer Portfolio with Dynamic Telemetry &amp; Static Build Pipeline</p>
                                 <div class="mt-auto pt-3">
@@ -161,22 +240,22 @@
                                                 <span class="badge bg-secondary bg-opacity-20 text-neon-cyan border border-info border-opacity-30 small">SQL Server</span>
                                     </div>
                                     <div class="d-flex gap-2">
-                                        <a href="./portfolio/details/1/" class="btn btn-outline-light btn-sm flex-grow-1 border-secondary rounded-pill hover-bg-light hover-text-dark">Details</a>
+                                        <a href="./portfolio/details/1/" class="btn btn-outline-light btn-sm flex-grow-1 border-secondary rounded-pill hover-bg-light hover-text-dark">View Details</a>
                                             <a href="https://github.com/saadsa9112-cloud/futuristic-portfolio-by-SA-Developer" target="_blank" class="btn btn-outline-info btn-sm rounded-circle"><i class="fab fa-github"></i></a>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="col-md-6" data-aos="fade-up" data-aos-delay="100">
                         <div class="card glass-panel h-100 border-0 overflow-hidden skill-card">
-                            <div class="position-relative overflow-hidden" style="height: 200px;">
+                            <div class="position-relative overflow-hidden" style="height: 220px;">
                                 <img src="./images/placeholder.png" alt="Project thumbnail" class="card-img-top w-100 h-100" style="object-fit: cover; transition: transform 0.5s;" />
                                 <div class="position-absolute top-0 end-0 m-3">
                                     <span class="badge bg-dark border border-secondary"></span>
                                 </div>
                             </div>
-                            <div class="card-body d-flex flex-column">
+                            <div class="card-body d-flex flex-column p-4">
                                 <h4 class="card-title text-white fw-semibold">University Management System (UMS)</h4>
                                 <p class="card-text text-muted small">Full-Stack Student &amp; Record Management System</p>
                                 <div class="mt-auto pt-3">
@@ -188,7 +267,7 @@
                                                 <span class="badge bg-secondary bg-opacity-20 text-neon-cyan border border-info border-opacity-30 small">CSS3</span>
                                     </div>
                                     <div class="d-flex gap-2">
-                                        <a href="./portfolio/details/2/" class="btn btn-outline-light btn-sm flex-grow-1 border-secondary rounded-pill hover-bg-light hover-text-dark">Details</a>
+                                        <a href="./portfolio/details/2/" class="btn btn-outline-light btn-sm flex-grow-1 border-secondary rounded-pill hover-bg-light hover-text-dark">View Details</a>
                                             <a href="https://github.com/saadsa9112-cloud" target="_blank" class="btn btn-outline-info btn-sm rounded-circle"><i class="fab fa-github"></i></a>
                                     </div>
                                 </div>
@@ -196,536 +275,13 @@
                         </div>
                     </div>
             </div>
-            <div class="text-center mt-4">
-                <a class="btn btn-neon text-white" href="./portfolio/"><i class="fas fa-layer-group me-2"></i> Query Database for More</a>
-            </div>
         </div>
     </section>
 
-<!-- ABOUT SECTION -->
-<section id="about-section" class="py-4 bg-dark bg-opacity-40">
-    <div class="container py-3">
-        <div class="row align-items-center">
-            <div class="col-lg-6" data-aos="fade-right">
-                <h2 class="display-5 text-white fw-bold mb-4"><span class="text-neon-cyan">//</span> Identity Core</h2>
-                <div class="text-muted leading-relaxed mb-4">
-                    <p>Motivated and detail-oriented <strong>Software Developer</strong> with knowledge of <strong>C#, C++, ASP.NET Core MVC (.NET), PHP, HTML5, CSS3, JavaScript, SQL, and MySQL</strong>. Experienced in developing and enhancing web applications through academic and personal projects.</p><p>Passionate about building scalable software solutions, solving real-world problems, and continuously learning modern technologies. A collaborative team player with strong analytical and problem-solving skills, eager to contribute to innovative software development projects.</p>
-                </div>
-                <h4 class="text-white mt-4 fw-semibold">Core Principles & Mission</h4>
-                <p class="text-muted">Passionate about building scalable software solutions, solving real-world problems, and continuously learning modern technologies to contribute to innovative software development projects.</p>
-                <div class="row g-4 mt-2">
-                    <div class="col-6">
-                        <div class="p-3 glass-panel text-center">
-                            <h3 class="text-neon-purple fw-bold mb-1">1+</h3>
-                            <span class="small text-muted">Years Experience</span>
-                        </div>
-                    </div>
-                    <div class="col-6">
-                        <div class="p-3 glass-panel text-center">
-                            <h3 class="text-neon-cyan fw-bold mb-1">24/7</h3>
-                            <span class="small text-muted">Active Node</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-6 mt-5 mt-lg-0" data-aos="fade-left">
-                <div class="glass-panel p-4 p-md-5">
-                    <h3 class="text-white fw-bold mb-4"><i class="fas fa-history me-2 text-neon-purple"></i> The Journey</h3>
-                    <p class="text-muted leading-relaxed">
-                        Pursuing <strong>Advanced Diploma in Software Engineering (ADSE)</strong> at Aptech Learning (March 2024 – May 2027) and <strong>Bachelor of Science in Business Computing (BSBC)</strong> at Sohail University (Oct 2025 – 2029), focusing on modern software engineering, object-oriented programming, databases, web development, cloud computing, cybersecurity, and artificial intelligence.
-                    </p>
-                    <div class="mt-4 pt-3 border-top border-secondary">
-                        <span class="d-block small text-muted mb-1">ACADEMIC BACKGROUND</span>
-                        <h5 class="text-white">ADSE - Aptech Learning &amp; BSBC - Sohail University, Karachi</h5>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- SKILLS SECTION -->
-<section id="skills-section" class="py-5">
-    <div class="container py-5">
-        <div class="text-center mb-5" data-aos="fade-up">
-            <h2 class="display-5 text-white fw-bold"><span class="text-neon-purple">//</span> Skills Inventory</h2>
-            <p class="text-muted">Current engineering modules calibrated in the database.</p>
-        </div>
-        
-        <div class="row g-4">
-                    <div class="col-md-6 col-lg-4" data-aos="zoom-in">
-                        <div class="glass-panel p-4 h-100 skill-card">
-                            <div class="d-flex justify-content-between align-items-center mb-3">
-                                <div class="d-flex align-items-center gap-3">
-                                    <div class="fs-2 text-neon-purple" style="color: #558bf7 !important; text-shadow: 0 0 10px #558bf7;"><i class="fa-solid fa-database"></i></div>
-                                    <h4 class="h5 text-white mb-0">MySQL</h4>
-                                </div>
-                                <span class="badge bg-dark border border-secondary" style="color: #558bf7 !important;">90%</span>
-                            </div>
-                            <div class="skill-progress-bar">
-                                <div class="skill-progress-fill" data-percent="90" style="background: #558bf7 !important; box-shadow: 0 0 8px #558bf7;"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-4" data-aos="zoom-in">
-                        <div class="glass-panel p-4 h-100 skill-card">
-                            <div class="d-flex justify-content-between align-items-center mb-3">
-                                <div class="d-flex align-items-center gap-3">
-                                    <div class="fs-2 text-neon-purple" style="color: #a855f7 !important; text-shadow: 0 0 10px #a855f7;"><i class="fab fa-microsoft"></i></div>
-                                    <h4 class="h5 text-white mb-0">ASP.NET Core MVC</h4>
-                                </div>
-                                <span class="badge bg-dark border border-secondary" style="color: #a855f7 !important;">95%</span>
-                            </div>
-                            <div class="skill-progress-bar">
-                                <div class="skill-progress-fill" data-percent="95" style="background: #a855f7 !important; box-shadow: 0 0 8px #a855f7;"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-4" data-aos="zoom-in">
-                        <div class="glass-panel p-4 h-100 skill-card">
-                            <div class="d-flex justify-content-between align-items-center mb-3">
-                                <div class="d-flex align-items-center gap-3">
-                                    <div class="fs-2 text-neon-purple" style="color: #3b82f6 !important; text-shadow: 0 0 10px #3b82f6;"><i class="fas fa-code"></i></div>
-                                    <h4 class="h5 text-white mb-0">C# / .NET 10</h4>
-                                </div>
-                                <span class="badge bg-dark border border-secondary" style="color: #3b82f6 !important;">98%</span>
-                            </div>
-                            <div class="skill-progress-bar">
-                                <div class="skill-progress-fill" data-percent="98" style="background: #3b82f6 !important; box-shadow: 0 0 8px #3b82f6;"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-4" data-aos="zoom-in">
-                        <div class="glass-panel p-4 h-100 skill-card">
-                            <div class="d-flex justify-content-between align-items-center mb-3">
-                                <div class="d-flex align-items-center gap-3">
-                                    <div class="fs-2 text-neon-purple" style="color: #06b6d4 !important; text-shadow: 0 0 10px #06b6d4;"><i class="fas fa-database"></i></div>
-                                    <h4 class="h5 text-white mb-0">SQL Server</h4>
-                                </div>
-                                <span class="badge bg-dark border border-secondary" style="color: #06b6d4 !important;">90%</span>
-                            </div>
-                            <div class="skill-progress-bar">
-                                <div class="skill-progress-fill" data-percent="90" style="background: #06b6d4 !important; box-shadow: 0 0 8px #06b6d4;"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-4" data-aos="zoom-in">
-                        <div class="glass-panel p-4 h-100 skill-card">
-                            <div class="d-flex justify-content-between align-items-center mb-3">
-                                <div class="d-flex align-items-center gap-3">
-                                    <div class="fs-2 text-neon-purple" style="color: #10b981 !important; text-shadow: 0 0 10px #10b981;"><i class="fas fa-project-diagram"></i></div>
-                                    <h4 class="h5 text-white mb-0">Html , CSS</h4>
-                                </div>
-                                <span class="badge bg-dark border border-secondary" style="color: #10b981 !important;">70%</span>
-                            </div>
-                            <div class="skill-progress-bar">
-                                <div class="skill-progress-fill" data-percent="70" style="background: #10b981 !important; box-shadow: 0 0 8px #10b981;"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-4" data-aos="zoom-in">
-                        <div class="glass-panel p-4 h-100 skill-card">
-                            <div class="d-flex justify-content-between align-items-center mb-3">
-                                <div class="d-flex align-items-center gap-3">
-                                    <div class="fs-2 text-neon-purple" style="color: #f59e0b !important; text-shadow: 0 0 10px #f59e0b;"><i class="fab fa-js"></i></div>
-                                    <h4 class="h5 text-white mb-0">JavaScript (ES6) / GSAP</h4>
-                                </div>
-                                <span class="badge bg-dark border border-secondary" style="color: #f59e0b !important;">85%</span>
-                            </div>
-                            <div class="skill-progress-bar">
-                                <div class="skill-progress-fill" data-percent="85" style="background: #f59e0b !important; box-shadow: 0 0 8px #f59e0b;"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-4" data-aos="zoom-in">
-                        <div class="glass-panel p-4 h-100 skill-card">
-                            <div class="d-flex justify-content-between align-items-center mb-3">
-                                <div class="d-flex align-items-center gap-3">
-                                    <div class="fs-2 text-neon-purple" style="color: #ef4444 !important; text-shadow: 0 0 10px #ef4444;"><i class="fab fa-git-alt"></i></div>
-                                    <h4 class="h5 text-white mb-0">Git &amp; CI/CD Pipelines</h4>
-                                </div>
-                                <span class="badge bg-dark border border-secondary" style="color: #ef4444 !important;">92%</span>
-                            </div>
-                            <div class="skill-progress-bar">
-                                <div class="skill-progress-fill" data-percent="92" style="background: #ef4444 !important; box-shadow: 0 0 8px #ef4444;"></div>
-                            </div>
-                        </div>
-                    </div>
-        </div>
-    </div>
-</section>
-
-<!-- SERVICES SECTION -->
-<section class="py-5 bg-dark bg-opacity-40">
-    <div class="container py-5">
-        <div class="text-center mb-5" data-aos="fade-up">
-            <h2 class="display-5 text-white fw-bold"><span class="text-neon-cyan">//</span> Operational Services</h2>
-            <p class="text-muted">High-value technical modules ready for integration.</p>
-        </div>
-        
-        <div class="row g-4">
-            <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
-                <div class="glass-panel p-4 h-100 text-center skill-card">
-                    <div class="fs-1 text-neon-purple mb-3"><i class="fas fa-laptop-code"></i></div>
-                    <h3 class="h4 text-white mb-2">Web Application Development</h3>
-                    <p class="text-muted small">Crafting interactive and lightning-fast user interfaces using modern standards combined with high-grade ASP.NET MVC architecture.</p>
-                </div>
-            </div>
-            <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
-                <div class="glass-panel p-4 h-100 text-center skill-card">
-                    <div class="fs-1 text-neon-cyan mb-3"><i class="fas fa-server"></i></div>
-                    <h3 class="h4 text-white mb-2">Backend Development</h3>
-                    <p class="text-muted small">Architecting secure and scalable API structures, utilizing Dependency Injection, Unit testing, and strict SOLID principles.</p>
-                </div>
-            </div>
-            <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
-                <div class="glass-panel p-4 h-100 text-center skill-card">
-                    <div class="fs-1 text-neon-blue mb-3"><i class="fas fa-database"></i></div>
-                    <h3 class="h4 text-white mb-2">Database Design & Tuning</h3>
-                    <p class="text-muted small">Relational normalization in SQL Server, setting up indexes, optimizing complex entity queries via Entity Framework Core.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- FEATURED PROJECT SECTION -->
-    <section class="py-5">
-        <div class="container py-5">
-            <div class="text-center mb-5" data-aos="fade-up">
-                <h2 class="display-5 text-white fw-bold"><span class="text-neon-purple">//</span> Primary Showcase</h2>
-                <p class="text-muted">Featured system currently running active operations.</p>
-            </div>
-            
-            <div class="glass-panel p-4 p-md-5" data-aos="zoom-in">
-                <div class="row align-items-center">
-                    <div class="col-lg-6">
-                        <div class="position-relative rounded-3 overflow-hidden shadow-lg" style="height: 350px;">
-                            <img src="./images/hero-bg.jpg" alt="Featured project thumbnail" class="w-100 h-100" style="object-fit: cover;" />
-                            <div class="position-absolute bottom-0 start-0 w-100 p-4" style="background: linear-gradient(to top, rgba(9,5,20,1) 0%, rgba(9,5,20,0) 100%);">
-                                <span class="badge bg-primary">Featured Project</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 mt-4 mt-lg-0 ps-lg-5">
-                        <span class="badge bg-secondary mb-2"></span>
-                        <h3 class="display-6 text-white fw-bold">Portfolio Website</h3>
-                        <p class="text-neon-cyan fw-semibold mb-3">Modern Responsive Developer Portfolio with Dynamic Telemetry &amp; Static Build Pipeline</p>
-                        <p class="text-muted leading-relaxed">
-Designed and developed a responsive portfolio website showcasing projects, technical skills, education, and contact information. Implemented a modern responsive UI with optimized performance across desktop and mobile devices.                        </p>
-                        
-                        <div class="d-flex flex-wrap gap-2 mb-4">
-                                    <span class="badge bg-dark border border-secondary text-white">ASP.NET Core MVC</span>
-                                    <span class="badge bg-dark border border-secondary text-white">HTML5</span>
-                                    <span class="badge bg-dark border border-secondary text-white">CSS3</span>
-                                    <span class="badge bg-dark border border-secondary text-white">JavaScript</span>
-                                    <span class="badge bg-dark border border-secondary text-white">SQL Server</span>
-                        </div>
-                        
-                        <div class="d-flex flex-wrap gap-3">
-                            <a href="./portfolio/details/1/" class="btn btn-neon text-white"><i class="fas fa-chart-network me-2"></i> Case Study details</a>
-                                <a href="https://github.com/saadsa9112-cloud/futuristic-portfolio-by-SA-Developer" target="_blank" class="btn btn-neon btn-neon-cyan text-white"><i class="fab fa-github me-2"></i> GitHub</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-<!-- PROFESSIONAL EXPERIENCE & CAREER ROADMAP SECTION -->
-<section id="experience-section" class="py-5 position-relative overflow-hidden">
-    <!-- Ambient Background Glows -->
-    <div class="position-absolute top-50 start-0 translate-middle-y rounded-circle filter-blur opacity-20" style="width: 450px; height: 450px; background: radial-gradient(circle, var(--purple-glow) 0%, transparent 70%); pointer-events: none;"></div>
-    <div class="position-absolute top-50 end-0 translate-middle-y rounded-circle filter-blur opacity-20" style="width: 450px; height: 450px; background: radial-gradient(circle, var(--cyan-glow) 0%, transparent 70%); pointer-events: none;"></div>
-
-    <div class="container py-4 position-relative z-2">
-        <!-- SECTION HEADER -->
-        <div class="text-center max-w-2xl mx-auto mb-5" data-aos="fade-up">
-            <div class="d-inline-flex align-items-center gap-2 px-3 py-1.5 rounded-pill glass-panel border border-secondary mb-3">
-                <span class="pulse-dot bg-success rounded-circle" style="width:8px; height:8px; display:inline-block; box-shadow: 0 0 10px #10b981;"></span>
-                <span class="small font-monospace text-neon-cyan fw-semibold tracking-wider text-uppercase">🟢 Currently Building</span>
-            </div>
-            <h2 class="display-4 text-white fw-bold tracking-tight mb-3">
-                <span class="text-neon-purple">//</span> Professional Experience
-            </h2>
-            <h3 class="h3 text-white fw-semibold mb-3">Building My Professional Journey</h3>
-            <p class="text-muted lead max-w-xl mx-auto fs-6">
-                I am actively building enterprise-grade software solutions, continuously learning modern technologies, and preparing for professional opportunities. This section will soon showcase internships, freelance projects, industry experience, and career milestones.
-            </p>
-        </div>
-
-        <!-- STATUS PILLS ROW -->
-        <div class="d-flex flex-wrap justify-content-center gap-2 mb-5" data-aos="fade-up" data-aos-delay="100">
-            <span class="badge glass-panel border border-success text-success px-3 py-2 rounded-pill font-monospace small"><i class="fas fa-briefcase me-1.5"></i> Open for Internship</span>
-            <span class="badge glass-panel border border-info text-neon-cyan px-3 py-2 rounded-pill font-monospace small"><i class="fas fa-bolt me-1.5"></i> Open for Freelancing</span>
-            <span class="badge glass-panel border border-secondary text-neon-purple px-3 py-2 rounded-pill font-monospace small"><i class="fas fa-handshake me-1.5"></i> Open for Collaboration</span>
-            <span class="badge glass-panel border border-warning text-warning px-3 py-2 rounded-pill font-monospace small"><i class="fas fa-rocket me-1.5"></i> Building Production-Ready Projects</span>
-            <span class="badge glass-panel border border-light text-white px-3 py-2 rounded-pill font-monospace small"><i class="fas fa-lightbulb me-1.5"></i> Learning Every Day</span>
-        </div>
-
-        <div class="row g-4 mb-5">
-            <!-- CURRENT FOCUS GRID (8 GLOWING CARDS) -->
-            <div class="col-lg-7" data-aos="fade-right">
-                <div class="glass-panel p-4 p-md-5 h-100 border-0 position-relative overflow-hidden">
-                    <div class="d-flex align-items-center justify-content-between mb-4">
-                        <h3 class="h4 text-white fw-bold mb-0 d-flex align-items-center gap-2">
-                            <i class="fas fa-microchip text-neon-purple fs-4"></i> Current Focus Areas
-                        </h3>
-                        <span class="badge bg-dark border border-secondary text-muted font-monospace">ACTIVE MODULES</span>
-                    </div>
-
-                    <div class="row g-3">
-                        <div class="col-md-6">
-                            <div class="p-3 glass-panel rounded-3 h-100 skill-card border-secondary hover-border-purple transition">
-                                <div class="fs-3 text-neon-purple mb-2"><i class="fab fa-microsoft"></i></div>
-                                <h5 class="text-white h6 fw-semibold mb-1">Enterprise ASP.NET Core MVC</h5>
-                                <p class="text-muted small mb-0">Architecting full-stack web applications with Dependency Injection and C# .NET 10.</p>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="p-3 glass-panel rounded-3 h-100 skill-card border-secondary hover-border-cyan transition">
-                                <div class="fs-3 text-neon-cyan mb-2"><i class="fas fa-brain"></i></div>
-                                <h5 class="text-white h6 fw-semibold mb-1">AI Powered Web Solutions</h5>
-                                <p class="text-muted small mb-0">Integrating AI chat agents, NLP assistants, and prompt engineering into web systems.</p>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="p-3 glass-panel rounded-3 h-100 skill-card border-secondary hover-border-blue transition">
-                                <div class="fs-3 text-neon-blue mb-2"><i class="fas fa-network-wired"></i></div>
-                                <h5 class="text-white h6 fw-semibold mb-1">REST API Development</h5>
-                                <p class="text-muted small mb-0">Building secure, normalized JSON endpoints and third-party webhook integrations.</p>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="p-3 glass-panel rounded-3 h-100 skill-card border-secondary hover-border-yellow transition">
-                                <div class="fs-3 text-warning mb-2"><i class="fas fa-database"></i></div>
-                                <h5 class="text-white h6 fw-semibold mb-1">Database Design & SQL Server</h5>
-                                <p class="text-muted small mb-0">Relational schema design, index optimization, and Entity Framework Core migrations.</p>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="p-3 glass-panel rounded-3 h-100 skill-card border-secondary hover-border-purple transition">
-                                <div class="fs-3 text-neon-purple mb-2"><i class="fas fa-cubes"></i></div>
-                                <h5 class="text-white h6 fw-semibold mb-1">Clean Architecture</h5>
-                                <p class="text-muted small mb-0">Enforcing Repository Pattern, Unit of Work, and strict SOLID software principles.</p>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="p-3 glass-panel rounded-3 h-100 skill-card border-secondary hover-border-cyan transition">
-                                <div class="fs-3 text-neon-cyan mb-2"><i class="fas fa-palette"></i></div>
-                                <h5 class="text-white h6 fw-semibold mb-1">UI/UX Improvements</h5>
-                                <p class="text-muted small mb-0">Creating dark mode glassmorphism interfaces with neon accents and micro-animations.</p>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="p-3 glass-panel rounded-3 h-100 skill-card border-secondary hover-border-green transition">
-                                <div class="fs-3 text-success mb-2"><i class="fas fa-puzzle-piece"></i></div>
-                                <h5 class="text-white h6 fw-semibold mb-1">Problem Solving</h5>
-                                <p class="text-muted small mb-0">Tackling complex algorithmic logic, bug diagnostics, and performance optimization.</p>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="p-3 glass-panel rounded-3 h-100 skill-card border-secondary hover-border-purple transition">
-                                <div class="fs-3 text-neon-purple mb-2"><i class="fas fa-graduation-cap"></i></div>
-                                <h5 class="text-white h6 fw-semibold mb-1">Continuous Learning</h5>
-                                <p class="text-muted small mb-0">Mastering modern frameworks, security standards, and production deployment pipelines.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- RIGHT COLUMN: ROADMAP TIMELINE + CAREER PROGRESS GAUGE -->
-            <div class="col-lg-5" data-aos="fade-left">
-                <div class="d-flex flex-column gap-4 h-100">
-                    <!-- CAREER PROGRESS RADIAL GAUGE CARD -->
-                    <div class="glass-panel p-4 text-center position-relative overflow-hidden">
-                        <div class="d-flex align-items-center justify-content-between mb-3">
-                            <h4 class="h6 text-white fw-bold mb-0 text-uppercase tracking-wider font-monospace"><i class="fas fa-chart-line text-neon-cyan me-2"></i> Career Progress</h4>
-                            <span class="badge bg-success bg-opacity-20 text-success border border-success border-opacity-30 small">ON TRACK</span>
-                        </div>
-                        
-                        <div class="position-relative d-inline-flex align-items-center justify-content-center my-2">
-                            <!-- SVG RADIAL CIRCLE -->
-                            <svg width="140" height="140" viewBox="0 0 120 120" style="transform: rotate(-90deg);">
-                                <circle cx="60" cy="60" r="50" stroke="rgba(255,255,255,0.08)" stroke-width="10" fill="none" />
-                                <circle cx="60" cy="60" r="50" stroke="url(#progress-gradient)" stroke-width="10" fill="none" stroke-dasharray="314" stroke-dashoffset="110" stroke-linecap="round" style="transition: stroke-dashoffset 2s ease-in-out;" />
-                                <defs>
-                                    <linearGradient id="progress-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                                        <stop offset="0%" stop-color="#a855f7" />
-                                        <stop offset="100%" stop-color="#00f3ff" />
-                                    </linearGradient>
-                                </defs>
-                            </svg>
-                            <div class="position-absolute text-center">
-                                <h2 class="display-6 fw-bold text-white mb-0 font-monospace counter-value" data-target="65">65%</h2>
-                                <span class="d-block text-neon-purple small fw-semibold">LEVEL UP</span>
-                            </div>
-                        </div>
-                        <p class="text-neon-cyan font-monospace small mb-0 mt-2"><i class="fas fa-seedling me-1"></i> Growing Every Day</p>
-                    </div>
-
-                    <!-- FUTURISTIC CAREER ROADMAP -->
-                    <div class="glass-panel p-4 flex-grow-1 border-0">
-                        <h4 class="h5 text-white fw-bold mb-4 d-flex align-items-center gap-2">
-                            <i class="fas fa-route text-neon-cyan"></i> Career Roadmap
-                        </h4>
-                        
-                        <div class="roadmap-timeline position-relative ps-4">
-                            <!-- VERTICAL GLOWING LINE -->
-                            <div class="position-absolute top-0 bottom-0 start-0 border-start border-2 border-secondary" style="left: 12px !important; opacity: 0.3;"></div>
-
-                            <!-- NODE 1 -->
-                            <div class="roadmap-item mb-4 position-relative" data-aos="fade-up" data-aos-delay="100">
-                                <span class="position-absolute top-0 translate-middle-x rounded-circle bg-dark border border-secondary p-1" style="left: -16px; width: 14px; height: 14px; background: #a855f7 !important; box-shadow: 0 0 10px #a855f7;"></span>
-                                <span class="badge bg-dark border border-secondary text-neon-purple font-monospace mb-1">2024</span>
-                                <h6 class="text-white fw-semibold mb-0">Started Advanced Diploma in Software Engineering</h6>
-                                <small class="text-muted">Aptech Learning, Karachi</small>
-                            </div>
-
-                            <!-- NODE 2 -->
-                            <div class="roadmap-item mb-4 position-relative" data-aos="fade-up" data-aos-delay="200">
-                                <span class="position-absolute top-0 translate-middle-x rounded-circle bg-dark border border-info p-1" style="left: -16px; width: 14px; height: 14px; background: #00f3ff !important; box-shadow: 0 0 10px #00f3ff;"></span>
-                                <span class="badge bg-dark border border-secondary text-neon-cyan font-monospace mb-1">2025</span>
-                                <h6 class="text-white fw-semibold mb-0">Started Bachelor of Science in Business Computing</h6>
-                                <small class="text-muted">Sohail University, Karachi</small>
-                            </div>
-
-                            <!-- NODE 3 -->
-                            <div class="roadmap-item mb-4 position-relative" data-aos="fade-up" data-aos-delay="300">
-                                <span class="position-absolute top-0 translate-middle-x rounded-circle bg-dark border border-success p-1" style="left: -16px; width: 14px; height: 14px; background: #10b981 !important; box-shadow: 0 0 10px #10b981;"></span>
-                                <span class="badge bg-dark border border-secondary text-success font-monospace mb-1">2025 – PRESENT</span>
-                                <h6 class="text-white fw-semibold mb-0">Developing Enterprise-Level Portfolio & CMS Projects</h6>
-                                <small class="text-muted">ASP.NET Core MVC & C# Architecture</small>
-                            </div>
-
-                            <!-- NODE 4 -->
-                            <div class="roadmap-item mb-4 position-relative" data-aos="fade-up" data-aos-delay="400">
-                                <span class="position-absolute top-0 translate-middle-x rounded-circle bg-dark border border-warning p-1" style="left: -16px; width: 14px; height: 14px; background: #f59e0b !important;"></span>
-                                <span class="badge bg-dark border border-secondary text-warning font-monospace mb-1">NEXT GOAL</span>
-                                <h6 class="text-white fw-semibold mb-0">Professional Internship</h6>
-                                <small class="text-muted">Software Engineering & Development Team</small>
-                            </div>
-
-                            <!-- NODE 5 -->
-                            <div class="roadmap-item position-relative" data-aos="fade-up" data-aos-delay="500">
-                                <span class="position-absolute top-0 translate-middle-x rounded-circle bg-dark border border-primary p-1" style="left: -16px; width: 14px; height: 14px; background: #3b82f6 !important;"></span>
-                                <span class="badge bg-dark border border-secondary text-neon-blue font-monospace mb-1">FUTURE GOAL</span>
-                                <h6 class="text-white fw-semibold mb-0">Software Engineer</h6>
-                                <small class="text-muted">Leading Enterprise Solution Architecture</small>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- CURRENT ACTIVE PROJECTS SHOWCASE (ANIMATED CARDS) -->
-        <div class="mb-5" data-aos="fade-up">
-            <div class="text-center mb-4">
-                <h3 class="h4 text-white fw-bold mb-1"><i class="fas fa-layer-group text-neon-purple me-2"></i> Current Projects</h3>
-                <p class="text-muted small">Active development modules built with clean architecture.</p>
-            </div>
-            <div class="row g-3">
-                <div class="col-md-4 col-sm-6" data-aos="zoom-in" data-aos-delay="100">
-                    <div class="p-3 glass-panel rounded-3 text-center skill-card hover-lift transition">
-                        <div class="fs-2 text-neon-purple mb-2"><i class="fas fa-university"></i></div>
-                        <h5 class="text-white h6 fw-semibold mb-1">Enterprise University CMS</h5>
-                        <span class="badge bg-dark border border-secondary text-neon-cyan small">ASP.NET Core & SQL</span>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-6" data-aos="zoom-in" data-aos-delay="200">
-                    <div class="p-3 glass-panel rounded-3 text-center skill-card hover-lift transition">
-                        <div class="fs-2 text-neon-cyan mb-2"><i class="fas fa-file-invoice-dollar"></i></div>
-                        <h5 class="text-white h6 fw-semibold mb-1">AI Resume Builder</h5>
-                        <span class="badge bg-dark border border-secondary text-neon-purple small">C# AI Integration</span>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-6" data-aos="zoom-in" data-aos-delay="300">
-                    <div class="p-3 glass-panel rounded-3 text-center skill-card hover-lift transition">
-                        <div class="fs-2 text-neon-blue mb-2"><i class="fas fa-globe"></i></div>
-                        <h5 class="text-white h6 fw-semibold mb-1">Portfolio CMS</h5>
-                        <span class="badge bg-dark border border-secondary text-neon-cyan small">ASP.NET Core MVC</span>
-                    </div>
-                </div>
-                <div class="col-md-6 col-sm-6" data-aos="zoom-in" data-aos-delay="400">
-                    <div class="p-3 glass-panel rounded-3 text-center skill-card hover-lift transition">
-                        <div class="fs-2 text-warning mb-2"><i class="fas fa-chart-line"></i></div>
-                        <h5 class="text-white h6 fw-semibold mb-1">Business Management System</h5>
-                        <span class="badge bg-dark border border-secondary text-warning small">Relational Database & C#</span>
-                    </div>
-                </div>
-                <div class="col-md-6 col-sm-12" data-aos="zoom-in" data-aos-delay="500">
-                    <div class="p-3 glass-panel rounded-3 text-center skill-card hover-lift transition">
-                        <div class="fs-2 text-success mb-2"><i class="fas fa-cloud"></i></div>
-                        <h5 class="text-white h6 fw-semibold mb-1">Future SaaS Products</h5>
-                        <span class="badge bg-dark border border-secondary text-success small">Cloud Scalability</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- MOTIVATIONAL QUOTE & CALL TO ACTION -->
-        <div class="glass-panel p-4 p-md-5 text-center position-relative overflow-hidden" data-aos="zoom-in">
-            <i class="fas fa-quote-left text-neon-purple opacity-20 display-1 position-absolute top-0 start-0 translate-middle-x"></i>
-            <p class="lead text-white font-italic max-w-2xl mx-auto mb-4 fs-5" style="line-height: 1.6;">
-                "Every great software engineer starts with curiosity, consistency, and real-world projects. My journey is just getting started."
-            </p>
-            <div class="d-flex flex-wrap justify-content-center gap-3">
-                <a href="#latest-projects-section" class="btn btn-neon text-white px-4 py-2"><i class="fas fa-folder-open me-2"></i> View Latest Projects</a>
-                <a href="./files/Muhammad_Saad_CV.pdf" download="Muhammad_Saad_CV.pdf" target="_blank" class="btn btn-neon btn-neon-cyan text-white px-4 py-2"><i class="fas fa-file-download me-2"></i> Download Resume</a>
-                <a href="#contact-section" class="btn btn-outline-light border-secondary px-4 py-2 rounded-pill hover-text-white"><i class="fas fa-paper-plane me-2"></i> Contact Me</a>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- STATISTICS & COUNTERS -->
+<!-- TECH STACK ICONS -->
 <section class="py-5">
-    <div class="container py-4">
-        <div class="row g-4 justify-content-center">
-                    <div class="col-6 col-md-3" data-aos="zoom-in">
-                        <div class="glass-panel p-4 text-center skill-card">
-                            <div class="fs-1 text-neon-purple mb-2"><i class="fas fa-folder-open"></i></div>
-                            <h2 class="display-5 text-white fw-bold counter-value" data-target="2">0</h2>
-                            <p class="text-muted small mb-0">Enterprise Projects</p>
-                        </div>
-                    </div>
-                    <div class="col-6 col-md-3" data-aos="zoom-in">
-                        <div class="glass-panel p-4 text-center skill-card">
-                            <div class="fs-1 text-neon-purple mb-2"><i class="fas fa-graduation-cap"></i></div>
-                            <h2 class="display-5 text-white fw-bold counter-value" data-target="2">0</h2>
-                            <p class="text-muted small mb-0">Degrees &amp; Diplomas</p>
-                        </div>
-                    </div>
-                    <div class="col-6 col-md-3" data-aos="zoom-in">
-                        <div class="glass-panel p-4 text-center skill-card">
-                            <div class="fs-1 text-neon-purple mb-2"><i class="fas fa-laptop-code"></i></div>
-                            <h2 class="display-5 text-white fw-bold counter-value" data-target="2">0</h2>
-                            <p class="text-muted small mb-0">Years Coding</p>
-                        </div>
-                    </div>
-                    <div class="col-6 col-md-3" data-aos="zoom-in">
-                        <div class="glass-panel p-4 text-center skill-card">
-                            <div class="fs-1 text-neon-purple mb-2"><i class="fas fa-code"></i></div>
-                            <h2 class="display-5 text-white fw-bold counter-value" data-target="9">0</h2>
-                            <p class="text-muted small mb-0">Core Technologies</p>
-                        </div>
-                    </div>
-        </div>
-    </div>
-</section>
-
-<!-- TESTIMONIALS SLIDER -->
-
-<!-- INTERACTIVE TECH STACK -->
-<section class="py-5">
-    <div class="container py-5 text-center">
-        <div class="text-center mb-5" data-aos="fade-up">
-            <h2 class="display-5 text-white fw-bold"><span class="text-neon-cyan">//</span> Calibrated Frameworks</h2>
-            <p class="text-muted">Interactive dashboard of frameworks, patterns and standards.</p>
-        </div>
-        
+    <div class="container py-4 text-center">
+        <h4 class="h6 text-muted text-uppercase tracking-wider font-monospace mb-4">Core Technology Stack</h4>
         <div class="d-flex flex-wrap justify-content-center gap-4" data-aos="zoom-in">
             <div class="tech-icon-box" title="C#"><i class="fas fa-code text-neon-purple"></i></div>
             <div class="tech-icon-box" title="ASP.NET Core"><i class="fab fa-microsoft text-neon-cyan"></i></div>
@@ -740,48 +296,49 @@ Designed and developed a responsive portfolio website showcasing projects, techn
 </section>
 
 <!-- CONTACT SECTION -->
-<section id="contact-section" class="py-5">
-    <div class="container py-5">
+<section id="contact-section" class="py-5 bg-dark bg-opacity-40">
+    <div class="container py-4">
         <div class="text-center mb-5" data-aos="fade-up">
-            <h2 class="display-5 text-white fw-bold"><span class="text-neon-purple">//</span> Transmission Channel</h2>
-            <p class="text-muted">Commence connection link. Send queries or deployment briefs.</p>
+            <span class="badge bg-dark border border-secondary text-neon-purple font-monospace mb-2">COMMUNICATIONS</span>
+            <h2 class="display-5 text-white fw-bold">Get In Touch</h2>
+            <p class="text-muted">Send inquiries, project proposals, or professional opportunities.</p>
         </div>
         
         <div class="row g-5">
             <div class="col-lg-6" data-aos="fade-right">
                 <div class="glass-panel p-4 p-md-5 h-100">
-                    <h3 class="text-white fw-bold mb-4"><i class="fas fa-envelope-open-text text-neon-purple me-2"></i> Get In Touch</h3>
+                    <h3 class="text-white fw-bold mb-4"><i class="fas fa-paper-plane text-neon-purple me-2"></i> Contact Form</h3>
                     
                     <form id="contact-form" method="post">
                         
                         <div class="mb-3">
-                            <label class="form-label text-muted small">IDENTITY NAME</label>
-                            <input type="text" name="Name" class="form-control bg-dark border-secondary text-white rounded-3 py-2" required placeholder="eg. recruiter/company name" />
+                            <label class="form-label text-muted small">YOUR NAME</label>
+                            <input type="text" name="Name" class="form-control bg-dark border-secondary text-white rounded-3 py-2" required placeholder="e.g. Recruiter / Client Name" />
                         </div>
                         <div class="mb-3">
-                            <label class="form-label text-muted small">TRANSMISSION EMAIL</label>
-                            <input type="email" name="Email" class="form-control bg-dark border-secondary text-white rounded-3 py-2" required placeholder="eg. client@domain.com" />
+                            <label class="form-label text-muted small">YOUR EMAIL</label>
+                            <input type="email" name="Email" class="form-control bg-dark border-secondary text-white rounded-3 py-2" required placeholder="e.g. client@domain.com" />
                         </div>
                         <div class="mb-3">
-                            <label class="form-label text-muted small">COMMUNICATION SUBJECT</label>
-                            <input type="text" name="Subject" class="form-control bg-dark border-secondary text-white rounded-3 py-2" required placeholder="eg. Hiring Proposition / Project Brief" />
+                            <label class="form-label text-muted small">SUBJECT</label>
+                            <input type="text" name="Subject" class="form-control bg-dark border-secondary text-white rounded-3 py-2" required placeholder="e.g. Software Engineering Opportunity" />
                         </div>
                         <div class="mb-4">
-                            <label class="form-label text-muted small">TRANSMISSION CONTENT</label>
+                            <label class="form-label text-muted small">MESSAGE</label>
                             <textarea name="Body" rows="4" class="form-control bg-dark border-secondary text-white rounded-3 py-2" required placeholder="Write your message here..."></textarea>
                         </div>
                         
-                        <button type="submit" class="btn btn-neon w-100 text-white"><i class="fas fa-satellite-dish me-2"></i> Transmit Packet</button>
-                    <input name="__RequestVerificationToken" type="hidden" value="CfDJ8LjMxfGWG05NjdR1VASDLUvqVPnjXm1McREzRVi6L8RGq334S7EFru5zorfd13Ys79VP9-IFcBOAD-CPUC_ZQMHvaeDHN_QOQmCkAWf4ehdx7_uixYnqLI3J3FybXRj6GJGTXb-J5JXFX9ETUn1lMd0" /></form>
+                        <button type="submit" class="btn btn-neon w-100 text-white"><i class="fas fa-paper-plane me-2"></i> Send Message</button>
+                    <input name="__RequestVerificationToken" type="hidden" value="CfDJ8LjMxfGWG05NjdR1VASDLUvJC7qAbdQMNHs4D7tpYFPmsGS0McNNaJGdHuS7UuNAQY3nhna41LNigRWpI7do546biU4XYC_B_6JEwSX_a-vohAlTHzkUxzYWc4MapXZBFfpldmgLNoMrWtGetAzZgOA" /></form>
                     <div id="contact-submit-status" class="mt-3" style="display: none;"></div>
                 </div>
             </div>
             
             <div class="col-lg-6" data-aos="fade-left">
                 <div class="glass-panel p-4 p-md-5 h-100 d-flex flex-column">
-                    <h3 class="text-white fw-bold mb-4"><i class="fas fa-map-marked-alt text-neon-cyan me-2"></i> Geospatial Node</h3>
-                    <p class="text-muted small">Currently broadcast-locked in the cyber district metropolis.</p>
-                    <div class="flex-grow-1 rounded-3 overflow-hidden border border-secondary shadow mb-4" style="min-height: 250px;">
+                    <h3 class="text-white fw-bold mb-4"><i class="fas fa-map-marked-alt text-neon-cyan me-2"></i> Location &amp; Contact</h3>
+                    <p class="text-muted small">Based in Karachi, Pakistan. Available for remote and hybrid opportunities.</p>
+                    <div class="flex-grow-1 rounded-3 overflow-hidden border border-secondary shadow mb-4" style="min-height: 220px;">
                             <iframe src="https://www.openstreetmap.org/embed.html?bbox=-74.009%2C40.705%2C-73.999%2C40.715&amp;layer=mapnik&amp;marker=40.7128%2C-74.0060" width="100%" height="100%" style="border:0; filter: invert(90%) hue-rotate(240deg) brightness(85%);" allowfullscreen="" loading="lazy"></iframe>
                     </div>
                     <div class="d-flex flex-column gap-2 text-muted small">
@@ -909,7 +466,7 @@ Designed and developed a responsive portfolio website showcasing projects, techn
     </div>
 
     <!-- Cookie Consent Banner -->
-    <div b-tjezjmjmzt class="cookie-banner glass-panel p-3 text-start" id="cookie-banner" style="position: fixed; bottom: 20px; left: 20px; max-width: 400px; z-index: 100000; display: none; background: rgba(17, 12, 28, 0.9) !important; border-color: rgba(168, 85, 247, 0.3) !important;">
+    <div b-tjezjmjmzt class="cookie-banner glass-panel p-3 text-start" id="cookie-banner" style="position: fixed; bottom: 20px; left: 20px; width: calc(100% - 40px); max-width: 400px; z-index: 100000; display: none; background: rgba(17, 12, 28, 0.95) !important; border: 1px solid rgba(168, 85, 247, 0.4) !important; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);">
         <div b-tjezjmjmzt class="d-flex align-items-center gap-2 mb-2">
             <i b-tjezjmjmzt class="fas fa-cookie-bite text-warning fs-4"></i>
             <h6 b-tjezjmjmzt class="mb-0 text-white fw-bold">Telemetry Access Consent</h6>
@@ -918,6 +475,68 @@ Designed and developed a responsive portfolio website showcasing projects, techn
         <div b-tjezjmjmzt class="d-flex gap-2">
             <button b-tjezjmjmzt type="button" class="btn btn-sm btn-neon text-white px-3" id="cookie-accept-btn">Accept Consent</button>
             <button b-tjezjmjmzt type="button" class="btn btn-sm btn-outline-secondary px-3" id="cookie-decline-btn">Reject</button>
+        </div>
+    </div>
+
+    <!-- Site Preferences & Settings Modal -->
+    <div b-tjezjmjmzt class="modal fade" id="preferencesModal" tabindex="-1" aria-labelledby="preferencesModalLabel" aria-hidden="true">
+        <div b-tjezjmjmzt class="modal-dialog modal-dialog-centered">
+            <div b-tjezjmjmzt class="modal-content glass-panel text-white border-secondary" style="background: rgba(17, 12, 28, 0.96) !important;">
+                <div b-tjezjmjmzt class="modal-header border-secondary border-opacity-35">
+                    <h5 b-tjezjmjmzt class="modal-title font-monospace fw-bold text-neon-cyan" id="preferencesModalLabel">
+                        <i b-tjezjmjmzt class="fas fa-cog text-neon-purple me-2"></i> Site Preferences &amp; Settings
+                    </h5>
+                    <button b-tjezjmjmzt type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div b-tjezjmjmzt class="modal-body py-4">
+                    <div b-tjezjmjmzt class="d-flex flex-column gap-3">
+                        <div b-tjezjmjmzt class="d-flex align-items-center justify-content-between p-3 rounded glass-panel">
+                            <div b-tjezjmjmzt>
+                                <h6 b-tjezjmjmzt class="mb-0 text-white fw-semibold"><i b-tjezjmjmzt class="fas fa-volume-up text-neon-purple me-2"></i> Click Sound Effects</h6>
+                                <small b-tjezjmjmzt class="text-muted d-block">Synthesize audio beeps on interactive clicks</small>
+                            </div>
+                            <div b-tjezjmjmzt class="form-check form-switch ms-3">
+                                <input b-tjezjmjmzt class="form-check-input bg-dark" type="checkbox" id="pref-sound-toggle" />
+                            </div>
+                        </div>
+
+                        <div b-tjezjmjmzt class="d-flex align-items-center justify-content-between p-3 rounded glass-panel">
+                            <div b-tjezjmjmzt>
+                                <h6 b-tjezjmjmzt class="mb-0 text-white fw-semibold"><i b-tjezjmjmzt class="fas fa-shield-alt text-danger me-2"></i> Security Breach Overlay Alert</h6>
+                                <small b-tjezjmjmzt class="text-muted d-block">Allow security glitch overlay on rapid trigger</small>
+                            </div>
+                            <div b-tjezjmjmzt class="form-check form-switch ms-3">
+                                <input b-tjezjmjmzt class="form-check-input bg-dark" type="checkbox" id="pref-glitch-toggle" />
+                            </div>
+                        </div>
+
+                        <div b-tjezjmjmzt class="d-flex align-items-center justify-content-between p-3 rounded glass-panel">
+                            <div b-tjezjmjmzt>
+                                <h6 b-tjezjmjmzt class="mb-0 text-white fw-semibold"><i b-tjezjmjmzt class="fas fa-star text-warning me-2"></i> Particle Canvas Background</h6>
+                                <small b-tjezjmjmzt class="text-muted d-block">Animate background particles</small>
+                            </div>
+                            <div b-tjezjmjmzt class="form-check form-switch ms-3">
+                                <input b-tjezjmjmzt class="form-check-input bg-dark" type="checkbox" id="pref-particles-toggle" checked />
+                            </div>
+                        </div>
+
+                        <div b-tjezjmjmzt class="d-flex align-items-center justify-content-between p-3 rounded glass-panel">
+                            <div b-tjezjmjmzt>
+                                <h6 b-tjezjmjmzt class="mb-0 text-white fw-semibold"><i b-tjezjmjmzt class="fas fa-microchip text-neon-cyan me-2"></i> System Diagnostics Badge</h6>
+                                <small b-tjezjmjmzt class="text-muted d-block">Display system status badge on Hero banner</small>
+                            </div>
+                            <div b-tjezjmjmzt class="form-check form-switch ms-3">
+                                <input b-tjezjmjmzt class="form-check-input bg-dark" type="checkbox" id="pref-diagnostic-toggle" checked />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div b-tjezjmjmzt class="modal-footer border-secondary border-opacity-35">
+                    <button b-tjezjmjmzt type="button" class="btn btn-neon text-white w-100" id="save-preferences-btn" data-bs-dismiss="modal">
+                        <i b-tjezjmjmzt class="fas fa-save me-2"></i> Apply &amp; Save Preferences
+                    </button>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -935,58 +554,18 @@ Designed and developed a responsive portfolio website showcasing projects, techn
     <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="./js/site.js?v=cXcfWv7E0orEAKs_YLuQld9_w8bSrAe9zx_VkXgpzRo"></script>
+    <script src="./js/site.js?v=1yOKmhVvM4UpsDTZBX4bHctpJmUvBiFInwjVupCqfmE"></script>
+    <script src="./js/hms-telemetry.js?v=5hUu86zj9Iv2YHukAHxmlvrlFy4NbzNsW7A5vJsOc1s"></script>
     
-    <!-- Typed.js CDN for typing title inside Hero -->
     <script src="https://unpkg.com/typed.js@2.0.16/dist/typed.umd.js"></script>
     <script>
         document.addEventListener("DOMContentLoaded", () => {
-            // Typing Animation
             new Typed('#typed-subtitle', {
                 strings: ['Software Developer', 'ASP.NET Core MVC & C# Engineer', 'BSBC @ Sohail University', 'ADSE @ Aptech Learning'],
                 typeSpeed: 60,
                 backSpeed: 30,
                 loop: true
             });
-
-            // Statistics Counter Animation
-            const counters = document.querySelectorAll('.counter-value');
-            const duration = 2000; // ms
-
-            const animateCounters = () => {
-                counters.forEach(counter => {
-                    const target = +counter.getAttribute('data-target');
-                    const startTime = performance.now();
-
-                    const update = (currentTime) => {
-                        const elapsed = currentTime - startTime;
-                        const progress = Math.min(elapsed / duration, 1);
-                        const value = Math.floor(progress * target);
-                        counter.innerText = value;
-
-                        if (progress < 1) {
-                            requestAnimationFrame(update);
-                        } else {
-                            counter.innerText = target;
-                        }
-                    };
-                    requestAnimationFrame(update);
-                });
-            };
-
-            // Observer to trigger counters on enter viewport
-            const statsSection = document.querySelector('.counter-value').closest('.row');
-            if (statsSection) {
-                const observer = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            animateCounters();
-                            observer.unobserve(entry.target);
-                        }
-                    });
-                }, { threshold: 0.15 });
-                observer.observe(statsSection);
-            }
         });
     </script>
 
