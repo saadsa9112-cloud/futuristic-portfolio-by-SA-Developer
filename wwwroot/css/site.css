@@ -694,217 +694,304 @@ h1, h2, h3, h4, h5, h6 {
    LIGHT MODE DESIGN SYSTEM OVERRIDES
    ========================================== */
 body.light-theme {
-    --bg-dark: #f8fafc; /* Slate 50 */
-    --bg-card: rgba(255, 255, 255, 0.75); /* Translucent White Card */
-    --border-glow: rgba(147, 51, 234, 0.08);
-    --primary: #9333ea; /* Purple */
-    --secondary: #2563eb; /* Blue */
-    --cyan-glow: #0891b2; /* Cyan */
-    --text-main: #0f172a; /* Slate 900 */
-    --text-muted: #475569; /* Slate 600 */
+    --bg-primary: #F8F9FC;
+    --bg-secondary: #F1F3F8;
+    --bg-card: #FFFFFF;
+    --bg-card-elevated: #FFFFFF;
+
+    --light-text-primary: #151225;
+    --light-text-secondary: #4F4B61;
+    --light-text-muted: #777286;
+
+    --accent-purple: #8B3DFF;
+    --accent-purple-dark: #6D28D9;
+    --accent-cyan: #009FC2;
+
+    --light-border: #E5E7EF;
+    --light-shadow: rgba(25, 20, 50, 0.08);
+
+    --bg-dark: #F8F9FC !important;
+    --bg-card-theme: #FFFFFF !important;
+    --text-main: #151225 !important;
+    --primary: #8B3DFF !important;
+    --secondary: #009FC2 !important;
+
+    background-color: #F8F9FC !important;
+    color: #151225 !important;
 }
 
-/* Particles backdrop opacity adjustment */
-body.light-theme #particles-js {
-    opacity: 0.12 !important;
+/* 1. Global Section Background Overrides (No Dark Sections in Light Mode!) */
+body.light-theme section,
+body.light-theme header,
+body.light-theme footer,
+body.light-theme main,
+body.light-theme .bg-dark,
+body.light-theme .bg-opacity-40,
+body.light-theme .bg-opacity-30,
+body.light-theme .bg-opacity-50 {
+    background-color: #F8F9FC !important;
 }
 
-/* Image adjustments & soft shadows */
-body.light-theme img {
-    border-color: rgba(15, 23, 42, 0.08) !important;
-    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06) !important;
-    filter: brightness(0.98) contrast(1.02);
+/* Alternate Section Background (#F1F3F8) for Depth */
+body.light-theme #about-section,
+body.light-theme #latest-projects-section,
+body.light-theme #contact-section,
+body.light-theme section:nth-of-type(even) {
+    background-color: #F1F3F8 !important;
 }
 
-/* Light Theme Component Tweaks */
-body.light-theme .text-white,
-body.light-theme .text-light,
+/* 2. Global Card & Container System (#FFFFFF Cards) */
+body.light-theme .glass-panel,
+body.light-theme .card,
+body.light-theme .skill-card,
+body.light-theme .tech-icon-box,
+body.light-theme .modal-content,
+body.light-theme .command-palette-box,
+body.light-theme #cookie-banner {
+    background: #FFFFFF !important;
+    border: 1px solid #E5E7EF !important;
+    box-shadow: 0 8px 25px rgba(25, 20, 50, 0.06) !important;
+    backdrop-filter: blur(12px) !important;
+}
+
+body.light-theme .glass-panel:hover,
+body.light-theme .card:hover,
+body.light-theme .skill-card:hover {
+    border-color: rgba(139, 61, 255, 0.35) !important;
+    box-shadow: 0 10px 30px rgba(139, 61, 255, 0.12) !important;
+}
+
+/* 3. Typography Contrast Overrides */
 body.light-theme h1,
 body.light-theme h2,
 body.light-theme h3,
 body.light-theme h4,
 body.light-theme h5,
 body.light-theme h6,
-body.light-theme .card-title,
-body.light-theme .nav-link,
+body.light-theme .display-1,
+body.light-theme .display-2,
 body.light-theme .display-3,
-body.light-theme .display-5 {
-    color: var(--text-main) !important;
+body.light-theme .display-4,
+body.light-theme .display-5,
+body.light-theme .display-6,
+body.light-theme .text-white,
+body.light-theme .text-light,
+body.light-theme .card-title {
+    color: #151225 !important;
     text-shadow: none !important;
 }
 
 body.light-theme p,
-body.light-theme span.text-muted,
-body.light-theme .text-white-50 {
-    color: var(--text-muted) !important;
+body.light-theme .lead,
+body.light-theme .text-main,
+body.light-theme .text-secondary {
+    color: #4F4B61 !important;
 }
 
+body.light-theme .text-muted,
+body.light-theme span.text-muted,
+body.light-theme p.text-muted,
+body.light-theme small.text-muted,
+body.light-theme label,
+body.light-theme .small {
+    color: #777286 !important;
+}
+
+/* 4. Navbar Component Styling */
+body.light-theme .navbar-futuristic {
+    background: rgba(248, 249, 252, 0.9) !important;
+    border-bottom: 1px solid #E5E7EF !important;
+    backdrop-filter: blur(16px) !important;
+}
+
+body.light-theme .navbar-futuristic .nav-link {
+    color: #4F4B61 !important;
+    font-weight: 500;
+}
+
+body.light-theme .navbar-futuristic .nav-link:hover {
+    color: #8B3DFF !important;
+}
+
+body.light-theme .navbar-futuristic .nav-link.active {
+    color: #009FC2 !important;
+    font-weight: 600;
+}
+
+body.light-theme .navbar-collapse {
+    background: #FFFFFF !important;
+    border: 1px solid #E5E7EF !important;
+    box-shadow: 0 10px 30px rgba(25, 20, 50, 0.12) !important;
+}
+
+/* 5. Statistics Bar */
+body.light-theme .border-y.border-secondary {
+    background: #FFFFFF !important;
+    border-top: 1px solid #E5E7EF !important;
+    border-bottom: 1px solid #E5E7EF !important;
+}
+
+body.light-theme .counter-value,
+body.light-theme .display-5.text-white {
+    color: #8B3DFF !important;
+}
+
+/* 6. Primary CTA & Secondary Buttons */
+body.light-theme .btn-neon,
+body.light-theme .btn-primary {
+    background: #009FC2 !important;
+    border-color: #009FC2 !important;
+    color: #FFFFFF !important;
+    box-shadow: 0 4px 15px rgba(0, 159, 194, 0.25) !important;
+}
+
+body.light-theme .btn-neon:hover,
+body.light-theme .btn-primary:hover {
+    background: #0088a8 !important;
+    box-shadow: 0 6px 20px rgba(0, 159, 194, 0.4) !important;
+}
+
+body.light-theme .btn-neon-cyan {
+    background: #8B3DFF !important;
+    border-color: #8B3DFF !important;
+    color: #FFFFFF !important;
+    box-shadow: 0 4px 15px rgba(139, 61, 255, 0.25) !important;
+}
+
+body.light-theme .btn-outline-light,
+body.light-theme .btn-outline-secondary {
+    background: #FFFFFF !important;
+    border: 1px solid #8B3DFF !important;
+    color: #8B3DFF !important;
+}
+
+body.light-theme .btn-outline-light:hover,
+body.light-theme .btn-outline-secondary:hover {
+    background: rgba(139, 61, 255, 0.08) !important;
+    color: #6D28D9 !important;
+    box-shadow: 0 0 15px rgba(139, 61, 255, 0.2) !important;
+}
+
+/* 7. Skill Progress Bars */
+body.light-theme .skill-progress-bar {
+    background: #E7E8F0 !important;
+    border: 1px solid #E5E7EF !important;
+    box-shadow: none !important;
+}
+
+body.light-theme .skill-progress-fill {
+    background: linear-gradient(90deg, #8B3DFF, #009FC2) !important;
+    box-shadow: 0 0 10px rgba(139, 61, 255, 0.3) !important;
+}
+
+/* 8. Contact Form & Map Container */
 body.light-theme input,
 body.light-theme textarea,
 body.light-theme select {
-    background-color: #ffffff !important;
-    color: #0f172a !important;
-    border-color: #cbd5e1 !important;
+    background-color: #FFFFFF !important;
+    color: #151225 !important;
+    border: 1px solid #DCDDE7 !important;
+}
+
+body.light-theme input:focus,
+body.light-theme textarea:focus,
+body.light-theme select:focus {
+    border-color: #8B3DFF !important;
+    box-shadow: 0 0 10px rgba(139, 61, 255, 0.2) !important;
 }
 
 body.light-theme input::placeholder,
 body.light-theme textarea::placeholder {
-    color: #94a3b8 !important;
+    color: #777286 !important;
 }
 
-body.light-theme .glass-panel {
-    background: var(--bg-card) !important;
-    border-color: rgba(147, 51, 234, 0.08) !important;
-    backdrop-filter: blur(20px) !important;
-    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.04) !important;
+body.light-theme iframe {
+    filter: none !important;
+    border: 1px solid #E5E7EF !important;
 }
 
-body.light-theme .navbar-futuristic {
-    background: rgba(248, 250, 252, 0.8) !important;
-    border-bottom: 1px solid rgba(15, 23, 42, 0.06) !important;
+/* 9. Footer Component & Links Fix */
+body.light-theme footer {
+    background: #FFFFFF !important;
+    border-top: 1px solid #E5E7EF !important;
 }
 
-body.light-theme .navbar-futuristic .nav-link {
-    color: #475569;
+body.light-theme footer h5,
+body.light-theme footer h6 {
+    color: #151225 !important;
 }
 
-body.light-theme .navbar-futuristic .nav-link:hover,
-body.light-theme .navbar-futuristic .nav-link.active {
-    color: var(--primary);
+body.light-theme .footer-nav-link {
+    color: #4F4B61 !important;
+    background: transparent !important;
+    border: none !important;
+    padding: 3px 0 !important;
+    display: inline-flex;
+    align-items: center;
+    transition: transform 0.3s ease, color 0.3s ease;
 }
 
-body.light-theme .custom-cursor {
-    border-color: var(--primary);
+body.light-theme .footer-nav-link i {
+    color: #8B3DFF !important;
+    transition: transform 0.3s ease, color 0.3s ease;
 }
 
-body.light-theme .custom-cursor-dot {
-    background-color: var(--primary);
+body.light-theme .footer-nav-link:hover {
+    color: #8B3DFF !important;
+    transform: translateX(4px);
 }
 
-body.light-theme .ambient-glow {
-    background: radial-gradient(circle, rgba(147, 51, 234, 0.05) 0%, rgba(0,0,0,0) 70%);
+body.light-theme .footer-nav-link:hover i {
+    color: #009FC2 !important;
 }
 
-body.light-theme #loader-screen {
-    background: #f8fafc;
+body.light-theme .footer-social-btn {
+    background: #F1F3F8 !important;
+    border: 1px solid #E5E7EF !important;
+    color: #4F4B61 !important;
 }
 
-body.light-theme .loader-text {
-    color: #0f172a;
+body.light-theme .footer-social-btn:hover {
+    background: #8B3DFF !important;
+    color: #FFFFFF !important;
+    border-color: #8B3DFF !important;
 }
 
-body.light-theme .timeline-item::before {
-    background: #e2e8f0;
+/* 10. Badges & Tags */
+body.light-theme .badge.bg-dark {
+    background-color: #F1F3F8 !important;
+    border: 1px solid #E5E7EF !important;
+    color: #4F4B61 !important;
 }
 
-body.light-theme .timeline-date {
-    background: rgba(147, 51, 234, 0.08);
-    border-color: rgba(147, 51, 234, 0.15);
-    color: var(--primary) !important;
+body.light-theme .text-neon-cyan {
+    color: #009FC2 !important;
 }
 
-body.light-theme .timeline-content h4 {
-    color: #0f172a !important;
+body.light-theme .text-neon-purple {
+    color: #8B3DFF !important;
 }
 
-body.light-theme .timeline-content h5 {
-    color: var(--primary) !important;
-}
-
-body.light-theme .tech-icon-box span {
-    color: #0f172a !important;
-}
-
-body.light-theme .ai-chat-messages {
-    background: #ffffff !important;
-}
-
-body.light-theme .chat-message.bot {
-    background: rgba(15, 23, 42, 0.03) !important;
-    border-color: rgba(15, 23, 42, 0.05) !important;
-    color: #0f172a !important;
-}
-
-body.light-theme .quick-chip {
-    background: rgba(15, 23, 42, 0.04) !important;
-    border-color: rgba(15, 23, 42, 0.08) !important;
-    color: #475569 !important;
-}
-
-body.light-theme .quick-chip:hover {
-    background: rgba(147, 51, 234, 0.08) !important;
-    border-color: var(--primary) !important;
-    color: var(--primary) !important;
-}
-
+/* 11. Command Palette & Modals */
 body.light-theme .command-palette-overlay {
-    background: rgba(248, 250, 252, 0.85);
-}
-
-body.light-theme .command-palette-box {
-    background: #ffffff !important;
-    border-color: rgba(15, 23, 42, 0.08) !important;
+    background: rgba(248, 249, 252, 0.85) !important;
 }
 
 body.light-theme .command-item {
-    background: rgba(15, 23, 42, 0.02) !important;
-    border-color: rgba(15, 23, 42, 0.05) !important;
-    color: #475569 !important;
+    background: #F8F9FC !important;
+    border: 1px solid #E5E7EF !important;
+    color: #4F4B61 !important;
 }
 
 body.light-theme .command-item:hover,
 body.light-theme .command-item.selected {
-    background: rgba(147, 51, 234, 0.08) !important;
-    border-color: var(--primary) !important;
-    color: var(--primary) !important;
-    box-shadow: 0 0 10px rgba(147, 51, 234, 0.1) !important;
+    background: rgba(139, 61, 255, 0.08) !important;
+    border-color: #8B3DFF !important;
+    color: #8B3DFF !important;
 }
 
-body.light-theme .btn-neon {
-    box-shadow: 0 4px 12px rgba(147, 51, 234, 0.15);
-}
-
-body.light-theme .btn-neon:hover {
-    box-shadow: 0 4px 20px rgba(147, 51, 234, 0.3);
-}
-
-body.light-theme .footer {
-    border-top: 1px solid rgba(15, 23, 42, 0.06);
-}
-
-body.light-theme .footer p,
-body.light-theme .footer span {
-    color: #475569 !important;
-}
-
-body.light-theme .btn-neon-cyan {
-    background: linear-gradient(135deg, var(--secondary) 0%, var(--cyan-glow) 100%) !important;
-}
-
-/* Preserve bright buttons in light theme */
-body.light-theme .btn-neon span,
-body.light-theme .btn-neon i,
-body.light-theme .btn-neon strong,
-body.light-theme .btn-neon-cyan i,
-body.light-theme .btn-neon-cyan span {
-    color: #ffffff !important;
-}
-
-body.light-theme .badge.bg-dark {
-    background-color: #e2e8f0 !important;
-    color: #475569 !important;
-}
-
-body.light-theme .terminal-output-log {
-    background-color: #f1f5f9 !important;
-    border-color: #cbd5e1 !important;
-    color: #0f172a !important;
-    text-shadow: none !important;
-}
-
-body.light-theme .modal-content {
-    background-color: #ffffff !important;
-    color: #0f172a !important;
+body.light-theme #particles-js {
+    opacity: 0.08 !important;
 }
 
 /* COOKIE CONSENT BANNER */
