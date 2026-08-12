@@ -1,4 +1,5 @@
 @using FuturisticPortfolio.Models.Entities
+@using FuturisticPortfolio.Services
 @{
     ViewData["Title"] = "About Me";
     var settings = ViewBag.Settings as Settings;
@@ -111,7 +112,7 @@
                                     <div class="fs-2 text-neon-purple" style="color: @skill.ColorHex !important; text-shadow: 0 0 10px @skill.ColorHex;"><i class="@skill.IconClass"></i></div>
                                     <h4 class="h5 text-white mb-0">@skill.Name</h4>
                                 </div>
-                                <span class="badge bg-dark border border-secondary" style="color: @skill.ColorHex !important;">@skill.Percentage%</span>
+                                <span class="badge bg-dark border border-secondary" style="color: @skill.ColorHex !important;">@SkillLevelHelper.GetDisplayLevel(skill.Percentage)</span>
                             </div>
                             <div class="skill-progress-bar">
                                 <div class="skill-progress-fill" data-percent="@skill.Percentage" style="width: @(skill.Percentage)%; background: @skill.ColorHex !important; box-shadow: 0 0 10px @skill.ColorHex;"></div>

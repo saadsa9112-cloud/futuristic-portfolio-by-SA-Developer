@@ -46,15 +46,24 @@ namespace FuturisticPortfolio.Controllers
                 .OrderBy(s => s.DisplayOrder)
                 .ToList();
 
-            // Load Latest Projects
-            var latestProjects = (await _unitOfWork.Projects.FindAsync(p => p.Status == "Published"))
+            // Published Projects
+            var publishedProjects = (await _unitOfWork.Projects.FindAsync(p => p.Status == "Published"))
                 .OrderBy(p => p.DisplayOrder)
-                .Take(3)
                 .ToList();
 
-            // Find the featured project (first featured, otherwise fallback to latest)
-            var featuredProject = (await _unitOfWork.Projects.FindAsync(p => p.Status == "Published" && p.FeaturedOption))
-                .FirstOrDefault() ?? latestProjects.FirstOrDefault();
+            // Find the featured project (Admin-selected featured project first)
+            var featuredProject = publishedProjects.FirstOrDefault(p => p.FeaturedOption) ?? publishedProjects.FirstOrDefault();
+
+            // Latest Projects (excluding featured project if present, or top published)
+            var latestProjects = publishedProjects
+                .Where(p => featuredProject == null || p.Id != featuredProject.Id)
+                .Take(2)
+                .ToList();
+
+            if (!latestProjects.Any() && publishedProjects.Any())
+            {
+                latestProjects = publishedProjects.Take(2).ToList();
+            }
 
             ViewBag.Settings = settings;
             ViewBag.Skills = skills;

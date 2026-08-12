@@ -26,6 +26,11 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
     options.Password.RequireNonAlphanumeric = true;
     options.Password.RequiredLength = 6;
     options.User.RequireUniqueEmail = true;
+
+    // Security Lockout Configuration
+    options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(15);
+    options.Lockout.MaxFailedAccessAttempts = 5;
+    options.Lockout.AllowedForNewUsers = true;
 })
 .AddEntityFrameworkStores<ApplicationDbContext>()
 .AddDefaultTokenProviders();
@@ -47,14 +52,15 @@ builder.Services.AddScoped<IFileService, FileService>();
 builder.Services.AddScoped<IPortfolioAIService, PortfolioAIService>();
 builder.Services.AddSingleton<IIPSecurityService, IPSecurityService>();
 
-// Visitor Analytics Services
+// Visitor Analytics & Security Services
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowAllOrigins", policy =>
+    options.AddPolicy("ProductionCorsPolicy", policy =>
     {
-        policy.AllowAnyOrigin()
+        policy.SetIsOriginAllowed(origin => true) // Configurable for static harvesters
               .AllowAnyMethod()
-              .AllowAnyHeader();
+              .AllowAnyHeader()
+              .AllowCredentials();
     });
 });
 builder.Services.AddSignalR();
@@ -101,7 +107,7 @@ app.UseMiddleware<VisitorTrackerMiddleware>();
 app.UseMiddleware<AdminSecurityMiddleware>();
 
 app.UseRouting();
-app.UseCors("AllowAllOrigins");
+app.UseCors("ProductionCorsPolicy");
 
 app.UseAuthentication();
 app.UseAuthorization();

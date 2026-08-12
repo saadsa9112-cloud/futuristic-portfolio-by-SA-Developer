@@ -70,7 +70,7 @@ namespace FuturisticPortfolio.Controllers
             var projects = await _unitOfWork.Projects.GetAllAsync();
             var project = projects.FirstOrDefault(p => p.Id == id);
             
-            if (project == null || project.Status == "Draft")
+            if (project == null || !string.Equals(project.Status, "Published", StringComparison.OrdinalIgnoreCase))
             {
                 return NotFound();
             }

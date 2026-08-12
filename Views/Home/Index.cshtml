@@ -47,36 +47,24 @@
 </section>
 
 <!-- QUICK STATS STRIP -->
-<section class="py-4 border-y border-secondary border-opacity-20 bg-dark bg-opacity-30">
-    <div class="container">
-        <div class="row g-3 text-center">
-            <div class="col-6 col-md-3">
-                <div class="p-3">
-                    <h3 class="text-neon-purple fw-bold display-6 mb-0">1+</h3>
-                    <span class="text-muted small">Years Experience</span>
-                </div>
-            </div>
-            <div class="col-6 col-md-3">
-                <div class="p-3">
-                    <h3 class="text-neon-cyan fw-bold display-6 mb-0">2</h3>
-                    <span class="text-muted small">Degrees / Diplomas</span>
-                </div>
-            </div>
-            <div class="col-6 col-md-3">
-                <div class="p-3">
-                    <h3 class="text-neon-blue fw-bold display-6 mb-0">9</h3>
-                    <span class="text-muted small">Core Tech Stack</span>
-                </div>
-            </div>
-            <div class="col-6 col-md-3">
-                <div class="p-3">
-                    <h3 class="text-success fw-bold display-6 mb-0">24/7</h3>
-                    <span class="text-muted small">Telemetry Engine</span>
-                </div>
+@if (statistics != null && statistics.Any())
+{
+    <section class="py-4 border-y border-secondary border-opacity-20 bg-dark bg-opacity-30">
+        <div class="container">
+            <div class="row g-3 text-center justify-content-center">
+                @foreach (var stat in statistics)
+                {
+                    <div class="col-6 col-md-3">
+                        <div class="p-3">
+                            <h3 class="text-neon-purple fw-bold display-6 mb-0">@stat.Value</h3>
+                            <span class="text-muted small">@stat.Title</span>
+                        </div>
+                    </div>
+                }
             </div>
         </div>
-    </div>
-</section>
+    </section>
+}
 
 <!-- ABOUT TEASER SECTION -->
 <section class="py-5">
@@ -86,7 +74,7 @@
                 <span class="badge bg-dark border border-secondary text-neon-purple font-monospace mb-2">ABOUT THE DEVELOPER</span>
                 <h2 class="display-5 text-white fw-bold mb-3">Software Engineering &amp; Business Computing</h2>
                 <p class="text-muted leading-relaxed mb-4">
-                    Pursuing <strong>Advanced Diploma in Software Engineering (ADSE)</strong> at Aptech Learning and <strong>BSBC</strong> at Sohail University. Passionate about object-oriented programming, clean code architecture, relational databases, and modern web application development.
+                    Pursuing <strong>BSBC</strong> at Sohail University and <strong>Advanced Diploma in Software Engineering (ADSE)</strong> at Aptech Learning. Passionate about clean code architecture, relational databases, C#, ASP.NET Core MVC, and modern web application development.
                 </p>
                 
                 <div class="d-flex flex-wrap gap-2 mb-4">
@@ -94,7 +82,7 @@
                     <span class="badge bg-dark border border-secondary font-monospace p-2" style="color: #A855F7 !important; border-color: rgba(168, 85, 247, 0.4) !important; box-shadow: 0 0 10px rgba(168, 85, 247, 0.2);"><i class="fas fa-university me-1"></i> Aptech Learning (ADSE) — PROFESSIONAL DIPLOMA</span>
                 </div>
 
-                <a asp-controller="Home" asp-action="About" class="btn btn-neon text-white"><i class="fas fa-user-circle me-2"></i> Read Full Story &amp; Roadmap</a>
+                <a asp-controller="Home" asp-action="About" class="btn btn-neon text-white"><i class="fas fa-user-circle me-2"></i> Read Full Story</a>
             </div>
 
             <div class="col-lg-6 mt-4 mt-lg-0" data-aos="fade-left">
@@ -104,7 +92,7 @@
                         <li class="d-flex align-items-center gap-3">
                             <i class="fas fa-check-circle text-neon-purple fs-5"></i>
                             <div>
-                                <strong class="text-white d-block">ASP.NET Core 10 MVC Architecture</strong>
+                                <strong class="text-white d-block">ASP.NET Core MVC Architecture</strong>
                                 Clean Controllers, ViewModels, Dependency Injection, and Razor layouts.
                             </div>
                         </li>
@@ -112,14 +100,14 @@
                             <i class="fas fa-check-circle text-neon-cyan fs-5"></i>
                             <div>
                                 <strong class="text-white d-block">SQL Server Database Normalization</strong>
-                                Entity Framework Core migrations, LINQ optimization, and indexing.
+                                Entity Framework Core migrations, LINQ optimization, and relational schemas.
                             </div>
                         </li>
                         <li class="d-flex align-items-center gap-3">
                             <i class="fas fa-check-circle text-neon-blue fs-5"></i>
                             <div>
-                                <strong class="text-white d-block">Telemetry &amp; Visitor Intelligence</strong>
-                                Real-time background queues, SignalR updates, and geolocation parsers.
+                                <strong class="text-white d-block">Modern Responsive Web Systems</strong>
+                                Clean UI design system, glassmorphism, and dual Light/Dark mode themes.
                             </div>
                         </li>
                     </ul>
@@ -129,54 +117,100 @@
     </div>
 </section>
 
-<!-- LATEST PROJECTS TEASER SECTION -->
-@if (latestProjects != null && latestProjects.Any())
+<!-- FEATURED & LATEST PROJECTS SECTION -->
+@if (featuredProject != null || (latestProjects != null && latestProjects.Any()))
 {
     <section class="py-5 bg-dark bg-opacity-40">
         <div class="container py-4">
             <div class="d-flex flex-wrap justify-content-between align-items-end mb-4" data-aos="fade-up">
                 <div>
-                    <span class="badge bg-dark border border-secondary text-neon-cyan font-monospace mb-2">PORTFOLIO SHOWCASE</span>
-                    <h2 class="display-5 text-white fw-bold mb-0">Featured Projects</h2>
+                    <span class="badge bg-dark border border-secondary text-neon-cyan font-monospace mb-2">PROJECT SHOWCASE</span>
+                    <h2 class="display-5 text-white fw-bold mb-0">Selected Projects</h2>
                 </div>
-                <a asp-controller="Portfolio" asp-action="Index" class="btn btn-outline-light border-secondary rounded-pill hover-text-white mt-3 mt-md-0"><i class="fas fa-th-large me-2"></i> Explore All Projects databank</a>
+                <a asp-controller="Portfolio" asp-action="Index" class="btn btn-outline-light border-secondary rounded-pill hover-text-white mt-3 mt-md-0"><i class="fas fa-th-large me-2"></i> Explore All Projects</a>
             </div>
             
             <div class="row g-4 justify-content-center">
-                @foreach (var project in latestProjects.Take(2))
+                @if (featuredProject != null)
                 {
                     <div class="col-md-6" data-aos="fade-up" data-aos-delay="100">
-                        <div class="card glass-panel h-100 border-0 overflow-hidden skill-card">
+                        <div class="card glass-panel h-100 border-0 overflow-hidden skill-card border-info border-opacity-30">
                             <div class="position-relative overflow-hidden" style="height: 220px;">
-                                <img src="@project.ThumbnailPath" alt="Project thumbnail" class="card-img-top w-100 h-100" style="object-fit: cover; transition: transform 0.5s;" />
-                                <div class="position-absolute top-0 end-0 m-3">
-                                    <span class="badge bg-dark border border-secondary">@project.Category?.Name</span>
+                                <img src="@featuredProject.ThumbnailPath" alt="Featured project thumbnail" class="card-img-top w-100 h-100" style="object-fit: cover; transition: transform 0.5s;" />
+                                <div class="position-absolute top-0 end-0 m-3 d-flex gap-1">
+                                    <span class="badge bg-primary text-white">FEATURED</span>
+                                    @if (featuredProject.Category != null)
+                                    {
+                                        <span class="badge bg-dark border border-secondary">@featuredProject.Category.Name</span>
+                                    }
                                 </div>
                             </div>
                             <div class="card-body d-flex flex-column p-4">
-                                <h4 class="card-title text-white fw-semibold">@project.Title</h4>
-                                <p class="card-text text-muted small">@project.Subtitle</p>
+                                <h4 class="card-title text-white fw-semibold">@featuredProject.Title</h4>
+                                <p class="card-text text-muted small">@featuredProject.Subtitle</p>
                                 <div class="mt-auto pt-3">
                                     <div class="d-flex flex-wrap gap-2 mb-3">
-                                        @if (project.Technologies != null)
+                                        @if (featuredProject.Technologies != null)
                                         {
-                                            foreach (var tag in project.Technologies.Split(','))
+                                            foreach (var tag in featuredProject.Technologies.Split(','))
                                             {
                                                 <span class="badge bg-secondary bg-opacity-20 text-neon-cyan border border-info border-opacity-30 small">@tag.Trim()</span>
                                             }
                                         }
                                     </div>
                                     <div class="d-flex gap-2">
-                                        <a href="/Portfolio/Details/@project.Id" class="btn btn-outline-light btn-sm flex-grow-1 border-secondary rounded-pill hover-bg-light hover-text-dark">View Details</a>
-                                        @if (!string.IsNullOrEmpty(project.GitHubLink))
+                                        <a href="/Portfolio/Details/@featuredProject.Id" class="btn btn-outline-light btn-sm flex-grow-1 border-secondary rounded-pill hover-bg-light hover-text-dark">View Details</a>
+                                        @if (!string.IsNullOrEmpty(featuredProject.GitHubLink))
                                         {
-                                            <a href="@project.GitHubLink" target="_blank" class="btn btn-outline-info btn-sm rounded-circle"><i class="fab fa-github"></i></a>
+                                            <a href="@featuredProject.GitHubLink" target="_blank" class="btn btn-outline-info btn-sm rounded-circle" title="GitHub Code"><i class="fab fa-github"></i></a>
                                         }
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                }
+
+                @if (latestProjects != null)
+                {
+                    foreach (var project in latestProjects)
+                    {
+                        <div class="col-md-6" data-aos="fade-up" data-aos-delay="200">
+                            <div class="card glass-panel h-100 border-0 overflow-hidden skill-card">
+                                <div class="position-relative overflow-hidden" style="height: 220px;">
+                                    <img src="@project.ThumbnailPath" alt="Project thumbnail" class="card-img-top w-100 h-100" style="object-fit: cover; transition: transform 0.5s;" />
+                                    <div class="position-absolute top-0 end-0 m-3">
+                                        @if (project.Category != null)
+                                        {
+                                            <span class="badge bg-dark border border-secondary">@project.Category.Name</span>
+                                        }
+                                    </div>
+                                </div>
+                                <div class="card-body d-flex flex-column p-4">
+                                    <h4 class="card-title text-white fw-semibold">@project.Title</h4>
+                                    <p class="card-text text-muted small">@project.Subtitle</p>
+                                    <div class="mt-auto pt-3">
+                                        <div class="d-flex flex-wrap gap-2 mb-3">
+                                            @if (project.Technologies != null)
+                                            {
+                                                foreach (var tag in project.Technologies.Split(','))
+                                                {
+                                                    <span class="badge bg-secondary bg-opacity-20 text-neon-cyan border border-info border-opacity-30 small">@tag.Trim()</span>
+                                                }
+                                            }
+                                        </div>
+                                        <div class="d-flex gap-2">
+                                            <a href="/Portfolio/Details/@project.Id" class="btn btn-outline-light btn-sm flex-grow-1 border-secondary rounded-pill hover-bg-light hover-text-dark">View Details</a>
+                                            @if (!string.IsNullOrEmpty(project.GitHubLink))
+                                            {
+                                                <a href="@project.GitHubLink" target="_blank" class="btn btn-outline-info btn-sm rounded-circle" title="GitHub Code"><i class="fab fa-github"></i></a>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
                 }
             </div>
         </div>

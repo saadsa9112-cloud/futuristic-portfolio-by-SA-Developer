@@ -5,7 +5,7 @@ const http = require('http');
 const PORT = 5255;
 const BASE_URL = `http://localhost:${PORT}`;
 const DIST_DIR = path.join(__dirname, 'dist');
-const TUNNEL_URL = 'https://saad-dev-telemetry.localtunnel.me'; // Fixed localtunnel subdomain
+const TUNNEL_URL = process.env.TELEMETRY_TUNNEL_URL || 'https://saad-dev-telemetry.localtunnel.me';
 
 // Direct copy helper
 function copyFolderSync(from, to) {
@@ -86,10 +86,11 @@ async function run() {
 
         // Extract detail routes using regex (case-insensitive)
         const projectRegex = /\/[Pp]ortfolio\/[Dd]etails\/\d+/g;
-        const blogRegex = /\/[Bb]log\/[Dd]etails\/\d+/g;
+        const blogRegex = /\/[Bb]log\/[Dd]etails(?:\?slug=|\/)([a-zA-Z0-9_-]+)/gi;
 
         const projectRoutes = [...new Set(portfolioHtml.match(projectRegex) || [])];
-        const blogRoutes = [...new Set(blogHtml.match(blogRegex) || [])];
+        const blogMatches = [...blogHtml.matchAll(blogRegex)];
+        const blogRoutes = [...new Set(blogMatches.map(m => m[0]))];
 
         console.log(`Found ${projectRoutes.length} projects and ${blogRoutes.length} blog posts to harvest.`);
 
@@ -99,8 +100,8 @@ async function run() {
         });
 
         blogRoutes.forEach(route => {
-            const id = route.split('/').pop();
-            pages.push({ route: route, dest: `blog/details/${id}/index.html` });
+            const slug = route.includes('=') ? route.split('=').pop() : route.split('/').pop();
+            pages.push({ route: route, dest: `blog/details/${slug}/index.html` });
         });
 
         // 5. Download and save HTML files
@@ -117,7 +118,8 @@ async function run() {
             html = html.replace(/href="\/[Pp]ortfolio"/g, `href="${relativePrefix}portfolio/"`);
             html = html.replace(/href="\/[Bb]log"/g, `href="${relativePrefix}blog/"`);
             html = html.replace(/href="\/[Pp]ortfolio\/[Dd]etails\/(\d+)"/gi, `href="${relativePrefix}portfolio/details/$1/"`);
-            html = html.replace(/href="\/[Bb]log\/[Dd]etails\/(\d+)"/gi, `href="${relativePrefix}blog/details/$1/"`);
+            html = html.replace(/href="\/[Bb]log\/[Dd]etails\?slug=([a-zA-Z0-9_-]+)"/gi, `href="${relativePrefix}blog/details/$1/"`);
+            html = html.replace(/href="\/[Bb]log\/[Dd]etails\/([a-zA-Z0-9_-]+)"/gi, `href="${relativePrefix}blog/details/$1/"`);
             html = html.replace(/href="\/[Hh]ome\/[Cc]ontact"/g, `href="${relativePrefix}#contact-section"`);
             html = html.replace(/href="\/[Hh]ome\/[Cc]ontact[Ss]ubmit"/g, `href="${relativePrefix}#contact-section"`);
             html = html.replace(/href="\/#([a-zA-Z0-9_-]+)"/g, `href="${relativePrefix}#$1"`);
