@@ -3,82 +3,157 @@
     ViewData["Title"] = "Home";
     var settings = ViewBag.Settings as Settings;
     var skills = ViewBag.Skills as List<Skill>;
-    var experiences = ViewBag.Experiences as List<Experience>;
-    var educations = ViewBag.Educations as List<Education>;
-    var testimonials = ViewBag.Testimonials as List<Testimonial>;
     var statistics = ViewBag.Statistics as List<Statistic>;
     var featuredProject = ViewBag.FeaturedProject as Project;
     var latestProjects = ViewBag.LatestProjects as List<Project>;
 }
 
 <!-- HERO SECTION -->
-<section class="d-flex align-items-center position-relative overflow-hidden" style="min-height: 100vh;">
+<section class="d-flex align-items-center position-relative overflow-hidden" style="min-height: 90vh; padding-top: 80px;">
     <div class="container py-5 z-2">
         <div class="row align-items-center">
             <div class="col-lg-7 text-center text-lg-start" data-aos="fade-right">
-                <span class="badge bg-secondary mb-3 text-uppercase tracking-wider px-3 py-2" style="font-family: var(--font-heading);">SYSTEMS READY</span>
-                <h1 class="display-3 fw-bold text-white mb-2">
-                    Hi, I am <span class="text-neon-purple">@settings?.SiteName.Split('|')[0].Trim()</span>
+                <span class="badge bg-secondary mb-3 text-uppercase tracking-wider px-3 py-2 font-monospace">WELCOME TO MY PORTFOLIO</span>
+                <h1 class="display-3 fw-bold text-white mb-2 text-lg-nowrap">
+                    Hi, I am <span class="text-neon-purple">Hafiz Muhammad Saad</span>
                 </h1>
                 <h2 class="h1 fw-semibold mb-4 text-neon-cyan">
                     <span id="typed-subtitle"></span>
                 </h2>
                 <p class="lead text-muted mb-4 max-w-lg">
-                    Welcome to the nexus of high-performance architecture, clean database normalization, and interactive user interfaces.
+                    Crafting high-performance ASP.NET Core applications, clean relational databases, and modern interactive user interfaces.
                 </p>
                 <div class="d-flex flex-wrap justify-content-center justify-content-lg-start gap-3">
-                    <a asp-action="DownloadCv" class="btn btn-neon text-white"><i class="fas fa-file-download me-2"></i> Download CV</a>
-                    <a href="#contact-section" class="btn btn-neon btn-neon-cyan text-white"><i class="fas fa-envelope me-2"></i> Establish Link</a>
+                    <a href="./files/Muhammad_Saad_CV.pdf" download="Muhammad_Saad_CV.pdf" target="_blank" class="btn btn-neon text-white"><i class="fas fa-file-download me-2"></i> Download CV</a>
+                    <a asp-controller="Portfolio" asp-action="Index" class="btn btn-neon btn-neon-cyan text-white"><i class="fas fa-layer-group me-2"></i> View Projects</a>
+                    <a href="#contact-section" class="btn btn-outline-light border-secondary px-4 rounded-pill hover-text-white"><i class="fas fa-paper-plane me-2"></i> Contact Me</a>
                 </div>
 
-                <!-- System Diagnostic Badge -->
+                <!-- Diagnostic Badge (Can be toggled in Preferences) -->
                 <div class="system-diagnostic-badge mt-4 p-2 rounded border border-secondary bg-dark font-monospace text-muted d-inline-block text-start" id="system-diagnostic" style="font-size: 0.75rem; border-color: rgba(255, 255, 255, 0.05) !important; background: rgba(17, 12, 28, 0.4) !important;">
-                    <i class="fas fa-microchip text-neon-cyan me-1"></i> [DIAGNOSTIC: Analyzing incoming connection...]
+                    <i class="fas fa-microchip text-neon-cyan me-1"></i> [SYSTEM STATUS: Online | ASP.NET Core 10 &amp; SQL Server Active]
                 </div>
             </div>
             <div class="col-lg-5 mt-5 mt-lg-0 text-center" data-aos="zoom-in" data-aos-delay="200">
                 <div class="position-relative d-inline-block">
-                    <!-- Glassmorphic border ring around image -->
-                    <div class="position-absolute top-50 start-50 translate-middle rounded-circle border border-info border-3" style="width: 330px; height: 330px; opacity: 0.15; box-shadow: 0 0 30px var(--cyan-glow); animation: spin 10s linear infinite;"></div>
-                    <div class="position-absolute top-50 start-50 translate-middle rounded-circle border border-primary border-2" style="width: 350px; height: 350px; opacity: 0.25; box-shadow: 0 0 35px var(--primary); animation: spin 15s linear infinite reverse;"></div>
+                    <div class="position-absolute top-50 start-50 translate-middle rounded-circle border border-info border-3 profile-ring-inner" style="width: 330px; height: 330px; opacity: 0.15; box-shadow: 0 0 30px var(--cyan-glow); animation: spin 10s linear infinite;"></div>
+                    <div class="position-absolute top-50 start-50 translate-middle rounded-circle border border-primary border-2 profile-ring-outer" style="width: 350px; height: 350px; opacity: 0.25; box-shadow: 0 0 35px var(--primary); animation: spin 15s linear infinite reverse;"></div>
                     
-                    <img src="@(settings?.AboutPicturePath ?? "/images/profile.png")" alt="Profile" class="rounded-circle img-fluid border border-secondary shadow-lg relative z-2" style="width: 290px; height: 290px; object-fit: cover; box-shadow: 0 0 40px rgba(168,85,247,0.3);" />
+                    <img src="@(settings?.AboutPicturePath ?? "/images/profile.png")" alt="Hafiz Muhammad Saad Profile" class="rounded-circle img-fluid border border-secondary shadow-lg relative z-2 profile-img-responsive" style="width: 280px; height: 280px; object-fit: cover; box-shadow: 0 0 40px rgba(168,85,247,0.3);" />
                 </div>
             </div>
         </div>
     </div>
-    
-    <!-- Hero Scroll Indicator -->
-    <div class="position-absolute bottom-3 start-50 translate-middle-x text-center z-2">
-        <a href="#latest-projects-section" class="text-white text-decoration-none opacity-70 hover-opacity-100">
-            <span class="d-block small text-uppercase tracking-widest mb-1 text-muted" style="font-family: var(--font-heading);">SCROLL TO PROCEED</span>
-            <i class="fas fa-chevron-down animate-bounce text-neon-purple fs-4"></i>
-        </a>
+</section>
+
+<!-- QUICK STATS STRIP -->
+<section class="py-4 border-y border-secondary border-opacity-20 bg-dark bg-opacity-30">
+    <div class="container">
+        <div class="row g-3 text-center">
+            <div class="col-6 col-md-3">
+                <div class="p-3">
+                    <h3 class="text-neon-purple fw-bold display-6 mb-0">1+</h3>
+                    <span class="text-muted small">Years Experience</span>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="p-3">
+                    <h3 class="text-neon-cyan fw-bold display-6 mb-0">2</h3>
+                    <span class="text-muted small">Degrees / Diplomas</span>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="p-3">
+                    <h3 class="text-neon-blue fw-bold display-6 mb-0">9</h3>
+                    <span class="text-muted small">Core Tech Stack</span>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="p-3">
+                    <h3 class="text-success fw-bold display-6 mb-0">24/7</h3>
+                    <span class="text-muted small">Telemetry Engine</span>
+                </div>
+            </div>
+        </div>
     </div>
 </section>
 
-<!-- LATEST PROJECT SECTION (Appears immediately after Hero) -->
-<section id="latest-projects-section" class="py-5">
-    <div class="container py-5">
-        <div class="text-center mb-5" data-aos="fade-up">
-            <h2 class="display-5 text-white fw-bold"><span class="text-neon-purple">//</span> Latest Deployments</h2>
-            <p class="text-muted">Top recent systems loaded from the project databank.</p>
+<!-- ABOUT TEASER SECTION -->
+<section class="py-5">
+    <div class="container py-4">
+        <div class="row align-items-center">
+            <div class="col-lg-6" data-aos="fade-right">
+                <span class="badge bg-dark border border-secondary text-neon-purple font-monospace mb-2">ABOUT THE DEVELOPER</span>
+                <h2 class="display-5 text-white fw-bold mb-3">Software Engineering &amp; Business Computing</h2>
+                <p class="text-muted leading-relaxed mb-4">
+                    Pursuing <strong>Advanced Diploma in Software Engineering (ADSE)</strong> at Aptech Learning and <strong>BSBC</strong> at Sohail University. Passionate about object-oriented programming, clean code architecture, relational databases, and modern web application development.
+                </p>
+                
+                <div class="d-flex flex-wrap gap-2 mb-4">
+                    <span class="badge bg-dark border border-info font-monospace p-2" style="color: #00D9FF !important; border-color: rgba(0, 217, 255, 0.5) !important; box-shadow: 0 0 10px rgba(0, 217, 255, 0.2);"><i class="fas fa-graduation-cap me-1"></i> Sohail University (BSBC) — CURRENT DEGREE</span>
+                    <span class="badge bg-dark border border-secondary font-monospace p-2" style="color: #A855F7 !important; border-color: rgba(168, 85, 247, 0.4) !important; box-shadow: 0 0 10px rgba(168, 85, 247, 0.2);"><i class="fas fa-university me-1"></i> Aptech Learning (ADSE) — PROFESSIONAL DIPLOMA</span>
+                </div>
+
+                <a asp-controller="Home" asp-action="About" class="btn btn-neon text-white"><i class="fas fa-user-circle me-2"></i> Read Full Story &amp; Roadmap</a>
+            </div>
+
+            <div class="col-lg-6 mt-4 mt-lg-0" data-aos="fade-left">
+                <div class="glass-panel p-4 p-md-5 border-0">
+                    <h4 class="text-white fw-bold mb-3"><i class="fas fa-layer-group text-neon-cyan me-2"></i> Core Specializations</h4>
+                    <ul class="list-unstyled text-muted small d-flex flex-column gap-3 mb-0">
+                        <li class="d-flex align-items-center gap-3">
+                            <i class="fas fa-check-circle text-neon-purple fs-5"></i>
+                            <div>
+                                <strong class="text-white d-block">ASP.NET Core 10 MVC Architecture</strong>
+                                Clean Controllers, ViewModels, Dependency Injection, and Razor layouts.
+                            </div>
+                        </li>
+                        <li class="d-flex align-items-center gap-3">
+                            <i class="fas fa-check-circle text-neon-cyan fs-5"></i>
+                            <div>
+                                <strong class="text-white d-block">SQL Server Database Normalization</strong>
+                                Entity Framework Core migrations, LINQ optimization, and indexing.
+                            </div>
+                        </li>
+                        <li class="d-flex align-items-center gap-3">
+                            <i class="fas fa-check-circle text-neon-blue fs-5"></i>
+                            <div>
+                                <strong class="text-white d-block">Telemetry &amp; Visitor Intelligence</strong>
+                                Real-time background queues, SignalR updates, and geolocation parsers.
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </div>
-        
-        <div class="row g-4 justify-content-center">
-            @if (latestProjects != null)
-            {
-                foreach (var project in latestProjects)
+    </div>
+</section>
+
+<!-- LATEST PROJECTS TEASER SECTION -->
+@if (latestProjects != null && latestProjects.Any())
+{
+    <section class="py-5 bg-dark bg-opacity-40">
+        <div class="container py-4">
+            <div class="d-flex flex-wrap justify-content-between align-items-end mb-4" data-aos="fade-up">
+                <div>
+                    <span class="badge bg-dark border border-secondary text-neon-cyan font-monospace mb-2">PORTFOLIO SHOWCASE</span>
+                    <h2 class="display-5 text-white fw-bold mb-0">Featured Projects</h2>
+                </div>
+                <a asp-controller="Portfolio" asp-action="Index" class="btn btn-outline-light border-secondary rounded-pill hover-text-white mt-3 mt-md-0"><i class="fas fa-th-large me-2"></i> Explore All Projects databank</a>
+            </div>
+            
+            <div class="row g-4 justify-content-center">
+                @foreach (var project in latestProjects.Take(2))
                 {
-                    <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="col-md-6" data-aos="fade-up" data-aos-delay="100">
                         <div class="card glass-panel h-100 border-0 overflow-hidden skill-card">
-                            <div class="position-relative overflow-hidden" style="height: 200px;">
+                            <div class="position-relative overflow-hidden" style="height: 220px;">
                                 <img src="@project.ThumbnailPath" alt="Project thumbnail" class="card-img-top w-100 h-100" style="object-fit: cover; transition: transform 0.5s;" />
                                 <div class="position-absolute top-0 end-0 m-3">
                                     <span class="badge bg-dark border border-secondary">@project.Category?.Name</span>
                                 </div>
                             </div>
-                            <div class="card-body d-flex flex-column">
+                            <div class="card-body d-flex flex-column p-4">
                                 <h4 class="card-title text-white fw-semibold">@project.Title</h4>
                                 <p class="card-text text-muted small">@project.Subtitle</p>
                                 <div class="mt-auto pt-3">
@@ -92,7 +167,7 @@
                                         }
                                     </div>
                                     <div class="d-flex gap-2">
-                                        <a href="/Portfolio/Details/@project.Id" class="btn btn-outline-light btn-sm flex-grow-1 border-secondary rounded-pill hover-bg-light hover-text-dark">Details</a>
+                                        <a href="/Portfolio/Details/@project.Id" class="btn btn-outline-light btn-sm flex-grow-1 border-secondary rounded-pill hover-bg-light hover-text-dark">View Details</a>
                                         @if (!string.IsNullOrEmpty(project.GitHubLink))
                                         {
                                             <a href="@project.GitHubLink" target="_blank" class="btn btn-outline-info btn-sm rounded-circle"><i class="fab fa-github"></i></a>
@@ -103,315 +178,15 @@
                         </div>
                     </div>
                 }
-            }
-        </div>
-        <div class="text-center mt-5">
-            <a asp-controller="Portfolio" asp-action="Index" class="btn btn-neon text-white"><i class="fas fa-layer-group me-2"></i> Query Database for More</a>
-        </div>
-    </div>
-</section>
-
-<!-- ABOUT SECTION -->
-<section id="about-section" class="py-5 bg-dark bg-opacity-40">
-    <div class="container py-5">
-        <div class="row align-items-center">
-            <div class="col-lg-6" data-aos="fade-right">
-                <h2 class="display-5 text-white fw-bold mb-4"><span class="text-neon-cyan">//</span> Identity Core</h2>
-                <div class="text-muted leading-relaxed mb-4">
-                    @Html.Raw(settings?.Biography)
-                </div>
-                <h4 class="text-white mt-4 fw-semibold">Core Principles & Mission</h4>
-                <p class="text-muted">@settings?.Goals</p>
-                <div class="row g-4 mt-2">
-                    <div class="col-6">
-                        <div class="p-3 glass-panel text-center">
-                            <h3 class="text-neon-purple fw-bold mb-1">@settings?.YearsOfExperience+</h3>
-                            <span class="small text-muted">Years Experience</span>
-                        </div>
-                    </div>
-                    <div class="col-6">
-                        <div class="p-3 glass-panel text-center">
-                            <h3 class="text-neon-cyan fw-bold mb-1">24/7</h3>
-                            <span class="small text-muted">Active Node</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-6 mt-5 mt-lg-0" data-aos="fade-left">
-                <div class="glass-panel p-4 p-md-5">
-                    <h3 class="text-white fw-bold mb-4"><i class="fas fa-history me-2 text-neon-purple"></i> The Journey</h3>
-                    <p class="text-muted leading-relaxed">
-                        @settings?.Journey
-                    </p>
-                    <div class="mt-4 pt-3 border-top border-secondary">
-                        <span class="d-block small text-muted mb-1">ACADEMIC BACKGROUND</span>
-                        <h5 class="text-white">@settings?.EducationShort</h5>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- SKILLS SECTION -->
-<section id="skills-section" class="py-5">
-    <div class="container py-5">
-        <div class="text-center mb-5" data-aos="fade-up">
-            <h2 class="display-5 text-white fw-bold"><span class="text-neon-purple">//</span> Skills Inventory</h2>
-            <p class="text-muted">Current engineering modules calibrated in the database.</p>
-        </div>
-        
-        <div class="row g-4">
-            @if (skills != null)
-            {
-                foreach (var skill in skills)
-                {
-                    <div class="col-md-6 col-lg-4" data-aos="zoom-in">
-                        <div class="glass-panel p-4 h-100 skill-card">
-                            <div class="d-flex justify-content-between align-items-center mb-3">
-                                <div class="d-flex align-items-center gap-3">
-                                    <div class="fs-2 text-neon-purple" style="color: @skill.ColorHex !important; text-shadow: 0 0 10px @skill.ColorHex;"><i class="@skill.IconClass"></i></div>
-                                    <h4 class="h5 text-white mb-0">@skill.Name</h4>
-                                </div>
-                                <span class="badge bg-dark border border-secondary" style="color: @skill.ColorHex !important;">@skill.Percentage%</span>
-                            </div>
-                            <div class="skill-progress-bar">
-                                <div class="skill-progress-fill" data-percent="@skill.Percentage" style="background: @skill.ColorHex !important; box-shadow: 0 0 8px @skill.ColorHex;"></div>
-                            </div>
-                        </div>
-                    </div>
-                }
-            }
-        </div>
-    </div>
-</section>
-
-<!-- SERVICES SECTION -->
-<section class="py-5 bg-dark bg-opacity-40">
-    <div class="container py-5">
-        <div class="text-center mb-5" data-aos="fade-up">
-            <h2 class="display-5 text-white fw-bold"><span class="text-neon-cyan">//</span> Operational Services</h2>
-            <p class="text-muted">High-value technical modules ready for integration.</p>
-        </div>
-        
-        <div class="row g-4">
-            <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
-                <div class="glass-panel p-4 h-100 text-center skill-card">
-                    <div class="fs-1 text-neon-purple mb-3"><i class="fas fa-laptop-code"></i></div>
-                    <h3 class="h4 text-white mb-2">Web Application Development</h3>
-                    <p class="text-muted small">Crafting interactive and lightning-fast user interfaces using modern standards combined with high-grade ASP.NET MVC architecture.</p>
-                </div>
-            </div>
-            <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
-                <div class="glass-panel p-4 h-100 text-center skill-card">
-                    <div class="fs-1 text-neon-cyan mb-3"><i class="fas fa-server"></i></div>
-                    <h3 class="h4 text-white mb-2">Backend Development</h3>
-                    <p class="text-muted small">Architecting secure and scalable API structures, utilizing Dependency Injection, Unit testing, and strict SOLID principles.</p>
-                </div>
-            </div>
-            <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
-                <div class="glass-panel p-4 h-100 text-center skill-card">
-                    <div class="fs-1 text-neon-blue mb-3"><i class="fas fa-database"></i></div>
-                    <h3 class="h4 text-white mb-2">Database Design & Tuning</h3>
-                    <p class="text-muted small">Relational normalization in SQL Server, setting up indexes, optimizing complex entity queries via Entity Framework Core.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- FEATURED PROJECT SECTION -->
-@if (featuredProject != null)
-{
-    <section class="py-5">
-        <div class="container py-5">
-            <div class="text-center mb-5" data-aos="fade-up">
-                <h2 class="display-5 text-white fw-bold"><span class="text-neon-purple">//</span> Primary Showcase</h2>
-                <p class="text-muted">Featured system currently running active operations.</p>
-            </div>
-            
-            <div class="glass-panel p-4 p-md-5" data-aos="zoom-in">
-                <div class="row align-items-center">
-                    <div class="col-lg-6">
-                        <div class="position-relative rounded-3 overflow-hidden shadow-lg" style="height: 350px;">
-                            <img src="@featuredProject.ThumbnailPath" alt="Featured project thumbnail" class="w-100 h-100" style="object-fit: cover;" />
-                            <div class="position-absolute bottom-0 start-0 w-100 p-4" style="background: linear-gradient(to top, rgba(9,5,20,1) 0%, rgba(9,5,20,0) 100%);">
-                                <span class="badge bg-primary">Featured Project</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 mt-4 mt-lg-0 ps-lg-5">
-                        <span class="badge bg-secondary mb-2">@featuredProject.Category?.Name</span>
-                        <h3 class="display-6 text-white fw-bold">@featuredProject.Title</h3>
-                        <p class="text-neon-cyan fw-semibold mb-3">@featuredProject.Subtitle</p>
-                        <p class="text-muted leading-relaxed">
-                            @if (featuredProject.Description.Length > 250)
-                            {
-                                @(Html.Raw(featuredProject.Description.Substring(0, 250) + "..."))
-                            }
-                            else
-                            {
-                                @Html.Raw(featuredProject.Description)
-                            }
-                        </p>
-                        
-                        <div class="d-flex flex-wrap gap-2 mb-4">
-                            @if (featuredProject.Technologies != null)
-                            {
-                                foreach (var tech in featuredProject.Technologies.Split(','))
-                                {
-                                    <span class="badge bg-dark border border-secondary text-white">@tech.Trim()</span>
-                                }
-                            }
-                        </div>
-                        
-                        <div class="d-flex flex-wrap gap-3">
-                            <a href="/Portfolio/Details/@featuredProject.Id" class="btn btn-neon text-white"><i class="fas fa-chart-network me-2"></i> Case Study details</a>
-                            @if (!string.IsNullOrEmpty(featuredProject.GitHubLink))
-                            {
-                                <a href="@featuredProject.GitHubLink" target="_blank" class="btn btn-neon btn-neon-cyan text-white"><i class="fab fa-github me-2"></i> GitHub</a>
-                            }
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </section>
 }
 
-<!-- EDUCATION & EXPERIENCE TIMELINE -->
-<section class="py-5 bg-dark bg-opacity-40">
-    <div class="container py-5">
-        <div class="text-center mb-5" data-aos="fade-up">
-            <h2 class="display-5 text-white fw-bold"><span class="text-neon-cyan">//</span> Chronology Nodes</h2>
-            <p class="text-muted">Education and Professional checkpoints in the pipeline.</p>
-        </div>
-        
-        <div class="row g-5">
-            <!-- Experience -->
-            <div class="col-lg-6" data-aos="fade-right">
-                <h3 class="h4 text-neon-purple fw-bold mb-4"><i class="fas fa-briefcase me-2"></i> Professional Experience</h3>
-                <div class="timeline-container">
-                    @if (experiences != null)
-                    {
-                        foreach (var job in experiences)
-                        {
-                            <div class="timeline-item">
-                                <span class="badge bg-dark border border-secondary text-neon-cyan mb-2">
-                                    @job.StartDate.ToString("MMM yyyy") - @(job.IsCurrent ? "PRESENT" : job.EndDate?.ToString("MMM yyyy").ToUpper() ?? "")
-                                </span>
-                                <h4 class="text-white h5 fw-semibold mb-1">@job.Role</h4>
-                                <h5 class="text-muted h6 mb-3">@job.Company</h5>
-                                <p class="text-muted small">@job.Description</p>
-                            </div>
-                        }
-                    }
-                </div>
-            </div>
-            
-            <!-- Education -->
-            <div class="col-lg-6" data-aos="fade-left">
-                <h3 class="h4 text-neon-cyan fw-bold mb-4"><i class="fas fa-graduation-cap me-2"></i> Education Databank</h3>
-                <div class="timeline-container">
-                    @if (educations != null)
-                    {
-                        foreach (var school in educations)
-                        {
-                            <div class="timeline-item">
-                                <span class="badge bg-dark border border-secondary text-neon-purple mb-2">
-                                    @school.StartDate.ToString("yyyy") - @(school.EndDate.HasValue ? school.EndDate.Value.ToString("yyyy") : "PRESENT")
-                                </span>
-                                <h4 class="text-white h5 fw-semibold mb-1">@school.Degree</h4>
-                                <h5 class="text-muted h6 mb-3">@school.Institution</h5>
-                                <p class="text-muted small">@school.Description</p>
-                            </div>
-                        }
-                    }
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- STATISTICS & COUNTERS -->
+<!-- TECH STACK ICONS -->
 <section class="py-5">
-    <div class="container py-5">
-        <div class="row g-4 justify-content-center">
-            @if (statistics != null)
-            {
-                foreach (var stat in statistics)
-                {
-                    <div class="col-6 col-md-3" data-aos="zoom-in">
-                        <div class="glass-panel p-4 text-center">
-                            <div class="fs-1 text-neon-purple mb-2"><i class="@stat.IconClass"></i></div>
-                            <h2 class="display-5 text-white fw-bold counter-value" data-target="@stat.Value">0</h2>
-                            <p class="text-muted small mb-0">@stat.Title</p>
-                        </div>
-                    </div>
-                }
-            }
-        </div>
-    </div>
-</section>
-
-<!-- TESTIMONIALS SLIDER -->
-@if (testimonials != null && testimonials.Any())
-{
-    <section class="py-5 bg-dark bg-opacity-40">
-        <div class="container py-5 text-center">
-            <div class="text-center mb-5" data-aos="fade-up">
-                <h2 class="display-5 text-white fw-bold"><span class="text-neon-purple">//</span> Testimonials</h2>
-                <p class="text-muted">Feedback signals from verified clients.</p>
-            </div>
-            
-            <div id="testimonialsCarousel" class="carousel slide max-w-lg mx-auto" data-bs-ride="carousel" data-aos="zoom-in">
-                <div class="carousel-inner">
-                    @for (int i = 0; i < testimonials.Count; i++)
-                    {
-                        var activeClass = i == 0 ? "active" : "";
-                        var item = testimonials[i];
-                        <div class="carousel-item @activeClass py-4">
-                            <div class="glass-panel p-5 d-inline-block position-relative">
-                                <i class="fas fa-quote-left text-neon-purple opacity-30 fs-1 position-absolute top-3 start-3"></i>
-                                <p class="lead text-white font-italic mb-4">"@item.Feedback"</p>
-                                <div class="d-flex align-items-center justify-content-center gap-3">
-                                    <img src="@item.ClientImagePath" alt="Client avatar" class="rounded-circle border border-secondary shadow" style="width: 60px; height: 60px; object-fit: cover;" />
-                                    <div class="text-start">
-                                        <h5 class="text-white mb-0 fw-semibold">@item.ClientName</h5>
-                                        <small class="text-muted">@item.ClientTitle</small>
-                                    </div>
-                                </div>
-                                <div class="mt-3 text-neon-cyan">
-                                    @for (int r = 0; r < item.Rating; r++)
-                                    {
-                                        <i class="fas fa-star"></i>
-                                    }
-                                </div>
-                            </div>
-                        </div>
-                    }
-                </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#testimonialsCarousel" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Previous</span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#testimonialsCarousel" data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Next</span>
-                </button>
-            </div>
-        </div>
-    </section>
-}
-
-<!-- INTERACTIVE TECH STACK -->
-<section class="py-5">
-    <div class="container py-5 text-center">
-        <div class="text-center mb-5" data-aos="fade-up">
-            <h2 class="display-5 text-white fw-bold"><span class="text-neon-cyan">//</span> Calibrated Frameworks</h2>
-            <p class="text-muted">Interactive dashboard of frameworks, patterns and standards.</p>
-        </div>
-        
+    <div class="container py-4 text-center">
+        <h4 class="h6 text-muted text-uppercase tracking-wider font-monospace mb-4">Core Technology Stack</h4>
         <div class="d-flex flex-wrap justify-content-center gap-4" data-aos="zoom-in">
             <div class="tech-icon-box" title="C#"><i class="fas fa-code text-neon-purple"></i></div>
             <div class="tech-icon-box" title="ASP.NET Core"><i class="fab fa-microsoft text-neon-cyan"></i></div>
@@ -426,38 +201,39 @@
 </section>
 
 <!-- CONTACT SECTION -->
-<section id="contact-section" class="py-5">
-    <div class="container py-5">
+<section id="contact-section" class="py-5 bg-dark bg-opacity-40">
+    <div class="container py-4">
         <div class="text-center mb-5" data-aos="fade-up">
-            <h2 class="display-5 text-white fw-bold"><span class="text-neon-purple">//</span> Transmission Channel</h2>
-            <p class="text-muted">Commence connection link. Send queries or deployment briefs.</p>
+            <span class="badge bg-dark border border-secondary text-neon-purple font-monospace mb-2">COMMUNICATIONS</span>
+            <h2 class="display-5 text-white fw-bold">Get In Touch</h2>
+            <p class="text-muted">Send inquiries, project proposals, or professional opportunities.</p>
         </div>
         
         <div class="row g-5">
             <div class="col-lg-6" data-aos="fade-right">
                 <div class="glass-panel p-4 p-md-5 h-100">
-                    <h3 class="text-white fw-bold mb-4"><i class="fas fa-envelope-open-text text-neon-purple me-2"></i> Get In Touch</h3>
+                    <h3 class="text-white fw-bold mb-4"><i class="fas fa-paper-plane text-neon-purple me-2"></i> Contact Form</h3>
                     
                     <form id="contact-form" method="post">
                         @Html.AntiForgeryToken()
                         <div class="mb-3">
-                            <label class="form-label text-muted small">IDENTITY NAME</label>
-                            <input type="text" name="Name" class="form-control bg-dark border-secondary text-white rounded-3 py-2" required placeholder="eg. recruiter/company name" />
+                            <label class="form-label text-muted small">YOUR NAME</label>
+                            <input type="text" name="Name" class="form-control bg-dark border-secondary text-white rounded-3 py-2" required placeholder="e.g. Recruiter / Client Name" />
                         </div>
                         <div class="mb-3">
-                            <label class="form-label text-muted small">TRANSMISSION EMAIL</label>
-                            <input type="email" name="Email" class="form-control bg-dark border-secondary text-white rounded-3 py-2" required placeholder="eg. client@domain.com" />
+                            <label class="form-label text-muted small">YOUR EMAIL</label>
+                            <input type="email" name="Email" class="form-control bg-dark border-secondary text-white rounded-3 py-2" required placeholder="e.g. client@domain.com" />
                         </div>
                         <div class="mb-3">
-                            <label class="form-label text-muted small">COMMUNICATION SUBJECT</label>
-                            <input type="text" name="Subject" class="form-control bg-dark border-secondary text-white rounded-3 py-2" required placeholder="eg. Hiring Proposition / Project Brief" />
+                            <label class="form-label text-muted small">SUBJECT</label>
+                            <input type="text" name="Subject" class="form-control bg-dark border-secondary text-white rounded-3 py-2" required placeholder="e.g. Software Engineering Opportunity" />
                         </div>
                         <div class="mb-4">
-                            <label class="form-label text-muted small">TRANSMISSION CONTENT</label>
+                            <label class="form-label text-muted small">MESSAGE</label>
                             <textarea name="Body" rows="4" class="form-control bg-dark border-secondary text-white rounded-3 py-2" required placeholder="Write your message here..."></textarea>
                         </div>
                         
-                        <button type="submit" class="btn btn-neon w-100 text-white"><i class="fas fa-satellite-dish me-2"></i> Transmit Packet</button>
+                        <button type="submit" class="btn btn-neon w-100 text-white"><i class="fas fa-paper-plane me-2"></i> Send Message</button>
                     </form>
                     <div id="contact-submit-status" class="mt-3" style="display: none;"></div>
                 </div>
@@ -465,9 +241,9 @@
             
             <div class="col-lg-6" data-aos="fade-left">
                 <div class="glass-panel p-4 p-md-5 h-100 d-flex flex-column">
-                    <h3 class="text-white fw-bold mb-4"><i class="fas fa-map-marked-alt text-neon-cyan me-2"></i> Geospatial Node</h3>
-                    <p class="text-muted small">Currently broadcast-locked in the cyber district metropolis.</p>
-                    <div class="flex-grow-1 rounded-3 overflow-hidden border border-secondary shadow mb-4" style="min-height: 250px;">
+                    <h3 class="text-white fw-bold mb-4"><i class="fas fa-map-marked-alt text-neon-cyan me-2"></i> Location &amp; Contact</h3>
+                    <p class="text-muted small">Based in Karachi, Pakistan. Available for remote and hybrid opportunities.</p>
+                    <div class="flex-grow-1 rounded-3 overflow-hidden border border-secondary shadow mb-4" style="min-height: 220px;">
                         @if (settings != null && !string.IsNullOrEmpty(settings.OpenStreetMapEmbedUrl))
                         {
                             <iframe src="@settings.OpenStreetMapEmbedUrl" width="100%" height="100%" style="border:0; filter: invert(90%) hue-rotate(240deg) brightness(85%);" allowfullscreen="" loading="lazy"></iframe>
@@ -485,56 +261,15 @@
 </section>
 
 @section Scripts {
-    <!-- Typed.js CDN for typing title inside Hero -->
     <script src="https://unpkg.com/typed.js@2.0.16/dist/typed.umd.js"></script>
     <script>
         document.addEventListener("DOMContentLoaded", () => {
-            // Typing Animation
             new Typed('#typed-subtitle', {
-                strings: ['Senior Software Architect', 'ASP.NET Core Specialist', 'Full-Stack Developer', 'Database Designer'],
+                strings: ['Software Developer', 'ASP.NET Core MVC & C# Engineer', 'BSBC @@ Sohail University', 'ADSE @@ Aptech Learning'],
                 typeSpeed: 60,
                 backSpeed: 30,
                 loop: true
             });
-
-            // Statistics Counter Animation
-            const counters = document.querySelectorAll('.counter-value');
-            const duration = 2000; // ms
-
-            const animateCounters = () => {
-                counters.forEach(counter => {
-                    const target = +counter.getAttribute('data-target');
-                    const startTime = performance.now();
-
-                    const update = (currentTime) => {
-                        const elapsed = currentTime - startTime;
-                        const progress = Math.min(elapsed / duration, 1);
-                        const value = Math.floor(progress * target);
-                        counter.innerText = value;
-
-                        if (progress < 1) {
-                            requestAnimationFrame(update);
-                        } else {
-                            counter.innerText = target;
-                        }
-                    };
-                    requestAnimationFrame(update);
-                });
-            };
-
-            // Observer to trigger counters on enter viewport
-            const statsSection = document.querySelector('.counter-value').closest('.row');
-            if (statsSection) {
-                const observer = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            animateCounters();
-                            observer.unobserve(entry.target);
-                        }
-                    });
-                }, { threshold: 0.15 });
-                observer.observe(statsSection);
-            }
         });
     </script>
 }

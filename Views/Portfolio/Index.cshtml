@@ -16,42 +16,23 @@
         <p class="text-muted">Explore system deployments, services architectures, and source repositories.</p>
     </div>
 
-    <!-- Search & Filter Controls Panel -->
-    <div class="glass-panel p-4 mb-5" data-aos="fade-up">
-        <form method="get" class="row g-3 align-items-center">
-            <div class="col-md-5">
-                <div class="input-group">
-                    <span class="input-group-text bg-dark border-secondary text-muted"><i class="fas fa-search"></i></span>
-                    <input type="text" name="search" class="form-control bg-dark border-secondary text-white" placeholder="Search by title, technologies..." value="@search" />
-                </div>
-            </div>
-            
-            <div class="col-md-4">
-                <select name="categoryId" class="form-select bg-dark border-secondary text-muted" onchange="this.form.submit()">
-                    <option value="">All Categories</option>
-                    @if (categories != null)
-                    {
-                        foreach (var cat in categories)
-                        {
-                            var selectedClass = currentCategory == cat.Id ? "selected" : null;
-                            if (currentCategory == cat.Id)
-                            {
-                                <option value="@cat.Id" selected="selected">@cat.Name</option>
-                            }
-                            else
-                            {
-                                <option value="@cat.Id">@cat.Name</option>
-                            }
-                        }
-                    }
-                </select>
-            </div>
-            
-            <div class="col-md-3 d-flex gap-2">
-                <button type="submit" class="btn btn-neon w-100 text-white"><i class="fas fa-filter me-1"></i> Filter</button>
-                <a asp-action="Index" class="btn btn-outline-secondary rounded-pill px-3"><i class="fas fa-undo"></i></a>
-            </div>
-        </form>
+    <!-- Filter Controls Panel -->
+    <div class="glass-panel p-4 mb-5 text-center" data-aos="fade-up">
+        <div class="d-flex flex-wrap justify-content-center align-items-center gap-2">
+            <a asp-action="Index" class="btn btn-sm @(currentCategory == null ? "btn-neon text-white" : "btn-outline-secondary rounded-pill text-white") px-4 py-2">
+                All Projects
+            </a>
+            @if (categories != null)
+            {
+                foreach (var cat in categories)
+                {
+                    var isSelected = currentCategory == cat.Id;
+                    <a asp-action="Index" asp-route-categoryId="@cat.Id" class="btn btn-sm @(isSelected ? "btn-neon text-white" : "btn-outline-secondary rounded-pill text-white") px-4 py-2">
+                        @cat.Name
+                    </a>
+                }
+            }
+        </div>
     </div>
 
     <!-- Projects Grid -->

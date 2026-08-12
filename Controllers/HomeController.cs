@@ -71,6 +71,23 @@ namespace FuturisticPortfolio.Controllers
             return View();
         }
 
+        public async Task<IActionResult> About()
+        {
+            var settings = (await _unitOfWork.Settings.GetAllAsync()).FirstOrDefault() ?? new Settings { SiteName = "Futuristic Portfolio" };
+            var skills = (await _unitOfWork.Skills.GetAllAsync()).OrderBy(s => s.DisplayOrder).ToList();
+            var experiences = (await _unitOfWork.Experiences.GetAllAsync()).OrderByDescending(e => e.StartDate).ToList();
+            var educations = (await _unitOfWork.Educations.GetAllAsync()).OrderByDescending(e => e.StartDate).ToList();
+            var stats = (await _unitOfWork.Statistics.GetAllAsync()).OrderBy(s => s.DisplayOrder).ToList();
+
+            ViewBag.Settings = settings;
+            ViewBag.Skills = skills;
+            ViewBag.Experiences = experiences;
+            ViewBag.Educations = educations;
+            ViewBag.Statistics = stats;
+
+            return View();
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> ContactSubmit(Message model)

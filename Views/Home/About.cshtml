@@ -1,0 +1,222 @@
+@using FuturisticPortfolio.Models.Entities
+@{
+    ViewData["Title"] = "About Me";
+    var settings = ViewBag.Settings as Settings;
+    var skills = ViewBag.Skills as List<Skill>;
+    var experiences = ViewBag.Experiences as List<Experience>;
+    var educations = ViewBag.Educations as List<Education>;
+    var statistics = ViewBag.Statistics as List<Statistic>;
+}
+
+<!-- PAGE HEADER -->
+<section class="py-5 bg-dark bg-opacity-40 border-bottom border-secondary border-opacity-20 position-relative overflow-hidden mt-5">
+    <div class="position-absolute top-50 start-0 translate-middle-y rounded-circle filter-blur opacity-20" style="width: 400px; height: 400px; background: radial-gradient(circle, var(--purple-glow) 0%, transparent 70%); pointer-events: none;"></div>
+    <div class="container py-4 position-relative z-2">
+        <div class="row align-items-center">
+            <div class="col-lg-8" data-aos="fade-right">
+                <span class="badge bg-secondary mb-3 text-uppercase tracking-wider px-3 py-2 font-monospace">PROFESSIONAL PROFILE</span>
+                <h1 class="display-4 fw-bold text-white mb-2">About <span class="text-neon-purple">Hafiz Muhammad Saad</span></h1>
+                <p class="lead text-muted mb-0">Software Developer | ASP.NET Core &amp; Database Architecture Specialist</p>
+            </div>
+            <div class="col-lg-4 text-lg-end mt-4 mt-lg-0" data-aos="fade-left">
+                <a href="./files/Muhammad_Saad_CV.pdf" download="Muhammad_Saad_CV.pdf" target="_blank" class="btn btn-neon text-white"><i class="fas fa-file-download me-2"></i> Download Full Resume</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- BIOGRAPHY & ACADEMIC BACKGROUND -->
+<section class="py-5">
+    <div class="container py-4">
+        <div class="row g-4 align-items-center">
+            <div class="col-lg-6" data-aos="fade-right">
+                <div class="glass-panel p-4 p-md-5 h-100">
+                    <h3 class="h4 text-white fw-bold mb-4"><i class="fas fa-user-tag text-neon-cyan me-2"></i> Biography &amp; Professional Mission</h3>
+                    <div class="text-muted leading-relaxed mb-4">
+                        @Html.Raw(!string.IsNullOrEmpty(settings?.Biography) ? settings.Biography : "<p>Motivated and detail-oriented <strong>Software Developer</strong> with expertise in <strong>C#, C++, ASP.NET Core MVC (.NET), PHP, HTML5, CSS3, JavaScript, SQL Server, and MySQL</strong>.</p><p>Passionate about building scalable software solutions, solving complex algorithmic problems, and continuously mastering modern enterprise software patterns.</p>")
+                    </div>
+                    <div class="row g-3">
+                        <div class="col-6">
+                            <div class="p-3 glass-panel text-center">
+                                <h3 class="text-neon-purple fw-bold mb-1">1+</h3>
+                                <span class="small text-muted">Years Coding</span>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="p-3 glass-panel text-center">
+                                <h3 class="text-neon-cyan fw-bold mb-1">9</h3>
+                                <span class="small text-muted">Core Tech Stack</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6" data-aos="fade-left">
+                <div class="glass-panel p-4 p-md-5 h-100 border-0">
+                    <h3 class="h4 text-white fw-bold mb-4"><i class="fas fa-graduation-cap text-neon-purple me-2"></i> Academic Education</h3>
+                    
+                    <!-- 1. CURRENT DEGREE (Highest Priority - Cyan Accent) -->
+                    <div class="mb-4 p-4 rounded-3 glass-panel border border-info position-relative" style="border-color: rgba(0, 217, 255, 0.5) !important; box-shadow: 0 0 20px rgba(0, 217, 255, 0.20); background: rgba(0, 217, 255, 0.05) !important;">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <span class="badge bg-dark border font-monospace px-3 py-2" style="color: #00D9FF !important; border-color: #00D9FF !important; box-shadow: 0 0 10px rgba(0, 217, 255, 0.3);">
+                                <i class="fas fa-graduation-cap me-1.5"></i> CURRENT DEGREE
+                            </span>
+                            <span class="badge bg-dark border font-monospace px-3 py-1.5 small text-white" style="border-color: rgba(0, 217, 255, 0.4) !important; background: rgba(0, 217, 255, 0.12) !important;">
+                                <i class="fas fa-university me-1 text-neon-cyan"></i> Sohail University
+                            </span>
+                        </div>
+                        <h5 class="text-white fw-bold mb-1 fs-5">Bachelor of Science in Business Computing (BSBC)</h5>
+                        <p class="small mb-1 fw-semibold" style="color: #00D9FF;"><i class="fas fa-university me-1.5"></i> Sohail University, Karachi</p>
+                        <span class="text-muted small font-monospace"><i class="fas fa-calendar-alt me-1.5"></i> October 2025 – 2029</span>
+                    </div>
+
+                    <!-- 2. PROFESSIONAL DIPLOMA (Purple Accent) -->
+                    <div class="p-4 rounded-3 glass-panel border position-relative" style="border-color: rgba(168, 85, 247, 0.4) !important; box-shadow: 0 0 15px rgba(168, 85, 247, 0.15);">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <span class="badge bg-dark border font-monospace px-3 py-2" style="color: #A855F7 !important; border-color: #A855F7 !important; box-shadow: 0 0 10px rgba(168, 85, 247, 0.3);">
+                                <i class="fas fa-certificate me-1.5"></i> PROFESSIONAL DIPLOMA
+                            </span>
+                            <span class="badge bg-dark border font-monospace px-3 py-1.5 small text-white" style="border-color: rgba(168, 85, 247, 0.4) !important; background: rgba(168, 85, 247, 0.12) !important;">
+                                <i class="fas fa-laptop-code me-1 text-neon-purple"></i> Aptech Learning
+                            </span>
+                        </div>
+                        <h5 class="text-white fw-semibold mb-1 fs-5">Advanced Diploma in Software Engineering (ADSE)</h5>
+                        <p class="small mb-1" style="color: #A855F7;"><i class="fas fa-university me-1.5"></i> Aptech Learning, Karachi</p>
+                        <span class="text-muted small font-monospace"><i class="fas fa-calendar-alt me-1.5"></i> March 2024 – May 2027</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SKILLS INVENTORY -->
+<section class="py-5 bg-dark bg-opacity-40">
+    <div class="container py-4">
+        <div class="text-center mb-5" data-aos="fade-up">
+            <h2 class="display-5 text-white fw-bold"><span class="text-neon-purple">//</span> Skills Inventory</h2>
+            <p class="text-muted">Engineering modules and technologies calibrated in the system database.</p>
+        </div>
+        
+        <div class="row g-4">
+            @if (skills != null && skills.Any())
+            {
+                foreach (var skill in skills)
+                {
+                    <div class="col-md-6 col-lg-4" data-aos="zoom-in">
+                        <div class="glass-panel p-4 h-100 skill-card">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <div class="d-flex align-items-center gap-3">
+                                    <div class="fs-2 text-neon-purple" style="color: @skill.ColorHex !important; text-shadow: 0 0 10px @skill.ColorHex;"><i class="@skill.IconClass"></i></div>
+                                    <h4 class="h5 text-white mb-0">@skill.Name</h4>
+                                </div>
+                                <span class="badge bg-dark border border-secondary" style="color: @skill.ColorHex !important;">@skill.Percentage%</span>
+                            </div>
+                            <div class="skill-progress-bar">
+                                <div class="skill-progress-fill" data-percent="@skill.Percentage" style="width: @(skill.Percentage)%; background: @skill.ColorHex !important; box-shadow: 0 0 10px @skill.ColorHex;"></div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</section>
+
+<!-- CAREER ROADMAP & CURRENT FOCUS -->
+<section class="py-5">
+    <div class="container py-4">
+        <div class="text-center mb-5" data-aos="fade-up">
+            <h2 class="display-5 text-white fw-bold"><span class="text-neon-cyan">//</span> Current Focus &amp; Career Roadmap</h2>
+            <p class="text-muted">Active engineering modules and professional progression timeline.</p>
+        </div>
+
+        <!-- STATUS PILLS ROW -->
+        <div class="d-flex flex-wrap justify-content-center gap-2 mb-5" data-aos="fade-up">
+            <span class="badge glass-panel border border-success text-success px-3 py-2 rounded-pill font-monospace small"><i class="fas fa-briefcase me-1.5"></i> Open for Internship</span>
+            <span class="badge glass-panel border border-info text-neon-cyan px-3 py-2 rounded-pill font-monospace small"><i class="fas fa-bolt me-1.5"></i> Open for Freelancing</span>
+            <span class="badge glass-panel border border-secondary text-neon-purple px-3 py-2 rounded-pill font-monospace small"><i class="fas fa-handshake me-1.5"></i> Open for Collaboration</span>
+            <span class="badge glass-panel border border-warning text-warning px-3 py-2 rounded-pill font-monospace small"><i class="fas fa-rocket me-1.5"></i> Building Production Projects</span>
+        </div>
+
+        <div class="row g-4 mb-5">
+            <!-- CURRENT FOCUS GRID -->
+            <div class="col-lg-7" data-aos="fade-right">
+                <div class="glass-panel p-4 p-md-5 h-100 border-0">
+                    <h3 class="h4 text-white fw-bold mb-4"><i class="fas fa-microchip text-neon-purple fs-4 me-2"></i> Current Engineering Focus</h3>
+
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <div class="p-3 glass-panel rounded-3 h-100 skill-card">
+                                <div class="fs-3 text-neon-purple mb-2"><i class="fab fa-microsoft"></i></div>
+                                <h5 class="text-white h6 fw-semibold mb-1">ASP.NET Core 10 MVC</h5>
+                                <p class="text-muted small mb-0">Building web apps using C#, EF Core, and Dependency Injection.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="p-3 glass-panel rounded-3 h-100 skill-card">
+                                <div class="fs-3 text-neon-cyan mb-2"><i class="fas fa-brain"></i></div>
+                                <h5 class="text-white h6 fw-semibold mb-1">AI Web Solutions</h5>
+                                <p class="text-muted small mb-0">Integrating AI chat agents and NLP assistants into web systems.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="p-3 glass-panel rounded-3 h-100 skill-card">
+                                <div class="fs-3 text-neon-blue mb-2"><i class="fas fa-network-wired"></i></div>
+                                <h5 class="text-white h6 fw-semibold mb-1">RESTful APIs</h5>
+                                <p class="text-muted small mb-0">Building secure, normalized JSON endpoints and telemetry pipelines.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="p-3 glass-panel rounded-3 h-100 skill-card">
+                                <div class="fs-3 text-warning mb-2"><i class="fas fa-database"></i></div>
+                                <h5 class="text-white h6 fw-semibold mb-1">SQL Server Database Tuning</h5>
+                                <p class="text-muted small mb-0">Relational schema design, indexes, and EF Core migrations.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ROADMAP TIMELINE -->
+            <div class="col-lg-5" data-aos="fade-left">
+                <div class="glass-panel p-4 h-100 border-0">
+                    <h3 class="h4 text-white fw-bold mb-4"><i class="fas fa-route text-neon-cyan me-2"></i> Career Roadmap</h3>
+                    
+                    <div class="roadmap-timeline position-relative ps-4">
+                        <div class="position-absolute top-0 bottom-0 start-0 border-start border-2 border-secondary" style="left: 12px !important; opacity: 0.3;"></div>
+
+                        <div class="roadmap-item mb-4 position-relative">
+                            <span class="position-absolute top-0 translate-middle-x rounded-circle p-1" style="left: -16px; width: 14px; height: 14px; background: #a855f7;"></span>
+                            <span class="badge bg-dark border border-secondary text-neon-purple font-monospace mb-1">2024</span>
+                            <h6 class="text-white fw-semibold mb-0">Started ADSE at Aptech Learning</h6>
+                            <small class="text-muted">Software Engineering Specialization</small>
+                        </div>
+
+                        <div class="roadmap-item mb-4 position-relative">
+                            <span class="position-absolute top-0 translate-middle-x rounded-circle p-1" style="left: -16px; width: 14px; height: 14px; background: #00f3ff;"></span>
+                            <span class="badge bg-dark border border-secondary text-neon-cyan font-monospace mb-1">2025</span>
+                            <h6 class="text-white fw-semibold mb-0">Started BSBC at Sohail University</h6>
+                            <small class="text-muted">Business Computing Specialization</small>
+                        </div>
+
+                        <div class="roadmap-item mb-4 position-relative">
+                            <span class="position-absolute top-0 translate-middle-x rounded-circle p-1" style="left: -16px; width: 14px; height: 14px; background: #10b981;"></span>
+                            <span class="badge bg-dark border border-secondary text-success font-monospace mb-1">PRESENT</span>
+                            <h6 class="text-white fw-semibold mb-0">Developing Production Portfolio Systems</h6>
+                            <small class="text-muted">ASP.NET Core &amp; C# Architecture</small>
+                        </div>
+
+                        <div class="roadmap-item position-relative">
+                            <span class="position-absolute top-0 translate-middle-x rounded-circle p-1" style="left: -16px; width: 14px; height: 14px; background: #f59e0b;"></span>
+                            <span class="badge bg-dark border border-secondary text-warning font-monospace mb-1">NEXT GOAL</span>
+                            <h6 class="text-white fw-semibold mb-0">Software Engineering Internship</h6>
+                            <small class="text-muted">Enterprise Development Team</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

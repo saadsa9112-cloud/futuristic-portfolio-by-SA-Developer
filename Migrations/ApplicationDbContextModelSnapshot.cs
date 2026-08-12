@@ -22,6 +22,501 @@ namespace FuturisticPortfolio.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("FuturisticPortfolio.Analytics.Domain.Entities.AnalyticsSettings", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ArchiveFolderPath")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<bool>("EnableEventTracking")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("EnableGeoLookup")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("EnableHeatmaps")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("EnableTracking")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("FlushIntervalSeconds")
+                        .HasColumnType("int");
+
+                    b.Property<string>("GoogleAnalyticsId")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<bool>("IgnoreAdminUsers")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IgnoreBots")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IgnoreLocalhost")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("MicrosoftClarityId")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<int>("QueueBatchSize")
+                        .HasColumnType("int");
+
+                    b.Property<string>("RetentionAction")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<int>("RetentionDays")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AnalyticsSettings");
+                });
+
+            modelBuilder.Entity("FuturisticPortfolio.Analytics.Domain.Entities.DailyAnalytics", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("AvgSessionDurationSeconds")
+                        .HasColumnType("int");
+
+                    b.Property<double>("BounceRate")
+                        .HasColumnType("float");
+
+                    b.Property<DateTime>("TargetDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("TotalEvents")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TotalPageViews")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UniqueVisitorsCount")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TargetDate")
+                        .IsUnique();
+
+                    b.ToTable("DailyAnalytics");
+                });
+
+            modelBuilder.Entity("FuturisticPortfolio.Analytics.Domain.Entities.HourlyAnalytics", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("AvgSessionDurationSeconds")
+                        .HasColumnType("int");
+
+                    b.Property<double>("BounceRate")
+                        .HasColumnType("float");
+
+                    b.Property<DateTime>("TargetHour")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("TotalEvents")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TotalPageViews")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UniqueVisitorsCount")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TargetHour")
+                        .IsUnique();
+
+                    b.ToTable("HourlyAnalytics");
+                });
+
+            modelBuilder.Entity("FuturisticPortfolio.Analytics.Domain.Entities.MonthlyAnalytics", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("AvgSessionDurationSeconds")
+                        .HasColumnType("int");
+
+                    b.Property<double>("BounceRate")
+                        .HasColumnType("float");
+
+                    b.Property<int>("Month")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TotalEvents")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TotalPageViews")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UniqueVisitorsCount")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Year")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Year", "Month")
+                        .IsUnique();
+
+                    b.ToTable("MonthlyAnalytics");
+                });
+
+            modelBuilder.Entity("FuturisticPortfolio.Analytics.Domain.Entities.PageVisit", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("DurationSeconds")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("EntryTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsEntryPage")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsExitPage")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("LoadTimeMilliseconds")
+                        .HasColumnType("int");
+
+                    b.Property<string>("PagePath")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("PageTitle")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
+                    b.Property<string>("QueryString")
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
+
+                    b.Property<int>("StatusCode")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ViewportHeight")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ViewportWidth")
+                        .HasColumnType("int");
+
+                    b.Property<int>("VisitorSessionId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EntryTime");
+
+                    b.HasIndex("PagePath");
+
+                    b.HasIndex("VisitorSessionId");
+
+                    b.ToTable("PageVisits");
+                });
+
+            modelBuilder.Entity("FuturisticPortfolio.Analytics.Domain.Entities.VisitorEvent", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("EventCategory")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("EventName")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.Property<string>("MetadataJson")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PagePath")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("TargetElementId")
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
+                    b.Property<string>("TargetText")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("TargetUrl")
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
+
+                    b.Property<DateTime>("Timestamp")
+                        .HasColumnType("datetime2");
+
+                    b.Property<decimal?>("Value")
+                        .HasPrecision(18, 2)
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("VisitorSessionId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EventName");
+
+                    b.HasIndex("Timestamp");
+
+                    b.HasIndex("VisitorSessionId");
+
+                    b.ToTable("VisitorEvents");
+                });
+
+            modelBuilder.Entity("FuturisticPortfolio.Analytics.Domain.Entities.VisitorSession", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime?>("EndedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("EventsTriggeredCount")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsBounce")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsDirectVisit")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("LastActivityAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("PagesVisitedCount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ReferralDomain")
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
+                    b.Property<string>("ReferrerUrl")
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
+
+                    b.Property<string>("SearchEngine")
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.Property<Guid>("SessionCookieId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("SocialMediaPlatform")
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.Property<DateTime>("StartedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UtmCampaign")
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.Property<string>("UtmContent")
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
+                    b.Property<string>("UtmMedium")
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.Property<string>("UtmSource")
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.Property<string>("UtmTerm")
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
+                    b.Property<int>("VisitDurationSeconds")
+                        .HasColumnType("int");
+
+                    b.Property<int>("VisitorTrackId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SessionCookieId")
+                        .IsUnique();
+
+                    b.HasIndex("StartedAt");
+
+                    b.HasIndex("VisitorTrackId");
+
+                    b.ToTable("VisitorSessions");
+                });
+
+            modelBuilder.Entity("FuturisticPortfolio.Analytics.Domain.Entities.VisitorTrack", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("BrowserFamily")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("BrowserVersion")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("City")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("Country")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("DeviceType")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("Engine")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("EngineVersion")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<DateTime>("FirstVisitDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("IpAddress")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("Language")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("Latitude")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("Longitude")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("OSVersion")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("OperatingSystem")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("Region")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("ScreenResolution")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("TimeZone")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<Guid>("VisitorCookieId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IpAddress");
+
+                    b.HasIndex("VisitorCookieId")
+                        .IsUnique();
+
+                    b.ToTable("VisitorTracks");
+                });
+
+            modelBuilder.Entity("FuturisticPortfolio.Analytics.Domain.Entities.WeeklyAnalytics", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("AvgSessionDurationSeconds")
+                        .HasColumnType("int");
+
+                    b.Property<double>("BounceRate")
+                        .HasColumnType("float");
+
+                    b.Property<int>("TotalEvents")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TotalPageViews")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UniqueVisitorsCount")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("WeekStartDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("WeekStartDate")
+                        .IsUnique();
+
+                    b.ToTable("WeeklyAnalytics");
+                });
+
             modelBuilder.Entity("FuturisticPortfolio.Models.Entities.ActivityLog", b =>
                 {
                     b.Property<int>("Id")
@@ -861,6 +1356,39 @@ namespace FuturisticPortfolio.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("FuturisticPortfolio.Analytics.Domain.Entities.PageVisit", b =>
+                {
+                    b.HasOne("FuturisticPortfolio.Analytics.Domain.Entities.VisitorSession", "VisitorSession")
+                        .WithMany("PageVisits")
+                        .HasForeignKey("VisitorSessionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("VisitorSession");
+                });
+
+            modelBuilder.Entity("FuturisticPortfolio.Analytics.Domain.Entities.VisitorEvent", b =>
+                {
+                    b.HasOne("FuturisticPortfolio.Analytics.Domain.Entities.VisitorSession", "VisitorSession")
+                        .WithMany("VisitorEvents")
+                        .HasForeignKey("VisitorSessionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("VisitorSession");
+                });
+
+            modelBuilder.Entity("FuturisticPortfolio.Analytics.Domain.Entities.VisitorSession", b =>
+                {
+                    b.HasOne("FuturisticPortfolio.Analytics.Domain.Entities.VisitorTrack", "VisitorTrack")
+                        .WithMany("Sessions")
+                        .HasForeignKey("VisitorTrackId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("VisitorTrack");
+                });
+
             modelBuilder.Entity("FuturisticPortfolio.Models.Entities.Blog", b =>
                 {
                     b.HasOne("FuturisticPortfolio.Models.Entities.Category", "Category")
@@ -952,6 +1480,18 @@ namespace FuturisticPortfolio.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("FuturisticPortfolio.Analytics.Domain.Entities.VisitorSession", b =>
+                {
+                    b.Navigation("PageVisits");
+
+                    b.Navigation("VisitorEvents");
+                });
+
+            modelBuilder.Entity("FuturisticPortfolio.Analytics.Domain.Entities.VisitorTrack", b =>
+                {
+                    b.Navigation("Sessions");
                 });
 
             modelBuilder.Entity("FuturisticPortfolio.Models.Entities.Category", b =>

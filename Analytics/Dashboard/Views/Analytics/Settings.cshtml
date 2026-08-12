@@ -1,0 +1,187 @@
+@model FuturisticPortfolio.Analytics.Domain.Entities.AnalyticsSettings
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Analytics Engine Settings";
+}
+
+<style>
+    .settings-form label {
+        color: #94a3b8;
+        font-family: var(--font-heading);
+        text-transform: uppercase;
+        font-size: 0.75rem;
+        letter-spacing: 0.05em;
+        margin-bottom: 5px;
+    }
+    .form-check-label {
+        text-transform: none !important;
+        font-size: 0.85rem !important;
+        color: #cbd5e1 !important;
+    }
+    .nav-tab-item {
+        border-radius: 8px;
+        padding: 10px 15px;
+        color: #a0aec0;
+        transition: all 0.3s;
+        text-decoration: none;
+    }
+    .nav-tab-item:hover, .nav-tab-item.active {
+        background: rgba(168, 85, 247, 0.15);
+        color: #fff;
+        border-left: 3px solid #a855f7;
+    }
+</style>
+
+<div class="container py-5 mt-5">
+    <div class="row g-4">
+        <!-- Sidebar Navigation Column -->
+        <div class="col-lg-3">
+            <div class="glass-panel p-4 h-100 border-0">
+                <h3 class="h5 text-white fw-bold mb-4 font-monospace" style="text-shadow: 0 0 10px rgba(168, 85, 247, 0.6);">
+                    <i class="fas fa-satellite-dish text-neon-purple me-2"></i> ANALYTICS CORE
+                </h3>
+                <nav class="d-flex flex-column gap-2">
+                    <a href="/Admin/Analytics" class="nav-tab-item"><i class="fas fa-chart-line me-2"></i> Dashboard</a>
+                    <a href="/Admin/Analytics/Health" class="nav-tab-item"><i class="fas fa-heartbeat me-2"></i> Diagnostics</a>
+                    <a href="/Admin/Analytics/Settings" class="nav-tab-item active"><i class="fas fa-sliders-h me-2"></i> Settings</a>
+                    <hr class="border-secondary opacity-20 my-3" />
+                    <a href="/Admin/Analytics/Export/Csv" class="btn btn-outline-secondary btn-sm text-start rounded-pill"><i class="fas fa-file-csv me-2"></i> Export Data CSV</a>
+                    <a href="/Admin/Analytics/Export/Json" class="btn btn-outline-secondary btn-sm text-start rounded-pill mt-2"><i class="fas fa-file-code me-2"></i> Export Data JSON</a>
+                </nav>
+            </div>
+        </div>
+
+        <!-- Main Configuration Column -->
+        <div class="col-lg-9">
+            <div class="glass-panel p-4 border-0 mb-4">
+                <h3 class="h4 text-white fw-bold mb-1"><i class="fas fa-sliders-h text-neon-purple me-2"></i> Analytics Configuration</h3>
+                <p class="text-muted small">Update operational controls and data-lifecycle retention policies.</p>
+
+                @if (TempData["SuccessMessage"] != null)
+                {
+                    <div class="alert alert-success glass-panel text-white small border-success mt-3" style="background: rgba(16, 185, 129, 0.1) !important;">
+                        <i class="fas fa-check-circle me-2 text-success"></i> @TempData["SuccessMessage"]
+                    </div>
+                }
+
+                <form method="post" action="/Admin/Analytics/Settings" class="settings-form mt-4">
+                    @Html.AntiForgeryToken()
+                    @Html.HiddenFor(m => m.Id)
+
+                    <!-- SECTION 1: Tracking Toggles -->
+                    <h5 class="text-white fw-semibold mb-3 border-bottom border-secondary border-opacity-35 pb-2" style="font-size: 0.95rem;">
+                        <i class="fas fa-power-off text-neon-cyan me-2"></i> Operational Rules
+                    </h5>
+                    
+                    <div class="row g-3 mb-4">
+                        <div class="col-md-6">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input bg-dark" type="checkbox" asp-for="EnableTracking" />
+                                <label class="form-check-label" asp-for="EnableTracking">Enable Global Telemetry Tracking</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input bg-dark" type="checkbox" asp-for="EnableGeoLookup" />
+                                <label class="form-check-label" asp-for="EnableGeoLookup">Enable IP Geolocation Resolution</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input bg-dark" type="checkbox" asp-for="EnableEventTracking" />
+                                <label class="form-check-label" asp-for="EnableEventTracking">Enable Interactive Event Tracking (clicks/scrolls)</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input bg-dark" type="checkbox" asp-for="EnableHeatmaps" />
+                                <label class="form-check-label" asp-for="EnableHeatmaps">Enable Mouse Heatmap Resolution</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SECTION 2: Filters -->
+                    <h5 class="text-white fw-semibold mb-3 border-bottom border-secondary border-opacity-35 pb-2" style="font-size: 0.95rem;">
+                        <i class="fas fa-filter text-neon-purple me-2"></i> Filter & Exclusion Rules
+                    </h5>
+                    
+                    <div class="row g-3 mb-4">
+                        <div class="col-md-4">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input bg-dark" type="checkbox" asp-for="IgnoreAdminUsers" />
+                                <label class="form-check-label" asp-for="IgnoreAdminUsers">Ignore Admin User Visits</label>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input bg-dark" type="checkbox" asp-for="IgnoreLocalhost" />
+                                <label class="form-check-label" asp-for="IgnoreLocalhost">Ignore Localhost Requests</label>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input bg-dark" type="checkbox" asp-for="IgnoreBots" />
+                                <label class="form-check-label" asp-for="IgnoreBots">Exclude Bots & Search Engines</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SECTION 3: Performance Config -->
+                    <h5 class="text-white fw-semibold mb-3 border-bottom border-secondary border-opacity-35 pb-2" style="font-size: 0.95rem;">
+                        <i class="fas fa-tachometer-alt text-neon-cyan me-2"></i> Performance Tuning
+                    </h5>
+
+                    <div class="row g-3 mb-4">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label asp-for="QueueBatchSize">In-Memory Batch Queue Size</label>
+                                <input type="number" asp-for="QueueBatchSize" class="form-control bg-dark border-secondary text-white" required min="1" max="100" />
+                                <small class="text-muted d-block mt-1">Number of events aggregated before flushing to database.</small>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label asp-for="FlushIntervalSeconds">Flush Time Limit (Seconds)</label>
+                                <input type="number" asp-for="FlushIntervalSeconds" class="form-control bg-dark border-secondary text-white" required min="1" max="60" />
+                                <small class="text-muted d-block mt-1">Maximum seconds database queue stays buffered before auto-flushing.</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SECTION 4: Data Retention Policy -->
+                    <h5 class="text-white fw-semibold mb-3 border-bottom border-secondary border-opacity-35 pb-2" style="font-size: 0.95rem;">
+                        <i class="fas fa-file-invoice text-neon-purple me-2"></i> Data Retention Lifecycle Policies
+                    </h5>
+
+                    <div class="row g-3 mb-4">
+                        <div class="col-md-4">
+                            <div class="mb-3">
+                                <label asp-for="RetentionDays">Retention Duration (Days)</label>
+                                <input type="number" asp-for="RetentionDays" class="form-control bg-dark border-secondary text-white" required min="7" />
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-3">
+                                <label asp-for="RetentionAction">Policy Enforcement Action</label>
+                                <select asp-for="RetentionAction" class="form-select bg-dark border-secondary text-white">
+                                    <option value="Archive">Archive to File</option>
+                                    <option value="Compress">Compress Table Row</option>
+                                    <option value="Delete">Hard Delete</option>
+                                    <option value="ExportBeforeDelete">Export and Clear</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-3">
+                                <label asp-for="ArchiveFolderPath">Archive Folder Path</label>
+                                <input type="text" asp-for="ArchiveFolderPath" class="form-control bg-dark border-secondary text-white" required />
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-neon text-white px-5 py-2"><i class="fas fa-save me-2"></i> Apply Settings</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

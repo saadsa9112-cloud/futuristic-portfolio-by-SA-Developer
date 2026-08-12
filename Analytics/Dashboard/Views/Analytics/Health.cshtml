@@ -1,0 +1,175 @@
+@using FuturisticPortfolio.Analytics.Application.Models
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Analytics Health Diagnostics";
+}
+
+<style>
+    .diagnostics-panel {
+        background: rgba(17, 12, 28, 0.4) !important;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.05) !important;
+    }
+    .status-indicator {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        display: inline-block;
+    }
+    .status-ok {
+        background-color: #10b981;
+        box-shadow: 0 0 10px #10b981;
+    }
+    .status-warning {
+        background-color: #f59e0b;
+        box-shadow: 0 0 10px #f59e0b;
+    }
+    .status-error {
+        background-color: #ef4444;
+        box-shadow: 0 0 10px #ef4444;
+    }
+    .nav-tab-item {
+        border-radius: 8px;
+        padding: 10px 15px;
+        color: #a0aec0;
+        transition: all 0.3s;
+        text-decoration: none;
+    }
+    .nav-tab-item:hover, .nav-tab-item.active {
+        background: rgba(168, 85, 247, 0.15);
+        color: #fff;
+        border-left: 3px solid #a855f7;
+    }
+</style>
+
+<div class="container py-5 mt-5">
+    <div class="row g-4">
+        <!-- Sidebar Navigation Column -->
+        <div class="col-lg-3">
+            <div class="glass-panel p-4 h-100 border-0">
+                <h3 class="h5 text-white fw-bold mb-4 font-monospace" style="text-shadow: 0 0 10px rgba(168, 85, 247, 0.6);">
+                    <i class="fas fa-satellite-dish text-neon-purple me-2"></i> ANALYTICS CORE
+                </h3>
+                <nav class="d-flex flex-column gap-2">
+                    <a href="/Admin/Analytics" class="nav-tab-item"><i class="fas fa-chart-line me-2"></i> Dashboard</a>
+                    <a href="/Admin/Analytics/Health" class="nav-tab-item active"><i class="fas fa-heartbeat me-2"></i> Diagnostics</a>
+                    <a href="/Admin/Analytics/Settings" class="nav-tab-item"><i class="fas fa-sliders-h me-2"></i> Settings</a>
+                    <hr class="border-secondary opacity-20 my-3" />
+                    <a href="/Admin/Analytics/Export/Csv" class="btn btn-outline-secondary btn-sm text-start rounded-pill"><i class="fas fa-file-csv me-2"></i> Export Data CSV</a>
+                    <a href="/Admin/Analytics/Export/Json" class="btn btn-outline-secondary btn-sm text-start rounded-pill mt-2"><i class="fas fa-file-code me-2"></i> Export Data JSON</a>
+                </nav>
+            </div>
+        </div>
+
+        <!-- Main Diagnostics Column -->
+        <div class="col-lg-9">
+            <div class="glass-panel p-4 border-0 mb-4">
+                <h3 class="h4 text-white fw-bold mb-1"><i class="fas fa-history text-neon-purple me-2"></i> Diagnostic Metrics</h3>
+                <p class="text-muted small">Real-time memory allocations and pipeline diagnostics.</p>
+
+                <div class="row g-3 mt-3">
+                    <!-- Status Indicator Card -->
+                    <div class="col-md-4">
+                        <div class="diagnostics-panel p-3 rounded">
+                            <span class="text-muted small d-block mb-1">Queue Pipeline Status</span>
+                            <div class="d-flex align-items-center gap-2">
+                                <span class="status-indicator @(AnalyticsMetrics.WorkerStatus == "Running" ? "status-ok" : "status-error")"></span>
+                                <h4 class="text-white h5 fw-bold mb-0">@AnalyticsMetrics.WorkerStatus</h4>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Processed Events Card -->
+                    <div class="col-md-4">
+                        <div class="diagnostics-panel p-3 rounded">
+                            <span class="text-muted small d-block mb-1">Total Processed Events</span>
+                            <h4 class="text-white h5 fw-bold font-monospace mb-0">@AnalyticsMetrics.TotalProcessed</h4>
+                        </div>
+                    </div>
+
+                    <!-- Memory Usage Card -->
+                    <div class="col-md-4">
+                        <div class="diagnostics-panel p-3 rounded">
+                            <span class="text-muted small d-block mb-1">Memory Allocation</span>
+                            <h4 class="text-white h5 fw-bold font-monospace mb-0">@ViewBag.GcMemoryUsage MB</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Channels & Buffer health -->
+            <div class="glass-panel p-4 border-0 mb-4">
+                <h4 class="h5 text-white fw-bold mb-3"><i class="fas fa-tasks text-neon-cyan me-2"></i> Channel Buffer Health</h4>
+                
+                <div class="mb-4">
+                    <div class="d-flex justify-content-between mb-1 small">
+                        <span class="text-muted">In-Memory Queue Capacity</span>
+                        <span class="text-white font-monospace">@AnalyticsMetrics.QueueSize / @AnalyticsMetrics.Capacity</span>
+                    </div>
+                    @{
+                        var queuePct = (double)AnalyticsMetrics.QueueSize / AnalyticsMetrics.Capacity * 100;
+                        var barColorClass = "bg-primary";
+                        if (queuePct > 80) barColorClass = "bg-danger";
+                        else if (queuePct > 50) barColorClass = "bg-warning";
+                    }
+                    <div class="progress bg-dark" style="height: 10px; border-radius: 5px;">
+                        <div class="progress-bar @barColorClass" role="progressbar" style="width: @queuePct%;" aria-valuenow="@AnalyticsMetrics.QueueSize" aria-valuemin="0" aria-valuemax="@AnalyticsMetrics.Capacity"></div>
+                    </div>
+                </div>
+
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <div class="diagnostics-panel p-3 rounded d-flex justify-content-between align-items-center">
+                            <div>
+                                <span class="text-muted small d-block">Dropped Events (Buffer Overflow)</span>
+                                <h4 class="text-white h5 fw-bold font-monospace mb-0">@AnalyticsMetrics.DroppedEvents</h4>
+                            </div>
+                            <i class="fas fa-trash-alt text-danger fs-4 opacity-50"></i>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="diagnostics-panel p-3 rounded d-flex justify-content-between align-items-center">
+                            <div>
+                                <span class="text-muted small d-block">Active SQL Retry Counters</span>
+                                <h4 class="text-white h5 fw-bold font-monospace mb-0">@AnalyticsMetrics.RetryCount</h4>
+                            </div>
+                            <i class="fas fa-redo text-warning fs-4 opacity-50"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dead Letter Queue Health -->
+            <div class="glass-panel p-4 border-0">
+                <h4 class="h5 text-white fw-bold mb-1"><i class="fas fa-envelope-open-text text-neon-purple me-2"></i> Dead Letter Queue (DLQ) Backup</h4>
+                <p class="text-muted small">Payload backup files stored on the filesystem during DB downtime.</p>
+
+                <div class="diagnostics-panel p-4 rounded mt-3">
+                    <div class="row align-items-center">
+                        <div class="col-md-8">
+                            <span class="text-muted small d-block">Dead Letter Queue File Size</span>
+                            <h4 class="text-white h4 fw-bold font-monospace mb-1">
+                                @((AnalyticsMetrics.DlqSize / 1024.0).ToString("F2")) KB
+                            </h4>
+                            <span class="text-muted small d-block font-monospace" style="font-size: 0.75rem;">File Location: App_Data/Analytics/dlq.json</span>
+                        </div>
+                        <div class="col-md-4 text-md-end mt-3 mt-md-0">
+                            @if (AnalyticsMetrics.DlqSize > 0)
+                            {
+                                <form method="post" action="/Admin/Analytics/Recovery">
+                                    @Html.AntiForgeryToken()
+                                    <button type="submit" class="btn btn-neon text-white"><i class="fas fa-sync me-2"></i> Recover DLQ Batch</button>
+                                </form>
+                            }
+                            else
+                            {
+                                <button type="button" class="btn btn-outline-secondary" disabled><i class="fas fa-check-circle me-2"></i> DLQ is Clean</button>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

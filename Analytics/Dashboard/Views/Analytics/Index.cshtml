@@ -1,0 +1,383 @@
+@model FuturisticPortfolio.Analytics.Application.Models.AnalyticsDashboardViewModel
+@using System.Text.Json
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Analytics Command Center";
+    var countries = ViewBag.Countries as List<string> ?? new List<string>();
+    var browsers = ViewBag.Browsers as List<string> ?? new List<string>();
+}
+
+<!-- Custom Styles for Dashboard -->
+<style>
+    .kpi-card {
+        transition: transform 0.3s ease, border-color 0.3s ease;
+        border: 1px solid rgba(255, 255, 255, 0.05) !important;
+        background: rgba(17, 12, 28, 0.4) !important;
+        backdrop-filter: blur(10px);
+    }
+    .kpi-card:hover {
+        transform: translateY(-3px);
+        border-color: rgba(168, 85, 247, 0.4) !important;
+        box-shadow: 0 0 15px rgba(168, 85, 247, 0.1);
+    }
+    .text-glow-purple {
+        text-shadow: 0 0 10px rgba(168, 85, 247, 0.6);
+    }
+    .text-glow-cyan {
+        text-shadow: 0 0 10px rgba(0, 243, 255, 0.6);
+    }
+    .nav-tab-item {
+        border-radius: 8px;
+        padding: 10px 15px;
+        color: #a0aec0;
+        transition: all 0.3s;
+        text-decoration: none;
+    }
+    .nav-tab-item:hover, .nav-tab-item.active {
+        background: rgba(168, 85, 247, 0.15);
+        color: #fff;
+        border-left: 3px solid #a855f7;
+    }
+    .analytics-table th {
+        font-family: var(--font-heading);
+        text-transform: uppercase;
+        font-size: 0.75rem;
+        letter-spacing: 0.1em;
+        color: #64748b;
+        background: rgba(0,0,0,0.2) !important;
+        border-bottom: 1px solid rgba(255,255,255,0.05) !important;
+    }
+    .analytics-table td {
+        font-size: 0.85rem;
+        border-bottom: 1px solid rgba(255,255,255,0.03) !important;
+        color: #cbd5e1;
+    }
+    .alert-toast-container {
+        position: fixed;
+        top: 80px;
+        right: 20px;
+        z-index: 1060;
+    }
+</style>
+
+<div class="container py-5 mt-5">
+    <div class="row g-4">
+        <!-- Sidebar Menu Column -->
+        <div class="col-lg-3">
+            <div class="glass-panel p-4 h-100 border-0">
+                <h3 class="h5 text-white fw-bold mb-4 font-monospace text-glow-purple">
+                    <i class="fas fa-satellite-dish text-neon-purple me-2"></i> ANALYTICS CORE
+                </h3>
+                <nav class="d-flex flex-column gap-2">
+                    <a href="/Admin/Analytics" class="nav-tab-item active"><i class="fas fa-chart-line me-2"></i> Dashboard</a>
+                    <a href="/Admin/Analytics/Health" class="nav-tab-item"><i class="fas fa-heartbeat me-2"></i> Diagnostics</a>
+                    <a href="/Admin/Analytics/Settings" class="nav-tab-item"><i class="fas fa-sliders-h me-2"></i> Settings</a>
+                    <hr class="border-secondary opacity-20 my-3" />
+                    <a href="/Admin/Analytics/Export/Csv" class="btn btn-outline-secondary btn-sm text-start rounded-pill"><i class="fas fa-file-csv me-2"></i> Export Data CSV</a>
+                    <a href="/Admin/Analytics/Export/Json" class="btn btn-outline-secondary btn-sm text-start rounded-pill mt-2"><i class="fas fa-file-code me-2"></i> Export Data JSON</a>
+                </nav>
+            </div>
+        </div>
+
+        <!-- Main Dashboard Column -->
+        <div class="col-lg-9">
+            <!-- Filter Toolbar -->
+            <div class="glass-panel p-3 mb-4 border-0">
+                <form method="get" action="/Admin/Analytics" class="row g-2 align-items-center">
+                    <div class="col-md-3">
+                        <select name="dateRange" class="form-select bg-dark border-secondary text-white text-sm" style="font-size: 0.85rem;">
+                            <option value="month">Last 30 Days</option>
+                            <option value="today">Today</option>
+                            <option value="yesterday">Yesterday</option>
+                            <option value="week">Last 7 Days</option>
+                            <option value="year">Last 365 Days</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <select name="deviceType" class="form-select bg-dark border-secondary text-white" style="font-size: 0.85rem;">
+                            <option value="">All Devices</option>
+                            <option value="Desktop">Desktop</option>
+                            <option value="Mobile">Mobile</option>
+                            <option value="Tablet">Tablet</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <select name="country" class="form-select bg-dark border-secondary text-white" style="font-size: 0.85rem;">
+                            <option value="">All Countries</option>
+                            @foreach (var c in countries)
+                            {
+                                <option value="@c">@c</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <button type="submit" class="btn btn-neon w-100 text-white"><i class="fas fa-filter me-2"></i> Filter</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- KPI Counters Row -->
+            <div class="row g-3 mb-4">
+                <div class="col-md-3 col-sm-6">
+                    <div class="kpi-card p-3 rounded text-center">
+                        <div class="text-neon-cyan fs-2 mb-1"><i class="fas fa-users"></i></div>
+                        <h4 class="text-white h3 fw-bold font-monospace mb-0" id="kpi-uniques">@Model.TotalUniqueVisitors</h4>
+                        <span class="text-muted small">Unique Visitors</span>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="kpi-card p-3 rounded text-center">
+                        <div class="text-neon-purple fs-2 mb-1"><i class="fas fa-eye"></i></div>
+                        <h4 class="text-white h3 fw-bold font-monospace mb-0" id="kpi-pageviews">@Model.TotalPageViews</h4>
+                        <span class="text-muted small">Total Pageviews</span>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="kpi-card p-3 rounded text-center" style="border-color: rgba(16, 185, 129, 0.3) !important;">
+                        <div class="text-success fs-2 mb-1"><i class="fas fa-broadcast-tower animate-pulse"></i></div>
+                        <h4 class="text-success h3 fw-bold font-monospace mb-0" id="kpi-online">@Model.ActiveOnlineVisitors</h4>
+                        <span class="text-muted small">Live Users Online</span>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="kpi-card p-3 rounded text-center">
+                        <div class="text-warning fs-2 mb-1"><i class="fas fa-sign-out-alt"></i></div>
+                        <h4 class="text-white h3 fw-bold font-monospace mb-0">@Model.BounceRatePercentage.ToString("F1")%</h4>
+                        <span class="text-muted small">Bounce Rate</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Charts Container -->
+            <div class="row g-4 mb-4">
+                <div class="col-md-8">
+                    <div class="glass-panel p-4 h-100 border-0">
+                        <h4 class="h6 text-white fw-bold mb-3"><i class="fas fa-chart-area text-neon-purple me-2"></i> Daily Traffic Trend</h4>
+                        <div style="height: 250px; position: relative;">
+                            <canvas id="trafficTrendChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="glass-panel p-4 h-100 border-0">
+                        <h4 class="h6 text-white fw-bold mb-3"><i class="fas fa-mobile-alt text-neon-cyan me-2"></i> Devices</h4>
+                        <div style="height: 250px; position: relative; display: flex; justify-content: center; align-items: center;">
+                            <canvas id="deviceChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Top Page Views, Clicks, and Referral Channels Grid -->
+            <div class="row g-4 mb-4">
+                <div class="col-md-6">
+                    <div class="glass-panel p-4 border-0 h-100">
+                        <h4 class="h6 text-white fw-bold mb-3"><i class="fas fa-file-alt text-neon-purple me-2"></i> Top Page Views</h4>
+                        <div class="table-responsive">
+                            <table class="table table-dark table-striped analytics-table mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>Page Path</th>
+                                        <th class="text-end">Views</th>
+                                        <th class="text-end">Rate</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var pg in Model.MostViewedPages)
+                                    {
+                                        <tr>
+                                            <td class="font-monospace">@pg.Name</td>
+                                            <td class="text-end fw-semibold text-white">@pg.Count</td>
+                                            <td class="text-end text-muted">@pg.Percentage.ToString("F1")%</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="glass-panel p-4 border-0 h-100">
+                        <h4 class="h6 text-white fw-bold mb-3"><i class="fas fa-mouse-pointer text-neon-cyan me-2"></i> Top Project Clicks</h4>
+                        <div class="table-responsive">
+                            <table class="table table-dark table-striped analytics-table mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>Element Target</th>
+                                        <th class="text-end">Clicks</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var proj in Model.MostViewedProjects)
+                                    {
+                                        <tr>
+                                            <td class="font-monospace">@proj.Name</td>
+                                            <td class="text-end fw-semibold text-white">@proj.Count</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Latest Sessions Grid -->
+            <div class="glass-panel p-4 border-0">
+                <h4 class="h6 text-white fw-bold mb-3"><i class="fas fa-history text-neon-purple me-2"></i> Latest Visitor Sessions</h4>
+                <div class="table-responsive">
+                    <table class="table table-dark table-striped analytics-table mb-0" id="sessions-table">
+                        <thead>
+                            <tr>
+                                <th>Cookie ID</th>
+                                <th>Country</th>
+                                <th>City</th>
+                                <th>Device</th>
+                                <th>Started At</th>
+                                <th class="text-end">Duration</th>
+                                <th class="text-end">Pages</th>
+                                <th class="text-end">Bounce</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var s in Model.LatestSessions)
+                            {
+                                <tr>
+                                    <td class="font-monospace text-muted">@s.VisitorCookieId</td>
+                                    <td>@s.Country</td>
+                                    <td>@s.City</td>
+                                    <td>
+                                        @if (s.DeviceType == "Mobile") { <i class="fas fa-mobile-alt me-1 text-neon-cyan"></i> }
+                                        else if (s.DeviceType == "Tablet") { <i class="fas fa-tablet-alt me-1 text-neon-purple"></i> }
+                                        else { <i class="fas fa-desktop me-1 text-muted"></i> }
+                                        @s.Browser
+                                    </td>
+                                    <td>@s.StartedAt.ToLocalTime().ToString("g")</td>
+                                    <td class="text-end font-monospace">@TimeSpan.FromSeconds(s.DurationSeconds).ToString(@"mm\:ss")</td>
+                                    <td class="text-end text-white fw-semibold">@s.PagesVisited</td>
+                                    <td class="text-end">
+                                        @if (s.IsBounce)
+                                        {
+                                            <span class="badge bg-danger bg-opacity-25 text-danger border border-danger border-opacity-30">Yes</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge bg-success bg-opacity-25 text-success border border-success border-opacity-30">No</span>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Alert Notifications Stack -->
+<div class="alert-toast-container" id="alert-toast-container"></div>
+
+@section Scripts {
+    <!-- SignalR Script -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/7.0.5/signalr.min.js"></script>
+    <!-- Chart.js Script -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // --- Chart 1: Daily Trend Line ---
+            const trendCtx = document.getElementById('trafficTrendChart').getContext('2d');
+            const trendLabels = @Html.Raw(JsonSerializer.Serialize(Model.DailyVisitorTrend.Select(dp => dp.Label)));
+            const trendData = @Html.Raw(JsonSerializer.Serialize(Model.DailyVisitorTrend.Select(dp => dp.Value)));
+
+            new Chart(trendCtx, {
+                type: 'line',
+                data: {
+                    labels: trendLabels,
+                    datasets: [{
+                        label: 'Sessions',
+                        data: trendData,
+                        borderColor: '#a855f7',
+                        backgroundColor: 'rgba(168, 85, 247, 0.1)',
+                        borderWidth: 2,
+                        tension: 0.3,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        x: { grid: { color: 'rgba(255,255,255,0.03)' }, ticks: { color: '#64748b' } },
+                        y: { grid: { color: 'rgba(255,255,255,0.03)' }, ticks: { color: '#64748b' } }
+                    }
+                }
+            });
+
+            // --- Chart 2: Device Pie Chart ---
+            const deviceCtx = document.getElementById('deviceChart').getContext('2d');
+            const deviceLabels = @Html.Raw(JsonSerializer.Serialize(Model.DeviceDistribution.Select(dp => dp.Label)));
+            const deviceData = @Html.Raw(JsonSerializer.Serialize(Model.DeviceDistribution.Select(dp => dp.Value)));
+
+            new Chart(deviceCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: deviceLabels,
+                    datasets: [{
+                        data: deviceData,
+                        backgroundColor: ['#00f3ff', '#a855f7', '#f59e0b', '#3b82f6'],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: { color: '#cbd5e1', font: { size: 10 } }
+                        }
+                    }
+                }
+            });
+
+            // --- SignalR Connections ---
+            const connection = new signalR.HubConnectionBuilder()
+                .withUrl("/analyticsHub")
+                .withAutomaticReconnect()
+                .build();
+
+            connection.on("ReceiveLiveAnalytics", (data) => {
+                // Update live values instantly
+                document.getElementById("kpi-online").innerText = data.liveVisitorsCount;
+                
+                // Highlight live event updates
+                const toastContainer = document.getElementById("alert-toast-container");
+                const alertDiv = document.createElement("div");
+                alertDiv.className = "alert alert-info glass-panel text-white py-2 px-3 mb-2 small shadow-lg border-info";
+                alertDiv.style.background = "rgba(17, 12, 28, 0.9)";
+                alertDiv.innerHTML = `<i class="fas fa-activity text-neon-cyan me-2"></i> <strong>Live Action:</strong> ${data.eventName} on ${data.pagePath}`;
+                
+                toastContainer.appendChild(alertDiv);
+                setTimeout(() => { alertDiv.remove(); }, 4000);
+            });
+
+            connection.on("ReceiveAnalyticsAlert", (alert) => {
+                const toastContainer = document.getElementById("alert-toast-container");
+                const alertDiv = document.createElement("div");
+                alertDiv.className = "alert alert-danger glass-panel text-white py-2 px-3 mb-2 small shadow-lg border-danger";
+                alertDiv.style.background = "rgba(17, 12, 28, 0.95)";
+                alertDiv.innerHTML = `<i class="fas fa-exclamation-triangle text-danger me-2"></i> <strong>Alert [${alert.type}]:</strong> ${alert.message}`;
+                
+                toastContainer.appendChild(alertDiv);
+                // Keep errors on screen slightly longer
+                setTimeout(() => { alertDiv.remove(); }, 6000);
+            });
+
+            connection.start().catch(err => console.error("SignalR failed to start:", err));
+        });
+    </script>
+}

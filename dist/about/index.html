@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About Me - HMS Developer | Software Developer Portfolio</title>
+    
+    <!-- Meta SEO -->
+    <meta name="title" content="Hafiz Muhammad Saad | Software Developer" />
+    <meta name="description" content="Motivated and detail-oriented Software Developer with knowledge of C#, C&#x2B;&#x2B;, ASP.NET Core MVC (.NET), PHP, HTML5, CSS3, JavaScript, SQL, and MySQL." />
+
+    <!-- Style Assets -->
+    <link rel="stylesheet" href="../lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../css/site.css?v=kWIuDVNHVsD26ODUE1RX9nDjnkSTF_gYCMl6wVeR0P8" />
+    <link rel="stylesheet" href="../FuturisticPortfolio.styles.css?v=cXSw8uWbeBRRKqQImmDtUF9PgLFcp0jNpAJVcYp-LoE" />
+    
+    <!-- CDNs for Premium Libraries -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
+</head>
+<body>
+    <!-- Scroll Progress Bar -->
+    <div b-tjezjmjmzt id="scroll-progress"></div>
+
+    <!-- Interactive Ambient Glow -->
+    <div b-tjezjmjmzt class="ambient-glow"></div>
+
+    <!-- Custom Neon Cursor -->
+    <div b-tjezjmjmzt class="custom-cursor d-none d-lg-block"></div>
+    <div b-tjezjmjmzt class="custom-cursor-dot d-none d-lg-block"></div>
+
+    <!-- Loader Screen -->
+    <div b-tjezjmjmzt id="loader-screen">
+        <div b-tjezjmjmzt class="loader-spinner"></div>
+        <div b-tjezjmjmzt class="loader-text">INITIALIZING SYSTEMS...</div>
+    </div>
+
+    <!-- Particles Background -->
+    <div b-tjezjmjmzt id="particles-js"></div>
+
+    <!-- Header Navigation -->
+    <header b-tjezjmjmzt>
+        <nav b-tjezjmjmzt class="navbar navbar-expand-lg navbar-dark navbar-futuristic fixed-top py-3">
+            <div b-tjezjmjmzt class="container">
+                <a class="navbar-brand text-neon-purple fw-bold" href="../">
+                        <img b-tjezjmjmzt src="../images/logo.png" alt="Logo" class="d-inline-block align-top me-2" style="max-height:30px;" />
+                    <span b-tjezjmjmzt>&lt;HMS Developer /&gt;</span>
+                </a>
+                <button b-tjezjmjmzt class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span b-tjezjmjmzt class="navbar-toggler-icon"></span>
+                </button>
+                <div b-tjezjmjmzt class="navbar-collapse collapse justify-content-end">
+                    <ul b-tjezjmjmzt class="navbar-nav gap-2">
+                        <li b-tjezjmjmzt class="nav-item">
+                            <a class="nav-link" href="../">Home</a>
+                        </li>
+                        <li b-tjezjmjmzt class="nav-item">
+                            <a class="nav-link" href="../about/">About</a>
+                        </li>
+                        <li b-tjezjmjmzt class="nav-item">
+                            <a class="nav-link" href="../portfolio/">Projects</a>
+                        </li>
+                        <li b-tjezjmjmzt class="nav-item">
+                            <a class="nav-link" href="../blog/">Blog</a>
+                        </li>
+                        <li b-tjezjmjmzt class="nav-item">
+                            <a b-tjezjmjmzt class="nav-link" href="../#contact-section">Contact</a>
+                        </li>
+                        <li b-tjezjmjmzt class="nav-item d-flex align-items-center ms-lg-2 me-lg-1">
+                            <button b-tjezjmjmzt type="button" class="btn btn-link text-white p-2 border-0" id="theme-toggle-btn" style="text-decoration: none; box-shadow: none;" title="Toggle Theme">
+                                <i b-tjezjmjmzt class="fas fa-sun" id="theme-icon"></i>
+                            </button>
+                        </li>
+                        <li b-tjezjmjmzt class="nav-item d-flex align-items-center me-1">
+                            <button b-tjezjmjmzt type="button" class="btn btn-link text-white p-2 border-0" data-bs-toggle="modal" data-bs-target="#preferencesModal" title="Site Preferences & Settings">
+                                <i b-tjezjmjmzt class="fas fa-cog text-neon-cyan"></i>
+                            </button>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content Grid -->
+    <main b-tjezjmjmzt role="main" class="pt-5 mt-4 page-transition">
+        
+<!-- PAGE HEADER -->
+<section class="py-5 bg-dark bg-opacity-40 border-bottom border-secondary border-opacity-20 position-relative overflow-hidden mt-5">
+    <div class="position-absolute top-50 start-0 translate-middle-y rounded-circle filter-blur opacity-20" style="width: 400px; height: 400px; background: radial-gradient(circle, var(--purple-glow) 0%, transparent 70%); pointer-events: none;"></div>
+    <div class="container py-4 position-relative z-2">
+        <div class="row align-items-center">
+            <div class="col-lg-8" data-aos="fade-right">
+                <span class="badge bg-secondary mb-3 text-uppercase tracking-wider px-3 py-2 font-monospace">PROFESSIONAL PROFILE</span>
+                <h1 class="display-4 fw-bold text-white mb-2">About <span class="text-neon-purple">Hafiz Muhammad Saad</span></h1>
+                <p class="lead text-muted mb-0">Software Developer | ASP.NET Core &amp; Database Architecture Specialist</p>
+            </div>
+            <div class="col-lg-4 text-lg-end mt-4 mt-lg-0" data-aos="fade-left">
+                <a href="./files/Muhammad_Saad_CV.pdf" download="Muhammad_Saad_CV.pdf" target="_blank" class="btn btn-neon text-white"><i class="fas fa-file-download me-2"></i> Download Full Resume</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- BIOGRAPHY & ACADEMIC BACKGROUND -->
+<section class="py-5">
+    <div class="container py-4">
+        <div class="row g-4 align-items-center">
+            <div class="col-lg-6" data-aos="fade-right">
+                <div class="glass-panel p-4 p-md-5 h-100">
+                    <h3 class="h4 text-white fw-bold mb-4"><i class="fas fa-user-tag text-neon-cyan me-2"></i> Biography &amp; Professional Mission</h3>
+                    <div class="text-muted leading-relaxed mb-4">
+                        <p>Motivated and detail-oriented <strong>Software Developer</strong> with knowledge of <strong>C#, C++, ASP.NET Core MVC (.NET), PHP, HTML5, CSS3, JavaScript, SQL, and MySQL</strong>. Experienced in developing and enhancing web applications through academic and personal projects.</p><p>Passionate about building scalable software solutions, solving real-world problems, and continuously learning modern technologies. A collaborative team player with strong analytical and problem-solving skills, eager to contribute to innovative software development projects.</p>
+                    </div>
+                    <div class="row g-3">
+                        <div class="col-6">
+                            <div class="p-3 glass-panel text-center">
+                                <h3 class="text-neon-purple fw-bold mb-1">1+</h3>
+                                <span class="small text-muted">Years Coding</span>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="p-3 glass-panel text-center">
+                                <h3 class="text-neon-cyan fw-bold mb-1">9</h3>
+                                <span class="small text-muted">Core Tech Stack</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6" data-aos="fade-left">
+                <div class="glass-panel p-4 p-md-5 h-100 border-0">
+                    <h3 class="h4 text-white fw-bold mb-4"><i class="fas fa-graduation-cap text-neon-purple me-2"></i> Academic Education</h3>
+                    
+                    <!-- 1. CURRENT DEGREE (Highest Priority - Cyan Accent) -->
+                    <div class="mb-4 p-4 rounded-3 glass-panel border border-info position-relative" style="border-color: rgba(0, 217, 255, 0.5) !important; box-shadow: 0 0 20px rgba(0, 217, 255, 0.20); background: rgba(0, 217, 255, 0.05) !important;">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <span class="badge bg-dark border font-monospace px-3 py-2" style="color: #00D9FF !important; border-color: #00D9FF !important; box-shadow: 0 0 10px rgba(0, 217, 255, 0.3);">
+                                <i class="fas fa-graduation-cap me-1.5"></i> CURRENT DEGREE
+                            </span>
+                            <span class="badge bg-dark border font-monospace px-3 py-1.5 small text-white" style="border-color: rgba(0, 217, 255, 0.4) !important; background: rgba(0, 217, 255, 0.12) !important;">
+                                <i class="fas fa-university me-1 text-neon-cyan"></i> Sohail University
+                            </span>
+                        </div>
+                        <h5 class="text-white fw-bold mb-1 fs-5">Bachelor of Science in Business Computing (BSBC)</h5>
+                        <p class="small mb-1 fw-semibold" style="color: #00D9FF;"><i class="fas fa-university me-1.5"></i> Sohail University, Karachi</p>
+                        <span class="text-muted small font-monospace"><i class="fas fa-calendar-alt me-1.5"></i> October 2025 – 2029</span>
+                    </div>
+
+                    <!-- 2. PROFESSIONAL DIPLOMA (Purple Accent) -->
+                    <div class="p-4 rounded-3 glass-panel border position-relative" style="border-color: rgba(168, 85, 247, 0.4) !important; box-shadow: 0 0 15px rgba(168, 85, 247, 0.15);">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <span class="badge bg-dark border font-monospace px-3 py-2" style="color: #A855F7 !important; border-color: #A855F7 !important; box-shadow: 0 0 10px rgba(168, 85, 247, 0.3);">
+                                <i class="fas fa-certificate me-1.5"></i> PROFESSIONAL DIPLOMA
+                            </span>
+                            <span class="badge bg-dark border font-monospace px-3 py-1.5 small text-white" style="border-color: rgba(168, 85, 247, 0.4) !important; background: rgba(168, 85, 247, 0.12) !important;">
+                                <i class="fas fa-laptop-code me-1 text-neon-purple"></i> Aptech Learning
+                            </span>
+                        </div>
+                        <h5 class="text-white fw-semibold mb-1 fs-5">Advanced Diploma in Software Engineering (ADSE)</h5>
+                        <p class="small mb-1" style="color: #A855F7;"><i class="fas fa-university me-1.5"></i> Aptech Learning, Karachi</p>
+                        <span class="text-muted small font-monospace"><i class="fas fa-calendar-alt me-1.5"></i> March 2024 – May 2027</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SKILLS INVENTORY -->
+<section class="py-5 bg-dark bg-opacity-40">
+    <div class="container py-4">
+        <div class="text-center mb-5" data-aos="fade-up">
+            <h2 class="display-5 text-white fw-bold"><span class="text-neon-purple">//</span> Skills Inventory</h2>
+            <p class="text-muted">Engineering modules and technologies calibrated in the system database.</p>
+        </div>
+        
+        <div class="row g-4">
+                    <div class="col-md-6 col-lg-4" data-aos="zoom-in">
+                        <div class="glass-panel p-4 h-100 skill-card">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <div class="d-flex align-items-center gap-3">
+                                    <div class="fs-2 text-neon-purple" style="color: #558bf7 !important; text-shadow: 0 0 10px #558bf7;"><i class="fa-solid fa-database"></i></div>
+                                    <h4 class="h5 text-white mb-0">MySQL</h4>
+                                </div>
+                                <span class="badge bg-dark border border-secondary" style="color: #558bf7 !important;">80%</span>
+                            </div>
+                            <div class="skill-progress-bar">
+                                <div class="skill-progress-fill" data-percent="80" style="width: 80%; background: #558bf7 !important; box-shadow: 0 0 10px #558bf7;"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4" data-aos="zoom-in">
+                        <div class="glass-panel p-4 h-100 skill-card">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <div class="d-flex align-items-center gap-3">
+                                    <div class="fs-2 text-neon-purple" style="color: #a855f7 !important; text-shadow: 0 0 10px #a855f7;"><i class="fab fa-microsoft"></i></div>
+                                    <h4 class="h5 text-white mb-0">ASP.NET Core MVC</h4>
+                                </div>
+                                <span class="badge bg-dark border border-secondary" style="color: #a855f7 !important;">65%</span>
+                            </div>
+                            <div class="skill-progress-bar">
+                                <div class="skill-progress-fill" data-percent="65" style="width: 65%; background: #a855f7 !important; box-shadow: 0 0 10px #a855f7;"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4" data-aos="zoom-in">
+                        <div class="glass-panel p-4 h-100 skill-card">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <div class="d-flex align-items-center gap-3">
+                                    <div class="fs-2 text-neon-purple" style="color: #3b82f6 !important; text-shadow: 0 0 10px #3b82f6;"><i class="fas fa-code"></i></div>
+                                    <h4 class="h5 text-white mb-0">C# / .NET 10</h4>
+                                </div>
+                                <span class="badge bg-dark border border-secondary" style="color: #3b82f6 !important;">65%</span>
+                            </div>
+                            <div class="skill-progress-bar">
+                                <div class="skill-progress-fill" data-percent="65" style="width: 65%; background: #3b82f6 !important; box-shadow: 0 0 10px #3b82f6;"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4" data-aos="zoom-in">
+                        <div class="glass-panel p-4 h-100 skill-card">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <div class="d-flex align-items-center gap-3">
+                                    <div class="fs-2 text-neon-purple" style="color: #06b6d4 !important; text-shadow: 0 0 10px #06b6d4;"><i class="fas fa-database"></i></div>
+                                    <h4 class="h5 text-white mb-0">SQL Server</h4>
+                                </div>
+                                <span class="badge bg-dark border border-secondary" style="color: #06b6d4 !important;">70%</span>
+                            </div>
+                            <div class="skill-progress-bar">
+                                <div class="skill-progress-fill" data-percent="70" style="width: 70%; background: #06b6d4 !important; box-shadow: 0 0 10px #06b6d4;"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4" data-aos="zoom-in">
+                        <div class="glass-panel p-4 h-100 skill-card">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <div class="d-flex align-items-center gap-3">
+                                    <div class="fs-2 text-neon-purple" style="color: #10b981 !important; text-shadow: 0 0 10px #10b981;"><i class="fas fa-project-diagram"></i></div>
+                                    <h4 class="h5 text-white mb-0">Html , CSS</h4>
+                                </div>
+                                <span class="badge bg-dark border border-secondary" style="color: #10b981 !important;">95%</span>
+                            </div>
+                            <div class="skill-progress-bar">
+                                <div class="skill-progress-fill" data-percent="95" style="width: 95%; background: #10b981 !important; box-shadow: 0 0 10px #10b981;"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4" data-aos="zoom-in">
+                        <div class="glass-panel p-4 h-100 skill-card">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <div class="d-flex align-items-center gap-3">
+                                    <div class="fs-2 text-neon-purple" style="color: #f59e0b !important; text-shadow: 0 0 10px #f59e0b;"><i class="fab fa-js"></i></div>
+                                    <h4 class="h5 text-white mb-0">JavaScript (ES6) / GSAP</h4>
+                                </div>
+                                <span class="badge bg-dark border border-secondary" style="color: #f59e0b !important;">80%</span>
+                            </div>
+                            <div class="skill-progress-bar">
+                                <div class="skill-progress-fill" data-percent="80" style="width: 80%; background: #f59e0b !important; box-shadow: 0 0 10px #f59e0b;"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4" data-aos="zoom-in">
+                        <div class="glass-panel p-4 h-100 skill-card">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <div class="d-flex align-items-center gap-3">
+                                    <div class="fs-2 text-neon-purple" style="color: #ef4444 !important; text-shadow: 0 0 10px #ef4444;"><i class="fab fa-git-alt"></i></div>
+                                    <h4 class="h5 text-white mb-0">Git &amp; CI/CD Pipelines</h4>
+                                </div>
+                                <span class="badge bg-dark border border-secondary" style="color: #ef4444 !important;">30%</span>
+                            </div>
+                            <div class="skill-progress-bar">
+                                <div class="skill-progress-fill" data-percent="30" style="width: 30%; background: #ef4444 !important; box-shadow: 0 0 10px #ef4444;"></div>
+                            </div>
+                        </div>
+                    </div>
+        </div>
+    </div>
+</section>
+
+<!-- CAREER ROADMAP & CURRENT FOCUS -->
+<section class="py-5">
+    <div class="container py-4">
+        <div class="text-center mb-5" data-aos="fade-up">
+            <h2 class="display-5 text-white fw-bold"><span class="text-neon-cyan">//</span> Current Focus &amp; Career Roadmap</h2>
+            <p class="text-muted">Active engineering modules and professional progression timeline.</p>
+        </div>
+
+        <!-- STATUS PILLS ROW -->
+        <div class="d-flex flex-wrap justify-content-center gap-2 mb-5" data-aos="fade-up">
+            <span class="badge glass-panel border border-success text-success px-3 py-2 rounded-pill font-monospace small"><i class="fas fa-briefcase me-1.5"></i> Open for Internship</span>
+            <span class="badge glass-panel border border-info text-neon-cyan px-3 py-2 rounded-pill font-monospace small"><i class="fas fa-bolt me-1.5"></i> Open for Freelancing</span>
+            <span class="badge glass-panel border border-secondary text-neon-purple px-3 py-2 rounded-pill font-monospace small"><i class="fas fa-handshake me-1.5"></i> Open for Collaboration</span>
+            <span class="badge glass-panel border border-warning text-warning px-3 py-2 rounded-pill font-monospace small"><i class="fas fa-rocket me-1.5"></i> Building Production Projects</span>
+        </div>
+
+        <div class="row g-4 mb-5">
+            <!-- CURRENT FOCUS GRID -->
+            <div class="col-lg-7" data-aos="fade-right">
+                <div class="glass-panel p-4 p-md-5 h-100 border-0">
+                    <h3 class="h4 text-white fw-bold mb-4"><i class="fas fa-microchip text-neon-purple fs-4 me-2"></i> Current Engineering Focus</h3>
+
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <div class="p-3 glass-panel rounded-3 h-100 skill-card">
+                                <div class="fs-3 text-neon-purple mb-2"><i class="fab fa-microsoft"></i></div>
+                                <h5 class="text-white h6 fw-semibold mb-1">ASP.NET Core 10 MVC</h5>
+                                <p class="text-muted small mb-0">Building web apps using C#, EF Core, and Dependency Injection.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="p-3 glass-panel rounded-3 h-100 skill-card">
+                                <div class="fs-3 text-neon-cyan mb-2"><i class="fas fa-brain"></i></div>
+                                <h5 class="text-white h6 fw-semibold mb-1">AI Web Solutions</h5>
+                                <p class="text-muted small mb-0">Integrating AI chat agents and NLP assistants into web systems.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="p-3 glass-panel rounded-3 h-100 skill-card">
+                                <div class="fs-3 text-neon-blue mb-2"><i class="fas fa-network-wired"></i></div>
+                                <h5 class="text-white h6 fw-semibold mb-1">RESTful APIs</h5>
+                                <p class="text-muted small mb-0">Building secure, normalized JSON endpoints and telemetry pipelines.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="p-3 glass-panel rounded-3 h-100 skill-card">
+                                <div class="fs-3 text-warning mb-2"><i class="fas fa-database"></i></div>
+                                <h5 class="text-white h6 fw-semibold mb-1">SQL Server Database Tuning</h5>
+                                <p class="text-muted small mb-0">Relational schema design, indexes, and EF Core migrations.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ROADMAP TIMELINE -->
+            <div class="col-lg-5" data-aos="fade-left">
+                <div class="glass-panel p-4 h-100 border-0">
+                    <h3 class="h4 text-white fw-bold mb-4"><i class="fas fa-route text-neon-cyan me-2"></i> Career Roadmap</h3>
+                    
+                    <div class="roadmap-timeline position-relative ps-4">
+                        <div class="position-absolute top-0 bottom-0 start-0 border-start border-2 border-secondary" style="left: 12px !important; opacity: 0.3;"></div>
+
+                        <div class="roadmap-item mb-4 position-relative">
+                            <span class="position-absolute top-0 translate-middle-x rounded-circle p-1" style="left: -16px; width: 14px; height: 14px; background: #a855f7;"></span>
+                            <span class="badge bg-dark border border-secondary text-neon-purple font-monospace mb-1">2024</span>
+                            <h6 class="text-white fw-semibold mb-0">Started ADSE at Aptech Learning</h6>
+                            <small class="text-muted">Software Engineering Specialization</small>
+                        </div>
+
+                        <div class="roadmap-item mb-4 position-relative">
+                            <span class="position-absolute top-0 translate-middle-x rounded-circle p-1" style="left: -16px; width: 14px; height: 14px; background: #00f3ff;"></span>
+                            <span class="badge bg-dark border border-secondary text-neon-cyan font-monospace mb-1">2025</span>
+                            <h6 class="text-white fw-semibold mb-0">Started BSBC at Sohail University</h6>
+                            <small class="text-muted">Business Computing Specialization</small>
+                        </div>
+
+                        <div class="roadmap-item mb-4 position-relative">
+                            <span class="position-absolute top-0 translate-middle-x rounded-circle p-1" style="left: -16px; width: 14px; height: 14px; background: #10b981;"></span>
+                            <span class="badge bg-dark border border-secondary text-success font-monospace mb-1">PRESENT</span>
+                            <h6 class="text-white fw-semibold mb-0">Developing Production Portfolio Systems</h6>
+                            <small class="text-muted">ASP.NET Core &amp; C# Architecture</small>
+                        </div>
+
+                        <div class="roadmap-item position-relative">
+                            <span class="position-absolute top-0 translate-middle-x rounded-circle p-1" style="left: -16px; width: 14px; height: 14px; background: #f59e0b;"></span>
+                            <span class="badge bg-dark border border-secondary text-warning font-monospace mb-1">NEXT GOAL</span>
+                            <h6 class="text-white fw-semibold mb-0">Software Engineering Internship</h6>
+                            <small class="text-muted">Enterprise Development Team</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+    </main>
+
+    <!-- Chat Bot Widget -->
+    <div b-tjezjmjmzt class="ai-chat-widget glass-panel" id="ai-chat-widget">
+        <div b-tjezjmjmzt class="ai-chat-header text-white">
+            <span b-tjezjmjmzt><i b-tjezjmjmzt class="fas fa-robot me-2"></i> Portfolio Agent (AI)</span>
+            <button b-tjezjmjmzt class="btn btn-sm btn-link text-white p-0" id="ai-chat-close"><i b-tjezjmjmzt class="fas fa-times"></i></button>
+        </div>
+        <div b-tjezjmjmzt class="ai-chat-messages" id="ai-messages-container">
+            <!-- Messages populated via client js -->
+        </div>
+        <div b-tjezjmjmzt class="ai-chat-input">
+            <input b-tjezjmjmzt type="text" placeholder="Inquire about skills, projects..." id="ai-user-message" autocomplete="off" />
+            <button b-tjezjmjmzt id="ai-send-message"><i b-tjezjmjmzt class="fas fa-paper-plane"></i></button>
+        </div>
+        <div b-tjezjmjmzt class="p-2 border-top border-secondary bg-dark">
+            <div b-tjezjmjmzt class="quick-chips-container">
+                <span b-tjezjmjmzt class="quick-chip" data-query="What is your tech stack?">Tech Stack</span>
+                <span b-tjezjmjmzt class="quick-chip" data-query="Tell me about your latest projects.">Projects</span>
+                <span b-tjezjmjmzt class="quick-chip" data-query="Can I download your resume?">Download CV</span>
+                <span b-tjezjmjmzt class="quick-chip" data-query="How can I contact you?">Contact info</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating Chat Trigger Button -->
+    <button b-tjezjmjmzt class="fab-btn" id="ai-chat-toggle">
+        <i b-tjezjmjmzt class="fas fa-comment-dots"></i>
+    </button>
+
+    <!-- Footer Area -->
+    <footer b-tjezjmjmzt class="glass-panel border-0 border-top mt-5 pt-5 pb-4 text-start">
+        <div b-tjezjmjmzt class="container">
+            <div b-tjezjmjmzt class="row g-4 mb-4">
+                <!-- Brand Info Column -->
+                <div b-tjezjmjmzt class="col-lg-4 col-md-6">
+                    <h4 b-tjezjmjmzt class="text-neon-purple fw-bold mb-3">&lt; Hafiz Muhammad Saad /&gt;</h4>
+                    <p b-tjezjmjmzt class="text-muted small leading-relaxed mb-3">
+                        Motivated and detail-oriented Software Developer specializing in ASP.NET Core MVC, C#, PHP, SQL Server, MySQL, and modern web development.
+                    </p>
+                    <div b-tjezjmjmzt class="d-flex align-items-center gap-2 text-muted small">
+                        <span b-tjezjmjmzt class="badge bg-dark border border-success text-success px-2 py-1"><i b-tjezjmjmzt class="fas fa-circle text-success fs-6 me-1" style="font-size:0.5rem !important;"></i> SYSTEM OPERATIONAL</span>
+                    </div>
+                </div>
+
+                <!-- Navigation Links Column -->
+                <div b-tjezjmjmzt class="col-lg-2 col-md-6">
+                    <h5 b-tjezjmjmzt class="text-white fw-semibold mb-3">Navigation</h5>
+                    <ul b-tjezjmjmzt class="list-unstyled text-muted small mb-0 d-flex flex-column gap-2">
+                        <li b-tjezjmjmzt><a b-tjezjmjmzt href="../" class="text-muted text-decoration-none hover-text-white transition"><i b-tjezjmjmzt class="fas fa-chevron-right text-neon-purple me-1 small"></i> Home</a></li>
+                        <li b-tjezjmjmzt><a b-tjezjmjmzt href="../#about-section" class="text-muted text-decoration-none hover-text-white transition"><i b-tjezjmjmzt class="fas fa-chevron-right text-neon-purple me-1 small"></i> About</a></li>
+                        <li b-tjezjmjmzt><a b-tjezjmjmzt href="../#skills-section" class="text-muted text-decoration-none hover-text-white transition"><i b-tjezjmjmzt class="fas fa-chevron-right text-neon-purple me-1 small"></i> Skills</a></li>
+                        <li b-tjezjmjmzt><a b-tjezjmjmzt href="../portfolio/" class="text-muted text-decoration-none hover-text-white transition"><i b-tjezjmjmzt class="fas fa-chevron-right text-neon-purple me-1 small"></i> Projects</a></li>
+                        <li b-tjezjmjmzt><a b-tjezjmjmzt href="../blog/" class="text-muted text-decoration-none hover-text-white transition"><i b-tjezjmjmzt class="fas fa-chevron-right text-neon-purple me-1 small"></i> Tech Logs</a></li>
+                        <li b-tjezjmjmzt><a b-tjezjmjmzt href="../#contact-section" class="text-muted text-decoration-none hover-text-white transition"><i b-tjezjmjmzt class="fas fa-chevron-right text-neon-purple me-1 small"></i> Contact</a></li>
+                    </ul>
+                </div>
+
+                <!-- Academic Education Column (Aptech Primary) -->
+                <div b-tjezjmjmzt class="col-lg-3 col-md-6">
+                    <h5 b-tjezjmjmzt class="text-white fw-semibold mb-3">Education & Diplomas</h5>
+                    <ul b-tjezjmjmzt class="list-unstyled text-muted small mb-0 d-flex flex-column gap-2">
+                        <li b-tjezjmjmzt><strong b-tjezjmjmzt class="text-neon-purple">ADSE (Primary):</strong> Aptech Learning (2024–2027)</li>
+                        <li b-tjezjmjmzt><strong b-tjezjmjmzt class="text-neon-cyan">BSBC (Secondary):</strong> Sohail University (2025–2029)</li>
+                        <li b-tjezjmjmzt><span b-tjezjmjmzt class="badge bg-dark border border-secondary text-muted mt-1"><i b-tjezjmjmzt class="fas fa-graduation-cap me-1"></i> Software Engineering</span></li>
+                    </ul>
+                </div>
+
+                <!-- Contact & Specs Column -->
+                <div b-tjezjmjmzt class="col-lg-3 col-md-6">
+                    <h5 b-tjezjmjmzt class="text-white fw-semibold mb-3">Contact & Location</h5>
+                    <ul b-tjezjmjmzt class="list-unstyled text-muted small mb-0 d-flex flex-column gap-2">
+                        <li b-tjezjmjmzt><i b-tjezjmjmzt class="fas fa-map-marker-alt text-neon-cyan me-2"></i><strong b-tjezjmjmzt class="text-white">Location:</strong> Karachi, Pakistan</li>
+                        <li b-tjezjmjmzt><i b-tjezjmjmzt class="fas fa-envelope text-neon-purple me-2"></i><strong b-tjezjmjmzt class="text-white">Email:</strong> saad.sa9112@gmail.com</li>
+                        <li b-tjezjmjmzt><i b-tjezjmjmzt class="fas fa-phone text-success me-2"></i><strong b-tjezjmjmzt class="text-white">Phone:</strong> +92 305 5188896</li>
+                    </ul>
+                    <div b-tjezjmjmzt class="d-flex gap-2 mt-3">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bottom Copyright & Back To Top -->
+            <div b-tjezjmjmzt class="pt-4 border-top border-secondary border-opacity-30 d-flex flex-column flex-md-row justify-content-between align-items-center gap-3">
+                <p b-tjezjmjmzt class="text-muted small mb-0">&#xA9; 2026 Hafiz Muhammad Saad (HMS Developer). All Rights Reserved. Built with ASP.NET Core MVC.</p>
+                <a b-tjezjmjmzt href="#" class="btn btn-sm btn-outline-light border-secondary text-muted rounded-pill px-3 py-1 text-decoration-none hover-text-white"><i b-tjezjmjmzt class="fas fa-arrow-up me-1"></i> Top</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Command Palette Overlay -->
+    <div b-tjezjmjmzt class="command-palette-overlay" id="command-palette">
+        <div b-tjezjmjmzt class="command-palette-box glass-panel p-4">
+            <div b-tjezjmjmzt class="d-flex justify-content-between align-items-center mb-3">
+                <span b-tjezjmjmzt class="badge bg-secondary"><i b-tjezjmjmzt class="fas fa-terminal me-1"></i> CONTROL CONSOLE</span>
+                <span b-tjezjmjmzt class="small text-muted">Press <kbd b-tjezjmjmzt class="bg-dark text-neon-cyan px-2">ESC</kbd> to exit</span>
+            </div>
+            <input b-tjezjmjmzt type="text" class="form-control bg-dark border-secondary text-white mb-3 py-2" id="command-search" placeholder="Type a command or navigate..." autocomplete="off" />
+            <div b-tjezjmjmzt class="command-list" id="command-results">
+                <div b-tjezjmjmzt class="command-item clickable" data-action="nav" data-url="/"><i b-tjezjmjmzt class="fas fa-home me-2 text-neon-purple"></i> Go to Homepage <span b-tjezjmjmzt class="badge bg-dark ms-auto">G + H</span></div>
+                <div b-tjezjmjmzt class="command-item clickable" data-action="nav" data-url="/Portfolio"><i b-tjezjmjmzt class="fas fa-folder-open me-2 text-neon-cyan"></i> Browse Projects Databank <span b-tjezjmjmzt class="badge bg-dark ms-auto">G + P</span></div>
+                <div b-tjezjmjmzt class="command-item clickable" data-action="nav" data-url="/Blog"><i b-tjezjmjmzt class="fas fa-file-alt me-2 text-neon-blue"></i> Read Tech Logs <span b-tjezjmjmzt class="badge bg-dark ms-auto">G + B</span></div>
+                <div b-tjezjmjmzt class="command-item clickable" data-action="ai"><i b-tjezjmjmzt class="fas fa-robot me-2 text-warning"></i> Query AI Portfolio Agent <span b-tjezjmjmzt class="badge bg-dark ms-auto">A + I</span></div>
+                <div b-tjezjmjmzt class="command-item clickable" data-action="contact"><i b-tjezjmjmzt class="fas fa-satellite-dish me-2 text-success"></i> Establish Comms Link (Contact) <span b-tjezjmjmzt class="badge bg-dark ms-auto">C + O</span></div>
+                <div b-tjezjmjmzt class="command-item clickable" data-action="sound"><i b-tjezjmjmzt class="fas fa-volume-up me-2 text-neon-cyan"></i> Synthesize Audio Test <span b-tjezjmjmzt class="badge bg-dark ms-auto">S + N</span></div>
+                <div b-tjezjmjmzt class="command-item clickable text-danger border-danger" data-action="nav" data-url="/Admin/Dashboard"><i b-tjezjmjmzt class="fas fa-terminal me-2 text-danger"></i> sudo admin <span b-tjezjmjmzt class="badge bg-dark ms-auto">S + A</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cookie Consent Banner -->
+    <div b-tjezjmjmzt class="cookie-banner glass-panel p-3 text-start" id="cookie-banner" style="position: fixed; bottom: 20px; left: 20px; width: calc(100% - 40px); max-width: 400px; z-index: 100000; display: none; background: rgba(17, 12, 28, 0.95) !important; border: 1px solid rgba(168, 85, 247, 0.4) !important; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);">
+        <div b-tjezjmjmzt class="d-flex align-items-center gap-2 mb-2">
+            <i b-tjezjmjmzt class="fas fa-cookie-bite text-warning fs-4"></i>
+            <h6 b-tjezjmjmzt class="mb-0 text-white fw-bold">Telemetry Access Consent</h6>
+        </div>
+        <p b-tjezjmjmzt class="small text-muted mb-3" style="font-size: 0.8rem; line-height: 1.4;">We use cookies to analyze user interest packets (like photo views, project details, or play clicks) for portfolio calibration.</p>
+        <div b-tjezjmjmzt class="d-flex gap-2">
+            <button b-tjezjmjmzt type="button" class="btn btn-sm btn-neon text-white px-3" id="cookie-accept-btn">Accept Consent</button>
+            <button b-tjezjmjmzt type="button" class="btn btn-sm btn-outline-secondary px-3" id="cookie-decline-btn">Reject</button>
+        </div>
+    </div>
+
+    <!-- Site Preferences & Settings Modal -->
+    <div b-tjezjmjmzt class="modal fade" id="preferencesModal" tabindex="-1" aria-labelledby="preferencesModalLabel" aria-hidden="true">
+        <div b-tjezjmjmzt class="modal-dialog modal-dialog-centered">
+            <div b-tjezjmjmzt class="modal-content glass-panel text-white border-secondary" style="background: rgba(17, 12, 28, 0.96) !important;">
+                <div b-tjezjmjmzt class="modal-header border-secondary border-opacity-35">
+                    <h5 b-tjezjmjmzt class="modal-title font-monospace fw-bold text-neon-cyan" id="preferencesModalLabel">
+                        <i b-tjezjmjmzt class="fas fa-cog text-neon-purple me-2"></i> Site Preferences &amp; Settings
+                    </h5>
+                    <button b-tjezjmjmzt type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div b-tjezjmjmzt class="modal-body py-4">
+                    <div b-tjezjmjmzt class="d-flex flex-column gap-3">
+                        <div b-tjezjmjmzt class="d-flex align-items-center justify-content-between p-3 rounded glass-panel">
+                            <div b-tjezjmjmzt>
+                                <h6 b-tjezjmjmzt class="mb-0 text-white fw-semibold"><i b-tjezjmjmzt class="fas fa-volume-up text-neon-purple me-2"></i> Click Sound Effects</h6>
+                                <small b-tjezjmjmzt class="text-muted d-block">Synthesize audio beeps on interactive clicks</small>
+                            </div>
+                            <div b-tjezjmjmzt class="form-check form-switch ms-3">
+                                <input b-tjezjmjmzt class="form-check-input bg-dark" type="checkbox" id="pref-sound-toggle" />
+                            </div>
+                        </div>
+
+                        <div b-tjezjmjmzt class="d-flex align-items-center justify-content-between p-3 rounded glass-panel">
+                            <div b-tjezjmjmzt>
+                                <h6 b-tjezjmjmzt class="mb-0 text-white fw-semibold"><i b-tjezjmjmzt class="fas fa-shield-alt text-danger me-2"></i> Security Breach Overlay Alert</h6>
+                                <small b-tjezjmjmzt class="text-muted d-block">Allow security glitch overlay on rapid trigger</small>
+                            </div>
+                            <div b-tjezjmjmzt class="form-check form-switch ms-3">
+                                <input b-tjezjmjmzt class="form-check-input bg-dark" type="checkbox" id="pref-glitch-toggle" />
+                            </div>
+                        </div>
+
+                        <div b-tjezjmjmzt class="d-flex align-items-center justify-content-between p-3 rounded glass-panel">
+                            <div b-tjezjmjmzt>
+                                <h6 b-tjezjmjmzt class="mb-0 text-white fw-semibold"><i b-tjezjmjmzt class="fas fa-star text-warning me-2"></i> Particle Canvas Background</h6>
+                                <small b-tjezjmjmzt class="text-muted d-block">Animate background particles</small>
+                            </div>
+                            <div b-tjezjmjmzt class="form-check form-switch ms-3">
+                                <input b-tjezjmjmzt class="form-check-input bg-dark" type="checkbox" id="pref-particles-toggle" checked />
+                            </div>
+                        </div>
+
+                        <div b-tjezjmjmzt class="d-flex align-items-center justify-content-between p-3 rounded glass-panel">
+                            <div b-tjezjmjmzt>
+                                <h6 b-tjezjmjmzt class="mb-0 text-white fw-semibold"><i b-tjezjmjmzt class="fas fa-microchip text-neon-cyan me-2"></i> System Diagnostics Badge</h6>
+                                <small b-tjezjmjmzt class="text-muted d-block">Display system status badge on Hero banner</small>
+                            </div>
+                            <div b-tjezjmjmzt class="form-check form-switch ms-3">
+                                <input b-tjezjmjmzt class="form-check-input bg-dark" type="checkbox" id="pref-diagnostic-toggle" checked />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div b-tjezjmjmzt class="modal-footer border-secondary border-opacity-35">
+                    <button b-tjezjmjmzt type="button" class="btn btn-neon text-white w-100" id="save-preferences-btn" data-bs-dismiss="modal">
+                        <i b-tjezjmjmzt class="fas fa-save me-2"></i> Apply &amp; Save Preferences
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Danger Security Alert Overlay -->
+    <div b-tjezjmjmzt class="danger-security-overlay" id="danger-security-overlay">
+        <i b-tjezjmjmzt class="fas fa-skull-crossbones text-danger mb-4" style="font-size: 5rem; animation: pulse 1s infinite alternate;"></i>
+        <div b-tjezjmjmzt class="glitch-title">SECURITY BREACH DETECTED</div>
+        <p b-tjezjmjmzt class="warning-desc">If you press this again, your tracking will start and you cannot hide yourself from us.</p>
+        <button b-tjezjmjmzt type="button" class="btn btn-outline-danger px-4 py-2 mt-4 font-monospace" id="danger-close-btn" style="border-radius: 0; text-transform: uppercase;">Abort Handshake</button>
+    </div>
+
+    <!-- Script Assets -->
+    <script src="../lib/jquery/dist/jquery.min.js"></script>
+    <script src="../lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="../js/site.js?v=1yOKmhVvM4UpsDTZBX4bHctpJmUvBiFInwjVupCqfmE"></script>
+    <script src="../js/hms-telemetry.js?v=5hUu86zj9Iv2YHukAHxmlvrlFy4NbzNsW7A5vJsOc1s"></script>
+    
+</body>
+</html>

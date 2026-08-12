@@ -2,6 +2,9 @@ using FuturisticPortfolio.Data;
 using FuturisticPortfolio.Models.Entities;
 using FuturisticPortfolio.Repositories;
 using FuturisticPortfolio.Services;
+using FuturisticPortfolio.Analytics.Infrastructure.Background;
+using FuturisticPortfolio.Analytics.Infrastructure.Services;
+using FuturisticPortfolio.Analytics.Application.Hubs;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -44,6 +47,25 @@ builder.Services.AddScoped<IFileService, FileService>();
 builder.Services.AddScoped<IPortfolioAIService, PortfolioAIService>();
 builder.Services.AddSingleton<IIPSecurityService, IPSecurityService>();
 
+// Visitor Analytics Services
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAllOrigins", policy =>
+    {
+        policy.AllowAnyOrigin()
+              .AllowAnyMethod()
+              .AllowAnyHeader();
+    });
+});
+builder.Services.AddSignalR();
+builder.Services.AddMemoryCache();
+builder.Services.AddHttpClient<IIpLookupService, IpLookupService>();
+builder.Services.AddSingleton<ITelemetryQueue, TelemetryQueue>();
+builder.Services.AddSingleton<IUserAgentService, UserAgentService>();
+builder.Services.AddSingleton<IBotDetectionService, BotDetectionService>();
+builder.Services.AddSingleton<IAnalyticsSettingsService, AnalyticsSettingsService>();
+builder.Services.AddHostedService<TelemetryQueueProcessor>();
+
 var app = builder.Build();
 
 // Seed Database
@@ -79,9 +101,12 @@ app.UseMiddleware<VisitorTrackerMiddleware>();
 app.UseMiddleware<AdminSecurityMiddleware>();
 
 app.UseRouting();
+app.UseCors("AllowAllOrigins");
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.MapHub<AnalyticsHub>("/analyticsHub");
 
 app.MapStaticAssets();
 

@@ -12,8 +12,8 @@
     <title>@ViewData["Title"] - @siteName</title>
     
     <!-- Meta SEO -->
-    <meta name="title" content="@ViewData["MetaTitle"] ?? settings?.MetaTitle" />
-    <meta name="description" content="@ViewData["MetaDescription"] ?? settings?.MetaDescription" />
+    <meta name="title" content="@(ViewData["MetaTitle"] ?? settings?.MetaTitle ?? "Hafiz Muhammad Saad | Software Developer Portfolio")" />
+    <meta name="description" content="@(ViewData["MetaDescription"] ?? settings?.MetaDescription ?? "Motivated and detail-oriented Software Developer specializing in ASP.NET Core MVC, C#, PHP, SQL Server, MySQL, and modern web development.")" />
 
     <!-- Style Assets -->
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
@@ -65,10 +65,7 @@
                             <a class="nav-link" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/#about-section">About</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/#skills-section">Skills</a>
+                            <a class="nav-link" asp-controller="Home" asp-action="About">About</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" asp-controller="Portfolio" asp-action="Index">Projects</a>
@@ -82,6 +79,11 @@
                         <li class="nav-item d-flex align-items-center ms-lg-2 me-lg-1">
                             <button type="button" class="btn btn-link text-white p-2 border-0" id="theme-toggle-btn" style="text-decoration: none; box-shadow: none;" title="Toggle Theme">
                                 <i class="fas fa-sun" id="theme-icon"></i>
+                            </button>
+                        </li>
+                        <li class="nav-item d-flex align-items-center me-1">
+                            <button type="button" class="btn btn-link text-white p-2 border-0" data-bs-toggle="modal" data-bs-target="#preferencesModal" title="Site Preferences & Settings">
+                                <i class="fas fa-cog text-neon-cyan"></i>
                             </button>
                         </li>
 
@@ -125,24 +127,67 @@
     </button>
 
     <!-- Footer Area -->
-    <footer class="glass-panel border-0 border-top mt-5 py-5 text-center text-md-start">
+    <footer class="glass-panel border-0 border-top mt-5 pt-5 pb-4 text-start">
         <div class="container">
-            <div class="row align-items-center">
-                <div class="col-md-6 mb-3 mb-md-0">
-                    <h5 class="text-neon-purple">&lt; @(settings?.SiteName.Split('|')[0].Trim() ?? "Neo Core") /&gt;</h5>
-                    <p class="text-muted small mb-0">@settings?.FooterText</p>
+            <div class="row g-4 mb-4">
+                <!-- Brand Info Column -->
+                <div class="col-lg-4 col-md-6">
+                    <h4 class="text-neon-purple fw-bold mb-3">&lt; Hafiz Muhammad Saad /&gt;</h4>
+                    <p class="text-muted small leading-relaxed mb-3">
+                        Motivated and detail-oriented Software Developer specializing in ASP.NET Core MVC, C#, PHP, SQL Server, MySQL, and modern web development.
+                    </p>
+                    <div class="d-flex align-items-center gap-2 text-muted small">
+                        <span class="badge bg-dark border border-success text-success px-2 py-1"><i class="fas fa-circle text-success fs-6 me-1" style="font-size:0.5rem !important;"></i> SYSTEM OPERATIONAL</span>
+                    </div>
                 </div>
-                <div class="col-md-6 text-md-end">
-                    <div class="d-flex justify-content-center justify-content-md-end gap-3">
+
+                <!-- Navigation Links Column -->
+                <div class="col-lg-2 col-md-6">
+                    <h5 class="text-white fw-semibold mb-3">Navigation</h5>
+                    <ul class="list-unstyled text-muted small mb-0 d-flex flex-column gap-2">
+                        <li><a href="/" class="text-muted text-decoration-none hover-text-white transition"><i class="fas fa-chevron-right text-neon-purple me-1 small"></i> Home</a></li>
+                        <li><a href="/#about-section" class="text-muted text-decoration-none hover-text-white transition"><i class="fas fa-chevron-right text-neon-purple me-1 small"></i> About</a></li>
+                        <li><a href="/#skills-section" class="text-muted text-decoration-none hover-text-white transition"><i class="fas fa-chevron-right text-neon-purple me-1 small"></i> Skills</a></li>
+                        <li><a href="/Portfolio" class="text-muted text-decoration-none hover-text-white transition"><i class="fas fa-chevron-right text-neon-purple me-1 small"></i> Projects</a></li>
+                        <li><a href="/Blog" class="text-muted text-decoration-none hover-text-white transition"><i class="fas fa-chevron-right text-neon-purple me-1 small"></i> Tech Logs</a></li>
+                        <li><a href="/#contact-section" class="text-muted text-decoration-none hover-text-white transition"><i class="fas fa-chevron-right text-neon-purple me-1 small"></i> Contact</a></li>
+                    </ul>
+                </div>
+
+                <!-- Academic Education Column (Aptech Primary) -->
+                <div class="col-lg-3 col-md-6">
+                    <h5 class="text-white fw-semibold mb-3">Education & Diplomas</h5>
+                    <ul class="list-unstyled text-muted small mb-0 d-flex flex-column gap-2">
+                        <li><strong class="text-neon-purple">ADSE (Primary):</strong> Aptech Learning (2024–2027)</li>
+                        <li><strong class="text-neon-cyan">BSBC (Secondary):</strong> Sohail University (2025–2029)</li>
+                        <li><span class="badge bg-dark border border-secondary text-muted mt-1"><i class="fas fa-graduation-cap me-1"></i> Software Engineering</span></li>
+                    </ul>
+                </div>
+
+                <!-- Contact & Specs Column -->
+                <div class="col-lg-3 col-md-6">
+                    <h5 class="text-white fw-semibold mb-3">Contact & Location</h5>
+                    <ul class="list-unstyled text-muted small mb-0 d-flex flex-column gap-2">
+                        <li><i class="fas fa-map-marker-alt text-neon-cyan me-2"></i><strong class="text-white">Location:</strong> Karachi, Pakistan</li>
+                        <li><i class="fas fa-envelope text-neon-purple me-2"></i><strong class="text-white">Email:</strong> saad.sa9112@gmail.com</li>
+                        <li><i class="fas fa-phone text-success me-2"></i><strong class="text-white">Phone:</strong> +92 305 5188896</li>
+                    </ul>
+                    <div class="d-flex gap-2 mt-3">
                         @if (socialLinks != null)
                         {
                             foreach (var link in socialLinks)
                             {
-                                <a href="@link.Url" target="_blank" class="text-muted fs-4 transition clickable"><i class="@link.IconClass"></i></a>
+                                <a href="@link.Url" target="_blank" class="btn btn-outline-secondary btn-sm rounded-circle text-white transition hover-border-purple" title="@link.PlatformName"><i class="@link.IconClass"></i></a>
                             }
                         }
                     </div>
                 </div>
+            </div>
+
+            <!-- Bottom Copyright & Back To Top -->
+            <div class="pt-4 border-top border-secondary border-opacity-30 d-flex flex-column flex-md-row justify-content-between align-items-center gap-3">
+                <p class="text-muted small mb-0">@(settings?.FooterText ?? "© 2026 Hafiz Muhammad Saad (HMS Developer). All Rights Reserved. Built with ASP.NET Core MVC.")</p>
+                <a href="#" class="btn btn-sm btn-outline-light border-secondary text-muted rounded-pill px-3 py-1 text-decoration-none hover-text-white"><i class="fas fa-arrow-up me-1"></i> Top</a>
             </div>
         </div>
     </footer>
@@ -168,7 +213,7 @@
     </div>
 
     <!-- Cookie Consent Banner -->
-    <div class="cookie-banner glass-panel p-3 text-start" id="cookie-banner" style="position: fixed; bottom: 20px; left: 20px; max-width: 400px; z-index: 100000; display: none; background: rgba(17, 12, 28, 0.9) !important; border-color: rgba(168, 85, 247, 0.3) !important;">
+    <div class="cookie-banner glass-panel p-3 text-start" id="cookie-banner" style="position: fixed; bottom: 20px; left: 20px; width: calc(100% - 40px); max-width: 400px; z-index: 100000; display: none; background: rgba(17, 12, 28, 0.95) !important; border: 1px solid rgba(168, 85, 247, 0.4) !important; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);">
         <div class="d-flex align-items-center gap-2 mb-2">
             <i class="fas fa-cookie-bite text-warning fs-4"></i>
             <h6 class="mb-0 text-white fw-bold">Telemetry Access Consent</h6>
@@ -177,6 +222,68 @@
         <div class="d-flex gap-2">
             <button type="button" class="btn btn-sm btn-neon text-white px-3" id="cookie-accept-btn">Accept Consent</button>
             <button type="button" class="btn btn-sm btn-outline-secondary px-3" id="cookie-decline-btn">Reject</button>
+        </div>
+    </div>
+
+    <!-- Site Preferences & Settings Modal -->
+    <div class="modal fade" id="preferencesModal" tabindex="-1" aria-labelledby="preferencesModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content glass-panel text-white border-secondary" style="background: rgba(17, 12, 28, 0.96) !important;">
+                <div class="modal-header border-secondary border-opacity-35">
+                    <h5 class="modal-title font-monospace fw-bold text-neon-cyan" id="preferencesModalLabel">
+                        <i class="fas fa-cog text-neon-purple me-2"></i> Site Preferences &amp; Settings
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body py-4">
+                    <div class="d-flex flex-column gap-3">
+                        <div class="d-flex align-items-center justify-content-between p-3 rounded glass-panel">
+                            <div>
+                                <h6 class="mb-0 text-white fw-semibold"><i class="fas fa-volume-up text-neon-purple me-2"></i> Click Sound Effects</h6>
+                                <small class="text-muted d-block">Synthesize audio beeps on interactive clicks</small>
+                            </div>
+                            <div class="form-check form-switch ms-3">
+                                <input class="form-check-input bg-dark" type="checkbox" id="pref-sound-toggle" />
+                            </div>
+                        </div>
+
+                        <div class="d-flex align-items-center justify-content-between p-3 rounded glass-panel">
+                            <div>
+                                <h6 class="mb-0 text-white fw-semibold"><i class="fas fa-shield-alt text-danger me-2"></i> Security Breach Overlay Alert</h6>
+                                <small class="text-muted d-block">Allow security glitch overlay on rapid trigger</small>
+                            </div>
+                            <div class="form-check form-switch ms-3">
+                                <input class="form-check-input bg-dark" type="checkbox" id="pref-glitch-toggle" />
+                            </div>
+                        </div>
+
+                        <div class="d-flex align-items-center justify-content-between p-3 rounded glass-panel">
+                            <div>
+                                <h6 class="mb-0 text-white fw-semibold"><i class="fas fa-star text-warning me-2"></i> Particle Canvas Background</h6>
+                                <small class="text-muted d-block">Animate background particles</small>
+                            </div>
+                            <div class="form-check form-switch ms-3">
+                                <input class="form-check-input bg-dark" type="checkbox" id="pref-particles-toggle" checked />
+                            </div>
+                        </div>
+
+                        <div class="d-flex align-items-center justify-content-between p-3 rounded glass-panel">
+                            <div>
+                                <h6 class="mb-0 text-white fw-semibold"><i class="fas fa-microchip text-neon-cyan me-2"></i> System Diagnostics Badge</h6>
+                                <small class="text-muted d-block">Display system status badge on Hero banner</small>
+                            </div>
+                            <div class="form-check form-switch ms-3">
+                                <input class="form-check-input bg-dark" type="checkbox" id="pref-diagnostic-toggle" checked />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer border-secondary border-opacity-35">
+                    <button type="button" class="btn btn-neon text-white w-100" id="save-preferences-btn" data-bs-dismiss="modal">
+                        <i class="fas fa-save me-2"></i> Apply &amp; Save Preferences
+                    </button>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -195,6 +302,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/hms-telemetry.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
