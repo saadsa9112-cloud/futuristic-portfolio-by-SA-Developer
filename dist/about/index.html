@@ -14,7 +14,7 @@
 
     <!-- Style Assets -->
     <link rel="stylesheet" href="../lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="../css/site.css?v=1786521406898" />
+    <link rel="stylesheet" href="../css/site.css?v=1786521732446" />
     <link rel="stylesheet" href="../FuturisticPortfolio.styles.css?v=cXSw8uWbeBRRKqQImmDtUF9PgLFcp0jNpAJVcYp-LoE" />
     
     <!-- CDNs for Premium Libraries -->
@@ -383,32 +383,57 @@
 
     </main>
 
-    <!-- Chat Bot Widget -->
-    <div b-tjezjmjmzt class="ai-chat-widget glass-panel" id="ai-chat-widget">
-        <div b-tjezjmjmzt class="ai-chat-header text-white">
-            <span b-tjezjmjmzt><i b-tjezjmjmzt class="fas fa-robot me-2"></i> Portfolio Agent (AI)</span>
-            <button b-tjezjmjmzt class="btn btn-sm btn-link text-white p-0" id="ai-chat-close"><i b-tjezjmjmzt class="fas fa-times"></i></button>
-        </div>
-        <div b-tjezjmjmzt class="ai-chat-messages" id="ai-messages-container">
-            <!-- Messages populated via client js -->
-        </div>
-        <div b-tjezjmjmzt class="ai-chat-input">
-            <input b-tjezjmjmzt type="text" placeholder="Inquire about skills, projects..." id="ai-user-message" autocomplete="off" />
-            <button b-tjezjmjmzt id="ai-send-message"><i b-tjezjmjmzt class="fas fa-paper-plane"></i></button>
-        </div>
-        <div b-tjezjmjmzt class="p-2 border-top border-secondary bg-dark">
-            <div b-tjezjmjmzt class="quick-chips-container">
-                <span b-tjezjmjmzt class="quick-chip" data-query="What is your tech stack?">Tech Stack</span>
-                <span b-tjezjmjmzt class="quick-chip" data-query="Tell me about your latest projects.">Projects</span>
-                <span b-tjezjmjmzt class="quick-chip" data-query="Can I download your resume?">Download CV</span>
-                <span b-tjezjmjmzt class="quick-chip" data-query="How can I contact you?">Contact info</span>
+    <!-- Chat Bot Widget (Saad's AI Assistant) -->
+    <div b-tjezjmjmzt class="ai-chat-widget glass-panel" id="ai-chat-widget" role="dialog" aria-labelledby="ai-chat-title" aria-modal="true">
+        <!-- Widget Header -->
+        <div b-tjezjmjmzt class="ai-chat-header d-flex justify-content-between align-items-center px-3 py-2.5">
+            <div b-tjezjmjmzt class="d-flex align-items-center gap-2.5">
+                <div b-tjezjmjmzt class="ai-avatar-badge rounded-circle d-flex align-items-center justify-content-center">
+                    <i b-tjezjmjmzt class="fas fa-robot text-neon-cyan fs-6"></i>
+                </div>
+                <div b-tjezjmjmzt>
+                    <h6 b-tjezjmjmzt class="mb-0 text-white fw-bold font-monospace" id="ai-chat-title" style="font-size: 0.92rem;">Saad's AI Assistant</h6>
+                    <div b-tjezjmjmzt class="d-flex align-items-center gap-1.5" style="font-size: 0.72rem;">
+                        <span b-tjezjmjmzt class="pulse-dot bg-success rounded-circle" style="width: 6px; height: 6px; box-shadow: 0 0 8px #10b981;"></span>
+                        <span b-tjezjmjmzt class="text-success fw-medium">AI Assistant • Online</span>
+                    </div>
+                </div>
             </div>
+            <button b-tjezjmjmzt class="btn btn-sm text-muted p-1 hover-text-white transition border-0 bg-transparent" id="ai-chat-close" aria-label="Close Assistant">
+                <i b-tjezjmjmzt class="fas fa-times fs-6"></i>
+            </button>
+        </div>
+
+        <!-- Messages Body Area -->
+        <div b-tjezjmjmzt class="ai-chat-messages" id="ai-messages-container" aria-live="polite">
+            <!-- Messages populated via JavaScript -->
+        </div>
+
+        <!-- Quick Action Bar -->
+        <div b-tjezjmjmzt class="ai-quick-bar px-3 py-2 border-top border-secondary border-opacity-20">
+            <div b-tjezjmjmzt class="quick-chips-container d-flex gap-1.5 overflow-x-auto pb-1" id="quick-action-chips">
+                <button b-tjezjmjmzt class="quick-chip" data-query="Projects"><i b-tjezjmjmzt class="fas fa-folder-open me-1 small text-neon-cyan"></i> Projects</button>
+                <button b-tjezjmjmzt class="quick-chip" data-query="Tech Stack"><i b-tjezjmjmzt class="fas fa-code me-1 small text-neon-purple"></i> Tech Stack</button>
+                <button b-tjezjmjmzt class="quick-chip" data-query="Education"><i b-tjezjmjmzt class="fas fa-graduation-cap me-1 small text-success"></i> Education</button>
+                <button b-tjezjmjmzt class="quick-chip" data-query="Download CV"><i b-tjezjmjmzt class="fas fa-file-download me-1 small text-danger"></i> CV</button>
+                <button b-tjezjmjmzt class="quick-chip" data-query="Experience"><i b-tjezjmjmzt class="fas fa-briefcase me-1 small text-warning"></i> Experience</button>
+                <button b-tjezjmjmzt class="quick-chip" data-query="About Saad"><i b-tjezjmjmzt class="fas fa-user-check me-1 small text-info"></i> About Saad</button>
+                <button b-tjezjmjmzt class="quick-chip" data-query="Contact"><i b-tjezjmjmzt class="fas fa-envelope me-1 small text-primary"></i> Contact</button>
+            </div>
+        </div>
+
+        <!-- Input Box Area -->
+        <div b-tjezjmjmzt class="ai-chat-input p-2.5 d-flex align-items-center gap-2 border-top border-secondary border-opacity-20">
+            <textarea b-tjezjmjmzt class="form-control ai-input-field border-0 shadow-none text-white bg-transparent" placeholder="Ask me about Saad's projects, skills, education..." id="ai-user-message" rows="1" autocomplete="off" aria-label="Ask Saad's AI Assistant"></textarea>
+            <button b-tjezjmjmzt class="btn btn-gradient-send rounded-circle d-flex align-items-center justify-content-center transition flex-shrink-0" id="ai-send-message" aria-label="Send Message">
+                <i b-tjezjmjmzt class="fas fa-paper-plane fs-6"></i>
+            </button>
         </div>
     </div>
 
     <!-- Floating Chat Trigger Button -->
-    <button b-tjezjmjmzt class="fab-btn" id="ai-chat-toggle">
-        <i b-tjezjmjmzt class="fas fa-comment-dots"></i>
+    <button b-tjezjmjmzt class="fab-btn d-flex align-items-center justify-content-center shadow-lg" id="ai-chat-toggle" title="Ask Saad's AI Assistant" aria-label="Ask Saad's AI Assistant">
+        <i b-tjezjmjmzt class="fas fa-robot fs-4 text-white"></i>
     </button>
 
     <!-- Footer Area -->
@@ -590,7 +615,7 @@
     <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="../js/site.js?v=1786521406898"></script>
+    <script src="../js/site.js?v=1786521732446"></script>
     <script src="../js/hms-telemetry.js?v=5hUu86zj9Iv2YHukAHxmlvrlFy4NbzNsW7A5vJsOc1s"></script>
     
 </body>

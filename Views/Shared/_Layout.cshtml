@@ -101,32 +101,57 @@
         @RenderBody()
     </main>
 
-    <!-- Chat Bot Widget -->
-    <div class="ai-chat-widget glass-panel" id="ai-chat-widget">
-        <div class="ai-chat-header text-white">
-            <span><i class="fas fa-robot me-2"></i> Portfolio Agent (AI)</span>
-            <button class="btn btn-sm btn-link text-white p-0" id="ai-chat-close"><i class="fas fa-times"></i></button>
-        </div>
-        <div class="ai-chat-messages" id="ai-messages-container">
-            <!-- Messages populated via client js -->
-        </div>
-        <div class="ai-chat-input">
-            <input type="text" placeholder="Inquire about skills, projects..." id="ai-user-message" autocomplete="off" />
-            <button id="ai-send-message"><i class="fas fa-paper-plane"></i></button>
-        </div>
-        <div class="p-2 border-top border-secondary bg-dark">
-            <div class="quick-chips-container">
-                <span class="quick-chip" data-query="What is your tech stack?">Tech Stack</span>
-                <span class="quick-chip" data-query="Tell me about your latest projects.">Projects</span>
-                <span class="quick-chip" data-query="Can I download your resume?">Download CV</span>
-                <span class="quick-chip" data-query="How can I contact you?">Contact info</span>
+    <!-- Chat Bot Widget (Saad's AI Assistant) -->
+    <div class="ai-chat-widget glass-panel" id="ai-chat-widget" role="dialog" aria-labelledby="ai-chat-title" aria-modal="true">
+        <!-- Widget Header -->
+        <div class="ai-chat-header d-flex justify-content-between align-items-center px-3 py-2.5">
+            <div class="d-flex align-items-center gap-2.5">
+                <div class="ai-avatar-badge rounded-circle d-flex align-items-center justify-content-center">
+                    <i class="fas fa-robot text-neon-cyan fs-6"></i>
+                </div>
+                <div>
+                    <h6 class="mb-0 text-white fw-bold font-monospace" id="ai-chat-title" style="font-size: 0.92rem;">Saad's AI Assistant</h6>
+                    <div class="d-flex align-items-center gap-1.5" style="font-size: 0.72rem;">
+                        <span class="pulse-dot bg-success rounded-circle" style="width: 6px; height: 6px; box-shadow: 0 0 8px #10b981;"></span>
+                        <span class="text-success fw-medium">AI Assistant • Online</span>
+                    </div>
+                </div>
             </div>
+            <button class="btn btn-sm text-muted p-1 hover-text-white transition border-0 bg-transparent" id="ai-chat-close" aria-label="Close Assistant">
+                <i class="fas fa-times fs-6"></i>
+            </button>
+        </div>
+
+        <!-- Messages Body Area -->
+        <div class="ai-chat-messages" id="ai-messages-container" aria-live="polite">
+            <!-- Messages populated via JavaScript -->
+        </div>
+
+        <!-- Quick Action Bar -->
+        <div class="ai-quick-bar px-3 py-2 border-top border-secondary border-opacity-20">
+            <div class="quick-chips-container d-flex gap-1.5 overflow-x-auto pb-1" id="quick-action-chips">
+                <button class="quick-chip" data-query="Projects"><i class="fas fa-folder-open me-1 small text-neon-cyan"></i> Projects</button>
+                <button class="quick-chip" data-query="Tech Stack"><i class="fas fa-code me-1 small text-neon-purple"></i> Tech Stack</button>
+                <button class="quick-chip" data-query="Education"><i class="fas fa-graduation-cap me-1 small text-success"></i> Education</button>
+                <button class="quick-chip" data-query="Download CV"><i class="fas fa-file-download me-1 small text-danger"></i> CV</button>
+                <button class="quick-chip" data-query="Experience"><i class="fas fa-briefcase me-1 small text-warning"></i> Experience</button>
+                <button class="quick-chip" data-query="About Saad"><i class="fas fa-user-check me-1 small text-info"></i> About Saad</button>
+                <button class="quick-chip" data-query="Contact"><i class="fas fa-envelope me-1 small text-primary"></i> Contact</button>
+            </div>
+        </div>
+
+        <!-- Input Box Area -->
+        <div class="ai-chat-input p-2.5 d-flex align-items-center gap-2 border-top border-secondary border-opacity-20">
+            <textarea class="form-control ai-input-field border-0 shadow-none text-white bg-transparent" placeholder="Ask me about Saad's projects, skills, education..." id="ai-user-message" rows="1" autocomplete="off" aria-label="Ask Saad's AI Assistant"></textarea>
+            <button class="btn btn-gradient-send rounded-circle d-flex align-items-center justify-content-center transition flex-shrink-0" id="ai-send-message" aria-label="Send Message">
+                <i class="fas fa-paper-plane fs-6"></i>
+            </button>
         </div>
     </div>
 
     <!-- Floating Chat Trigger Button -->
-    <button class="fab-btn" id="ai-chat-toggle">
-        <i class="fas fa-comment-dots"></i>
+    <button class="fab-btn d-flex align-items-center justify-content-center shadow-lg" id="ai-chat-toggle" title="Ask Saad's AI Assistant" aria-label="Ask Saad's AI Assistant">
+        <i class="fas fa-robot fs-4 text-white"></i>
     </button>
 
     <!-- Footer Area -->
