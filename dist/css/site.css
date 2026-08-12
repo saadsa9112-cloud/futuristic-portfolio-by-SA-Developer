@@ -412,6 +412,34 @@ h1, h2, h3, h4, h5, h6 {
     box-shadow: 0 0 10px rgba(139, 61, 255, 0.3);
 }
 
+.quick-chip.chip-whatsapp {
+    background: rgba(37, 211, 102, 0.12) !important;
+    border-color: rgba(37, 211, 102, 0.35) !important;
+    color: #25D366 !important;
+    font-weight: 600;
+}
+
+.quick-chip.chip-whatsapp:hover {
+    background: #25D366 !important;
+    border-color: #25D366 !important;
+    color: #FFFFFF !important;
+    box-shadow: 0 0 12px rgba(37, 211, 102, 0.5) !important;
+}
+
+.quick-chip.chip-cv {
+    background: rgba(220, 38, 38, 0.12) !important;
+    border-color: rgba(220, 38, 38, 0.35) !important;
+    color: #F87171 !important;
+    font-weight: 600;
+}
+
+.quick-chip.chip-cv:hover {
+    background: linear-gradient(135deg, #8B3DFF, #009FC2) !important;
+    border-color: #8B3DFF !important;
+    color: #FFFFFF !important;
+    box-shadow: 0 0 12px rgba(139, 61, 255, 0.4) !important;
+}
+
 .ai-chat-input {
     background: rgba(16, 13, 28, 0.98);
 }
