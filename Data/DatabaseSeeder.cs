@@ -92,18 +92,27 @@ namespace FuturisticPortfolio.Data
                 await context.SaveChangesAsync();
             }
 
-            // 6. Seed Statistics (Non-destructive: Only if missing)
+            // 6. Seed Statistics (Non-destructive: Upsert/Update values)
             if (!await context.Statistics.AnyAsync())
             {
                 var stats = new List<Statistic>
                 {
-                    new Statistic { Title = "Enterprise Projects", Value = 2, IconClass = "fas fa-folder-open", DisplayOrder = 1 },
+                    new Statistic { Title = "Enterprise Projects", Value = 4, IconClass = "fas fa-folder-open", DisplayOrder = 1 },
                     new Statistic { Title = "Education Milestones", Value = 2, IconClass = "fas fa-graduation-cap", DisplayOrder = 2 },
                     new Statistic { Title = "Years Coding", Value = 2, IconClass = "fas fa-laptop-code", DisplayOrder = 3 },
-                    new Statistic { Title = "Core Technologies", Value = 8, IconClass = "fas fa-code", DisplayOrder = 4 }
+                    new Statistic { Title = "Core Technologies", Value = 9, IconClass = "fas fa-code", DisplayOrder = 4 }
                 };
                 await context.Statistics.AddRangeAsync(stats);
                 await context.SaveChangesAsync();
+            }
+            else
+            {
+                var projStat = await context.Statistics.FirstOrDefaultAsync(s => s.Title.Contains("Enterprise Projects"));
+                if (projStat != null && projStat.Value < 4)
+                {
+                    projStat.Value = 4;
+                    await context.SaveChangesAsync();
+                }
             }
 
             // 7. Seed Skills (Non-destructive: Only if missing)
@@ -115,9 +124,10 @@ namespace FuturisticPortfolio.Data
                     new Skill { Name = "C# / .NET 10", Percentage = 95, IconClass = "fas fa-code", ColorHex = "#3B82F6", DisplayOrder = 2 },
                     new Skill { Name = "SQL Server & Relational DB", Percentage = 90, IconClass = "fas fa-database", ColorHex = "#06B6D4", DisplayOrder = 3 },
                     new Skill { Name = "HTML5, CSS3 & JavaScript", Percentage = 90, IconClass = "fab fa-js", ColorHex = "#F59E0B", DisplayOrder = 4 },
-                    new Skill { Name = "PHP & MySQL", Percentage = 85, IconClass = "fab fa-php", ColorHex = "#10B981", DisplayOrder = 5 },
-                    new Skill { Name = "Git & GitHub", Percentage = 90, IconClass = "fab fa-git-alt", ColorHex = "#EF4444", DisplayOrder = 6 },
-                    new Skill { Name = "Entity Framework Core", Percentage = 90, IconClass = "fas fa-layer-group", ColorHex = "#8B3DFF", DisplayOrder = 7 }
+                    new Skill { Name = "React & Modern UI", Percentage = 88, IconClass = "fab fa-react", ColorHex = "#00D9FF", DisplayOrder = 5 },
+                    new Skill { Name = "PHP & MySQL", Percentage = 85, IconClass = "fab fa-php", ColorHex = "#10B981", DisplayOrder = 6 },
+                    new Skill { Name = "Git & GitHub", Percentage = 90, IconClass = "fab fa-git-alt", ColorHex = "#EF4444", DisplayOrder = 7 },
+                    new Skill { Name = "Entity Framework Core", Percentage = 90, IconClass = "fas fa-layer-group", ColorHex = "#8B3DFF", DisplayOrder = 8 }
                 };
                 await context.Skills.AddRangeAsync(skills);
                 await context.SaveChangesAsync();
@@ -149,46 +159,97 @@ namespace FuturisticPortfolio.Data
                 await context.SaveChangesAsync();
             }
 
-            // 9. Seed Projects (Non-destructive: Only if missing)
-            if (!await context.Projects.AnyAsync())
+            // 9. Seed Projects (Non-destructive: Add missing projects individually)
+            var portfolioCat = await context.Categories.FirstOrDefaultAsync(c => c.Name == "Portfolio Websites") ?? defaultCat;
+            var reactCat = await context.Categories.FirstOrDefaultAsync(c => c.Name == "React & Modern Web");
+            if (reactCat == null)
             {
-                var portfolioCat = await context.Categories.FirstOrDefaultAsync(c => c.Name == "Portfolio Websites") ?? defaultCat;
-                var projects = new List<Project>
-                {
-                    new Project
-                    {
-                        Title = "Full-Stack Enterprise Developer Portfolio",
-                        Subtitle = "Modern Responsive Developer Portfolio with Dynamic Visitor Analytics & Static Exporter",
-                        Description = "Engineered a full-stack portfolio application with ASP.NET Core 10 MVC, SQL Server persistence, real-time visitor telemetry, and an automated static distribution pipeline.",
-                        Technologies = "ASP.NET Core 10 MVC, C#, SQL Server, JavaScript, CSS3, EF Core",
-                        GitHubLink = "https://github.com/saadsa9112-cloud/futuristic-portfolio-by-SA-Developer",
-                        Status = "Published",
-                        FeaturedOption = true,
-                        DisplayOrder = 1,
-                        ThumbnailPath = "/images/profile.png",
-                        CategoryId = portfolioCat.Id,
-                        Challenges = "Integrating dynamic SQL telemetry tracking with a flat GitHub Pages static deployment.",
-                        Solutions = "Engineered a custom Node.js static build harvester combined with API route tunneling."
-                    },
-                    new Project
-                    {
-                        Title = "HMS Analytics & Telemetry Engine",
-                        Subtitle = "Real-Time Visitor Analytics & Geolocation Tracking Platform",
-                        Description = "Developed a real-time visitor analytics dashboard with geolocation lookup, session tracking, background queue processing, and SignalR live updates.",
-                        Technologies = "ASP.NET Core 10, EF Core, SQL Server, SignalR, BackgroundServices",
-                        GitHubLink = "https://github.com/saadsa9112-cloud",
-                        Status = "Published",
-                        FeaturedOption = false,
-                        DisplayOrder = 2,
-                        ThumbnailPath = "/images/profile.png",
-                        CategoryId = defaultCat.Id,
-                        Challenges = "Handling high-frequency telemetry events without blocking main UI loop threads.",
-                        Solutions = "Implemented an in-memory background queue processor with asynchronous EF Core batch execution."
-                    }
-                };
-                await context.Projects.AddRangeAsync(projects);
+                reactCat = new Category { Name = "React & Modern Web", Type = "Project" };
+                await context.Categories.AddAsync(reactCat);
                 await context.SaveChangesAsync();
             }
+
+            // Project 1: UMS (NED Academy)
+            if (!await context.Projects.AnyAsync(p => p.Title.Contains("NED Academy") || p.Title.Contains("University Management")))
+            {
+                await context.Projects.AddAsync(new Project
+                {
+                    Title = "NED Academy University Management & Admission Portal",
+                    Subtitle = "Enterprise Academic Admissions & Department Management System",
+                    Description = "Engineered a comprehensive university portal featuring online student application workflows, document proof verification, academic department administration, fee voucher management, audit logging, and dynamic CMS controls.",
+                    Technologies = "ASP.NET Core 10 MVC, C#, Entity Framework Core, SQL Server, Bootstrap 5, LINQ",
+                    GitHubLink = "https://github.com/saadsa9112-cloud",
+                    Status = "Published",
+                    FeaturedOption = true,
+                    DisplayOrder = 1,
+                    ThumbnailPath = "/images/projects/ums-portal.jpg",
+                    CategoryId = defaultCat?.Id,
+                    Challenges = "Managing multi-step student admission submissions, document verification queues, and role-based academic department authorizations concurrently without schema lockups.",
+                    Solutions = "Designed a normalized relational SQL Server database schema with asynchronous EF Core transactions, audit logging for administrative edits, and secure document upload management."
+                });
+            }
+
+            // Project 2: Nexora Digital
+            if (!await context.Projects.AnyAsync(p => p.Title.Contains("Nexora")))
+            {
+                await context.Projects.AddAsync(new Project
+                {
+                    Title = "Nexora Digital Agency & Client Solutions Platform",
+                    Subtitle = "Modern Software Development Agency Platform with Interactive Pricing & Quote Builder",
+                    Description = "Developed a modern responsive digital agency platform featuring dynamic multi-currency pricing (PKR/USD), an interactive service scope and quote builder, glassmorphic UI components, and fluid scroll animations.",
+                    Technologies = "React 19, Vite, Tailwind CSS v4, Framer Motion, JavaScript, Lucide Icons",
+                    GitHubLink = "https://github.com/saadsa9112-cloud",
+                    Status = "Published",
+                    FeaturedOption = true,
+                    DisplayOrder = 2,
+                    ThumbnailPath = "/images/projects/nexora-digital.jpg",
+                    CategoryId = reactCat?.Id,
+                    Challenges = "Delivering complex fluid scroll animations and real-time currency conversions while maintaining sub-second load times and zero layout shifts.",
+                    Solutions = "Leveraged React 19 concurrent features with Tailwind CSS v4 and Framer Motion state management for performant interactive UI components."
+                });
+            }
+
+            // Project 3: Full-Stack Developer Portfolio
+            if (!await context.Projects.AnyAsync(p => p.Title.Contains("Developer Portfolio")))
+            {
+                await context.Projects.AddAsync(new Project
+                {
+                    Title = "Full-Stack Enterprise Developer Portfolio",
+                    Subtitle = "Modern Responsive Developer Portfolio with Dynamic Visitor Analytics & Static Exporter",
+                    Description = "Engineered a full-stack portfolio application with ASP.NET Core 10 MVC, SQL Server persistence, real-time visitor telemetry, and an automated static distribution pipeline.",
+                    Technologies = "ASP.NET Core 10 MVC, C#, SQL Server, JavaScript, CSS3, EF Core",
+                    GitHubLink = "https://github.com/saadsa9112-cloud/futuristic-portfolio-by-SA-Developer",
+                    Status = "Published",
+                    FeaturedOption = false,
+                    DisplayOrder = 3,
+                    ThumbnailPath = "/images/profile.png",
+                    CategoryId = portfolioCat?.Id,
+                    Challenges = "Integrating dynamic SQL telemetry tracking with a flat GitHub Pages static deployment.",
+                    Solutions = "Engineered a custom Node.js static build harvester combined with API route tunneling."
+                });
+            }
+
+            // Project 4: HMS Analytics Engine
+            if (!await context.Projects.AnyAsync(p => p.Title.Contains("HMS Analytics")))
+            {
+                await context.Projects.AddAsync(new Project
+                {
+                    Title = "HMS Analytics & Telemetry Engine",
+                    Subtitle = "Real-Time Visitor Analytics & Geolocation Tracking Platform",
+                    Description = "Developed a real-time visitor analytics dashboard with geolocation lookup, session tracking, background queue processing, and SignalR live updates.",
+                    Technologies = "ASP.NET Core 10, EF Core, SQL Server, SignalR, BackgroundServices",
+                    GitHubLink = "https://github.com/saadsa9112-cloud",
+                    Status = "Published",
+                    FeaturedOption = false,
+                    DisplayOrder = 4,
+                    ThumbnailPath = "/images/profile.png",
+                    CategoryId = defaultCat?.Id,
+                    Challenges = "Handling high-frequency telemetry events without blocking main UI loop threads.",
+                    Solutions = "Implemented an in-memory background queue processor with asynchronous EF Core batch execution."
+                });
+            }
+
+            await context.SaveChangesAsync();
 
             // 10. Seed Social Links (Non-destructive: Only if missing)
             if (!await context.SocialLinks.AnyAsync())
