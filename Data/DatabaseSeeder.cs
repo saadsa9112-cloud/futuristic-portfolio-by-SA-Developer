@@ -159,7 +159,7 @@ namespace FuturisticPortfolio.Data
                 await context.SaveChangesAsync();
             }
 
-            // 9. Seed Projects (Non-destructive: Add missing projects individually)
+            // 9. Seed & Sync Projects (Upsert all 5 enterprise projects with real thumbnails)
             var portfolioCat = await context.Categories.FirstOrDefaultAsync(c => c.Name == "Portfolio Websites") ?? defaultCat;
             var reactCat = await context.Categories.FirstOrDefaultAsync(c => c.Name == "React & Modern Web");
             if (reactCat == null)
@@ -169,87 +169,117 @@ namespace FuturisticPortfolio.Data
                 await context.SaveChangesAsync();
             }
 
-            // Project 1: UMS (NED Academy)
-            if (!await context.Projects.AnyAsync(p => p.Title.Contains("NED Academy") || p.Title.Contains("University Management")))
-            {
-                await context.Projects.AddAsync(new Project
-                {
-                    Title = "NED Academy University Management & Admission Portal",
-                    Subtitle = "Enterprise Academic Admissions & Department Management System",
-                    Description = "Engineered a comprehensive university portal featuring online student application workflows, document proof verification, academic department administration, fee voucher management, audit logging, and dynamic CMS controls.",
-                    Technologies = "ASP.NET Core 10 MVC, C#, Entity Framework Core, SQL Server, Bootstrap 5, LINQ",
-                    GitHubLink = "https://github.com/saadsa9112-cloud",
-                    Status = "Published",
-                    FeaturedOption = true,
-                    DisplayOrder = 1,
-                    ThumbnailPath = "/images/projects/ned-academy.jpg",
-                    CategoryId = defaultCat?.Id,
-                    Challenges = "Managing multi-step student admission submissions, document verification queues, and role-based academic department authorizations concurrently without schema lockups.",
-                    Solutions = "Designed a normalized relational SQL Server database schema with asynchronous EF Core transactions, audit logging for administrative edits, and secure document upload management."
-                });
-            }
+            var uniCat = await context.Categories.FirstOrDefaultAsync(c => c.Name == "University Projects") ?? defaultCat;
 
-            // Project 2: Nexora Digital
-            if (!await context.Projects.AnyAsync(p => p.Title.Contains("Nexora")))
+            // Project 1: NED Academy University Management System (UMS)
+            var p1 = await context.Projects.FirstOrDefaultAsync(p => p.Title.Contains("Management System") || p.Title.Contains("UMS"));
+            if (p1 == null)
             {
-                await context.Projects.AddAsync(new Project
-                {
-                    Title = "Nexora Digital Agency & Client Solutions Platform",
-                    Subtitle = "Modern Software Development Agency Platform with Interactive Pricing & Quote Builder",
-                    Description = "Developed a modern responsive digital agency platform featuring dynamic multi-currency pricing (PKR/USD), an interactive service scope and quote builder, glassmorphic UI components, and fluid scroll animations.",
-                    Technologies = "React 19, Vite, Tailwind CSS v4, Framer Motion, JavaScript, Lucide Icons",
-                    GitHubLink = "https://github.com/saadsa9112-cloud",
-                    Status = "Published",
-                    FeaturedOption = true,
-                    DisplayOrder = 2,
-                    ThumbnailPath = "/images/projects/nexora-digital.jpg",
-                    CategoryId = reactCat?.Id,
-                    Challenges = "Delivering complex fluid scroll animations and real-time currency conversions while maintaining sub-second load times and zero layout shifts.",
-                    Solutions = "Leveraged React 19 concurrent features with Tailwind CSS v4 and Framer Motion state management for performant interactive UI components."
-                });
+                p1 = new Project();
+                await context.Projects.AddAsync(p1);
             }
+            p1.Title = "NED Academy University Management System (UMS)";
+            p1.Subtitle = "Enterprise Academic Course, Student & Department Management Architecture";
+            p1.Description = "Engineered a robust university management platform featuring student enrollment, departmental hierarchy administration, teacher course assignments, notice board broadcasts, and academic progress tracking.";
+            p1.Technologies = "ASP.NET Core MVC, C#, Entity Framework Core, SQL Server, Bootstrap, LINQ";
+            p1.GitHubLink = "https://github.com/saadsa9112-cloud";
+            p1.Status = "Published";
+            p1.FeaturedOption = true;
+            p1.DisplayOrder = 1;
+            p1.ThumbnailPath = "/images/projects/ned-academy-system.jpg";
+            p1.CategoryId = uniCat?.Id ?? defaultCat?.Id;
+            p1.Challenges = "Managing relational student registrations, course prerequisite hierarchies, and faculty assignments across multi-department academic structures.";
+            p1.Solutions = "Architected a normalized SQL Server relational schema with EF Core repository patterns and transaction boundaries to eliminate data concurrency anomalies.";
 
-            // Project 3: Full-Stack Developer Portfolio
-            if (!await context.Projects.AnyAsync(p => p.Title.Contains("Developer Portfolio")))
+            // Project 2: NED Academy Admissions & University Portal
+            var p2 = await context.Projects.FirstOrDefaultAsync(p => p.Title.Contains("NED Academy") && p.Title.Contains("Portal"));
+            if (p2 == null)
             {
-                await context.Projects.AddAsync(new Project
-                {
-                    Title = "Full-Stack Enterprise Developer Portfolio",
-                    Subtitle = "Modern Responsive Developer Portfolio with Dynamic Visitor Analytics & Static Exporter",
-                    Description = "Engineered a full-stack portfolio application with ASP.NET Core 10 MVC, SQL Server persistence, real-time visitor telemetry, and an automated static distribution pipeline.",
-                    Technologies = "ASP.NET Core 10 MVC, C#, SQL Server, JavaScript, CSS3, EF Core",
-                    GitHubLink = "https://github.com/saadsa9112-cloud/futuristic-portfolio-by-SA-Developer",
-                    Status = "Published",
-                    FeaturedOption = false,
-                    DisplayOrder = 3,
-                    ThumbnailPath = "/images/profile.png",
-                    CategoryId = portfolioCat?.Id,
-                    Challenges = "Integrating dynamic SQL telemetry tracking with a flat GitHub Pages static deployment.",
-                    Solutions = "Engineered a custom Node.js static build harvester combined with API route tunneling."
-                });
+                p2 = new Project();
+                await context.Projects.AddAsync(p2);
             }
+            p2.Title = "NED Academy Admissions & Public University Portal";
+            p2.Subtitle = "Complete Online Admission Lifecycle & Departmental CMS Engine";
+            p2.Description = "Engineered an enterprise-grade university admissions and content management system featuring student application workflows, document proof verification queues, academic program registries, fee voucher management, audit logging, and dynamic CMS controls.";
+            p2.Technologies = "ASP.NET Core 10 MVC, C#, EF Core 10, SQL Server, Bootstrap 5, LINQ";
+            p2.GitHubLink = "https://github.com/saadsa9112-cloud";
+            p2.Status = "Published";
+            p2.FeaturedOption = true;
+            p2.DisplayOrder = 2;
+            p2.ThumbnailPath = "/images/projects/ned-academy-website.jpg";
+            p2.CategoryId = uniCat?.Id ?? defaultCat?.Id;
+            p2.Challenges = "Managing multi-step student admission submissions, document upload verification queues, and role-based academic authorizations without schema bottlenecks.";
+            p2.Solutions = "Designed an asynchronous EF Core transaction model with administrative audit logging, secure document uploads, and dynamic degree program routing.";
 
-            // Project 4: HMS Analytics Engine
-            if (!await context.Projects.AnyAsync(p => p.Title.Contains("HMS Analytics")))
+            // Project 3: Nexora Digital Agency & Client Solutions Platform
+            var p3 = await context.Projects.FirstOrDefaultAsync(p => p.Title.Contains("Nexora"));
+            if (p3 == null)
             {
-                await context.Projects.AddAsync(new Project
-                {
-                    Title = "HMS Analytics & Telemetry Engine",
-                    Subtitle = "Real-Time Visitor Analytics & Geolocation Tracking Platform",
-                    Description = "Developed a real-time visitor analytics dashboard with geolocation lookup, session tracking, background queue processing, and SignalR live updates.",
-                    Technologies = "ASP.NET Core 10, EF Core, SQL Server, SignalR, BackgroundServices",
-                    GitHubLink = "https://github.com/saadsa9112-cloud",
-                    Status = "Published",
-                    FeaturedOption = false,
-                    DisplayOrder = 4,
-                    ThumbnailPath = "/images/profile.png",
-                    CategoryId = defaultCat?.Id,
-                    Challenges = "Handling high-frequency telemetry events without blocking main UI loop threads.",
-                    Solutions = "Implemented an in-memory background queue processor with asynchronous EF Core batch execution."
-                });
+                p3 = new Project();
+                await context.Projects.AddAsync(p3);
             }
+            p3.Title = "Nexora Digital Agency & Client Solutions Platform";
+            p3.Subtitle = "Modern Software Development Agency Platform with Interactive Pricing & Scope Builder";
+            p3.Description = "Developed a modern responsive digital agency platform featuring dynamic multi-currency pricing (PKR/USD), an interactive service scope and quotation builder, glassmorphic UI components, and fluid scroll animations.";
+            p3.Technologies = "React 19, Vite, Tailwind CSS v4, Framer Motion, JavaScript, Lucide Icons";
+            p3.GitHubLink = "https://github.com/saadsa9112-cloud";
+            p3.Status = "Published";
+            p3.FeaturedOption = true;
+            p3.DisplayOrder = 3;
+            p3.ThumbnailPath = "/images/projects/nexora-digital.jpg";
+            p3.CategoryId = reactCat?.Id ?? defaultCat?.Id;
+            p3.Challenges = "Delivering complex fluid scroll animations and real-time currency conversions while maintaining sub-second load times and zero layout shifts.";
+            p3.Solutions = "Leveraged React 19 concurrent features with Tailwind CSS v4 and Framer Motion state management for performant interactive UI components.";
+
+            // Project 4: Full-Stack Developer Portfolio
+            var p4 = await context.Projects.FirstOrDefaultAsync(p => p.Title.Contains("Developer Portfolio"));
+            if (p4 == null)
+            {
+                p4 = new Project();
+                await context.Projects.AddAsync(p4);
+            }
+            p4.Title = "Full-Stack Enterprise Developer Portfolio";
+            p4.Subtitle = "Modern Responsive Developer Portfolio with Dynamic Telemetry & Static Harvester";
+            p4.Description = "Engineered a full-stack portfolio application with ASP.NET Core 10 MVC, SQL Server persistence, real-time visitor telemetry, and an automated static distribution pipeline for GitHub Pages.";
+            p4.Technologies = "ASP.NET Core 10 MVC, C#, SQL Server, JavaScript, CSS3, EF Core";
+            p4.GitHubLink = "https://github.com/saadsa9112-cloud/futuristic-portfolio-by-SA-Developer";
+            p4.Status = "Published";
+            p4.FeaturedOption = false;
+            p4.DisplayOrder = 4;
+            p4.ThumbnailPath = "/images/projects/developer-portfolio.jpg";
+            p4.CategoryId = portfolioCat?.Id ?? defaultCat?.Id;
+            p4.Challenges = "Integrating dynamic SQL telemetry tracking with a flat GitHub Pages static deployment.";
+            p4.Solutions = "Engineered a custom Node.js static build harvester combined with API route tunneling.";
+
+            // Project 5: HMS Analytics Engine
+            var p5 = await context.Projects.FirstOrDefaultAsync(p => p.Title.Contains("HMS Analytics"));
+            if (p5 == null)
+            {
+                p5 = new Project();
+                await context.Projects.AddAsync(p5);
+            }
+            p5.Title = "HMS Analytics & Telemetry Engine";
+            p5.Subtitle = "Real-Time Visitor Analytics & Geolocation Tracking Platform";
+            p5.Description = "Developed a real-time visitor analytics dashboard with geolocation lookup, session tracking, background queue processing, and SignalR live updates.";
+            p5.Technologies = "ASP.NET Core 10, EF Core, SQL Server, SignalR, BackgroundServices";
+            p5.GitHubLink = "https://github.com/saadsa9112-cloud";
+            p5.Status = "Published";
+            p5.FeaturedOption = false;
+            p5.DisplayOrder = 5;
+            p5.ThumbnailPath = "/images/projects/hms-analytics.jpg";
+            p5.CategoryId = defaultCat?.Id;
+            p5.Challenges = "Handling high-frequency telemetry events without blocking main UI loop threads.";
+            p5.Solutions = "Implemented an in-memory background queue processor with asynchronous EF Core batch execution.";
 
             await context.SaveChangesAsync();
+
+            // Sync enterprise projects count in statistics to 5
+            var enterpriseProjStat = await context.Statistics.FirstOrDefaultAsync(s => s.Title.Contains("Enterprise Projects"));
+            if (enterpriseProjStat != null)
+            {
+                enterpriseProjStat.Value = 5;
+                await context.SaveChangesAsync();
+            }
 
             // 10. Seed Social Links (Non-destructive: Only if missing)
             if (!await context.SocialLinks.AnyAsync())

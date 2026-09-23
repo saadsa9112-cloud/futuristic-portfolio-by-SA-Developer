@@ -71,17 +71,19 @@ document.addEventListener("DOMContentLoaded", () => {
                     logBody.parentElement.appendChild(progressWrap);
                 }
 
-                // Last line: dismiss loader after short pause
+                // Last line: dismiss loader after short pause & emit portfolio-ready event
                 if (idx === bootLines.length - 1) {
                     setTimeout(() => {
                         loader.classList.add("fade-out");
-                        setTimeout(() => { loader.style.display = "none"; }, 700);
+                        setTimeout(() => {
+                            loader.style.display = "none";
+                            window.dispatchEvent(new CustomEvent("portfolio-ready"));
+                        }, 700);
                     }, 620);
                 }
             }, delay);
         });
     }
-
 
     let adminAccessAttempts = 0;
 
@@ -151,6 +153,7 @@ document.addEventListener("DOMContentLoaded", () => {
             if (section.dataset.countersAnimated === "true") return;
 
             const animateCounters = () => {
+                if (section.dataset.countersAnimated === "true") return;
                 section.dataset.countersAnimated = "true";
                 const counters = section.querySelectorAll(".counter-number");
 
@@ -166,10 +169,10 @@ document.addEventListener("DOMContentLoaded", () => {
                         return;
                     }
 
-                    // Step-based: each integer is shown for a fixed delay
-                    // Total duration spread evenly across all steps
-                    const totalDuration = Math.min(1800, Math.max(800, target * 180));
-                    const stepDelay = totalDuration / target;
+                    // Discrete integer ticking: each number is held for a clear readable delay
+                    // For small targets (<= 5): 300ms per integer (1... 2... 3... 4... 5... STOP!)
+                    // For larger targets (9): 180ms per integer
+                    const stepDelay = target <= 5 ? 300 : 180;
 
                     let current = 0;
                     counter.textContent = "0";
@@ -177,28 +180,44 @@ document.addEventListener("DOMContentLoaded", () => {
                     const tick = () => {
                         current++;
                         counter.textContent = current;
+                        counter.classList.add("counter-pulse");
+                        setTimeout(() => counter.classList.remove("counter-pulse"), 160);
+
                         if (current < target) {
                             setTimeout(tick, stepDelay);
                         }
-                        // At target — permanently stops. No further calls.
                     };
 
                     setTimeout(tick, stepDelay);
                 });
             };
 
-            if ("IntersectionObserver" in window) {
-                const observer = new IntersectionObserver((entries, obs) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            animateCounters();
-                            obs.unobserve(entry.target);
-                        }
-                    });
-                }, { threshold: 0.2 });
-                observer.observe(section);
+            const startObservation = () => {
+                if ("IntersectionObserver" in window) {
+                    const observer = new IntersectionObserver((entries, obs) => {
+                        entries.forEach(entry => {
+                            if (entry.isIntersecting) {
+                                animateCounters();
+                                obs.unobserve(entry.target);
+                            }
+                        });
+                    }, { threshold: 0.1 });
+                    observer.observe(section);
+                } else {
+                    animateCounters();
+                }
+            };
+
+            // If loader is active, wait until portfolio-ready event fires so the user clearly sees the animation!
+            const loaderEl = document.getElementById("loader-screen");
+            if (loaderEl && loaderEl.style.display !== "none" && !loaderEl.classList.contains("fade-out")) {
+                window.addEventListener("portfolio-ready", () => {
+                    setTimeout(startObservation, 200);
+                }, { once: true });
+                // Fallback timeout in case user skipped loader
+                setTimeout(startObservation, 3500);
             } else {
-                animateCounters();
+                startObservation();
             }
         });
     };

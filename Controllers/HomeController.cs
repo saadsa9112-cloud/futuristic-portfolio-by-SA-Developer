@@ -57,12 +57,12 @@ namespace FuturisticPortfolio.Controllers
             // Latest Projects (excluding featured project if present, or top published)
             var latestProjects = publishedProjects
                 .Where(p => featuredProject == null || p.Id != featuredProject.Id)
-                .Take(2)
+                .Take(6)
                 .ToList();
 
             if (!latestProjects.Any() && publishedProjects.Any())
             {
-                latestProjects = publishedProjects.Take(2).ToList();
+                latestProjects = publishedProjects.Take(6).ToList();
             }
 
             ViewBag.Settings = settings;
