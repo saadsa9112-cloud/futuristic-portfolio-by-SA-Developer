@@ -74,9 +74,15 @@ namespace FuturisticPortfolio.Data
                     ContactEmail = adminEmail,
                     ContactPhone = "+92 305 5188896",
                     ContactAddress = "Karachi, Pakistan",
-                    OpenStreetMapEmbedUrl = "https://www.openstreetmap.org/export/embed.html?bbox=66.95%2C24.80%2C67.25%2C25.05&layer=mapnik"
+                    OpenStreetMapEmbedUrl = "https://www.openstreetmap.org/export/embed.html?bbox=66.8500%2C24.7500%2C67.2500%2C25.0500&layer=mapnik&marker=24.8607%2C67.0011"
                 };
                 await context.Settings.AddAsync(settings);
+                await context.SaveChangesAsync();
+            }
+            else
+            {
+                settings.OpenStreetMapEmbedUrl = "https://www.openstreetmap.org/export/embed.html?bbox=66.8500%2C24.7500%2C67.2500%2C25.0500&layer=mapnik&marker=24.8607%2C67.0011";
+                settings.ContactAddress = "Karachi, Pakistan";
                 await context.SaveChangesAsync();
             }
 

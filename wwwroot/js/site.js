@@ -2,86 +2,282 @@
 
 document.addEventListener("DOMContentLoaded", () => {
     // ==========================================
-    // 1. Developer Terminal Boot Sequence
+    // 1. Developer Terminal Boot & Page-Switch Sequence
     // ==========================================
     const loader = document.getElementById("loader-screen");
     const logBody = document.getElementById("dev-log-body");
+    const termTitle = document.getElementById("dev-terminal-title");
 
     if (loader && logBody) {
-        // Terminal boot lines: [delay_ms, html_content]
-        const bootLines = [
-            [0,   `<span class="dev-prompt">$</span> <span class="dev-cmd">./boot portfolio.sh</span>`],
-            [200, `<span class="dev-dim">▶  Initializing runtime environment...</span>`],
-            [480, `<span class="dev-prompt">›</span> <span class="dev-cyan">Framework:</span>  <span class="dev-cmd">ASP.NET Core 10 MVC</span>  <span class="dev-ok">✓ READY</span>`],
-            [700, `<span class="dev-prompt">›</span> <span class="dev-cyan">Database:</span>   <span class="dev-cmd">SQL Server + Entity Framework Core</span>  <span class="dev-ok">✓ CONNECTED</span>`],
-            [940, `<span class="dev-prompt">›</span> <span class="dev-cyan">Language:</span>   <span class="dev-cmd">C# .NET 10 / React 19 / JavaScript</span>  <span class="dev-ok">✓ LOADED</span>`],
-            [1160,`<span class="dev-prompt">›</span> <span class="dev-cyan">Projects:</span>   <span class="dev-cmd">NED Academy (UMS &amp; Admissions)  ·  Nexora Digital</span>  <span class="dev-ok">✓ MOUNTED</span>`],
-            [1380,`<span class="dev-prompt">›</span> <span class="dev-cyan">AI Engine:</span>  <span class="dev-cmd">Saad's AI Assistant</span>  <span class="dev-ok">✓ ONLINE</span>`],
-            [1580,`<span class="dev-dim">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span>`],
-            [1680,`<span class="dev-ready">  ✦  Portfolio is live. Welcome — Hafiz Muhammad Saad  ✦</span>`],
-        ];
+        const isFirstVisit = !sessionStorage.getItem("saad_portfolio_visited");
 
-        // Add progress bar
-        const progressWrap = document.createElement("div");
-        progressWrap.className = "dev-progress-wrap";
-        progressWrap.innerHTML = `
-            <div class="dev-progress-label">
-                <span class="dev-dim">Loading modules...</span>
-                <span class="dev-cyan" id="dev-progress-pct">0%</span>
-            </div>
-            <div class="dev-progress-bar-outer">
-                <div class="dev-progress-bar-inner" id="dev-progress-bar"></div>
-            </div>`;
+        if (isFirstVisit) {
+            // First time visit: Complete developer terminal boot sequence + Welcome card
+            if (termTitle) termTitle.textContent = "saad@portfolio ~ bash (initial-boot)";
 
-        // Render each line at its scheduled delay
-        const totalTime = bootLines[bootLines.length - 1][0];
-        const cursor = document.createElement("span");
-        cursor.className = "dev-cursor";
+            const bootLines = [
+                [0,    `<span class="dev-prompt">$</span> <span class="dev-cmd">./boot portfolio.sh</span>`],
+                [180,  `<span class="dev-dim">▶  Initializing runtime environment...</span>`],
+                [420,  `<span class="dev-prompt">›</span> <span class="dev-cyan">Framework:</span>  <span class="dev-cmd">ASP.NET Core 10 MVC</span>  <span class="dev-ok">✓ READY</span>`],
+                [640,  `<span class="dev-prompt">›</span> <span class="dev-cyan">Database:</span>   <span class="dev-cmd">SQL Server + Entity Framework Core</span>  <span class="dev-ok">✓ CONNECTED</span>`],
+                [860,  `<span class="dev-prompt">›</span> <span class="dev-cyan">Language:</span>   <span class="dev-cmd">C# .NET 10 / React 19 / JavaScript</span>  <span class="dev-ok">✓ LOADED</span>`],
+                [1080, `<span class="dev-prompt">›</span> <span class="dev-cyan">Projects:</span>   <span class="dev-cmd">NED Academy (UMS &amp; Admissions)  ·  Nexora Digital</span>  <span class="dev-ok">✓ MOUNTED</span>`],
+                [1300, `<span class="dev-prompt">›</span> <span class="dev-cyan">AI Engine:</span>  <span class="dev-cmd">Saad's AI Assistant</span>  <span class="dev-ok">✓ ONLINE</span>`],
+                [1500, `<span class="dev-dim">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span>`],
+                [1600, `<span class="dev-ready">  ✦  Portfolio runtime verified. Access Granted.  ✦</span>`]
+            ];
 
-        bootLines.forEach(([delay, html], idx) => {
-            setTimeout(() => {
-                // Remove cursor from previous line
-                if (logBody.lastChild && logBody.lastChild.querySelector) {
-                    const prev = logBody.lastChild.querySelector?.(".dev-cursor");
-                    if (prev) prev.remove();
-                }
+            // Add progress bar
+            const progressWrap = document.createElement("div");
+            progressWrap.className = "dev-progress-wrap";
+            progressWrap.innerHTML = `
+                <div class="dev-progress-label">
+                    <span class="dev-dim">Loading modules...</span>
+                    <span class="dev-cyan" id="dev-progress-pct">0%</span>
+                </div>
+                <div class="dev-progress-bar-outer">
+                    <div class="dev-progress-bar-inner" id="dev-progress-bar"></div>
+                </div>`;
 
-                const line = document.createElement("div");
-                line.className = "dev-log-line";
-                line.innerHTML = html;
+            const cursor = document.createElement("span");
+            cursor.className = "dev-cursor";
 
-                // Add cursor to last visible line
-                line.appendChild(cursor.cloneNode());
-                logBody.appendChild(line);
+            bootLines.forEach(([delay, html], idx) => {
+                setTimeout(() => {
+                    if (logBody.lastChild && logBody.lastChild.querySelector) {
+                        const prev = logBody.lastChild.querySelector?.(".dev-cursor");
+                        if (prev) prev.remove();
+                    }
 
-                // Force reflow then make visible
-                requestAnimationFrame(() => {
-                    requestAnimationFrame(() => { line.classList.add("visible"); });
-                });
+                    const line = document.createElement("div");
+                    line.className = "dev-log-line";
+                    line.innerHTML = html;
+                    line.appendChild(cursor.cloneNode());
+                    logBody.appendChild(line);
 
-                // Progress bar update
-                const pct = Math.round(((idx + 1) / bootLines.length) * 100);
-                const bar = document.getElementById("dev-progress-bar");
-                const pctLabel = document.getElementById("dev-progress-pct");
-                if (bar) bar.style.width = pct + "%";
-                if (pctLabel) pctLabel.textContent = pct + "%";
+                    requestAnimationFrame(() => {
+                        requestAnimationFrame(() => { line.classList.add("visible"); });
+                    });
 
-                // Add progress wrap after first line
-                if (idx === 0 && !logBody.parentElement.querySelector(".dev-progress-wrap")) {
-                    logBody.parentElement.appendChild(progressWrap);
-                }
+                    const pct = Math.round(((idx + 1) / bootLines.length) * 100);
+                    const bar = document.getElementById("dev-progress-bar");
+                    const pctLabel = document.getElementById("dev-progress-pct");
+                    if (bar) bar.style.width = pct + "%";
+                    if (pctLabel) pctLabel.textContent = pct + "%";
 
-                // Last line: dismiss loader after short pause & emit portfolio-ready event
-                if (idx === bootLines.length - 1) {
-                    setTimeout(() => {
-                        loader.classList.add("fade-out");
+                    if (idx === 0 && !logBody.parentElement.querySelector(".dev-progress-wrap")) {
+                        logBody.parentElement.appendChild(progressWrap);
+                    }
+
+                    // Once boot lines finish, show the Welcome Card
+                    if (idx === bootLines.length - 1) {
                         setTimeout(() => {
-                            loader.style.display = "none";
-                            window.dispatchEvent(new CustomEvent("portfolio-ready"));
-                        }, 700);
-                    }, 620);
-                }
-            }, delay);
+                            const prevCursor = logBody.querySelector(".dev-cursor");
+                            if (prevCursor) prevCursor.remove();
+
+                            const welcomeCard = document.createElement("div");
+                            welcomeCard.className = "dev-welcome-card";
+                            welcomeCard.innerHTML = `
+                                <div class="dev-welcome-badge">
+                                    <span class="dev-ok">● SYSTEM ONLINE</span>
+                                    <span class="dev-dim">|</span>
+                                    <span class="dev-cyan">SECURE SESSION</span>
+                                </div>
+                                <div class="dev-welcome-title">WELCOME TO HAFIZ MUHAMMAD SAAD PORTFOLIO</div>
+                                <div class="dev-welcome-tagline">"Architecting Resilient Enterprise Solutions, High-Throughput .NET Systems &amp; Autonomous AI Architectures"</div>
+                                <div class="dev-welcome-meta">
+                                    <span><i class="fas fa-map-marker-alt text-neon-cyan me-1"></i> Karachi, Pakistan</span>
+                                    <span class="dev-dim">·</span>
+                                    <span><i class="fas fa-terminal text-neon-purple me-1"></i> Full-Stack Software Engineer</span>
+                                    <span class="dev-dim">·</span>
+                                    <span class="dev-ok">Status: Ready</span>
+                                </div>
+                            `;
+                            logBody.appendChild(welcomeCard);
+
+                            requestAnimationFrame(() => {
+                                requestAnimationFrame(() => {
+                                    welcomeCard.classList.add("visible");
+                                });
+                            });
+
+                            // Display welcome card for 1300ms, then dismiss loader & emit event
+                            setTimeout(() => {
+                                loader.classList.add("fade-out");
+                                sessionStorage.setItem("saad_portfolio_visited", "true");
+                                setTimeout(() => {
+                                    loader.style.display = "none";
+                                    window.dispatchEvent(new CustomEvent("portfolio-ready"));
+                                }, 600);
+                            }, 1300);
+                        }, 400);
+                    }
+                }, delay);
+            });
+        } else {
+            // Page switching mode: Welcome is skipped! Show dynamic, fast, distinct developer boot lines per switch
+            const path = window.location.pathname.toLowerCase();
+            let switchTitle = "saad@portfolio ~ bash";
+            let switchLines = [];
+
+            let switchCount = parseInt(sessionStorage.getItem("saad_switch_count") || "0", 10);
+            sessionStorage.setItem("saad_switch_count", (switchCount + 1).toString());
+
+            if (path.includes("/portfolio/details/") || path.includes("details/")) {
+                switchTitle = "saad@portfolio:~/dossier ~ bash";
+                switchLines = [
+                    [0,   `<span class="dev-prompt">$</span> <span class="dev-cmd">inspect --dossier --topology</span>`],
+                    [90,  `<span class="dev-dim">▶ Allocating memory sandbox &amp; deep AST trace...</span>`],
+                    [200, `<span class="dev-prompt">›</span> <span class="dev-cyan">Telemetry:</span> <span class="dev-cmd">Live architecture &amp; database schemas mounted</span> <span class="dev-ok">✓</span>`],
+                    [320, `<span class="dev-ready">✓ System blueprint ready (latency: 14ms)</span>`]
+                ];
+            } else if (path.includes("/portfolio")) {
+                switchTitle = "saad@portfolio:~/projects ~ bash";
+                switchLines = [
+                    [0,   `<span class="dev-prompt">$</span> <span class="dev-cmd">git checkout feature/enterprise-showcase</span>`],
+                    [90,  `<span class="dev-dim">▶ Mounting production projects: NED Academy UMS &amp; Nexora Digital...</span>`],
+                    [200, `<span class="dev-prompt">›</span> <span class="dev-cyan">Repositories:</span> <span class="dev-cmd">Live verified metrics &amp; responsive UI mounted</span> <span class="dev-ok">✓</span>`],
+                    [320, `<span class="dev-ready">✓ Enterprise showcase initialized</span>`]
+                ];
+            } else if (path.includes("/blog/details/")) {
+                switchTitle = "saad@portfolio:~/articles ~ bash";
+                switchLines = [
+                    [0,   `<span class="dev-prompt">$</span> <span class="dev-cmd">cat article-feed --stream-syntax</span>`],
+                    [90,  `<span class="dev-dim">▶ Parsing AST tokens &amp; rendering high-contrast syntax blocks...</span>`],
+                    [200, `<span class="dev-prompt">›</span> <span class="dev-cyan">Article:</span> <span class="dev-cmd">Reading metrics &amp; domain references calibrated</span> <span class="dev-ok">✓</span>`],
+                    [320, `<span class="dev-ready">✓ Technical whitepaper rendered</span>`]
+                ];
+            } else if (path.includes("/blog")) {
+                switchTitle = "saad@portfolio:~/tech-logs ~ bash";
+                switchLines = [
+                    [0,   `<span class="dev-prompt">$</span> <span class="dev-cmd">cat /var/log/tech-insights.md --latest</span>`],
+                    [90,  `<span class="dev-dim">▶ Indexing technical publications &amp; engineering whitepapers...</span>`],
+                    [200, `<span class="dev-prompt">›</span> <span class="dev-cyan">Feeds:</span> <span class="dev-cmd">Software Dev in 2027 &amp; Cybersecurity Claude Mythos</span> <span class="dev-ok">✓</span>`],
+                    [320, `<span class="dev-ready">✓ Knowledge base synchronized (2 Articles Active)</span>`]
+                ];
+            } else if (path.includes("/about")) {
+                switchTitle = "saad@portfolio:~/engineer-bio ~ bash";
+                switchLines = [
+                    [0,   `<span class="dev-prompt">$</span> <span class="dev-cmd">whoami --extended-profile --credentials</span>`],
+                    [90,  `<span class="dev-dim">▶ Resolving developer identity &amp; technical skill matrices...</span>`],
+                    [200, `<span class="dev-prompt">›</span> <span class="dev-cyan">Education:</span> <span class="dev-cmd">Sohail University (BSBC) &amp; Aptech Learning (ADSE)</span> <span class="dev-ok">✓</span>`],
+                    [320, `<span class="dev-ready">✓ Career roadmap &amp; engineering profile loaded</span>`]
+                ];
+            } else {
+                // Home page or general page switch: rotate through 4 distinct high-tech developer routines
+                const homeRoutines = [
+                    {
+                        title: "saad@portfolio:~/runtime ~ bash",
+                        lines: [
+                            [0,   `<span class="dev-prompt">$</span> <span class="dev-cmd">dotnet watch run --launch-profile HighThroughput</span>`],
+                            [90,  `<span class="dev-dim">▶ JIT compilation optimized · AOT pre-compiled binary active...</span>`],
+                            [200, `<span class="dev-prompt">›</span> <span class="dev-cyan">Pipeline:</span> <span class="dev-cmd">Invariant assertions valid &amp; verified</span> <span class="dev-ok">✓</span>`],
+                            [320, `<span class="dev-ready">✓ Viewport synchronized (DOM hydrated in 140ms)</span>`]
+                        ]
+                    },
+                    {
+                        title: "saad@portfolio:~/security-enclave ~ bash",
+                        lines: [
+                            [0,   `<span class="dev-prompt">$</span> <span class="dev-cmd">sysctl --security-enclave --zero-trust-handshake</span>`],
+                            [90,  `<span class="dev-dim">▶ Verifying cryptographic session tokens &amp; SSL handshake...</span>`],
+                            [200, `<span class="dev-prompt">›</span> <span class="dev-cyan">Anchor:</span> <span class="dev-cmd">Telemetry nodes connected · Karachi, Pakistan</span> <span class="dev-ok">✓</span>`],
+                            [320, `<span class="dev-ready">✓ Secure developer session active</span>`]
+                        ]
+                    },
+                    {
+                        title: "saad@portfolio:~/data-mesh ~ bash",
+                        lines: [
+                            [0,   `<span class="dev-prompt">$</span> <span class="dev-cmd">redis-cli --cluster check --warm-cache</span>`],
+                            [90,  `<span class="dev-dim">▶ Distributed cache warmed · Query pipeline latency: 0.6ms...</span>`],
+                            [200, `<span class="dev-prompt">›</span> <span class="dev-cyan">State:</span> <span class="dev-cmd">Reactive listeners attached to viewport components</span> <span class="dev-ok">✓</span>`],
+                            [320, `<span class="dev-ready">✓ Interface mounted &amp; fully responsive</span>`]
+                        ]
+                    },
+                    {
+                        title: "saad@portfolio:~/system ~ bash",
+                        lines: [
+                            [0,   `<span class="dev-prompt">$</span> <span class="dev-cmd">systemctl status saad-core-engine.service</span>`],
+                            [90,  `<span class="dev-dim">▶ Active: running (high-performance) · 0 crash events logged...</span>`],
+                            [200, `<span class="dev-prompt">›</span> <span class="dev-cyan">Runtime:</span> <span class="dev-cmd">C# 14 / .NET 10 CLR operational</span> <span class="dev-ok">✓</span>`],
+                            [320, `<span class="dev-ready">✓ System readiness confirmed</span>`]
+                        ]
+                    }
+                ];
+
+                const selected = homeRoutines[switchCount % homeRoutines.length];
+                switchTitle = selected.title;
+                switchLines = selected.lines;
+            }
+
+            if (termTitle) termTitle.textContent = switchTitle;
+
+            const progressWrap = document.createElement("div");
+            progressWrap.className = "dev-progress-wrap";
+            progressWrap.innerHTML = `
+                <div class="dev-progress-label">
+                    <span class="dev-dim">Navigating route...</span>
+                    <span class="dev-cyan" id="dev-progress-pct">0%</span>
+                </div>
+                <div class="dev-progress-bar-outer">
+                    <div class="dev-progress-bar-inner" id="dev-progress-bar"></div>
+                </div>`;
+            logBody.parentElement.appendChild(progressWrap);
+
+            const cursor = document.createElement("span");
+            cursor.className = "dev-cursor";
+
+            switchLines.forEach(([delay, html], idx) => {
+                setTimeout(() => {
+                    if (logBody.lastChild && logBody.lastChild.querySelector) {
+                        const prev = logBody.lastChild.querySelector?.(".dev-cursor");
+                        if (prev) prev.remove();
+                    }
+
+                    const line = document.createElement("div");
+                    line.className = "dev-log-line";
+                    line.innerHTML = html;
+                    line.appendChild(cursor.cloneNode());
+                    logBody.appendChild(line);
+
+                    requestAnimationFrame(() => {
+                        requestAnimationFrame(() => { line.classList.add("visible"); });
+                    });
+
+                    const pct = Math.round(((idx + 1) / switchLines.length) * 100);
+                    const bar = document.getElementById("dev-progress-bar");
+                    const pctLabel = document.getElementById("dev-progress-pct");
+                    if (bar) bar.style.width = pct + "%";
+                    if (pctLabel) pctLabel.textContent = pct + "%";
+
+                    if (idx === switchLines.length - 1) {
+                        setTimeout(() => {
+                            loader.classList.add("fade-out");
+                            setTimeout(() => {
+                                loader.style.display = "none";
+                                window.dispatchEvent(new CustomEvent("portfolio-ready"));
+                            }, 450);
+                        }, 250);
+                    }
+                }, delay);
+            });
+        }
+
+        // Intercept internal navigation clicks for smooth transition
+        document.addEventListener("click", (e) => {
+            const anchor = e.target.closest("a");
+            if (!anchor) return;
+            const href = anchor.getAttribute("href");
+            if (!href || href.startsWith("#") || href.startsWith("javascript:") || href.startsWith("mailto:") || href.startsWith("tel:") || anchor.target === "_blank") return;
+
+            if (href.startsWith("/") || href.startsWith("./") || href.startsWith("../") || href.includes(window.location.hostname)) {
+                loader.style.display = "flex";
+                loader.classList.remove("fade-out");
+                logBody.innerHTML = `
+                    <div class="dev-log-line visible"><span class="dev-prompt">$</span> <span class="dev-cmd">nav --target "${href}"</span></div>
+                    <div class="dev-log-line visible"><span class="dev-dim">▶ Switching context &amp; rendering viewport...</span></div>
+                `;
+                if (termTitle) termTitle.textContent = "saad@portfolio:~/switching-route ~ bash";
+            }
         });
     }
 
