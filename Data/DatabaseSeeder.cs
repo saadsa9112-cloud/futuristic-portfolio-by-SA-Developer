@@ -231,53 +231,24 @@ namespace FuturisticPortfolio.Data
             p3.Challenges = "Delivering complex fluid scroll animations and real-time currency conversions while maintaining sub-second load times and zero layout shifts.";
             p3.Solutions = "Leveraged React 19 concurrent features with Tailwind CSS v4 and Framer Motion state management for performant interactive UI components.";
 
-            // Project 4: Full-Stack Developer Portfolio
-            var p4 = await context.Projects.FirstOrDefaultAsync(p => p.Title.Contains("Developer Portfolio"));
-            if (p4 == null)
+            // Explicitly remove HMS Analytics and Portfolio Website as requested
+            var toRemove = await context.Projects
+                .Where(p => p.Title.Contains("HMS Analytics") || 
+                            p.Title.Contains("Portfolio Website") || 
+                            p.Title.Contains("Developer Portfolio"))
+                .ToListAsync();
+            if (toRemove.Any())
             {
-                p4 = new Project();
-                await context.Projects.AddAsync(p4);
+                context.Projects.RemoveRange(toRemove);
             }
-            p4.Title = "Full-Stack Enterprise Developer Portfolio";
-            p4.Subtitle = "Modern Responsive Developer Portfolio with Dynamic Telemetry & Static Harvester";
-            p4.Description = "Engineered a full-stack portfolio application with ASP.NET Core 10 MVC, SQL Server persistence, real-time visitor telemetry, and an automated static distribution pipeline for GitHub Pages.";
-            p4.Technologies = "ASP.NET Core 10 MVC, C#, SQL Server, JavaScript, CSS3, EF Core";
-            p4.GitHubLink = "https://github.com/saadsa9112-cloud/futuristic-portfolio-by-SA-Developer";
-            p4.Status = "Published";
-            p4.FeaturedOption = false;
-            p4.DisplayOrder = 4;
-            p4.ThumbnailPath = "/images/projects/developer-portfolio.jpg";
-            p4.CategoryId = portfolioCat?.Id ?? defaultCat?.Id;
-            p4.Challenges = "Integrating dynamic SQL telemetry tracking with a flat GitHub Pages static deployment.";
-            p4.Solutions = "Engineered a custom Node.js static build harvester combined with API route tunneling.";
-
-            // Project 5: HMS Analytics Engine
-            var p5 = await context.Projects.FirstOrDefaultAsync(p => p.Title.Contains("HMS Analytics"));
-            if (p5 == null)
-            {
-                p5 = new Project();
-                await context.Projects.AddAsync(p5);
-            }
-            p5.Title = "HMS Analytics & Telemetry Engine";
-            p5.Subtitle = "Real-Time Visitor Analytics & Geolocation Tracking Platform";
-            p5.Description = "Developed a real-time visitor analytics dashboard with geolocation lookup, session tracking, background queue processing, and SignalR live updates.";
-            p5.Technologies = "ASP.NET Core 10, EF Core, SQL Server, SignalR, BackgroundServices";
-            p5.GitHubLink = "https://github.com/saadsa9112-cloud";
-            p5.Status = "Published";
-            p5.FeaturedOption = false;
-            p5.DisplayOrder = 5;
-            p5.ThumbnailPath = "/images/projects/hms-analytics.jpg";
-            p5.CategoryId = defaultCat?.Id;
-            p5.Challenges = "Handling high-frequency telemetry events without blocking main UI loop threads.";
-            p5.Solutions = "Implemented an in-memory background queue processor with asynchronous EF Core batch execution.";
 
             await context.SaveChangesAsync();
 
-            // Sync enterprise projects count in statistics to 5
+            // Sync enterprise projects count in statistics to 3
             var enterpriseProjStat = await context.Statistics.FirstOrDefaultAsync(s => s.Title.Contains("Enterprise Projects"));
             if (enterpriseProjStat != null)
             {
-                enterpriseProjStat.Value = 5;
+                enterpriseProjStat.Value = 3;
                 await context.SaveChangesAsync();
             }
 

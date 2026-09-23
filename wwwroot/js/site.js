@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
             [480, `<span class="dev-prompt">›</span> <span class="dev-cyan">Framework:</span>  <span class="dev-cmd">ASP.NET Core 10 MVC</span>  <span class="dev-ok">✓ READY</span>`],
             [700, `<span class="dev-prompt">›</span> <span class="dev-cyan">Database:</span>   <span class="dev-cmd">SQL Server + Entity Framework Core</span>  <span class="dev-ok">✓ CONNECTED</span>`],
             [940, `<span class="dev-prompt">›</span> <span class="dev-cyan">Language:</span>   <span class="dev-cmd">C# .NET 10 / React 19 / JavaScript</span>  <span class="dev-ok">✓ LOADED</span>`],
-            [1160,`<span class="dev-prompt">›</span> <span class="dev-cyan">Projects:</span>   <span class="dev-cmd">NED Academy  ·  Nexora Digital  ·  HMS Analytics</span>  <span class="dev-ok">✓ MOUNTED</span>`],
+            [1160,`<span class="dev-prompt">›</span> <span class="dev-cyan">Projects:</span>   <span class="dev-cmd">NED Academy (UMS &amp; Admissions)  ·  Nexora Digital</span>  <span class="dev-ok">✓ MOUNTED</span>`],
             [1380,`<span class="dev-prompt">›</span> <span class="dev-cyan">AI Engine:</span>  <span class="dev-cmd">Saad's AI Assistant</span>  <span class="dev-ok">✓ ONLINE</span>`],
             [1580,`<span class="dev-dim">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span>`],
             [1680,`<span class="dev-ready">  ✦  Portfolio is live. Welcome — Hafiz Muhammad Saad  ✦</span>`],
