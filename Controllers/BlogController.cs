@@ -73,6 +73,11 @@ namespace FuturisticPortfolio.Controllers
             _unitOfWork.Blogs.Update(blog);
             await _unitOfWork.CompleteAsync();
 
+            if (blog.CategoryId.HasValue)
+            {
+                blog.Category = await _unitOfWork.Categories.GetByIdAsync(blog.CategoryId.Value);
+            }
+
             ViewBag.Settings = (await _unitOfWork.Settings.GetAllAsync()).FirstOrDefault();
             ViewBag.SocialLinks = (await _unitOfWork.SocialLinks.GetAllAsync()).ToList();
             

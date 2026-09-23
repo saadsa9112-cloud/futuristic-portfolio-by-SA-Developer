@@ -258,6 +258,166 @@ namespace FuturisticPortfolio.Data
                 await context.SocialLinks.AddAsync(new SocialLink { PlatformName = "GitHub", Url = "https://github.com/saadsa9112-cloud", IconClass = "fab fa-github" });
                 await context.SaveChangesAsync();
             }
+
+            // 11. Seed Blog Categories & Original Tech Logs
+            var seBlogCat = await context.Categories.FirstOrDefaultAsync(c => c.Name == "Software Engineering" && c.Type == "Blog");
+            if (seBlogCat == null)
+            {
+                seBlogCat = new Category { Name = "Software Engineering", Type = "Blog" };
+                await context.Categories.AddAsync(seBlogCat);
+                await context.SaveChangesAsync();
+            }
+
+            var cyberBlogCat = await context.Categories.FirstOrDefaultAsync(c => c.Name == "Cybersecurity" && c.Type == "Blog");
+            if (cyberBlogCat == null)
+            {
+                cyberBlogCat = new Category { Name = "Cybersecurity", Type = "Blog" };
+                await context.Categories.AddAsync(cyberBlogCat);
+                await context.SaveChangesAsync();
+            }
+
+            // Blog 1: Software Development in 2027
+            var blog1 = await context.Blogs.FirstOrDefaultAsync(b => b.Slug == "software-development-in-2027");
+            if (blog1 == null)
+            {
+                blog1 = new Blog { Slug = "software-development-in-2027" };
+                await context.Blogs.AddAsync(blog1);
+            }
+            blog1.Title = "Software Development in 2027: The Era of Autonomous AI Agents & Post-Syntax Architecture";
+            blog1.CategoryId = seBlogCat.Id;
+            blog1.ImagePath = "/images/blogs/software-development-2027.jpg";
+            blog1.Tags = "AI, Dotnet10, Architecture, AutonomousAgents, CleanCode, FutureTech";
+            blog1.MetaTitle = "Software Development in 2027 | Hafiz Muhammad Saad";
+            blog1.MetaDescription = "Explore how software engineering is evolving in 2027: from manual syntax writing to multi-agent choreography, formal verification, and deterministic cloud runtimes.";
+            blog1.CreatedDate = new DateTime(2026, 9, 23, 12, 0, 0, DateTimeKind.Utc);
+            blog1.ViewCount = 142;
+            blog1.Content = @"<p class=""lead text-white font-monospace mb-4"">
+    The transition of software engineering in 2027 is neither a replacement of human ingenuity nor a mere acceleration of code auto-completion. We have officially entered the <strong>Post-Syntax Era</strong>—where syntax errors and boilerplate plumbing are obsolete artifacts, and system boundaries, invariant verification, and multi-agent orchestration define elite software craft.
+</p>
+
+<h3 class=""text-neon-cyan fw-bold mt-5 mb-3""><i class=""fas fa-microchip me-2""></i> 1. The Paradigm Shift: From Code Synthesis to Multi-Agent Choreography</h3>
+<p>
+    In 2024, developers treated LLMs as interactive syntax synthesizers—asking models to generate functions, SQL queries, or CSS flexboxes. By 2027, the unit of human work has migrated entirely from writing code lines to <em>choreographing autonomous specialized subagents</em>.
+</p>
+<p>
+    Modern engineering teams deploy hierarchical swarms: an architectural planner subagent plans transaction boundaries, a dedicated security auditor agent scans AST representations for side-channel memory leaks, an execution agent compiles isolated test matrices, and a verification agent conducts deterministic fuzz testing against edge states. The human engineer acts as the <strong>Supreme Architectural Arbiter</strong>, determining business invariants, distributed state contracts, and security boundaries.
+</p>
+
+<div class=""p-4 my-4 rounded border border-info border-opacity-30 bg-dark font-monospace"" style=""background: rgba(13, 10, 26, 0.7) !important;"">
+    <span class=""text-neon-purple fw-bold"">// The 2027 Architectural Flow</span><br/>
+    [Architect Intent] ➔ [Invariant Specification] ➔ [Agent Swarm Deconstruction] ➔ [Deterministic Compiler Verification] ➔ [Autonomous Canary Deployment]
+</div>
+
+<h3 class=""text-neon-cyan fw-bold mt-5 mb-3""><i class=""fas fa-shield-alt me-2""></i> 2. Why Strongly-Typed Languages (.NET 10 &amp; C#) Dominate the AI Era</h3>
+<p>
+    There was once a speculative belief that dynamic, untyped scripting languages would thrive with AI because ""the model can write whatever it wants."" The opposite has proven true in 2027 enterprise production.
+</p>
+<p>
+    Autonomous agents require strict, compile-time guardrails to prevent hallucinations from compromising system integrity. <strong>C# 14 and .NET 10</strong> have emerged as premiere backbones for agentic infrastructure because:
+</p>
+<ul class=""text-white-50 d-flex flex-column gap-2"">
+    <li><strong class=""text-white"">Strict Type Invariants:</strong> Non-nullable reference types, pattern matching, and record structs provide mathematical certainty that generated payloads conform to domain models.</li>
+    <li><strong class=""text-white"">High-Throughput Native AOT:</strong> Sub-millisecond cold starts and deterministic memory footprints enable agents to spin up, execute tasks in sandboxed WASM/Native runtimes, and terminate without garbage collection jitter.</li>
+    <li><strong class=""text-white"">Source Generators &amp; Roslyn Analyzers:</strong> Real-time meta-programming allows agents to introspect domain contracts and synthesize zero-overhead zero-reflection serializers dynamically.</li>
+</ul>
+
+<h3 class=""text-neon-cyan fw-bold mt-5 mb-3""><i class=""fas fa-code-branch me-2""></i> 3. The Death of Syntax Errors and the Rise of Formal Verification</h3>
+<p>
+    In 2027, a compiler rejecting code for missing braces or improper casting is unheard of. Instead, the modern IDE compiler evaluates <strong>formal semantic correctness</strong>:
+</p>
+<blockquote class=""p-3 my-4 border-start border-info border-3 bg-dark bg-opacity-50 text-white font-monospace fst-italic"">
+    ""Does this concurrent database transaction violate idempotency under network partitions? Does this telemetry emitter leak PII into unencrypted observability queues?""
+</blockquote>
+<p>
+    Compilers now act as automated mathematical theorem provers. If an AI agent drafts a distributed lock algorithm, the IDE executes symbolic execution trees across thousands of simulated edge cases before a human even reviews the pull request.
+</p>
+
+<h3 class=""text-neon-cyan fw-bold mt-5 mb-3""><i class=""fas fa-terminal me-2""></i> 4. The 2027 Engineer's Daily Workflow</h3>
+<p>
+    What does an elite software developer actually spend 8 hours doing in 2027?
+</p>
+<ol class=""text-white-50 d-flex flex-column gap-2"">
+    <li><strong class=""text-white"">09:00 - Reviewing Overnight Autonomous Refactors:</strong> Inspecting telemetry-driven PRs where agents identified latency hotspots in SQL queries, generated composite indexes, and verified performance boosts in staging.</li>
+    <li><strong class=""text-white"">11:00 - Domain Modeling &amp; Event Schemas:</strong> Designing high-level Event-Driven architectures, relational entities, and defining GraphQL/gRPC schema boundaries.</li>
+    <li><strong class=""text-white"">14:00 - Red-Teaming AI Logic:</strong> Simulating adversarial prompts, malicious payload injections, and stress-testing system fault tolerances.</li>
+    <li><strong class=""text-white"">16:00 - Strategic Edge Deployment:</strong> Authorizing canary rollouts to distributed edge regions with autonomous rollback triggers based on real-time APM telemetry.</li>
+</ol>
+
+<h3 class=""text-neon-purple fw-bold mt-5 mb-3""><i class=""fas fa-lightbulb me-2""></i> Conclusion: The Developer is More Powerful Than Ever</h3>
+<p>
+    Software development in 2027 hasn't shrunk—it has exploded in leverage. A single disciplined engineer wielding modern autonomous workflows can architect, verify, deploy, and scale enterprise platforms that previously demanded 30-person engineering organizations. Syntax is automated; vision, architecture, and resilience remain uniquely human.
+</p>";
+
+            // Blog 2: Cybersecurity & Claude Mythos
+            var blog2 = await context.Blogs.FirstOrDefaultAsync(b => b.Slug == "cybersecurity-and-claude-mythos");
+            if (blog2 == null)
+            {
+                blog2 = new Blog { Slug = "cybersecurity-and-claude-mythos" };
+                await context.Blogs.AddAsync(blog2);
+            }
+            blog2.Title = "Cybersecurity in the Age of Claude Mythos: Autonomous SecOps, Defense-in-Depth & Zero-Trust AI";
+            blog2.CategoryId = cyberBlogCat.Id;
+            blog2.ImagePath = "/images/blogs/cybersecurity-claude-mythos.jpg";
+            blog2.Tags = "CyberSecurity, ClaudeMythos, AppSec, ZeroTrust, PromptInjection, SecOps";
+            blog2.MetaTitle = "Cybersecurity & Claude Mythos | Hafiz Muhammad Saad";
+            blog2.MetaDescription = "A deep architectural investigation into AI security surfaces, prompt injection telemetry, defensive guardrails, and how Claude Mythos constructs resilient autonomous cyber defense fabrics.";
+            blog2.CreatedDate = new DateTime(2026, 9, 23, 14, 30, 0, DateTimeKind.Utc);
+            blog2.ViewCount = 189;
+            blog2.Content = @"<p class=""lead text-white font-monospace mb-4"">
+    As frontier intelligence systems and autonomous multi-agent environments become the nervous system of modern enterprises, cyber warfare has entered a quantum inflection point. The intersection of <strong>Claude Mythos</strong> architectural rigor and next-generation application security defines the new frontier of digital defense.
+</p>
+
+<h3 class=""text-neon-cyan fw-bold mt-5 mb-3""><i class=""fas fa-user-secret me-2""></i> 1. The Expanding AI Threat Vector: Beyond Traditional Exploits</h3>
+<p>
+    Conventional application security historically concentrated on SQL injections, Cross-Site Scripting (XSS), and buffer overflows. While those classic vectors remain vital, autonomous agentic networks introduce radically novel threat vectors:
+</p>
+<ul class=""text-white-50 d-flex flex-column gap-2"">
+    <li><strong class=""text-white"">Indirect Prompt Injections (IPI):</strong> Malicious payloads hidden in unstructured third-party data (e.g., invoices, resumes, RSS feeds) designed to hijack agent instruction pointers when ingested.</li>
+    <li><strong class=""text-white"">Model Context Window Poisoning:</strong> Adversaries strategically poisoning conversation histories or vector embeddings to induce subtle architectural misconfigurations over time.</li>
+    <li><strong class=""text-white"">Tool Interface Escapes:</strong> Unauthorized lateral traversal where compromised agent logic executes unintended filesystem, SQL, or API commands.</li>
+</ul>
+
+<div class=""p-4 my-4 rounded border border-danger border-opacity-30 bg-dark font-monospace"" style=""background: rgba(20, 8, 12, 0.7) !important;"">
+    <span class=""text-danger fw-bold"">// Threat Topology Warning</span><br/>
+    [Untrusted Input] ➔ [Vector RAG Ingestion] ➔ [Context Confusion Attack] ➔ [Unauthorized Tool Trigger] ➔ [Lateral Data Exfiltration]
+</div>
+
+<h3 class=""text-neon-cyan fw-bold mt-5 mb-3""><i class=""fas fa-shield-virus me-2""></i> 2. Claude Mythos: Epistemic Integrity &amp; Constitutional Hardening</h3>
+<p>
+    <strong>Claude Mythos</strong> represents the architectural culmination of safety-first, epistemically rigorous autonomous reasoning. Unlike models that rely purely on post-training heuristic filters, the Mythos paradigm implements <em>Constitutional Defense-in-Depth</em>:
+</p>
+<p>
+    At its core, Claude Mythos enforces strict <strong>Control-Plane / Data-Plane Segregation</strong>. When untrusted external content enters the model's awareness, it is quarantined in immutable data envelopes. The model's meta-reasoning layers treat incoming data strictly as operands rather than instructions—rendering classical injection tactics structurally inert.
+</p>
+
+<h3 class=""text-neon-cyan fw-bold mt-5 mb-3""><i class=""fas fa-lock me-2""></i> 3. Autonomous SecOps: The 24/7 Cognitive Security Fabric</h3>
+<p>
+    Static SIEM rules and reactive alert dashboards are incapable of defending against sub-second autonomous cyber incursions. In 2027, defense is driven by <strong>Autonomous SecOps Fabric</strong> powered by cognitive intelligence:
+</p>
+<ul class=""text-white-50 d-flex flex-column gap-2"">
+    <li><strong class=""text-white"">Real-Time Behavioral Telemetry:</strong> Machine-speed evaluation of API calling frequencies, token entropy spikes, and unauthorized payload anomalies.</li>
+    <li><strong class=""text-white"">Automated Micro-Isolation:</strong> Immediate revocation of compromised credentials and dynamic firewall quarantine within 15 milliseconds of anomalous behavioral detection.</li>
+    <li><strong class=""text-white"">Self-Patching Vulnerability Loops:</strong> Cognitive defenders generate, test in sandboxed git worktrees, and propose zero-downtime hotfixes for newly discovered zero-days before exploits proliferate.</li>
+</ul>
+
+<h3 class=""text-neon-cyan fw-bold mt-5 mb-3""><i class=""fas fa-network-wired me-2""></i> 4. Zero-Trust Model Tool Execution (The Sandboxed Architecture)</h3>
+<p>
+    An agent without boundaries is a liability. To build an impenetrable production system, engineers must wrap model tool execution in a strict <strong>Zero-Trust Envelope</strong>:
+</p>
+<div class=""p-3 my-3 bg-dark border border-secondary rounded font-monospace"" style=""font-size: 0.85rem; color: #a5b4fc;"">
+    // Immutable Tool Authorization Rule<br/>
+    [1] Every tool call requires explicit schema validation against strongly-typed DTOs.<br/>
+    [2] Dynamic SQL is strictly banned; parameterized EF Core / Prepared Statements only.<br/>
+    [3] File write permissions are scoped to dedicated ephemeral scratch sandboxes.<br/>
+    [4] Outbound network egress requires deterministic domain whitelisting.
+</div>
+
+<h3 class=""text-neon-purple fw-bold mt-5 mb-3""><i class=""fas fa-terminal me-2""></i> The Imperative for Enterprise Architects</h3>
+<p>
+    Security is no longer a checklist evaluated at the end of a sprint—it is the foundational constraint of system architecture. By pairing modern backend resilience (.NET 10, SQL Server encryption, TLS 1.3) with the epistemic rigor and cognitive defenses of Claude Mythos, developers can engineer autonomous systems that are both fiercely intelligent and fundamentally unshakeable.
+</p>";
+
+            await context.SaveChangesAsync();
         }
     }
 }
