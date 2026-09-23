@@ -2,18 +2,24 @@
 
 document.addEventListener("DOMContentLoaded", () => {
     // ==========================================
-    // 1. Developer Terminal Boot & Page-Switch Sequence
+    // 1. Terminal Boot Loader -> Animated Welcome -> Index Flow
     // ==========================================
     const loader = document.getElementById("loader-screen");
     const logBody = document.getElementById("dev-log-body");
     const termTitle = document.getElementById("dev-terminal-title");
+    const welcomeScreen = document.getElementById("welcome-screen");
 
     if (loader && logBody) {
-        const isFirstVisit = !sessionStorage.getItem("saad_portfolio_visited");
+        const path = window.location.pathname.toLowerCase();
+        const isHomePage = path === "/" || path === "" || path.endsWith("/index.html") || path.endsWith("/futuristic-portfolio-by-sa-developer/") || path.endsWith("/dist/");
+        const hasSeenWelcome = sessionStorage.getItem("saad_welcome_shown") === "true";
 
-        if (isFirstVisit) {
-            // First time visit: Complete developer terminal boot sequence + Welcome card
-            if (termTitle) termTitle.textContent = "saad@portfolio ~ bash (initial-boot)";
+        // Always run the full 3-stage sequence on Home page OR on first visit of session
+        const runFullWelcomeSequence = isHomePage || !hasSeenWelcome;
+
+        if (runFullWelcomeSequence) {
+            // Stage 1: The exact original developer terminal boot sequence
+            if (termTitle) termTitle.textContent = "saad@portfolio ~ bash";
 
             const bootLines = [
                 [0,    `<span class="dev-prompt">$</span> <span class="dev-cmd">./boot portfolio.sh</span>`],
@@ -24,10 +30,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 [1080, `<span class="dev-prompt">›</span> <span class="dev-cyan">Projects:</span>   <span class="dev-cmd">NED Academy (UMS &amp; Admissions)  ·  Nexora Digital</span>  <span class="dev-ok">✓ MOUNTED</span>`],
                 [1300, `<span class="dev-prompt">›</span> <span class="dev-cyan">AI Engine:</span>  <span class="dev-cmd">Saad's AI Assistant</span>  <span class="dev-ok">✓ ONLINE</span>`],
                 [1500, `<span class="dev-dim">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span>`],
-                [1600, `<span class="dev-ready">  ✦  Portfolio runtime verified. Access Granted.  ✦</span>`]
+                [1680, `<span class="dev-ready">  ✦  Portfolio is live. Welcome — Hafiz Muhammad Saad  ✦</span>`]
             ];
 
-            // Add progress bar
             const progressWrap = document.createElement("div");
             progressWrap.className = "dev-progress-wrap";
             progressWrap.innerHTML = `
@@ -69,145 +74,104 @@ document.addEventListener("DOMContentLoaded", () => {
                         logBody.parentElement.appendChild(progressWrap);
                     }
 
-                    // Stage 1 complete: dismiss terminal loader, then reveal fully animated welcome screen
+                    // Terminal boot reaches last line: smoothly reveal Stage 2 (Welcome Screen)
                     if (idx === bootLines.length - 1) {
                         setTimeout(() => {
-                            loader.classList.add("fade-out");
-                            setTimeout(() => {
-                                loader.style.display = "none";
+                            if (welcomeScreen) {
+                                // 1. Pre-activate welcome screen directly underneath loader (z-index 99999)
+                                welcomeScreen.style.display = "flex";
+                                welcomeScreen.classList.add("active");
 
-                                // Stage 2: Trigger Fully Animated Welcome Screen
-                                const welcomeScreen = document.getElementById("welcome-screen");
-                                if (welcomeScreen) {
-                                    welcomeScreen.style.display = "flex";
-                                    requestAnimationFrame(() => {
-                                        welcomeScreen.classList.add("active");
+                                // 2. Fade out loader screen -> crossfades directly into welcomeScreen!
+                                loader.classList.add("fade-out");
+                                setTimeout(() => {
+                                    loader.style.display = "none";
+                                }, 500);
+
+                                // 3. Auto-dismiss or button click to reveal Stage 3 (Index)
+                                let dismissed = false;
+                                const proceedToIndex = () => {
+                                    if (dismissed) return;
+                                    dismissed = true;
+                                    welcomeScreen.classList.add("welcome-dismiss");
+                                    sessionStorage.setItem("saad_welcome_shown", "true");
+
+                                    setTimeout(() => {
+                                        welcomeScreen.style.display = "none";
+                                        // Stage 3: Index page is revealed, trigger number counters!
+                                        window.dispatchEvent(new CustomEvent("portfolio-ready"));
+                                    }, 600);
+                                };
+
+                                const welcomeTimer = setTimeout(proceedToIndex, 2400);
+
+                                const skipBtn = document.getElementById("welcome-skip-btn");
+                                if (skipBtn) {
+                                    skipBtn.addEventListener("click", () => {
+                                        clearTimeout(welcomeTimer);
+                                        proceedToIndex();
                                     });
-
-                                    let hasDismissed = false;
-                                    const dismissWelcome = () => {
-                                        if (hasDismissed) return;
-                                        hasDismissed = true;
-                                        welcomeScreen.classList.add("welcome-dismiss");
-                                        sessionStorage.setItem("saad_portfolio_visited", "true");
-
-                                        // Stage 3: Reveal Index & start counters
-                                        setTimeout(() => {
-                                            welcomeScreen.style.display = "none";
-                                            window.dispatchEvent(new CustomEvent("portfolio-ready"));
-                                        }, 700);
-                                    };
-
-                                    // Auto-advance after animation completes (2.4s)
-                                    setTimeout(dismissWelcome, 2400);
-
-                                    // Or user can click "Enter Portfolio"
-                                    const skipBtn = document.getElementById("welcome-skip-btn");
-                                    if (skipBtn) {
-                                        skipBtn.addEventListener("click", dismissWelcome);
-                                    }
-                                } else {
-                                    sessionStorage.setItem("saad_portfolio_visited", "true");
-                                    window.dispatchEvent(new CustomEvent("portfolio-ready"));
                                 }
-                            }, 500);
+                            } else {
+                                loader.classList.add("fade-out");
+                                setTimeout(() => {
+                                    loader.style.display = "none";
+                                    window.dispatchEvent(new CustomEvent("portfolio-ready"));
+                                }, 500);
+                            }
                         }, 500);
                     }
                 }, delay);
             });
         } else {
-            // Page switching mode: Welcome is skipped! Show dynamic, fast, distinct developer boot lines per switch
-            const path = window.location.pathname.toLowerCase();
+            // Sub-page navigation (/Portfolio, /Blog, /About): Keep welcome screen hidden, run snappy terminal routine
+            if (welcomeScreen) welcomeScreen.style.display = "none";
+
             let switchTitle = "saad@portfolio ~ bash";
             let switchLines = [];
 
-            let switchCount = parseInt(sessionStorage.getItem("saad_switch_count") || "0", 10);
-            sessionStorage.setItem("saad_switch_count", (switchCount + 1).toString());
-
-            if (path.includes("/portfolio/details/") || path.includes("details/")) {
+            if (path.includes("/portfolio/details/")) {
                 switchTitle = "saad@portfolio:~/dossier ~ bash";
                 switchLines = [
                     [0,   `<span class="dev-prompt">$</span> <span class="dev-cmd">inspect --dossier --topology</span>`],
-                    [90,  `<span class="dev-dim">▶ Allocating memory sandbox &amp; deep AST trace...</span>`],
-                    [200, `<span class="dev-prompt">›</span> <span class="dev-cyan">Telemetry:</span> <span class="dev-cmd">Live architecture &amp; database schemas mounted</span> <span class="dev-ok">✓</span>`],
-                    [320, `<span class="dev-ready">✓ System blueprint ready (latency: 14ms)</span>`]
+                    [80,  `<span class="dev-dim">▶ Allocating memory sandbox &amp; deep AST trace...</span>`],
+                    [180, `<span class="dev-ready">✓ System blueprint ready (latency: 14ms)</span>`]
                 ];
             } else if (path.includes("/portfolio")) {
                 switchTitle = "saad@portfolio:~/projects ~ bash";
                 switchLines = [
                     [0,   `<span class="dev-prompt">$</span> <span class="dev-cmd">git checkout feature/enterprise-showcase</span>`],
-                    [90,  `<span class="dev-dim">▶ Mounting production projects: NED Academy UMS &amp; Nexora Digital...</span>`],
-                    [200, `<span class="dev-prompt">›</span> <span class="dev-cyan">Repositories:</span> <span class="dev-cmd">Live verified metrics &amp; responsive UI mounted</span> <span class="dev-ok">✓</span>`],
-                    [320, `<span class="dev-ready">✓ Enterprise showcase initialized</span>`]
+                    [80,  `<span class="dev-dim">▶ Mounting production projects: NED Academy UMS &amp; Nexora Digital...</span>`],
+                    [180, `<span class="dev-ready">✓ Enterprise showcase initialized</span>`]
                 ];
             } else if (path.includes("/blog/details/")) {
                 switchTitle = "saad@portfolio:~/articles ~ bash";
                 switchLines = [
                     [0,   `<span class="dev-prompt">$</span> <span class="dev-cmd">cat article-feed --stream-syntax</span>`],
-                    [90,  `<span class="dev-dim">▶ Parsing AST tokens &amp; rendering high-contrast syntax blocks...</span>`],
-                    [200, `<span class="dev-prompt">›</span> <span class="dev-cyan">Article:</span> <span class="dev-cmd">Reading metrics &amp; domain references calibrated</span> <span class="dev-ok">✓</span>`],
-                    [320, `<span class="dev-ready">✓ Technical whitepaper rendered</span>`]
+                    [80,  `<span class="dev-dim">▶ Parsing AST tokens &amp; rendering syntax blocks...</span>`],
+                    [180, `<span class="dev-ready">✓ Technical whitepaper rendered</span>`]
                 ];
             } else if (path.includes("/blog")) {
                 switchTitle = "saad@portfolio:~/tech-logs ~ bash";
                 switchLines = [
                     [0,   `<span class="dev-prompt">$</span> <span class="dev-cmd">cat /var/log/tech-insights.md --latest</span>`],
-                    [90,  `<span class="dev-dim">▶ Indexing technical publications &amp; engineering whitepapers...</span>`],
-                    [200, `<span class="dev-prompt">›</span> <span class="dev-cyan">Feeds:</span> <span class="dev-cmd">Software Dev in 2027 &amp; Cybersecurity Claude Mythos</span> <span class="dev-ok">✓</span>`],
-                    [320, `<span class="dev-ready">✓ Knowledge base synchronized (2 Articles Active)</span>`]
+                    [80,  `<span class="dev-dim">▶ Indexing technical publications &amp; engineering whitepapers...</span>`],
+                    [180, `<span class="dev-ready">✓ Knowledge base synchronized (2 Articles Active)</span>`]
                 ];
             } else if (path.includes("/about")) {
                 switchTitle = "saad@portfolio:~/engineer-bio ~ bash";
                 switchLines = [
                     [0,   `<span class="dev-prompt">$</span> <span class="dev-cmd">whoami --extended-profile --credentials</span>`],
-                    [90,  `<span class="dev-dim">▶ Resolving developer identity &amp; technical skill matrices...</span>`],
-                    [200, `<span class="dev-prompt">›</span> <span class="dev-cyan">Education:</span> <span class="dev-cmd">Sohail University (BSBC) &amp; Aptech Learning (ADSE)</span> <span class="dev-ok">✓</span>`],
-                    [320, `<span class="dev-ready">✓ Career roadmap &amp; engineering profile loaded</span>`]
+                    [80,  `<span class="dev-dim">▶ Resolving developer identity &amp; technical skill matrices...</span>`],
+                    [180, `<span class="dev-ready">✓ Career roadmap &amp; engineering profile loaded</span>`]
                 ];
             } else {
-                // Home page or general page switch: rotate through 4 distinct high-tech developer routines
-                const homeRoutines = [
-                    {
-                        title: "saad@portfolio:~/runtime ~ bash",
-                        lines: [
-                            [0,   `<span class="dev-prompt">$</span> <span class="dev-cmd">dotnet watch run --launch-profile HighThroughput</span>`],
-                            [90,  `<span class="dev-dim">▶ JIT compilation optimized · AOT pre-compiled binary active...</span>`],
-                            [200, `<span class="dev-prompt">›</span> <span class="dev-cyan">Pipeline:</span> <span class="dev-cmd">Invariant assertions valid &amp; verified</span> <span class="dev-ok">✓</span>`],
-                            [320, `<span class="dev-ready">✓ Viewport synchronized (DOM hydrated in 140ms)</span>`]
-                        ]
-                    },
-                    {
-                        title: "saad@portfolio:~/security-enclave ~ bash",
-                        lines: [
-                            [0,   `<span class="dev-prompt">$</span> <span class="dev-cmd">sysctl --security-enclave --zero-trust-handshake</span>`],
-                            [90,  `<span class="dev-dim">▶ Verifying cryptographic session tokens &amp; SSL handshake...</span>`],
-                            [200, `<span class="dev-prompt">›</span> <span class="dev-cyan">Anchor:</span> <span class="dev-cmd">Telemetry nodes connected · Karachi, Pakistan</span> <span class="dev-ok">✓</span>`],
-                            [320, `<span class="dev-ready">✓ Secure developer session active</span>`]
-                        ]
-                    },
-                    {
-                        title: "saad@portfolio:~/data-mesh ~ bash",
-                        lines: [
-                            [0,   `<span class="dev-prompt">$</span> <span class="dev-cmd">redis-cli --cluster check --warm-cache</span>`],
-                            [90,  `<span class="dev-dim">▶ Distributed cache warmed · Query pipeline latency: 0.6ms...</span>`],
-                            [200, `<span class="dev-prompt">›</span> <span class="dev-cyan">State:</span> <span class="dev-cmd">Reactive listeners attached to viewport components</span> <span class="dev-ok">✓</span>`],
-                            [320, `<span class="dev-ready">✓ Interface mounted &amp; fully responsive</span>`]
-                        ]
-                    },
-                    {
-                        title: "saad@portfolio:~/system ~ bash",
-                        lines: [
-                            [0,   `<span class="dev-prompt">$</span> <span class="dev-cmd">systemctl status saad-core-engine.service</span>`],
-                            [90,  `<span class="dev-dim">▶ Active: running (high-performance) · 0 crash events logged...</span>`],
-                            [200, `<span class="dev-prompt">›</span> <span class="dev-cyan">Runtime:</span> <span class="dev-cmd">C# 14 / .NET 10 CLR operational</span> <span class="dev-ok">✓</span>`],
-                            [320, `<span class="dev-ready">✓ System readiness confirmed</span>`]
-                        ]
-                    }
+                switchTitle = "saad@portfolio:~/runtime ~ bash";
+                switchLines = [
+                    [0,   `<span class="dev-prompt">$</span> <span class="dev-cmd">dotnet run --profile HighThroughput</span>`],
+                    [80,  `<span class="dev-dim">▶ JIT compilation optimized · AOT binary active...</span>`],
+                    [180, `<span class="dev-ready">✓ Viewport synchronized</span>`]
                 ];
-
-                const selected = homeRoutines[switchCount % homeRoutines.length];
-                switchTitle = selected.title;
-                switchLines = selected.lines;
             }
 
             if (termTitle) termTitle.textContent = switchTitle;
@@ -216,7 +180,7 @@ document.addEventListener("DOMContentLoaded", () => {
             progressWrap.className = "dev-progress-wrap";
             progressWrap.innerHTML = `
                 <div class="dev-progress-label">
-                    <span class="dev-dim">Navigating route...</span>
+                    <span class="dev-dim">Navigating...</span>
                     <span class="dev-cyan" id="dev-progress-pct">0%</span>
                 </div>
                 <div class="dev-progress-bar-outer">
@@ -256,30 +220,12 @@ document.addEventListener("DOMContentLoaded", () => {
                             setTimeout(() => {
                                 loader.style.display = "none";
                                 window.dispatchEvent(new CustomEvent("portfolio-ready"));
-                            }, 450);
-                        }, 250);
+                            }, 350);
+                        }, 200);
                     }
                 }, delay);
             });
         }
-
-        // Intercept internal navigation clicks for smooth transition
-        document.addEventListener("click", (e) => {
-            const anchor = e.target.closest("a");
-            if (!anchor) return;
-            const href = anchor.getAttribute("href");
-            if (!href || href.startsWith("#") || href.startsWith("javascript:") || href.startsWith("mailto:") || href.startsWith("tel:") || anchor.target === "_blank") return;
-
-            if (href.startsWith("/") || href.startsWith("./") || href.startsWith("../") || href.includes(window.location.hostname)) {
-                loader.style.display = "flex";
-                loader.classList.remove("fade-out");
-                logBody.innerHTML = `
-                    <div class="dev-log-line visible"><span class="dev-prompt">$</span> <span class="dev-cmd">nav --target "${href}"</span></div>
-                    <div class="dev-log-line visible"><span class="dev-dim">▶ Switching context &amp; rendering viewport...</span></div>
-                `;
-                if (termTitle) termTitle.textContent = "saad@portfolio:~/switching-route ~ bash";
-            }
-        });
     }
 
     let adminAccessAttempts = 0;
