@@ -88,30 +88,70 @@ document.addEventListener("DOMContentLoaded", () => {
                                     loader.style.display = "none";
                                 }, 500);
 
-                                // 3. Auto-dismiss or button click to reveal Stage 3 (Index)
-                                let dismissed = false;
-                                const proceedToIndex = () => {
-                                    if (dismissed) return;
-                                    dismissed = true;
-                                    welcomeScreen.classList.add("welcome-dismiss");
-                                    sessionStorage.setItem("saad_welcome_shown", "true");
+                                // 3. Interactive Enter Button Handler with 3-Second VIP Client Handshake
+                                const skipBtn = document.getElementById("welcome-skip-btn");
+                                const viewMain = document.getElementById("welcome-view-main");
+                                const viewHandshake = document.getElementById("welcome-view-handshake");
+                                const progressBar = document.getElementById("handshake-progress-bar");
+                                const timerNum = document.getElementById("handshake-timer-num");
 
-                                    setTimeout(() => {
-                                        welcomeScreen.style.display = "none";
-                                        // Stage 3: Index page is revealed, trigger number counters!
-                                        window.dispatchEvent(new CustomEvent("portfolio-ready"));
-                                    }, 600);
+                                let clicked = false;
+                                const handleClientEnter = () => {
+                                    if (clicked) return;
+                                    clicked = true;
+
+                                    // Switch from welcome panel to 3-second VIP Handshake
+                                    if (viewMain) viewMain.style.display = "none";
+                                    if (viewHandshake) {
+                                        viewHandshake.style.display = "block";
+                                        requestAnimationFrame(() => {
+                                            if (progressBar) progressBar.style.width = "100%";
+                                        });
+
+                                        let remaining = 3;
+                                        const timer = setInterval(() => {
+                                            remaining--;
+                                            if (timerNum && remaining >= 0) {
+                                                timerNum.textContent = remaining.toString();
+                                            }
+                                            if (remaining <= 0) {
+                                                clearInterval(timer);
+                                            }
+                                        }, 1000);
+
+                                        // Hold for 3 seconds, then launch portfolio index!
+                                        setTimeout(() => {
+                                            welcomeScreen.classList.add("welcome-dismiss");
+                                            sessionStorage.setItem("saad_welcome_shown", "true");
+
+                                            setTimeout(() => {
+                                                welcomeScreen.style.display = "none";
+                                                // Stage 3: Index page is live, start number counters!
+                                                window.dispatchEvent(new CustomEvent("portfolio-ready"));
+                                            }, 600);
+                                        }, 3000);
+                                    } else {
+                                        welcomeScreen.classList.add("welcome-dismiss");
+                                        sessionStorage.setItem("saad_welcome_shown", "true");
+                                        setTimeout(() => {
+                                            welcomeScreen.style.display = "none";
+                                            window.dispatchEvent(new CustomEvent("portfolio-ready"));
+                                        }, 600);
+                                    }
                                 };
 
-                                const welcomeTimer = setTimeout(proceedToIndex, 2400);
-
-                                const skipBtn = document.getElementById("welcome-skip-btn");
                                 if (skipBtn) {
-                                    skipBtn.addEventListener("click", () => {
-                                        clearTimeout(welcomeTimer);
-                                        proceedToIndex();
-                                    });
+                                    skipBtn.addEventListener("click", handleClientEnter);
                                 }
+
+                                // Also allow keyboard Enter key
+                                const handleKey = (e) => {
+                                    if (e.key === "Enter" && !clicked) {
+                                        document.removeEventListener("keydown", handleKey);
+                                        handleClientEnter();
+                                    }
+                                };
+                                document.addEventListener("keydown", handleKey);
                             } else {
                                 loader.classList.add("fade-out");
                                 setTimeout(() => {

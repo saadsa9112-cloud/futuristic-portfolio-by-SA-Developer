@@ -580,28 +580,151 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Enter Button */
 .welcome-enter-btn {
-    background: transparent;
-    border: 1px solid rgba(0, 217, 255, 0.5);
+    background: linear-gradient(135deg, rgba(139, 61, 255, 0.4) 0%, rgba(0, 217, 255, 0.3) 100%);
+    border: 1px solid rgba(0, 217, 255, 0.7);
     color: #FFFFFF;
     font-family: 'Space Grotesk', system-ui, sans-serif;
-    font-size: 0.85rem;
-    font-weight: 600;
-    letter-spacing: 0.1em;
+    font-size: 0.95rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
-    padding: 8px 24px;
+    padding: 12px 34px;
     border-radius: 99px;
     cursor: pointer;
     display: inline-flex;
     align-items: center;
-    transition: all 0.3s ease;
-    box-shadow: 0 0 20px rgba(0, 217, 255, 0.15);
+    gap: 10px;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 0 25px rgba(0, 217, 255, 0.35), 0 0 50px rgba(139, 61, 255, 0.2);
+    position: relative;
+    overflow: hidden;
+    animation: btn-pulse-glow 2.2s infinite alternate;
+}
+
+@keyframes btn-pulse-glow {
+    0% { transform: scale(1); box-shadow: 0 0 20px rgba(0, 217, 255, 0.35); }
+    100% { transform: scale(1.03); box-shadow: 0 0 40px rgba(0, 217, 255, 0.65), 0 0 65px rgba(139, 61, 255, 0.4); }
 }
 
 .welcome-enter-btn:hover {
-    background: rgba(0, 217, 255, 0.15);
+    background: linear-gradient(135deg, rgba(139, 61, 255, 0.6) 0%, rgba(0, 217, 255, 0.5) 100%);
     border-color: #00D9FF;
-    box-shadow: 0 0 30px rgba(0, 217, 255, 0.4);
-    transform: translateY(-2px);
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 0 50px rgba(0, 217, 255, 0.8), 0 0 85px rgba(139, 61, 255, 0.55);
+}
+
+/* ============================================================
+   CLIENT HANDSHAKE VIP CARD (3-SECOND TRANSITION)
+   ============================================================ */
+.welcome-handshake-card {
+    background: rgba(13, 10, 26, 0.92);
+    border: 1px solid rgba(0, 217, 255, 0.5);
+    border-radius: 16px;
+    padding: 34px 28px;
+    box-shadow: 0 0 60px rgba(139, 61, 255, 0.4), 0 0 90px rgba(0, 217, 255, 0.25), inset 0 0 35px rgba(0, 217, 255, 0.08);
+    backdrop-filter: blur(25px);
+    max-width: 680px;
+    width: 100%;
+    margin: 0 auto;
+    text-align: center;
+    animation: handshake-entrance 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes handshake-entrance {
+    0% { opacity: 0; transform: scale(0.92) translateY(18px); }
+    100% { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.handshake-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.74rem;
+    font-family: 'Consolas', monospace;
+    letter-spacing: 0.16em;
+    padding: 6px 18px;
+    background: rgba(0, 217, 255, 0.08);
+    border: 1px solid rgba(0, 217, 255, 0.4);
+    border-radius: 99px;
+    color: #00D9FF;
+    margin-bottom: 18px;
+}
+
+.handshake-icon-hero {
+    font-size: 3.2rem;
+    margin-bottom: 12px;
+    line-height: 1;
+    display: inline-block;
+    animation: icon-bounce 1s ease infinite alternate;
+}
+
+@keyframes icon-bounce {
+    0% { transform: translateY(0) scale(1); }
+    100% { transform: translateY(-6px) scale(1.08); }
+}
+
+.handshake-title {
+    font-size: clamp(1.6rem, 3.8vw, 2.2rem);
+    font-weight: 800;
+    color: #FFFFFF;
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+    margin-bottom: 14px;
+    letter-spacing: 0.02em;
+}
+
+.handshake-highlight {
+    background: linear-gradient(90deg, #FFFFFF 0%, #00D9FF 50%, #A855F7 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.handshake-body {
+    font-size: clamp(0.94rem, 1.8vw, 1.05rem);
+    color: #e2e8f0;
+    line-height: 1.65;
+    margin-bottom: 18px;
+    font-family: system-ui, -apple-system, sans-serif;
+}
+
+.handshake-quote-box {
+    background: rgba(139, 61, 255, 0.12);
+    border-left: 3px solid #00D9FF;
+    border-right: 3px solid #8B3DFF;
+    padding: 10px 18px;
+    border-radius: 6px;
+    font-family: 'Space Grotesk', monospace;
+    font-size: 0.88rem;
+    color: #cbd5e1;
+    margin-bottom: 24px;
+    font-style: italic;
+}
+
+.handshake-progress-outer {
+    width: 100%;
+    height: 5px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 99px;
+    overflow: hidden;
+    margin-bottom: 12px;
+}
+
+.handshake-progress-bar {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #00D9FF, #8B3DFF, #27c93f);
+    border-radius: 99px;
+    box-shadow: 0 0 15px #00D9FF;
+    transition: width 3s linear;
+}
+
+.handshake-status-row {
+    font-size: 0.82rem;
+    font-family: 'Consolas', monospace;
+    color: rgba(255, 255, 255, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
 }
 
 @keyframes welcome-fade-down {
