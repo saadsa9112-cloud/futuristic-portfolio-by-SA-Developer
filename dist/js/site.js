@@ -69,48 +69,49 @@ document.addEventListener("DOMContentLoaded", () => {
                         logBody.parentElement.appendChild(progressWrap);
                     }
 
-                    // Once boot lines finish, show the Welcome Card
+                    // Stage 1 complete: dismiss terminal loader, then reveal fully animated welcome screen
                     if (idx === bootLines.length - 1) {
                         setTimeout(() => {
-                            const prevCursor = logBody.querySelector(".dev-cursor");
-                            if (prevCursor) prevCursor.remove();
-
-                            const welcomeCard = document.createElement("div");
-                            welcomeCard.className = "dev-welcome-card";
-                            welcomeCard.innerHTML = `
-                                <div class="dev-welcome-badge">
-                                    <span class="dev-ok">● SYSTEM ONLINE</span>
-                                    <span class="dev-dim">|</span>
-                                    <span class="dev-cyan">SECURE SESSION</span>
-                                </div>
-                                <div class="dev-welcome-title">WELCOME TO HAFIZ MUHAMMAD SAAD PORTFOLIO</div>
-                                <div class="dev-welcome-tagline">"Architecting Resilient Enterprise Solutions, High-Throughput .NET Systems &amp; Autonomous AI Architectures"</div>
-                                <div class="dev-welcome-meta">
-                                    <span><i class="fas fa-map-marker-alt text-neon-cyan me-1"></i> Karachi, Pakistan</span>
-                                    <span class="dev-dim">·</span>
-                                    <span><i class="fas fa-terminal text-neon-purple me-1"></i> Full-Stack Software Engineer</span>
-                                    <span class="dev-dim">·</span>
-                                    <span class="dev-ok">Status: Ready</span>
-                                </div>
-                            `;
-                            logBody.appendChild(welcomeCard);
-
-                            requestAnimationFrame(() => {
-                                requestAnimationFrame(() => {
-                                    welcomeCard.classList.add("visible");
-                                });
-                            });
-
-                            // Display welcome card for 1300ms, then dismiss loader & emit event
+                            loader.classList.add("fade-out");
                             setTimeout(() => {
-                                loader.classList.add("fade-out");
-                                sessionStorage.setItem("saad_portfolio_visited", "true");
-                                setTimeout(() => {
-                                    loader.style.display = "none";
+                                loader.style.display = "none";
+
+                                // Stage 2: Trigger Fully Animated Welcome Screen
+                                const welcomeScreen = document.getElementById("welcome-screen");
+                                if (welcomeScreen) {
+                                    welcomeScreen.style.display = "flex";
+                                    requestAnimationFrame(() => {
+                                        welcomeScreen.classList.add("active");
+                                    });
+
+                                    let hasDismissed = false;
+                                    const dismissWelcome = () => {
+                                        if (hasDismissed) return;
+                                        hasDismissed = true;
+                                        welcomeScreen.classList.add("welcome-dismiss");
+                                        sessionStorage.setItem("saad_portfolio_visited", "true");
+
+                                        // Stage 3: Reveal Index & start counters
+                                        setTimeout(() => {
+                                            welcomeScreen.style.display = "none";
+                                            window.dispatchEvent(new CustomEvent("portfolio-ready"));
+                                        }, 700);
+                                    };
+
+                                    // Auto-advance after animation completes (2.4s)
+                                    setTimeout(dismissWelcome, 2400);
+
+                                    // Or user can click "Enter Portfolio"
+                                    const skipBtn = document.getElementById("welcome-skip-btn");
+                                    if (skipBtn) {
+                                        skipBtn.addEventListener("click", dismissWelcome);
+                                    }
+                                } else {
+                                    sessionStorage.setItem("saad_portfolio_visited", "true");
                                     window.dispatchEvent(new CustomEvent("portfolio-ready"));
-                                }, 600);
-                            }, 1300);
-                        }, 400);
+                                }
+                            }, 500);
+                        }, 500);
                     }
                 }, delay);
             });
