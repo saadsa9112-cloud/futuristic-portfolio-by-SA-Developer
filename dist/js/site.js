@@ -2,17 +2,86 @@
 
 document.addEventListener("DOMContentLoaded", () => {
     // ==========================================
-    // 1. Loader Screen Controller
+    // 1. Developer Terminal Boot Sequence
     // ==========================================
     const loader = document.getElementById("loader-screen");
-    if (loader) {
-        setTimeout(() => {
-            loader.style.opacity = "0";
+    const logBody = document.getElementById("dev-log-body");
+
+    if (loader && logBody) {
+        // Terminal boot lines: [delay_ms, html_content]
+        const bootLines = [
+            [0,   `<span class="dev-prompt">$</span> <span class="dev-cmd">./boot portfolio.sh</span>`],
+            [200, `<span class="dev-dim">▶  Initializing runtime environment...</span>`],
+            [480, `<span class="dev-prompt">›</span> <span class="dev-cyan">Framework:</span>  <span class="dev-cmd">ASP.NET Core 10 MVC</span>  <span class="dev-ok">✓ READY</span>`],
+            [700, `<span class="dev-prompt">›</span> <span class="dev-cyan">Database:</span>   <span class="dev-cmd">SQL Server + Entity Framework Core</span>  <span class="dev-ok">✓ CONNECTED</span>`],
+            [940, `<span class="dev-prompt">›</span> <span class="dev-cyan">Language:</span>   <span class="dev-cmd">C# .NET 10 / React 19 / JavaScript</span>  <span class="dev-ok">✓ LOADED</span>`],
+            [1160,`<span class="dev-prompt">›</span> <span class="dev-cyan">Projects:</span>   <span class="dev-cmd">NED Academy  ·  Nexora Digital  ·  HMS Analytics</span>  <span class="dev-ok">✓ MOUNTED</span>`],
+            [1380,`<span class="dev-prompt">›</span> <span class="dev-cyan">AI Engine:</span>  <span class="dev-cmd">Saad's AI Assistant</span>  <span class="dev-ok">✓ ONLINE</span>`],
+            [1580,`<span class="dev-dim">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span>`],
+            [1680,`<span class="dev-ready">  ✦  Portfolio is live. Welcome — Hafiz Muhammad Saad  ✦</span>`],
+        ];
+
+        // Add progress bar
+        const progressWrap = document.createElement("div");
+        progressWrap.className = "dev-progress-wrap";
+        progressWrap.innerHTML = `
+            <div class="dev-progress-label">
+                <span class="dev-dim">Loading modules...</span>
+                <span class="dev-cyan" id="dev-progress-pct">0%</span>
+            </div>
+            <div class="dev-progress-bar-outer">
+                <div class="dev-progress-bar-inner" id="dev-progress-bar"></div>
+            </div>`;
+
+        // Render each line at its scheduled delay
+        const totalTime = bootLines[bootLines.length - 1][0];
+        const cursor = document.createElement("span");
+        cursor.className = "dev-cursor";
+
+        bootLines.forEach(([delay, html], idx) => {
             setTimeout(() => {
-                loader.style.display = "none";
-            }, 500);
-        }, 1200);
+                // Remove cursor from previous line
+                if (logBody.lastChild && logBody.lastChild.querySelector) {
+                    const prev = logBody.lastChild.querySelector?.(".dev-cursor");
+                    if (prev) prev.remove();
+                }
+
+                const line = document.createElement("div");
+                line.className = "dev-log-line";
+                line.innerHTML = html;
+
+                // Add cursor to last visible line
+                line.appendChild(cursor.cloneNode());
+                logBody.appendChild(line);
+
+                // Force reflow then make visible
+                requestAnimationFrame(() => {
+                    requestAnimationFrame(() => { line.classList.add("visible"); });
+                });
+
+                // Progress bar update
+                const pct = Math.round(((idx + 1) / bootLines.length) * 100);
+                const bar = document.getElementById("dev-progress-bar");
+                const pctLabel = document.getElementById("dev-progress-pct");
+                if (bar) bar.style.width = pct + "%";
+                if (pctLabel) pctLabel.textContent = pct + "%";
+
+                // Add progress wrap after first line
+                if (idx === 0 && !logBody.parentElement.querySelector(".dev-progress-wrap")) {
+                    logBody.parentElement.appendChild(progressWrap);
+                }
+
+                // Last line: dismiss loader after short pause
+                if (idx === bootLines.length - 1) {
+                    setTimeout(() => {
+                        loader.classList.add("fade-out");
+                        setTimeout(() => { loader.style.display = "none"; }, 700);
+                    }, 620);
+                }
+            }, delay);
+        });
     }
+
 
     let adminAccessAttempts = 0;
 
@@ -72,7 +141,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // ==========================================
-    // 3b. Professional Animated Count-Up Counters
+    // 3b. Professional Step-by-Step Count-Up Counters
     // ==========================================
     const initCounters = () => {
         const statsElements = document.querySelectorAll("#stats-section, #about-stats-section");
@@ -81,44 +150,40 @@ document.addEventListener("DOMContentLoaded", () => {
         statsElements.forEach(section => {
             if (section.dataset.countersAnimated === "true") return;
 
-            const counters = section.querySelectorAll(".counter-number");
-
             const animateCounters = () => {
                 section.dataset.countersAnimated = "true";
+                const counters = section.querySelectorAll(".counter-number");
 
                 counters.forEach(counter => {
-                    const target = parseInt(counter.getAttribute("data-target"), 10) || 0;
+                    const target = parseInt(counter.getAttribute("data-target"), 10);
+                    if (isNaN(target) || target <= 0) {
+                        counter.textContent = isNaN(target) ? "0" : target;
+                        return;
+                    }
 
-                    if (prefersReducedMotion || target <= 0) {
+                    if (prefersReducedMotion) {
                         counter.textContent = target;
                         return;
                     }
 
-                    const duration = 1400; // Smooth 1.4s duration
-                    const startTime = performance.now();
-                    let lastValue = -1;
+                    // Step-based: each integer is shown for a fixed delay
+                    // Total duration spread evenly across all steps
+                    const totalDuration = Math.min(1800, Math.max(800, target * 180));
+                    const stepDelay = totalDuration / target;
 
-                    const step = (currentTime) => {
-                        const elapsed = currentTime - startTime;
-                        const progress = Math.min(elapsed / duration, 1);
+                    let current = 0;
+                    counter.textContent = "0";
 
-                        // Ease-out quad formula
-                        const easeOutProgress = 1 - (1 - progress) * (1 - progress);
-                        const currentInt = Math.min(Math.floor(easeOutProgress * (target + 1)), target);
-
-                        if (currentInt !== lastValue) {
-                            counter.textContent = currentInt;
-                            lastValue = currentInt;
+                    const tick = () => {
+                        current++;
+                        counter.textContent = current;
+                        if (current < target) {
+                            setTimeout(tick, stepDelay);
                         }
-
-                        if (progress < 1 && currentInt < target) {
-                            requestAnimationFrame(step);
-                        } else {
-                            counter.textContent = target; // Permanent final stop
-                        }
+                        // At target — permanently stops. No further calls.
                     };
 
-                    requestAnimationFrame(step);
+                    setTimeout(tick, stepDelay);
                 });
             };
 
@@ -130,8 +195,7 @@ document.addEventListener("DOMContentLoaded", () => {
                             obs.unobserve(entry.target);
                         }
                     });
-                }, { threshold: 0.15 });
-
+                }, { threshold: 0.2 });
                 observer.observe(section);
             } else {
                 animateCounters();

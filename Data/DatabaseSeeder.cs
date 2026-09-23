@@ -182,7 +182,7 @@ namespace FuturisticPortfolio.Data
                     Status = "Published",
                     FeaturedOption = true,
                     DisplayOrder = 1,
-                    ThumbnailPath = "/images/projects/ums-portal.jpg",
+                    ThumbnailPath = "/images/projects/ned-academy.jpg",
                     CategoryId = defaultCat?.Id,
                     Challenges = "Managing multi-step student admission submissions, document verification queues, and role-based academic department authorizations concurrently without schema lockups.",
                     Solutions = "Designed a normalized relational SQL Server database schema with asynchronous EF Core transactions, audit logging for administrative edits, and secure document upload management."
