@@ -15,18 +15,20 @@
 
     <!-- Style Assets -->
     <link rel="stylesheet" href="../lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="../css/site.css?v=1790262604783" />
+    <link rel="stylesheet" href="../css/site.css?v=1790263115945" />
     <link rel="stylesheet" href="../FuturisticPortfolio.styles.css?v=cXSw8uWbeBRRKqQImmDtUF9PgLFcp0jNpAJVcYp-LoE" />
     
     <!-- CDNs for Premium Libraries -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
 
-    <!-- Immediate Scroll Lock to prevent background index page scroll only on initial first load -->
+    <!-- Immediate Scroll Lock to prevent background index page scroll during welcome/loader -->
     <script>
         (function() {
-            var hasSeen = (sessionStorage.getItem("saad_welcome_shown") === "true") || (localStorage.getItem("saad_welcome_shown") === "true");
-            if (!hasSeen) {
+            var path = window.location.pathname.toLowerCase();
+            var isHome = path === "/" || path === "" || path.endsWith("/index.html") || path.endsWith("/futuristic-portfolio-by-sa-developer/") || path.endsWith("/dist/");
+            var hasSeen = sessionStorage.getItem("saad_welcome_shown") === "true";
+            if (isHome || !hasSeen) {
                 document.documentElement.classList.add("lock-scroll");
             }
         })();
@@ -343,7 +345,7 @@
                 </div>
 
                 <form id="contact-page-form" class="row g-3">
-                    <input name="__RequestVerificationToken" type="hidden" value="CfDJ8G4mfT-tyH5KmFrg4xby0PrhtVezEnvZHDinno11R8sU-88Au-0spFFvAM21WgeBx32_y451afBLFSyVal7xRBgd9fCfH4V-BfcTQEzZ868adsd5Fd5ON_5snxKfxiNcrPC7Dj5iQUDd-sf-ncs9IAM" />
+                    <input name="__RequestVerificationToken" type="hidden" value="CfDJ8G4mfT-tyH5KmFrg4xby0PpIy12whkXSE8k7lFxgyfQgMM_leWgKeWanuBaj17EznwuFesAnRcJUVuSlEAsOPg6Gtxzacjb0dq8Xmm5q2j9tjmF6KrLxxTVzWcuV6_7Hk8QtQcwLWDf8ZFHa_mU8L7M" />
                     
                     <div class="col-md-6">
                         <label class="form-label font-monospace small text-muted">TRANSMITTER NAME *</label>
@@ -709,7 +711,7 @@
     <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="../js/site.js?v=1790262604783"></script>
+    <script src="../js/site.js?v=1790263115945"></script>
     <script src="../js/hms-telemetry.js?v=5hUu86zj9Iv2YHukAHxmlvrlFy4NbzNsW7A5vJsOc1s"></script>
     
 </body>
