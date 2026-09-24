@@ -494,27 +494,53 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     // ==========================================
-    // 3. Custom Cursor & Glow Trackers
+    // 3. Custom Cursor & Interactive Glow Engine (Dual Lerp Cursor)
     // ==========================================
     const cursor = document.querySelector(".custom-cursor");
     const cursorDot = document.querySelector(".custom-cursor-dot");
     const ambientGlow = document.querySelector(".ambient-glow");
 
-    if (cursor && cursorDot) {
+    let mouseX = window.innerWidth / 2;
+    let mouseY = window.innerHeight / 2;
+    let ringX = mouseX;
+    let ringY = mouseY;
+    let isTouch = window.matchMedia("(pointer: coarse)").matches;
+
+    if (!isTouch && cursor && cursorDot) {
         document.addEventListener("mousemove", (e) => {
-            cursor.style.left = `${e.clientX}px`;
-            cursor.style.top = `${e.clientY}px`;
-            cursorDot.style.left = `${e.clientX}px`;
-            cursorDot.style.top = `${e.clientY}px`;
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+
+            // Dot follows instantaneously
+            cursorDot.style.left = `${mouseX}px`;
+            cursorDot.style.top = `${mouseY}px`;
 
             if (ambientGlow) {
-                ambientGlow.style.left = `${e.clientX}px`;
-                ambientGlow.style.top = `${e.clientY}px`;
+                ambientGlow.style.left = `${mouseX}px`;
+                ambientGlow.style.top = `${mouseY}px`;
             }
         });
 
-        // Add hover effects and trigger hover sound
-        const hoverables = document.querySelectorAll("a, button, input, select, textarea, .quick-chip, .clickable, .tech-icon-box");
+        // Outer ring follows with smooth spring lerp
+        const renderCursorRing = () => {
+            ringX += (mouseX - ringX) * 0.22;
+            ringY += (mouseY - ringY) * 0.22;
+            cursor.style.left = `${ringX.toFixed(2)}px`;
+            cursor.style.top = `${ringY.toFixed(2)}px`;
+            requestAnimationFrame(renderCursorRing);
+        };
+        requestAnimationFrame(renderCursorRing);
+
+        // Click haptic scale
+        document.addEventListener("mousedown", () => {
+            cursor.classList.add("cursor-clicking");
+        });
+        document.addEventListener("mouseup", () => {
+            cursor.classList.remove("cursor-clicking");
+        });
+
+        // Hover expand on interactive elements
+        const hoverables = document.querySelectorAll("a, button, input, select, textarea, .quick-chip, .clickable, .tech-icon-box, .stat-dev-card, .project-terminal-card, .cyber-cli-btn");
         hoverables.forEach((item) => {
             item.addEventListener("mouseenter", () => {
                 cursor.classList.add("cursor-hover");
@@ -527,6 +553,248 @@ document.addEventListener("DOMContentLoaded", () => {
                 playSynthSound('click');
             });
         });
+
+        // Magnetic Attraction on Buttons
+        const magneticElements = document.querySelectorAll(".btn, .cyber-cli-btn, .quick-chip, .hud-minimize-btn");
+        magneticElements.forEach(btn => {
+            btn.classList.add("magnetic-btn");
+            btn.addEventListener("mousemove", (e) => {
+                const rect = btn.getBoundingClientRect();
+                const dx = e.clientX - (rect.left + rect.width / 2);
+                const dy = e.clientY - (rect.top + rect.height / 2);
+                btn.style.transform = `translate(${dx * 0.22}px, ${dy * 0.22}px)`;
+            });
+            btn.addEventListener("mouseleave", () => {
+                btn.style.transform = "translate(0px, 0px)";
+            });
+        });
+    }
+
+    // Sonar Shockwave on Click (Ethereal cyber ripple)
+    document.addEventListener("click", (e) => {
+        if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+        const wave = document.createElement("div");
+        wave.className = "cyber-sonar-shockwave";
+        wave.style.left = `${e.clientX}px`;
+        wave.style.top = `${e.clientY}px`;
+        document.body.appendChild(wave);
+        setTimeout(() => wave.remove(), 700);
+    });
+
+    // ==========================================
+    // 3B. Unique Cyber Animations (Matrix Decrypt, 3D Gyro Tilt, Laser Sweep, Telemetry HUD)
+    // ==========================================
+
+    // A. Matrix Text Glyph Decryption Engine
+    class MatrixDecrypter {
+        constructor(el) {
+            this.el = el;
+            this.chars = '!<>-_\\/[]{}—=+*^?#010101XYZSAAD';
+            this.originalText = el.getAttribute('data-original-text') || el.textContent.trim();
+            el.setAttribute('data-original-text', this.originalText);
+            this.update = this.update.bind(this);
+            this.isRunning = false;
+        }
+        setText(newText) {
+            const oldText = this.el.textContent.trim();
+            const length = Math.max(oldText.length, newText.length);
+            this.queue = [];
+            for (let i = 0; i < length; i++) {
+                const from = oldText[i] || '';
+                const to = newText[i] || '';
+                const start = Math.floor(Math.random() * 8);
+                const end = start + Math.floor(Math.random() * 12);
+                this.queue.push({ from, to, start, end, char: '' });
+            }
+            cancelAnimationFrame(this.frameRequest);
+            this.frame = 0;
+            this.isRunning = true;
+            this.update();
+        }
+        update() {
+            let output = '';
+            let complete = 0;
+            for (let i = 0, n = this.queue.length; i < n; i++) {
+                let { from, to, start, end, char } = this.queue[i];
+                if (this.frame >= end) {
+                    complete++;
+                    output += to;
+                } else if (this.frame >= start) {
+                    if (!char || Math.random() < 0.28) {
+                        char = this.chars[Math.floor(Math.random() * this.chars.length)];
+                        this.queue[i].char = char;
+                    }
+                    output += `<span class="scramble-glyph">${char}</span>`;
+                } else {
+                    output += from;
+                }
+            }
+            this.el.innerHTML = output;
+            if (complete === this.queue.length) {
+                this.el.textContent = this.originalText;
+                this.isRunning = false;
+            } else {
+                this.frameRequest = requestAnimationFrame(this.update);
+                this.frame++;
+            }
+        }
+        decrypt() {
+            if (this.isRunning) return;
+            this.setText(this.originalText);
+        }
+    }
+
+    // Attach Matrix Decrypter to Section Headings & Badges
+    const scrambleCandidates = document.querySelectorAll(
+        "h2.display-5, .section-title, .section-badge, .dev-status-pill, .stat-metric-id, .hud-brand-tag, .dev-ide-tab, .welcome-meta-sub"
+    );
+
+    const scrambleInstances = [];
+    scrambleCandidates.forEach(el => {
+        // Only target elements that are single text lines without deep nested DOM
+        if (el.children.length <= 1) {
+            const decrypter = new MatrixDecrypter(el);
+            scrambleInstances.push({ el, decrypter });
+
+            // Re-decrypt on mouse hover
+            el.addEventListener("mouseenter", () => {
+                decrypter.decrypt();
+            });
+        }
+    });
+
+    // Trigger Matrix Decryption on Scroll Reveal
+    if ('IntersectionObserver' in window && scrambleInstances.length > 0) {
+        const titleObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const match = scrambleInstances.find(item => item.el === entry.target);
+                    if (match) {
+                        match.decrypter.decrypt();
+                    }
+                }
+            });
+        }, { threshold: 0.25 });
+
+        scrambleInstances.forEach(item => titleObserver.observe(item.el));
+    }
+
+    // B. 3D Tilt & Holographic Specular Glare (Physics Engine)
+    if (!isTouch) {
+        const tiltTargets = document.querySelectorAll(
+            ".project-terminal-card, .stat-dev-card, .tech-icon-box, .cyber-hud-card, .dev-ide-window, .card.bg-dark, .blog-card, .glass-panel"
+        );
+
+        tiltTargets.forEach(card => {
+            card.classList.add("cyber-tilt-card");
+
+            card.addEventListener("mousemove", (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+
+                const rotateX = ((y - centerY) / centerY) * -7;
+                const rotateY = ((x - centerX) / centerX) * 7;
+
+                card.style.setProperty("--mx", `${x}px`);
+                card.style.setProperty("--my", `${y}px`);
+                card.style.transform = `perspective(1000px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) scale3d(1.02, 1.02, 1.02)`;
+            });
+
+            card.addEventListener("mouseleave", () => {
+                card.style.transform = "perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)";
+            });
+        });
+    }
+
+    // C. Cyber Laser Scanline Beam on Scroll Reveal
+    if ('IntersectionObserver' in window) {
+        const laserSweepTargets = document.querySelectorAll(
+            ".project-terminal-card, .dev-ide-window, #audit-terminal-screen, .stat-dev-card, .cyber-hud-card"
+        );
+
+        const laserObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add("laser-sweep-card", "laser-active");
+                    setTimeout(() => {
+                        entry.target.classList.remove("laser-active");
+                    }, 1400);
+                }
+            });
+        }, { threshold: 0.2 });
+
+        laserSweepTargets.forEach(t => laserObserver.observe(t));
+    }
+
+    // D. Floating Cyber Telemetry HUD (Viewport Diagnostics)
+    const hud = document.getElementById("cyber-telemetry-hud");
+    if (hud) {
+        const hudToggleBtn = document.getElementById("hud-toggle-btn");
+        const hudToggleIcon = document.getElementById("hud-toggle-icon");
+        const hudFpsVal = document.getElementById("hud-fps-val");
+        const hudCoordsVal = document.getElementById("hud-coords-val");
+        const hudScrollVal = document.getElementById("hud-scroll-val");
+        const hudVelocityVal = document.getElementById("hud-velocity-val");
+
+        // Toggle Minimize / Maximize
+        if (hudToggleBtn) {
+            hudToggleBtn.addEventListener("click", () => {
+                hud.classList.toggle("minimized");
+                if (hudToggleIcon) {
+                    hudToggleIcon.className = hud.classList.contains("minimized") ? "fas fa-plus" : "fas fa-minus";
+                }
+            });
+        }
+
+        // Live FPS Loop
+        let frames = 0;
+        let lastFpsCheck = performance.now();
+        const updateFpsCounter = (now) => {
+            frames++;
+            if (now - lastFpsCheck >= 500) {
+                const fps = Math.min(144, Math.round((frames * 1000) / (now - lastFpsCheck)));
+                if (hudFpsVal) {
+                    hudFpsVal.textContent = `${fps} FPS`;
+                    hudFpsVal.className = fps >= 45 ? "hud-metric-value text-neon-green" : "hud-metric-value text-warning";
+                }
+                frames = 0;
+                lastFpsCheck = now;
+            }
+            requestAnimationFrame(updateFpsCounter);
+        };
+        requestAnimationFrame(updateFpsCounter);
+
+        // Live Cursor Coordinates
+        document.addEventListener("mousemove", (e) => {
+            if (hudCoordsVal) {
+                hudCoordsVal.textContent = `${Math.round(e.clientX)}, ${Math.round(e.clientY)}`;
+            }
+        });
+
+        // Live Scroll & Velocity Metrics
+        let lastScrollY = window.scrollY;
+        let lastScrollTime = performance.now();
+        let scrollVelocity = 0;
+
+        window.addEventListener("scroll", () => {
+            const now = performance.now();
+            const dt = (now - lastScrollTime) / 1000;
+            const currentY = window.scrollY;
+
+            if (dt > 0.04) {
+                scrollVelocity = Math.round(Math.abs(currentY - lastScrollY) / dt);
+                lastScrollY = currentY;
+                lastScrollTime = now;
+                if (hudVelocityVal) hudVelocityVal.textContent = `${scrollVelocity} px/s`;
+            }
+
+            const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+            const pct = maxScroll > 0 ? Math.round((currentY / maxScroll) * 100) : 0;
+            if (hudScrollVal) hudScrollVal.textContent = `${pct}%`;
+        }, { passive: true });
     }
 
     // ==========================================

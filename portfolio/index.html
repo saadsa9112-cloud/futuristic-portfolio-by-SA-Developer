@@ -15,7 +15,7 @@
 
     <!-- Style Assets -->
     <link rel="stylesheet" href="../lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="../css/site.css?v=1790259164887" />
+    <link rel="stylesheet" href="../css/site.css?v=1790259641943" />
     <link rel="stylesheet" href="../FuturisticPortfolio.styles.css?v=cXSw8uWbeBRRKqQImmDtUF9PgLFcp0jNpAJVcYp-LoE" />
     
     <!-- CDNs for Premium Libraries -->
@@ -751,13 +751,42 @@
         <button b-tjezjmjmzt type="button" class="btn btn-outline-danger px-4 py-2 mt-4 font-monospace" id="danger-close-btn" style="border-radius: 0; text-transform: uppercase;">Abort Handshake</button>
     </div>
 
+    <!-- Floating Cyber Telemetry HUD (Viewport Diagnostics) -->
+    <div b-tjezjmjmzt id="cyber-telemetry-hud" class="cyber-telemetry-hud d-none d-md-flex" aria-label="Live System Telemetry HUD">
+        <div b-tjezjmjmzt class="hud-top-strip">
+            <span b-tjezjmjmzt class="hud-live-beacon"></span>
+            <span b-tjezjmjmzt class="hud-brand-tag">SYS.HUD // TELEMETRY</span>
+            <button b-tjezjmjmzt type="button" class="hud-minimize-btn" id="hud-toggle-btn" title="Toggle Telemetry HUD">
+                <i b-tjezjmjmzt class="fas fa-minus" id="hud-toggle-icon"></i>
+            </button>
+        </div>
+        <div b-tjezjmjmzt class="hud-metrics-grid" id="hud-metrics-grid">
+            <div b-tjezjmjmzt class="hud-metric">
+                <span b-tjezjmjmzt class="hud-metric-label">FPS</span>
+                <span b-tjezjmjmzt class="hud-metric-value text-neon-green" id="hud-fps-val">60</span>
+            </div>
+            <div b-tjezjmjmzt class="hud-metric">
+                <span b-tjezjmjmzt class="hud-metric-label">CURSOR</span>
+                <span b-tjezjmjmzt class="hud-metric-value text-neon-cyan" id="hud-coords-val">0, 0</span>
+            </div>
+            <div b-tjezjmjmzt class="hud-metric">
+                <span b-tjezjmjmzt class="hud-metric-label">SCROLL</span>
+                <span b-tjezjmjmzt class="hud-metric-value text-neon-purple" id="hud-scroll-val">0%</span>
+            </div>
+            <div b-tjezjmjmzt class="hud-metric">
+                <span b-tjezjmjmzt class="hud-metric-label">VELOCITY</span>
+                <span b-tjezjmjmzt class="hud-metric-value text-white" id="hud-velocity-val">0 px/s</span>
+            </div>
+        </div>
+    </div>
+
     <!-- Script Assets -->
     <script src="../lib/jquery/dist/jquery.min.js"></script>
     <script src="../lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="../js/site.js?v=1790259164887"></script>
+    <script src="../js/site.js?v=1790259641943"></script>
     <script src="../js/hms-telemetry.js?v=5hUu86zj9Iv2YHukAHxmlvrlFy4NbzNsW7A5vJsOc1s"></script>
     
 </body>
