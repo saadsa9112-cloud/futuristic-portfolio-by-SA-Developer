@@ -36,12 +36,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const welcomeScreen = document.getElementById("welcome-screen");
 
     if (loader && logBody) {
-        const path = window.location.pathname.toLowerCase();
-        const isHomePage = path === "/" || path === "" || path.endsWith("/index.html") || path.endsWith("/futuristic-portfolio-by-sa-developer/") || path.endsWith("/dist/");
-        const hasSeenWelcome = sessionStorage.getItem("saad_welcome_shown") === "true";
-
-        // Always run the full 3-stage sequence on Home page OR on first visit of session
-        const runFullWelcomeSequence = isHomePage || !hasSeenWelcome;
+        const hasSeenWelcome = (sessionStorage.getItem("saad_welcome_shown") === "true") || (localStorage.getItem("saad_welcome_shown") === "true");
+        const runFullWelcomeSequence = !hasSeenWelcome;
 
         if (runFullWelcomeSequence) {
             // Stage 1: The exact original developer terminal boot sequence
@@ -149,6 +145,7 @@ document.addEventListener("DOMContentLoaded", () => {
                                         setTimeout(() => {
                                             welcomeScreen.classList.add("welcome-dismiss");
                                             sessionStorage.setItem("saad_welcome_shown", "true");
+                                            localStorage.setItem("saad_welcome_shown", "true");
 
                                             setTimeout(() => {
                                                 welcomeScreen.style.display = "none";
@@ -160,6 +157,7 @@ document.addEventListener("DOMContentLoaded", () => {
                                     } else {
                                         welcomeScreen.classList.add("welcome-dismiss");
                                         sessionStorage.setItem("saad_welcome_shown", "true");
+                                        localStorage.setItem("saad_welcome_shown", "true");
                                         setTimeout(() => {
                                             welcomeScreen.style.display = "none";
                                             unlockPageScroll();
@@ -182,6 +180,8 @@ document.addEventListener("DOMContentLoaded", () => {
                                 document.addEventListener("keydown", handleKey);
                             } else {
                                 loader.classList.add("fade-out");
+                                sessionStorage.setItem("saad_welcome_shown", "true");
+                                localStorage.setItem("saad_welcome_shown", "true");
                                 setTimeout(() => {
                                     loader.style.display = "none";
                                     unlockPageScroll();
@@ -193,108 +193,14 @@ document.addEventListener("DOMContentLoaded", () => {
                 }, delay);
             });
         } else {
-            // Sub-page navigation (/Portfolio, /Blog, /About): Keep welcome screen hidden, run snappy terminal routine
+            // Already seen welcome / internal navigation: immediately hide loader & welcome screen, unlock scroll, and dispatch ready event
             if (welcomeScreen) welcomeScreen.style.display = "none";
-
-            let switchTitle = "saad@portfolio ~ bash";
-            let switchLines = [];
-
-            if (path.includes("/portfolio/details/")) {
-                switchTitle = "saad@portfolio:~/dossier ~ bash";
-                switchLines = [
-                    [0,   `<span class="dev-prompt">$</span> <span class="dev-cmd">inspect --dossier --topology</span>`],
-                    [80,  `<span class="dev-dim">▶ Allocating memory sandbox &amp; deep AST trace...</span>`],
-                    [180, `<span class="dev-ready">✓ System blueprint ready (latency: 14ms)</span>`]
-                ];
-            } else if (path.includes("/portfolio")) {
-                switchTitle = "saad@portfolio:~/projects ~ bash";
-                switchLines = [
-                    [0,   `<span class="dev-prompt">$</span> <span class="dev-cmd">git checkout feature/enterprise-showcase</span>`],
-                    [80,  `<span class="dev-dim">▶ Mounting production projects: NED Academy UMS &amp; Nexora Digital...</span>`],
-                    [180, `<span class="dev-ready">✓ Enterprise showcase initialized</span>`]
-                ];
-            } else if (path.includes("/blog/details/")) {
-                switchTitle = "saad@portfolio:~/articles ~ bash";
-                switchLines = [
-                    [0,   `<span class="dev-prompt">$</span> <span class="dev-cmd">cat article-feed --stream-syntax</span>`],
-                    [80,  `<span class="dev-dim">▶ Parsing AST tokens &amp; rendering syntax blocks...</span>`],
-                    [180, `<span class="dev-ready">✓ Technical whitepaper rendered</span>`]
-                ];
-            } else if (path.includes("/blog")) {
-                switchTitle = "saad@portfolio:~/tech-logs ~ bash";
-                switchLines = [
-                    [0,   `<span class="dev-prompt">$</span> <span class="dev-cmd">cat /var/log/tech-insights.md --latest</span>`],
-                    [80,  `<span class="dev-dim">▶ Indexing technical publications &amp; engineering whitepapers...</span>`],
-                    [180, `<span class="dev-ready">✓ Knowledge base synchronized (2 Articles Active)</span>`]
-                ];
-            } else if (path.includes("/about")) {
-                switchTitle = "saad@portfolio:~/engineer-bio ~ bash";
-                switchLines = [
-                    [0,   `<span class="dev-prompt">$</span> <span class="dev-cmd">whoami --extended-profile --credentials</span>`],
-                    [80,  `<span class="dev-dim">▶ Resolving developer identity &amp; technical skill matrices...</span>`],
-                    [180, `<span class="dev-ready">✓ Career roadmap &amp; engineering profile loaded</span>`]
-                ];
-            } else {
-                switchTitle = "saad@portfolio:~/runtime ~ bash";
-                switchLines = [
-                    [0,   `<span class="dev-prompt">$</span> <span class="dev-cmd">dotnet run --profile HighThroughput</span>`],
-                    [80,  `<span class="dev-dim">▶ JIT compilation optimized · AOT binary active...</span>`],
-                    [180, `<span class="dev-ready">✓ Viewport synchronized</span>`]
-                ];
+            if (loader) {
+                loader.style.display = "none";
+                loader.remove();
             }
-
-            if (termTitle) termTitle.textContent = switchTitle;
-
-            const progressWrap = document.createElement("div");
-            progressWrap.className = "dev-progress-wrap";
-            progressWrap.innerHTML = `
-                <div class="dev-progress-label">
-                    <span class="dev-dim">Navigating...</span>
-                    <span class="dev-cyan" id="dev-progress-pct">0%</span>
-                </div>
-                <div class="dev-progress-bar-outer">
-                    <div class="dev-progress-bar-inner" id="dev-progress-bar"></div>
-                </div>`;
-            logBody.parentElement.appendChild(progressWrap);
-
-            const cursor = document.createElement("span");
-            cursor.className = "dev-cursor";
-
-            switchLines.forEach(([delay, html], idx) => {
-                setTimeout(() => {
-                    if (logBody.lastChild && logBody.lastChild.querySelector) {
-                        const prev = logBody.lastChild.querySelector?.(".dev-cursor");
-                        if (prev) prev.remove();
-                    }
-
-                    const line = document.createElement("div");
-                    line.className = "dev-log-line";
-                    line.innerHTML = html;
-                    line.appendChild(cursor.cloneNode());
-                    logBody.appendChild(line);
-
-                    requestAnimationFrame(() => {
-                        requestAnimationFrame(() => { line.classList.add("visible"); });
-                    });
-
-                    const pct = Math.round(((idx + 1) / switchLines.length) * 100);
-                    const bar = document.getElementById("dev-progress-bar");
-                    const pctLabel = document.getElementById("dev-progress-pct");
-                    if (bar) bar.style.width = pct + "%";
-                    if (pctLabel) pctLabel.textContent = pct + "%";
-
-                    if (idx === switchLines.length - 1) {
-                        setTimeout(() => {
-                            loader.classList.add("fade-out");
-                            setTimeout(() => {
-                                loader.style.display = "none";
-                                unlockPageScroll();
-                                window.dispatchEvent(new CustomEvent("portfolio-ready"));
-                            }, 350);
-                        }, 200);
-                    }
-                }, delay);
-            });
+            unlockPageScroll();
+            window.dispatchEvent(new CustomEvent("portfolio-ready"));
         }
     }
 
@@ -1633,11 +1539,37 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // ==========================================
-    // 12. Theme Toggle Controller (Dark / Light)
+    // 12. Theme Toggle Controller (Dark / Light) & Roast Toast
     // ==========================================
     const themeToggleBtn = document.getElementById("theme-toggle-btn");
     const themeIcon = document.getElementById("theme-icon");
     const body = document.body;
+    const roastToast = document.getElementById("developer-roast-toast");
+    const roastCloseBtn = document.getElementById("roast-close-btn");
+    const roastRevertBtn = document.getElementById("roast-revert-btn");
+
+    const showRoastToast = () => {
+        if (!roastToast) return;
+        roastToast.style.display = "block";
+    };
+
+    const hideRoastToast = () => {
+        if (!roastToast) return;
+        roastToast.style.display = "none";
+    };
+
+    if (roastCloseBtn) {
+        roastCloseBtn.addEventListener("click", hideRoastToast);
+    }
+
+    if (roastRevertBtn && themeToggleBtn) {
+        roastRevertBtn.addEventListener("click", () => {
+            hideRoastToast();
+            if (body.classList.contains("light-theme")) {
+                themeToggleBtn.click();
+            }
+        });
+    }
 
     if (themeToggleBtn && themeIcon) {
         // Load initial theme from localStorage
@@ -1662,14 +1594,85 @@ document.addEventListener("DOMContentLoaded", () => {
                 themeToggleBtn.classList.remove("text-white");
                 themeToggleBtn.classList.add("text-dark");
                 localStorage.setItem("theme", "light");
+                showRoastToast();
             } else {
                 themeIcon.className = "fas fa-sun";
                 themeToggleBtn.classList.remove("text-dark");
                 themeToggleBtn.classList.add("text-white");
                 localStorage.setItem("theme", "dark");
+                hideRoastToast();
             }
         });
     }
+
+    // ==========================================
+    // 12B. Smart In-Place Project Databank Filtering
+    // ==========================================
+    const filterButtons = document.querySelectorAll("#portfolio-filter-group .project-filter-btn");
+    const projectCards = document.querySelectorAll("#portfolio-grid .project-card-item");
+
+    if (filterButtons.length && projectCards.length) {
+        filterButtons.forEach(btn => {
+            btn.addEventListener("click", () => {
+                const targetFilter = btn.getAttribute("data-filter");
+
+                // Update active pill styling
+                filterButtons.forEach(b => {
+                    b.classList.remove("active", "btn-neon");
+                    b.classList.add("btn-outline-secondary");
+                });
+                btn.classList.add("active", "btn-neon");
+                btn.classList.remove("btn-outline-secondary");
+
+                // Filter cards in-place with instant smooth visibility
+                projectCards.forEach(card => {
+                    const cardGroup = card.getAttribute("data-category-group");
+                    if (targetFilter === "all" || cardGroup === targetFilter) {
+                        card.classList.remove("filter-hidden");
+                    } else {
+                        card.classList.add("filter-hidden");
+                    }
+                });
+
+                if (window.AOS) {
+                    window.AOS.refresh();
+                }
+            });
+        });
+    }
+
+    // ==========================================
+    // 12C. Under Development Card Witty Interactive Toggle
+    // ==========================================
+    document.addEventListener("click", (e) => {
+        const triggerBtn = e.target.closest(".trigger-under-dev-btn");
+        if (triggerBtn) {
+            const card = triggerBtn.closest(".under-dev-card");
+            if (card) {
+                const normalView = card.querySelector(".under-dev-normal-view");
+                const hiddenView = card.querySelector(".under-dev-hidden-view");
+                if (normalView && hiddenView) {
+                    normalView.style.display = "none";
+                    hiddenView.style.display = "flex";
+                }
+            }
+            return;
+        }
+
+        const restoreBtn = e.target.closest(".restore-under-dev-btn");
+        if (restoreBtn) {
+            const card = restoreBtn.closest(".under-dev-card");
+            if (card) {
+                const normalView = card.querySelector(".under-dev-normal-view");
+                const hiddenView = card.querySelector(".under-dev-hidden-view");
+                if (normalView && hiddenView) {
+                    hiddenView.style.display = "none";
+                    normalView.style.display = "flex";
+                }
+            }
+            return;
+        }
+    });
 
     // ==========================================
     // 13. System Diagnostic Analyzer Widget

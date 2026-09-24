@@ -2494,3 +2494,264 @@ html.lock-scroll, body.lock-scroll {
     border-color: #00ff66;
     box-shadow: 0 0 20px #00ff66;
 }
+
+/* ===================================================
+   8. Developer Light Mode Roast Toast
+   =================================================== */
+.developer-roast-toast {
+    position: fixed;
+    bottom: 28px;
+    right: 28px;
+    max-width: 380px;
+    background: rgba(15, 17, 26, 0.95);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1.5px solid rgba(245, 158, 11, 0.8);
+    border-radius: 14px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6), 0 0 25px rgba(245, 158, 11, 0.35);
+    padding: 16px 20px;
+    z-index: 999999;
+    animation: roastSlideIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes roastSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(30px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.roast-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    border-bottom: 1px solid rgba(245, 158, 11, 0.25);
+    padding-bottom: 8px;
+}
+
+.roast-header .roast-icon {
+    font-size: 1.25rem;
+    margin-right: 8px;
+}
+
+.roast-header .roast-title {
+    font-family: var(--bs-font-monospace, monospace);
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    color: #f59e0b;
+    flex-grow: 1;
+}
+
+.roast-close {
+    background: transparent;
+    border: none;
+    color: #94a3b8;
+    font-size: 1.3rem;
+    line-height: 1;
+    cursor: pointer;
+    padding: 0 4px;
+    transition: color 0.2s;
+}
+
+.roast-close:hover {
+    color: #ffffff;
+}
+
+.roast-body .roast-message {
+    font-size: 0.88rem;
+    color: #e2e8f0;
+    line-height: 1.5;
+    margin-bottom: 12px;
+}
+
+.roast-body .roast-message strong {
+    color: #f59e0b;
+}
+
+.roast-actions button {
+    width: 100%;
+    font-weight: 600;
+    font-size: 0.82rem;
+    padding: 8px 12px;
+    border-radius: 8px;
+    background: #1e1b4b;
+    border: 1px solid #6366f1;
+    color: #00f3ff;
+    box-shadow: 0 0 12px rgba(99, 102, 241, 0.3);
+    transition: all 0.25s ease;
+}
+
+.roast-actions button:hover {
+    background: #312e81;
+    border-color: #00f3ff;
+    box-shadow: 0 0 18px rgba(0, 243, 255, 0.5);
+    color: #ffffff;
+}
+
+/* ===================================================
+   9. Career Roadmap Cyber Circuit
+   =================================================== */
+.cyber-roadmap-container {
+    position: relative;
+    padding-left: 32px;
+}
+
+.cyber-roadmap-track {
+    position: absolute;
+    left: 8px;
+    top: 14px;
+    bottom: 24px;
+    width: 3px;
+    background: linear-gradient(to bottom, #a855f7 0%, #00f3ff 35%, #10b981 70%, #f59e0b 100%);
+    opacity: 0.85;
+    box-shadow: 0 0 10px rgba(0, 243, 255, 0.5);
+    border-radius: 2px;
+}
+
+.cyber-roadmap-dot {
+    position: absolute;
+    left: -32px;
+    top: 16px;
+    width: 17px;
+    height: 17px;
+    border-radius: 50%;
+    z-index: 2;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.cyber-roadmap-item:hover .cyber-roadmap-dot {
+    transform: scale(1.3);
+}
+
+.dot-purple {
+    background: #a855f7;
+    box-shadow: 0 0 10px #a855f7, 0 0 20px rgba(168, 85, 247, 0.6);
+    border: 2px solid #ffffff;
+}
+
+.dot-cyan {
+    background: #00f3ff;
+    box-shadow: 0 0 10px #00f3ff, 0 0 20px rgba(0, 243, 255, 0.6);
+    border: 2px solid #ffffff;
+}
+
+.dot-green {
+    background: #10b981;
+    box-shadow: 0 0 12px #10b981, 0 0 24px rgba(16, 185, 129, 0.8);
+    border: 2px solid #ffffff;
+}
+
+.dot-amber {
+    background: #f59e0b;
+    box-shadow: 0 0 10px #f59e0b, 0 0 20px rgba(245, 158, 11, 0.6);
+    border: 2px solid #ffffff;
+}
+
+.active-pulse {
+    animation: nodePulse 2s infinite;
+}
+
+@keyframes nodePulse {
+    0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+    70% { box-shadow: 0 0 0 12px rgba(16, 185, 129, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+}
+
+.cyber-roadmap-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(8px);
+    transition: all 0.25s ease;
+}
+
+.cyber-roadmap-card:hover {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(255, 255, 255, 0.18);
+    transform: translateX(4px);
+}
+
+.border-neon-purple {
+    border: 1px solid #a855f7 !important;
+    background: rgba(168, 85, 247, 0.12) !important;
+}
+
+.border-neon-cyan {
+    border: 1px solid #00f3ff !important;
+    background: rgba(0, 243, 255, 0.12) !important;
+}
+
+.border-neon-amber {
+    border: 1px solid #f59e0b !important;
+    background: rgba(245, 158, 11, 0.12) !important;
+}
+
+.border-active-stage {
+    border: 1.5px solid rgba(16, 185, 129, 0.5) !important;
+    background: rgba(16, 185, 129, 0.06) !important;
+    box-shadow: 0 0 20px rgba(16, 185, 129, 0.15) !important;
+}
+
+.pulse-dot {
+    animation: blink 1.2s infinite ease-in-out;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+}
+
+/* ===================================================
+   10. Project Databank Smart Filter Buttons
+   =================================================== */
+.project-filter-btn {
+    transition: all 0.25s ease;
+    font-weight: 500;
+}
+
+.project-filter-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 243, 255, 0.2);
+}
+
+.project-filter-btn.active {
+    background: linear-gradient(135deg, #7928ca 0%, #ff0080 100%) !important;
+    border-color: transparent !important;
+    color: #ffffff !important;
+    box-shadow: 0 0 20px rgba(255, 0, 128, 0.4) !important;
+}
+
+.project-card-item {
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.project-card-item.filter-hidden {
+    display: none !important;
+}
+
+/* ===================================================
+   11. Under Development Card Interactive States
+   =================================================== */
+.under-dev-card {
+    transition: all 0.35s ease;
+}
+
+.under-dev-hidden-view {
+    animation: fadeInScale 0.3s ease forwards;
+}
+
+@keyframes fadeInScale {
+    from {
+        opacity: 0;
+        transform: scale(0.96);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}

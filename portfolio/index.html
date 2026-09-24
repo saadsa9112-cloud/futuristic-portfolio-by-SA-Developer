@@ -15,20 +15,18 @@
 
     <!-- Style Assets -->
     <link rel="stylesheet" href="../lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="../css/site.css?v=1790260411825" />
+    <link rel="stylesheet" href="../css/site.css?v=1790261289922" />
     <link rel="stylesheet" href="../FuturisticPortfolio.styles.css?v=cXSw8uWbeBRRKqQImmDtUF9PgLFcp0jNpAJVcYp-LoE" />
     
     <!-- CDNs for Premium Libraries -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
 
-    <!-- Immediate Scroll Lock to prevent background index page scroll during welcome/loader -->
+    <!-- Immediate Scroll Lock to prevent background index page scroll only on initial first load -->
     <script>
         (function() {
-            var path = window.location.pathname.toLowerCase();
-            var isHome = path === "/" || path === "" || path.endsWith("/index.html") || path.endsWith("/futuristic-portfolio-by-sa-developer/") || path.endsWith("/dist/");
-            var hasSeen = sessionStorage.getItem("saad_welcome_shown") === "true";
-            if (isHome || !hasSeen) {
+            var hasSeen = (sessionStorage.getItem("saad_welcome_shown") === "true") || (localStorage.getItem("saad_welcome_shown") === "true");
+            if (!hasSeen) {
                 document.documentElement.classList.add("lock-scroll");
             }
         })();
@@ -176,25 +174,25 @@
                     <span b-tjezjmjmzt class="navbar-toggler-icon"></span>
                 </button>
                 <div b-tjezjmjmzt class="navbar-collapse collapse justify-content-end">
-                    <ul b-tjezjmjmzt class="navbar-nav gap-2 align-items-center">
+                    <ul b-tjezjmjmzt class="navbar-nav gap-3 align-items-center">
                         <li b-tjezjmjmzt class="nav-item">
-                            <a class="nav-link" href="../"><i b-tjezjmjmzt class="fas fa-home-alt me-1.5 opacity-75"></i> Home</a>
+                            <a class="nav-link" href="../">Home</a>
                         </li>
                         <li b-tjezjmjmzt class="nav-item">
-                            <a class="nav-link" href="../about/"><i b-tjezjmjmzt class="fas fa-user-astronaut me-1.5 opacity-75"></i> About</a>
+                            <a class="nav-link" href="../about/">About</a>
                         </li>
                         <li b-tjezjmjmzt class="nav-item">
-                            <a class="nav-link" href="../portfolio/"><i b-tjezjmjmzt class="fas fa-laptop-code me-1.5 opacity-75"></i> Projects</a>
+                            <a class="nav-link" href="../portfolio/">Projects</a>
                         </li>
                         <li b-tjezjmjmzt class="nav-item">
-                            <a class="nav-link" href="../blog/"><i b-tjezjmjmzt class="fas fa-newspaper me-1.5 opacity-75"></i> Blog</a>
+                            <a class="nav-link" href="../blog/">Blog</a>
                         </li>
                         <li b-tjezjmjmzt class="nav-item">
-                            <a b-tjezjmjmzt class="nav-link" href="../#contact-section"><i b-tjezjmjmzt class="fas fa-paper-plane me-1.5 opacity-75"></i> Contact</a>
+                            <a b-tjezjmjmzt class="nav-link" href="../#contact-section">Contact</a>
                         </li>
-                        <li b-tjezjmjmzt class="nav-item d-none d-lg-block ms-lg-1">
+                        <li b-tjezjmjmzt class="nav-item d-none d-lg-block ms-lg-2">
                             <a b-tjezjmjmzt href="../#contact-section" class="btn btn-neon-cta font-monospace text-decoration-none">
-                                <i b-tjezjmjmzt class="fas fa-bolt text-warning me-1"></i> HIRE ME
+                                HIRE ME
                             </a>
                         </li>
                         <li b-tjezjmjmzt class="nav-item d-flex align-items-center ms-lg-2 me-lg-1">
@@ -252,55 +250,34 @@
     <!-- Main Content Grid -->
     <main b-tjezjmjmzt role="main" class="pt-5 mt-5 page-transition">
         
-<div class="container py-5">
+<div class="container py-4">
     <!-- Header Page Description -->
-    <div class="text-center mb-5" data-aos="fade-up">
-        <h1 class="display-4 text-white fw-bold"><span class="text-neon-purple">//</span> Projects Databank</h1>
-        <p class="text-muted">Explore system deployments, services architectures, and source repositories.</p>
+    <div class="text-center mb-4" data-aos="fade-up">
+        <h1 class="display-5 text-white fw-bold"><span class="text-neon-purple">//</span> Projects Databank</h1>
+        <p class="text-muted mb-0">Explore production system deployments, web architectures, and autonomous AI modules.</p>
     </div>
 
-    <!-- Filter Controls Panel -->
-    <div class="glass-panel p-4 mb-5 text-center" data-aos="fade-up">
-        <div class="d-flex flex-wrap justify-content-center align-items-center gap-2">
-            <a class="btn btn-sm btn-neon text-white px-4 py-2" href="../portfolio/">
-                All Projects
-            </a>
-                    <a class="btn btn-sm btn-outline-secondary rounded-pill text-white px-4 py-2" href="/Portfolio?categoryId=1">
-                        Web Applications
-                    </a>
-                    <a class="btn btn-sm btn-outline-secondary rounded-pill text-white px-4 py-2" href="/Portfolio?categoryId=2">
-                        Backend Services
-                    </a>
-                    <a class="btn btn-sm btn-outline-secondary rounded-pill text-white px-4 py-2" href="/Portfolio?categoryId=3">
-                        Cloud Infrastructure
-                    </a>
-                    <a class="btn btn-sm btn-outline-secondary rounded-pill text-white px-4 py-2" href="/Portfolio?categoryId=7">
-                        ASP.NET Core MVC
-                    </a>
-                    <a class="btn btn-sm btn-outline-secondary rounded-pill text-white px-4 py-2" href="/Portfolio?categoryId=8">
-                        Portfolio Websites
-                    </a>
-                    <a class="btn btn-sm btn-outline-secondary rounded-pill text-white px-4 py-2" href="/Portfolio?categoryId=9">
-                        University Projects
-                    </a>
-                    <a class="btn btn-sm btn-outline-secondary rounded-pill text-white px-4 py-2" href="/Portfolio?categoryId=10">
-                        Database Projects
-                    </a>
-                    <a class="btn btn-sm btn-outline-secondary rounded-pill text-white px-4 py-2" href="/Portfolio?categoryId=1007">
-                        React &amp; Modern Web
-                    </a>
-                    <a class="btn btn-sm btn-outline-secondary rounded-pill text-white px-4 py-2" href="/Portfolio?categoryId=2008">
-                        Cybersecurity &amp; Systems
-                    </a>
-                    <a class="btn btn-sm btn-outline-secondary rounded-pill text-white px-4 py-2" href="/Portfolio?categoryId=2009">
-                        AI &amp; Distributed Systems
-                    </a>
+    <!-- Filter Controls Panel: 4 Smart Architectural Groups -->
+    <div class="glass-panel p-3 mb-4 text-center" data-aos="fade-up" id="portfolio-filter-panel">
+        <div class="d-flex flex-wrap justify-content-center align-items-center gap-2" id="portfolio-filter-group">
+            <button type="button" class="btn btn-sm btn-neon text-white px-4 py-2 rounded-pill project-filter-btn active" data-filter="all">
+                All Systems <span class="badge bg-dark ms-1 text-neon-cyan border border-secondary">5</span>
+            </button>
+            <button type="button" class="btn btn-sm btn-outline-secondary text-white px-4 py-2 rounded-pill project-filter-btn" data-filter="dotnet">
+                Enterprise .NET &amp; Web <span class="badge bg-dark ms-1 text-neon-purple border border-secondary">3</span>
+            </button>
+            <button type="button" class="btn btn-sm btn-outline-secondary text-white px-4 py-2 rounded-pill project-filter-btn" data-filter="cyber">
+                Cybersecurity &amp; Kernel <span class="badge bg-dark ms-1 text-neon-blue border border-secondary">1</span>
+            </button>
+            <button type="button" class="btn btn-sm btn-outline-secondary text-white px-4 py-2 rounded-pill project-filter-btn" data-filter="ai">
+                AI &amp; Distributed Systems <span class="badge bg-dark ms-1 text-warning border border-secondary">1</span>
+            </button>
         </div>
     </div>
 
     <!-- Projects Grid -->
-    <div class="row g-4">
-                <div class="col-md-6 col-lg-4" data-aos="fade-up">
+    <div class="row g-4" id="portfolio-grid">
+                <div class="col-md-6 col-lg-4 project-card-item" data-category-group="dotnet" data-aos="fade-up">
                     <div class="card project-terminal-card h-100 border-0 cyber-hud-card ">
                         <div class="project-window-bar">
                             <span class="p-dot red"></span>
@@ -336,7 +313,7 @@
                             </div>
                     </div>
                 </div>
-                <div class="col-md-6 col-lg-4" data-aos="fade-up">
+                <div class="col-md-6 col-lg-4 project-card-item" data-category-group="dotnet" data-aos="fade-up">
                     <div class="card project-terminal-card h-100 border-0 cyber-hud-card ">
                         <div class="project-window-bar">
                             <span class="p-dot red"></span>
@@ -372,7 +349,7 @@
                             </div>
                     </div>
                 </div>
-                <div class="col-md-6 col-lg-4" data-aos="fade-up">
+                <div class="col-md-6 col-lg-4 project-card-item" data-category-group="dotnet" data-aos="fade-up">
                     <div class="card project-terminal-card h-100 border-0 cyber-hud-card ">
                         <div class="project-window-bar">
                             <span class="p-dot red"></span>
@@ -408,7 +385,7 @@
                             </div>
                     </div>
                 </div>
-                <div class="col-md-6 col-lg-4" data-aos="fade-up">
+                <div class="col-md-6 col-lg-4 project-card-item" data-category-group="cyber" data-aos="fade-up">
                     <div class="card project-terminal-card h-100 border-0 cyber-hud-card under-dev-card">
                         <div class="project-window-bar">
                             <span class="p-dot red"></span>
@@ -470,7 +447,7 @@
                             </div>
                     </div>
                 </div>
-                <div class="col-md-6 col-lg-4" data-aos="fade-up">
+                <div class="col-md-6 col-lg-4 project-card-item" data-category-group="ai" data-aos="fade-up">
                     <div class="card project-terminal-card h-100 border-0 cyber-hud-card under-dev-card">
                         <div class="project-window-bar">
                             <span class="p-dot red"></span>
@@ -817,13 +794,35 @@
         </div>
     </div>
 
+    <!-- Developer Light Mode Roast Toast -->
+    <div b-tjezjmjmzt id="developer-roast-toast" class="developer-roast-toast" role="alert" aria-live="assertive" style="display: none;">
+        <div b-tjezjmjmzt class="roast-toast-inner">
+            <div b-tjezjmjmzt class="roast-top-bar">
+                <span b-tjezjmjmzt class="roast-badge"><i b-tjezjmjmzt class="fas fa-radiation text-warning me-1"></i> FLASHBANG ALERT</span>
+                <button b-tjezjmjmzt type="button" class="roast-dismiss-btn" id="roast-dismiss-btn" title="Dismiss">&times;</button>
+            </div>
+            <div b-tjezjmjmzt class="roast-content-body">
+                <div b-tjezjmjmzt class="roast-avatar">😎💥</div>
+                <h5 b-tjezjmjmzt class="roast-headline">Are You Sure You're A Developer?</h5>
+                <p b-tjezjmjmzt class="roast-subline">
+                    "Real engineers code in the dark! Turning on Light Mode feels like you haven't touched a terminal today. Your eyes might regret this flashbang..."
+                </p>
+                <div b-tjezjmjmzt class="roast-actions">
+                    <button b-tjezjmjmzt type="button" class="btn btn-sm btn-revert-dark font-monospace" id="roast-revert-btn">
+                        <i b-tjezjmjmzt class="fas fa-moon me-1"></i> I'm A Real Developer (Revert To Dark Mode)
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Script Assets -->
     <script src="../lib/jquery/dist/jquery.min.js"></script>
     <script src="../lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="../js/site.js?v=1790260411825"></script>
+    <script src="../js/site.js?v=1790261289922"></script>
     <script src="../js/hms-telemetry.js?v=5hUu86zj9Iv2YHukAHxmlvrlFy4NbzNsW7A5vJsOc1s"></script>
     
 </body>
