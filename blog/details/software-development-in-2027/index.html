@@ -15,12 +15,24 @@
 
     <!-- Style Assets -->
     <link rel="stylesheet" href="../../../lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="../../../css/site.css?v=1790185535177" />
+    <link rel="stylesheet" href="../../../css/site.css?v=1790259165061" />
     <link rel="stylesheet" href="../../../FuturisticPortfolio.styles.css?v=cXSw8uWbeBRRKqQImmDtUF9PgLFcp0jNpAJVcYp-LoE" />
     
     <!-- CDNs for Premium Libraries -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
+
+    <!-- Immediate Scroll Lock to prevent background index page scroll during welcome/loader -->
+    <script>
+        (function() {
+            var path = window.location.pathname.toLowerCase();
+            var isHome = path === "/" || path === "" || path.endsWith("/index.html") || path.endsWith("/futuristic-portfolio-by-sa-developer/") || path.endsWith("/dist/");
+            var hasSeen = sessionStorage.getItem("saad_welcome_shown") === "true";
+            if (isHome || !hasSeen) {
+                document.documentElement.classList.add("lock-scroll");
+            }
+        })();
+    </script>
 </head>
 <body>
     <!-- Scroll Progress Bar -->
@@ -144,8 +156,8 @@
     <div b-tjezjmjmzt id="particles-js"></div>
 
     <!-- Header Navigation -->
-    <header b-tjezjmjmzt>
-        <nav b-tjezjmjmzt class="navbar navbar-expand-lg navbar-dark navbar-futuristic fixed-top py-3">
+    <header b-tjezjmjmzt class="fixed-top">
+        <nav b-tjezjmjmzt class="navbar navbar-expand-lg navbar-dark navbar-futuristic py-2">
             <div b-tjezjmjmzt class="container">
                 <a class="navbar-brand text-neon-purple fw-bold" href="../../../">
                         <img b-tjezjmjmzt src="../../../images/logo.png" alt="Logo" class="d-inline-block align-top me-2" style="max-height:30px;" />
@@ -156,7 +168,7 @@
                     <span b-tjezjmjmzt class="navbar-toggler-icon"></span>
                 </button>
                 <div b-tjezjmjmzt class="navbar-collapse collapse justify-content-end">
-                    <ul b-tjezjmjmzt class="navbar-nav gap-2">
+                    <ul b-tjezjmjmzt class="navbar-nav gap-2 align-items-center">
                         <li b-tjezjmjmzt class="nav-item">
                             <a class="nav-link" href="../../../">Home</a>
                         </li>
@@ -182,22 +194,57 @@
                                 <i b-tjezjmjmzt class="fas fa-cog text-neon-cyan"></i>
                             </button>
                         </li>
-
                     </ul>
                 </div>
             </div>
         </nav>
+
+        <!-- Cyber Security & Architectural Telemetry Ribbon -->
+        <div b-tjezjmjmzt class="cyber-telemetry-ribbon font-monospace" id="cyber-telemetry-ribbon">
+            <div b-tjezjmjmzt class="container d-flex align-items-center justify-content-between py-1 px-3">
+                <div b-tjezjmjmzt class="d-flex align-items-center gap-2 gap-md-3 overflow-hidden text-nowrap">
+                    <span b-tjezjmjmzt class="cyber-status-pulse">
+                        <span b-tjezjmjmzt class="pulse-dot-green"></span>
+                        <strong b-tjezjmjmzt class="text-neon-green">SEC-OPS: ARMED</strong>
+                    </span>
+                    <span b-tjezjmjmzt class="text-secondary opacity-50 d-none d-sm-inline">|</span>
+                    <span b-tjezjmjmzt class="cyber-metric-item d-none d-sm-inline">
+                        <i b-tjezjmjmzt class="fas fa-shield-alt text-neon-cyan me-1"></i> ZERO-TRUST: <span b-tjezjmjmzt class="text-white">ENFORCED</span>
+                    </span>
+                    <span b-tjezjmjmzt class="text-secondary opacity-50 d-none d-md-inline">|</span>
+                    <span b-tjezjmjmzt class="cyber-metric-item d-none d-md-inline">
+                        <i b-tjezjmjmzt class="fas fa-microchip text-neon-purple me-1"></i> eBPF KERNEL: <span b-tjezjmjmzt class="text-white">MONITORING</span>
+                    </span>
+                    <span b-tjezjmjmzt class="text-secondary opacity-50 d-none d-lg-inline">|</span>
+                    <span b-tjezjmjmzt class="cyber-metric-item d-none d-lg-inline">
+                        <i b-tjezjmjmzt class="fas fa-lock text-info me-1"></i> TLS 1.3 / AES-256-GCM
+                    </span>
+                    <span b-tjezjmjmzt class="text-secondary opacity-50 d-none d-xl-inline">|</span>
+                    <span b-tjezjmjmzt class="cyber-metric-item d-none d-xl-inline">
+                        <i b-tjezjmjmzt class="fas fa-robot text-warning me-1"></i> CLAUDE MYTHOS GUARD
+                    </span>
+                </div>
+                <div b-tjezjmjmzt class="d-flex align-items-center gap-2 flex-shrink-0 ms-2">
+                    <span b-tjezjmjmzt class="cyber-ping-badge" id="live-ping-val">
+                        <i b-tjezjmjmzt class="fas fa-bolt text-success me-1"></i> 14ms (PK-KHI)
+                    </span>
+                    <button b-tjezjmjmzt type="button" class="btn btn-outline-cyan cyber-cli-btn py-0 px-2 font-monospace" id="open-cyber-terminal-btn" title="Launch Interactive Cyber Security Console (Ctrl+K)">
+                        <i b-tjezjmjmzt class="fas fa-terminal me-1"></i> CLI
+                    </button>
+                </div>
+            </div>
+        </div>
     </header>
 
     <!-- Main Content Grid -->
-    <main b-tjezjmjmzt role="main" class="pt-5 mt-4 page-transition">
+    <main b-tjezjmjmzt role="main" class="pt-5 mt-5 page-transition">
         
 <!-- Article Reading Progress Header -->
 <section class="py-5 position-relative overflow-hidden" style="background: linear-gradient(180deg, rgba(6,182,212,0.15) 0%, rgba(9,5,20,0) 100%);">
     <div class="container py-4 text-center animate-fade-in" data-aos="zoom-in">
         <span class="badge bg-secondary mb-3">Software Engineering</span>
         <h1 class="display-4 text-white fw-bold">Software Development in 2027: The Era of Autonomous AI Agents &amp; Post-Syntax Architecture</h1>
-        <p class="small text-muted"><i class="fas fa-calendar-alt me-1"></i> Published on September 23, 2026 | <i class="fas fa-eye me-1"></i> 143 Reads</p>
+        <p class="small text-muted"><i class="fas fa-calendar-alt me-1"></i> Published on September 23, 2026 | <i class="fas fa-eye me-1"></i> 144 Reads</p>
         <a class="btn btn-sm btn-outline-secondary rounded-pill text-white mt-2" href="../../../blog/"><i class="fas fa-arrow-left me-1"></i> Back to Tech Logs</a>
     </div>
 </section>
@@ -207,7 +254,7 @@
         <!-- Main Content Area -->
         <div class="col-lg-8" data-aos="fade-right">
                 <div class="glass-panel overflow-hidden mb-5">
-                    <img src="../../../images/blogs/software-development-2027.jpg" alt="Article image" class="img-fluid w-100" style="max-height: 400px; object-fit: cover;" />
+                    <img src="../../../images/blogs/software-development-2027.svg" alt="Article image" class="img-fluid w-100" style="max-height: 400px; object-fit: cover;" />
                 </div>
 
             <div class="glass-panel p-4 p-md-5">
@@ -445,22 +492,38 @@
         </div>
     </footer>
 
-    <!-- Command Palette Overlay -->
+    <!-- Interactive Cyber Security Terminal Console Overlay -->
     <div b-tjezjmjmzt class="command-palette-overlay" id="command-palette">
-        <div b-tjezjmjmzt class="command-palette-box glass-panel p-4">
-            <div b-tjezjmjmzt class="d-flex justify-content-between align-items-center mb-3">
-                <span b-tjezjmjmzt class="badge bg-secondary"><i b-tjezjmjmzt class="fas fa-terminal me-1"></i> CONTROL CONSOLE</span>
+        <div b-tjezjmjmzt class="command-palette-box glass-panel p-4 font-monospace">
+            <div b-tjezjmjmzt class="d-flex justify-content-between align-items-center mb-3 pb-2 border-bottom border-secondary border-opacity-30">
+                <div b-tjezjmjmzt class="d-flex align-items-center gap-2">
+                    <span b-tjezjmjmzt class="pulse-dot-green"></span>
+                    <span b-tjezjmjmzt class="text-neon-cyan fw-bold"><i b-tjezjmjmzt class="fas fa-terminal me-1"></i> SAAD@CYBER-CONSOLE ~ v2.4</span>
+                </div>
                 <span b-tjezjmjmzt class="small text-muted">Press <kbd b-tjezjmjmzt class="bg-dark text-neon-cyan px-2">ESC</kbd> to exit</span>
             </div>
-            <input b-tjezjmjmzt type="text" class="form-control bg-dark border-secondary text-white mb-3 py-2" id="command-search" placeholder="Type a command or navigate..." autocomplete="off" />
+            
+            <!-- Terminal Output History Screen -->
+            <div b-tjezjmjmzt class="cyber-terminal-screen mb-3 p-3 rounded" id="cyber-cli-output" style="max-height: 220px; overflow-y: auto; background: rgba(5, 3, 12, 0.9); border: 1px solid rgba(0, 240, 255, 0.2); font-size: 0.82rem; color: #a5f3fc;">
+                <div b-tjezjmjmzt class="text-muted mb-1">// Type <span b-tjezjmjmzt class="text-neon-cyan">help</span> for all security &amp; system commands. Quick shortcuts below:</div>
+                <div b-tjezjmjmzt class="text-neon-purple">&gt; System initialized. All security telemetry channels active.</div>
+            </div>
+
+            <!-- CLI Command Input -->
+            <div b-tjezjmjmzt class="input-group mb-3">
+                <span b-tjezjmjmzt class="input-group-text bg-dark border-secondary text-neon-green"><i b-tjezjmjmzt class="fas fa-angle-right"></i></span>
+                <input b-tjezjmjmzt type="text" class="form-control bg-dark border-secondary text-white py-2" id="command-search" placeholder="Type a command (help, sec-audit, projects, skills, whoami)..." autocomplete="off" />
+                <button b-tjezjmjmzt class="btn btn-outline-cyan px-3" type="button" id="cyber-cli-run-btn">EXECUTE</button>
+            </div>
+
             <div b-tjezjmjmzt class="command-list" id="command-results">
-                <div b-tjezjmjmzt class="command-item clickable" data-action="nav" data-url="/"><i b-tjezjmjmzt class="fas fa-home me-2 text-neon-purple"></i> Go to Homepage <span b-tjezjmjmzt class="badge bg-dark ms-auto">G + H</span></div>
-                <div b-tjezjmjmzt class="command-item clickable" data-action="nav" data-url="/Portfolio"><i b-tjezjmjmzt class="fas fa-folder-open me-2 text-neon-cyan"></i> Browse Projects Databank <span b-tjezjmjmzt class="badge bg-dark ms-auto">G + P</span></div>
-                <div b-tjezjmjmzt class="command-item clickable" data-action="nav" data-url="/Blog"><i b-tjezjmjmzt class="fas fa-file-alt me-2 text-neon-blue"></i> Read Tech Logs <span b-tjezjmjmzt class="badge bg-dark ms-auto">G + B</span></div>
-                <div b-tjezjmjmzt class="command-item clickable" data-action="ai"><i b-tjezjmjmzt class="fas fa-robot me-2 text-warning"></i> Query AI Portfolio Agent <span b-tjezjmjmzt class="badge bg-dark ms-auto">A + I</span></div>
-                <div b-tjezjmjmzt class="command-item clickable" data-action="contact"><i b-tjezjmjmzt class="fas fa-satellite-dish me-2 text-success"></i> Establish Comms Link (Contact) <span b-tjezjmjmzt class="badge bg-dark ms-auto">C + O</span></div>
-                <div b-tjezjmjmzt class="command-item clickable" data-action="sound"><i b-tjezjmjmzt class="fas fa-volume-up me-2 text-neon-cyan"></i> Synthesize Audio Test <span b-tjezjmjmzt class="badge bg-dark ms-auto">S + N</span></div>
-                <div b-tjezjmjmzt class="command-item clickable text-danger border-danger" data-action="nav" data-url="/Admin/Dashboard"><i b-tjezjmjmzt class="fas fa-terminal me-2 text-danger"></i> sudo admin <span b-tjezjmjmzt class="badge bg-dark ms-auto">S + A</span></div>
+                <div b-tjezjmjmzt class="command-item clickable" data-action="cmd" data-cmd="sec-audit"><i b-tjezjmjmzt class="fas fa-shield-alt me-2 text-danger"></i> sec-audit <span b-tjezjmjmzt class="text-muted ms-2">// Execute Live Vulnerability &amp; Architecture Audit</span> <span b-tjezjmjmzt class="badge bg-dark ms-auto">RUN</span></div>
+                <div b-tjezjmjmzt class="command-item clickable" data-action="cmd" data-cmd="projects"><i b-tjezjmjmzt class="fas fa-folder-open me-2 text-neon-cyan"></i> projects <span b-tjezjmjmzt class="text-muted ms-2">// List All 5 Enterprise Systems (Inc. Under Dev)</span> <span b-tjezjmjmzt class="badge bg-dark ms-auto">LIST</span></div>
+                <div b-tjezjmjmzt class="command-item clickable" data-action="cmd" data-cmd="skills"><i b-tjezjmjmzt class="fas fa-code me-2 text-neon-purple"></i> skills <span b-tjezjmjmzt class="text-muted ms-2">// Inspect .NET 10, C#, eBPF &amp; Security Stack</span> <span b-tjezjmjmzt class="badge bg-dark ms-auto">AST</span></div>
+                <div b-tjezjmjmzt class="command-item clickable" data-action="cmd" data-cmd="whoami"><i b-tjezjmjmzt class="fas fa-user-shield me-2 text-warning"></i> whoami <span b-tjezjmjmzt class="text-muted ms-2">// Hafiz Muhammad Saad Credentials &amp; Degrees</span> <span b-tjezjmjmzt class="badge bg-dark ms-auto">BIO</span></div>
+                <div b-tjezjmjmzt class="command-item clickable" data-action="nav" data-url="/"><i b-tjezjmjmzt class="fas fa-home me-2 text-info"></i> nav home <span b-tjezjmjmzt class="badge bg-dark ms-auto">G + H</span></div>
+                <div b-tjezjmjmzt class="command-item clickable" data-action="nav" data-url="/Blog"><i b-tjezjmjmzt class="fas fa-file-alt me-2 text-neon-blue"></i> nav tech-logs <span b-tjezjmjmzt class="badge bg-dark ms-auto">G + B</span></div>
+                <div b-tjezjmjmzt class="command-item clickable" data-action="contact"><i b-tjezjmjmzt class="fas fa-satellite-dish me-2 text-success"></i> contact <span b-tjezjmjmzt class="badge bg-dark ms-auto">C + O</span></div>
             </div>
         </div>
     </div>
@@ -554,7 +617,7 @@
     <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="../../../js/site.js?v=1790185535177"></script>
+    <script src="../../../js/site.js?v=1790259165061"></script>
     <script src="../../../js/hms-telemetry.js?v=5hUu86zj9Iv2YHukAHxmlvrlFy4NbzNsW7A5vJsOc1s"></script>
     
 </body>
