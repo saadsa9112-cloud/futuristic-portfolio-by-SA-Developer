@@ -1,0 +1,157 @@
+@using FuturisticPortfolio.Models.Entities
+@{
+    ViewData["Title"] = "Contact & Uplink";
+    var settings = ViewBag.Settings as Settings;
+    var email = settings?.ContactEmail ?? "saad.sa9112@gmail.com";
+    var phone = settings?.ContactPhone ?? "+92 305 5188896";
+    var location = settings?.ContactAddress ?? "Karachi, Pakistan";
+}
+
+<div class="container py-4">
+    <!-- Header -->
+    <div class="text-center mb-4" data-aos="fade-up">
+        <div class="d-inline-flex align-items-center gap-2 px-3 py-1.5 rounded-pill border border-info border-opacity-40 bg-info bg-opacity-10 mb-3">
+            <span class="pulse-dot bg-success rounded-circle" style="width: 8px; height: 8px; box-shadow: 0 0 10px #10b981;"></span>
+            <span class="small font-monospace text-neon-cyan fw-bold" style="font-size: 0.78rem; letter-spacing: 1px;">SECURE UPLINK // PROTOCOL: DIRECT CHANNEL</span>
+        </div>
+        <h1 class="display-5 text-white fw-bold"><span class="text-neon-cyan">//</span> Initiate Contact</h1>
+        <p class="text-muted mb-0">Direct communication channel for enterprise software roles, engineering contracts, and system consultations.</p>
+    </div>
+
+    <!-- Main Grid -->
+    <div class="row g-4 align-items-stretch">
+        <!-- Left: Direct Channels & Engineering Credentials -->
+        <div class="col-lg-5" data-aos="fade-right">
+            <div class="glass-panel p-4 h-100 d-flex flex-column justify-content-between">
+                <div>
+                    <h3 class="h4 text-white fw-bold mb-3 d-flex align-items-center gap-2">
+                        <i class="fas fa-satellite-dish text-neon-cyan"></i>
+                        <span>Direct Communication</span>
+                    </h3>
+                    <p class="text-muted small mb-4">
+                        Connect directly with Saad across verified production and messaging channels. All transmissions are routed directly to personal endpoints.
+                    </p>
+
+                    <!-- Direct Channel Cards -->
+                    <div class="d-flex flex-column gap-3 mb-4">
+                        <!-- Email Card -->
+                        <div class="p-3 rounded-3 glass-panel border border-secondary border-opacity-25 d-flex align-items-center justify-content-between">
+                            <div class="d-flex align-items-center gap-3">
+                                <div class="fs-4 text-neon-purple"><i class="fas fa-envelope-open-text"></i></div>
+                                <div>
+                                    <span class="text-muted small font-monospace d-block">PRIMARY INBOX</span>
+                                    <a href="mailto:@email" class="text-white fw-semibold text-decoration-none hover-text-cyan font-monospace small">@email</a>
+                                </div>
+                            </div>
+                            <button type="button" class="btn btn-sm btn-outline-secondary copy-contact-btn text-white rounded-pill px-2.5 py-1 font-monospace small" data-copy="@email" title="Copy Email">
+                                <i class="fas fa-copy"></i>
+                            </button>
+                        </div>
+
+                        <!-- WhatsApp Card -->
+                        <div class="p-3 rounded-3 glass-panel border border-secondary border-opacity-25 d-flex align-items-center justify-content-between">
+                            <div class="d-flex align-items-center gap-3">
+                                <div class="fs-4 text-success"><i class="fab fa-whatsapp"></i></div>
+                                <div>
+                                    <span class="text-muted small font-monospace d-block">DIRECT WHATSAPP</span>
+                                    <a href="https://wa.me/923055188896" target="_blank" class="text-white fw-semibold text-decoration-none hover-text-cyan font-monospace small">@phone</a>
+                                </div>
+                            </div>
+                            <a href="https://wa.me/923055188896" target="_blank" class="btn btn-sm btn-outline-success rounded-pill px-3 py-1 font-monospace small">
+                                Chat <i class="fas fa-external-link-alt ms-1"></i>
+                            </a>
+                        </div>
+
+                        <!-- Location & Node -->
+                        <div class="p-3 rounded-3 glass-panel border border-secondary border-opacity-25 d-flex align-items-center gap-3">
+                            <div class="fs-4 text-neon-cyan"><i class="fas fa-map-marker-alt"></i></div>
+                            <div>
+                                <span class="text-muted small font-monospace d-block">TERMINAL NODE LOCATION</span>
+                                <span class="text-white fw-semibold font-monospace small">@location (PK-KHI) · PKT (UTC+5)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Engineering Status SLA Box -->
+                <div class="p-3 rounded-3 font-monospace small" style="background: rgba(16, 185, 129, 0.06); border: 1px solid rgba(16, 185, 129, 0.3);">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <span class="text-success fw-bold"><i class="fas fa-circle text-success me-1 pulse-dot"></i> STATUS: AVAILABLE</span>
+                        <span class="text-muted small">RESPONSE: &lt; 2H</span>
+                    </div>
+                    <div class="text-muted" style="font-size: 0.78rem; line-height: 1.5;">
+                        Currently open for <strong>Software Engineering Internships</strong>, <strong>Enterprise .NET Development Roles</strong>, and <strong>Full-Stack Freelance Contracts</strong>.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right: Secure Transmission Terminal Console -->
+        <div class="col-lg-7" data-aos="fade-left">
+            <div class="glass-panel p-4 h-100 border-0">
+                <div class="d-flex justify-content-between align-items-center mb-3 pb-2 border-bottom border-secondary border-opacity-25">
+                    <h3 class="h5 text-white fw-bold mb-0 font-monospace">
+                        <i class="fas fa-terminal text-neon-cyan me-2"></i> Transmission Console
+                    </h3>
+                    <span class="badge bg-dark border border-secondary text-neon-cyan font-monospace small">
+                        TLS 1.3 / AES-256
+                    </span>
+                </div>
+
+                <form id="contact-page-form" class="row g-3">
+                    @Html.AntiForgeryToken()
+                    
+                    <div class="col-md-6">
+                        <label class="form-label font-monospace small text-muted">TRANSMITTER NAME *</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-dark border-secondary text-neon-cyan"><i class="fas fa-user"></i></span>
+                            <input type="text" name="Name" class="form-control bg-dark border-secondary text-white font-monospace" placeholder="Your name or organization" required />
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label font-monospace small text-muted">ELECTRONIC UPLINK (EMAIL) *</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-dark border-secondary text-neon-cyan"><i class="fas fa-at"></i></span>
+                            <input type="email" name="Email" class="form-control bg-dark border-secondary text-white font-monospace" placeholder="client@enterprise.com" required />
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label font-monospace small text-muted">ENGAGEMENT SCOPE</label>
+                        <select name="Subject" class="form-select bg-dark border-secondary text-white font-monospace">
+                            <option value="Enterprise .NET Architecture">Enterprise .NET Architecture</option>
+                            <option value="Full-Stack Web App Development">Full-Stack Web App Development</option>
+                            <option value="Database Engineering & Tuning">Database Engineering &amp; Tuning</option>
+                            <option value="Software Engineering Internship">Software Engineering Internship</option>
+                            <option value="General Technical Inquiry">General Technical Inquiry</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label font-monospace small text-muted">DISPATCH PRIORITY</label>
+                        <select class="form-select bg-dark border-secondary text-white font-monospace">
+                            <option value="standard">Standard Priority (Normal)</option>
+                            <option value="high">High Priority (Immediate)</option>
+                            <option value="urgent">Production Urgent (Critical)</option>
+                        </select>
+                    </div>
+
+                    <div class="col-12">
+                        <label class="form-label font-monospace small text-muted">TRANSMISSION PAYLOAD (MESSAGE) *</label>
+                        <textarea name="Content" class="form-control bg-dark border-secondary text-white font-monospace" rows="4" placeholder="Detail your project requirements, job opportunity, timeline, or consultation topics..." required></textarea>
+                    </div>
+
+                    <div class="col-12 pt-2">
+                        <button type="submit" id="contact-page-submit-btn" class="btn btn-neon w-100 py-2.5 font-monospace text-white fw-bold">
+                            <i class="fas fa-paper-plane me-2"></i> DISPATCH SECURE TRANSMISSION
+                        </button>
+                    </div>
+                </form>
+
+                <!-- Dynamic Transmission Feedback -->
+                <div id="contact-page-status" class="mt-3 p-3 rounded font-monospace small" style="display: none;"></div>
+            </div>
+        </div>
+    </div>
+</div>

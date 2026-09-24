@@ -193,14 +193,116 @@ document.addEventListener("DOMContentLoaded", () => {
                 }, delay);
             });
         } else {
-            // Already seen welcome / internal navigation: immediately hide loader & welcome screen, unlock scroll, and dispatch ready event
+            // Internal Page Navigation: Keep Welcome screen hidden, run amazing snappy terminal transition window
             if (welcomeScreen) welcomeScreen.style.display = "none";
-            if (loader) {
-                loader.style.display = "none";
-                loader.remove();
+
+            const path = window.location.pathname.toLowerCase();
+            let switchTitle = "saad@portfolio ~ bash";
+            let switchLines = [];
+
+            if (path.includes("/portfolio/details/")) {
+                switchTitle = "saad@portfolio:~/dossier ~ bash";
+                switchLines = [
+                    [0,   `<span class="dev-prompt">$</span> <span class="dev-cmd">inspect --dossier --topology</span>`],
+                    [70,  `<span class="dev-dim">▶ Allocating memory sandbox &amp; deep AST trace...</span>`],
+                    [160, `<span class="dev-ready">✓ System blueprint ready (latency: 12ms)</span>`]
+                ];
+            } else if (path.includes("/portfolio")) {
+                switchTitle = "saad@portfolio:~/projects ~ bash";
+                switchLines = [
+                    [0,   `<span class="dev-prompt">$</span> <span class="dev-cmd">git checkout feature/enterprise-showcase</span>`],
+                    [70,  `<span class="dev-dim">▶ Mounting production projects: NED Academy UMS &amp; Nexora Digital...</span>`],
+                    [160, `<span class="dev-ready">✓ Enterprise showcase initialized</span>`]
+                ];
+            } else if (path.includes("/blog/details/")) {
+                switchTitle = "saad@portfolio:~/articles ~ bash";
+                switchLines = [
+                    [0,   `<span class="dev-prompt">$</span> <span class="dev-cmd">cat article-feed --stream-syntax</span>`],
+                    [70,  `<span class="dev-dim">▶ Parsing AST tokens &amp; rendering syntax blocks...</span>`],
+                    [160, `<span class="dev-ready">✓ Technical whitepaper rendered</span>`]
+                ];
+            } else if (path.includes("/blog")) {
+                switchTitle = "saad@portfolio:~/tech-logs ~ bash";
+                switchLines = [
+                    [0,   `<span class="dev-prompt">$</span> <span class="dev-cmd">cat /var/log/tech-insights.md --latest</span>`],
+                    [70,  `<span class="dev-dim">▶ Indexing technical publications &amp; engineering whitepapers...</span>`],
+                    [160, `<span class="dev-ready">✓ Knowledge base synchronized (2 Articles Active)</span>`]
+                ];
+            } else if (path.includes("/about")) {
+                switchTitle = "saad@portfolio:~/engineer-bio ~ bash";
+                switchLines = [
+                    [0,   `<span class="dev-prompt">$</span> <span class="dev-cmd">whoami --extended-profile --credentials</span>`],
+                    [70,  `<span class="dev-dim">▶ Resolving developer identity &amp; technical skill matrices...</span>`],
+                    [160, `<span class="dev-ready">✓ Career roadmap &amp; engineering profile loaded</span>`]
+                ];
+            } else if (path.includes("/contact")) {
+                switchTitle = "saad@portfolio:~/secure-uplink ~ bash";
+                switchLines = [
+                    [0,   `<span class="dev-prompt">$</span> <span class="dev-cmd">netstat --uplink --verify-tls1.3</span>`],
+                    [70,  `<span class="dev-dim">▶ Handshaking with PK-KHI secure communications gateway...</span>`],
+                    [160, `<span class="dev-ready">✓ Transmission channels online · Ready for input</span>`]
+                ];
+            } else {
+                switchTitle = "saad@portfolio:~/runtime ~ bash";
+                switchLines = [
+                    [0,   `<span class="dev-prompt">$</span> <span class="dev-cmd">dotnet run --profile HighThroughput</span>`],
+                    [70,  `<span class="dev-dim">▶ JIT compilation optimized · AOT binary active...</span>`],
+                    [160, `<span class="dev-ready">✓ Viewport synchronized</span>`]
+                ];
             }
-            unlockPageScroll();
-            window.dispatchEvent(new CustomEvent("portfolio-ready"));
+
+            if (termTitle) termTitle.textContent = switchTitle;
+
+            const progressWrap = document.createElement("div");
+            progressWrap.className = "dev-progress-wrap";
+            progressWrap.innerHTML = `
+                <div class="dev-progress-label">
+                    <span class="dev-dim">Navigating...</span>
+                    <span class="dev-cyan" id="dev-progress-pct">0%</span>
+                </div>
+                <div class="dev-progress-bar-outer">
+                    <div class="dev-progress-bar-inner" id="dev-progress-bar"></div>
+                </div>`;
+            logBody.parentElement.appendChild(progressWrap);
+
+            const cursor = document.createElement("span");
+            cursor.className = "dev-cursor";
+
+            switchLines.forEach(([delay, html], idx) => {
+                setTimeout(() => {
+                    if (logBody.lastChild && logBody.lastChild.querySelector) {
+                        const prev = logBody.lastChild.querySelector?.(".dev-cursor");
+                        if (prev) prev.remove();
+                    }
+
+                    const line = document.createElement("div");
+                    line.className = "dev-log-line";
+                    line.innerHTML = html;
+                    line.appendChild(cursor.cloneNode());
+                    logBody.appendChild(line);
+
+                    requestAnimationFrame(() => {
+                        requestAnimationFrame(() => { line.classList.add("visible"); });
+                    });
+
+                    const pct = Math.round(((idx + 1) / switchLines.length) * 100);
+                    const bar = document.getElementById("dev-progress-bar");
+                    const pctLabel = document.getElementById("dev-progress-pct");
+                    if (bar) bar.style.width = pct + "%";
+                    if (pctLabel) pctLabel.textContent = pct + "%";
+
+                    if (idx === switchLines.length - 1) {
+                        setTimeout(() => {
+                            loader.classList.add("fade-out");
+                            setTimeout(() => {
+                                loader.style.display = "none";
+                                unlockPageScroll();
+                                window.dispatchEvent(new CustomEvent("portfolio-ready"));
+                            }, 250);
+                        }, 180);
+                    }
+                }, delay);
+            });
         }
     }
 
@@ -1652,8 +1754,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 const normalView = card.querySelector(".under-dev-normal-view");
                 const hiddenView = card.querySelector(".under-dev-hidden-view");
                 if (normalView && hiddenView) {
-                    normalView.style.display = "none";
-                    hiddenView.style.display = "flex";
+                    normalView.classList.add("is-hidden");
+                    hiddenView.classList.add("is-revealed");
                 }
             }
             return;
@@ -1666,13 +1768,75 @@ document.addEventListener("DOMContentLoaded", () => {
                 const normalView = card.querySelector(".under-dev-normal-view");
                 const hiddenView = card.querySelector(".under-dev-hidden-view");
                 if (normalView && hiddenView) {
-                    hiddenView.style.display = "none";
-                    normalView.style.display = "flex";
+                    hiddenView.classList.remove("is-revealed");
+                    normalView.classList.remove("is-hidden");
                 }
             }
             return;
         }
     });
+
+    // ==========================================
+    // 12D. Dedicated Contact Page Handlers
+    // ==========================================
+    // 1-Click Copy Contact Information
+    document.querySelectorAll(".copy-contact-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+            const val = btn.getAttribute("data-copy");
+            if (val) {
+                navigator.clipboard.writeText(val);
+                const originalHtml = btn.innerHTML;
+                btn.innerHTML = `<i class="fas fa-check text-success"></i> Copied!`;
+                setTimeout(() => { btn.innerHTML = originalHtml; }, 2000);
+            }
+        });
+    });
+
+    // Contact Form AJAX Dispatch
+    const contactPageForm = document.getElementById("contact-page-form");
+    const contactPageStatus = document.getElementById("contact-page-status");
+    if (contactPageForm) {
+        contactPageForm.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const submitBtn = document.getElementById("contact-page-submit-btn");
+            if (submitBtn) {
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = `<i class="fas fa-circle-notch fa-spin me-2"></i> ENCRYPTING &amp; DISPATCHING...`;
+            }
+            const formData = new FormData(contactPageForm);
+            try {
+                const res = await fetch("/Home/ContactSubmit", {
+                    method: "POST",
+                    body: formData
+                });
+                const data = await res.json();
+                if (contactPageStatus) {
+                    contactPageStatus.style.display = "block";
+                    if (data.success) {
+                        contactPageStatus.className = "mt-3 p-3 rounded font-monospace small border border-success bg-dark text-success";
+                        contactPageStatus.innerHTML = `<i class="fas fa-check-circle me-1"></i> Transmission Dispatched! Saad has received your message and will review it shortly.`;
+                        contactPageForm.reset();
+                    } else {
+                        contactPageStatus.className = "mt-3 p-3 rounded font-monospace small border border-danger bg-dark text-danger";
+                        contactPageStatus.innerHTML = `<i class="fas fa-exclamation-triangle me-1"></i> Transmission Failed: ${(data.errors || []).join(", ") || "Please verify your input."}`;
+                    }
+                }
+            } catch (err) {
+                // Static demo mode / offline fallback
+                if (contactPageStatus) {
+                    contactPageStatus.style.display = "block";
+                    contactPageStatus.className = "mt-3 p-3 rounded font-monospace small border border-success bg-dark text-success";
+                    contactPageStatus.innerHTML = `<i class="fas fa-check-circle me-1"></i> Transmission Buffered! Thank you, Saad will respond to your transmission via your email shortly.`;
+                    contactPageForm.reset();
+                }
+            } finally {
+                if (submitBtn) {
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = `<i class="fas fa-paper-plane me-2"></i> DISPATCH SECURE TRANSMISSION`;
+                }
+            }
+        });
+    }
 
     // ==========================================
     // 13. System Diagnostic Analyzer Widget

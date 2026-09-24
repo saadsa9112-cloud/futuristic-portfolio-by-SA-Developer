@@ -97,6 +97,16 @@ namespace FuturisticPortfolio.Controllers
             return View();
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Contact()
+        {
+            var settings = (await _unitOfWork.Settings.GetAllAsync()).FirstOrDefault() ?? new Settings { SiteName = "Futuristic Portfolio" };
+            ViewBag.Settings = settings;
+            ViewBag.SocialLinks = (await _unitOfWork.SocialLinks.GetAllAsync()).ToList();
+
+            return View();
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> ContactSubmit(Message model)

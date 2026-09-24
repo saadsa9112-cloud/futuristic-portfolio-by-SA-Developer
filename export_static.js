@@ -73,7 +73,8 @@ async function run() {
         { route: '/', dest: 'index.html' },
         { route: '/Home/About', dest: 'about/index.html' },
         { route: '/Portfolio', dest: 'portfolio/index.html' },
-        { route: '/Blog', dest: 'blog/index.html' }
+        { route: '/Blog', dest: 'blog/index.html' },
+        { route: '/Home/Contact', dest: 'contact/index.html' }
     ];
 
     // Crawl project list and blog list from main pages to harvest details
@@ -122,8 +123,8 @@ async function run() {
             html = html.replace(/href="\/[Pp]ortfolio\/[Dd]etails\/(\d+)"/gi, `href="${relativePrefix}portfolio/details/$1/"`);
             html = html.replace(/href="\/[Bb]log\/[Dd]etails\?slug=([a-zA-Z0-9_-]+)"/gi, `href="${relativePrefix}blog/details/$1/"`);
             html = html.replace(/href="\/[Bb]log\/[Dd]etails\/([a-zA-Z0-9_-]+)"/gi, `href="${relativePrefix}blog/details/$1/"`);
-            html = html.replace(/href="\/[Hh]ome\/[Cc]ontact"/g, `href="${relativePrefix}#contact-section"`);
-            html = html.replace(/href="\/[Hh]ome\/[Cc]ontact[Ss]ubmit"/g, `href="${relativePrefix}#contact-section"`);
+            html = html.replace(/href="\/[Hh]ome\/[Cc]ontact"/g, `href="${relativePrefix}contact/"`);
+            html = html.replace(/href="\/[Cc]ontact"/g, `href="${relativePrefix}contact/"`);
             html = html.replace(/href="\/#([a-zA-Z0-9_-]+)"/g, `href="${relativePrefix}#$1"`);
             html = html.replace(/href="\/"/g, `href="${relativePrefix}"`);
 

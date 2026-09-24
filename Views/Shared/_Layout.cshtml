@@ -194,11 +194,12 @@
                             <a class="nav-link" asp-controller="Blog" asp-action="Index">Blog</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/#contact-section">Contact</a>
+                            <a class="nav-link" asp-controller="Home" asp-action="Contact">Contact</a>
                         </li>
                         <li class="nav-item d-none d-lg-block ms-lg-2">
-                            <a href="/#contact-section" class="btn btn-neon-cta font-monospace text-decoration-none">
-                                HIRE ME
+                            <a asp-controller="Home" asp-action="Contact" class="btn btn-nav-connect font-monospace text-decoration-none">
+                                <span class="nav-connect-pulse"></span>
+                                <span>START A PROJECT</span>
                             </a>
                         </li>
                         <li class="nav-item d-flex align-items-center ms-lg-2 me-lg-1">
@@ -254,7 +255,7 @@
     </header>
 
     <!-- Main Content Grid -->
-    <main role="main" class="pt-5 mt-5 page-transition">
+    <main role="main" class="site-main page-transition">
         @RenderBody()
     </main>
 
@@ -318,7 +319,7 @@
 
     <!-- Footer Area -->
     <!-- Footer Section -->
-    <footer class="footer-section border-top mt-5 pt-5 pb-4 text-start">
+    <footer class="footer-section border-top mt-4 pt-4 pb-3 text-start">
         <div class="container">
             <div class="row g-4 mb-4">
                 <!-- Brand Info Column (4 cols) -->
@@ -344,7 +345,7 @@
                         <li><a href="/Home/About#skills-section" class="footer-nav-link"><i class="fas fa-chevron-right text-neon-purple"></i> <span>Skills</span></a></li>
                         <li><a asp-controller="Portfolio" asp-action="Index" class="footer-nav-link"><i class="fas fa-chevron-right text-neon-purple"></i> <span>Projects</span></a></li>
                         <li><a asp-controller="Blog" asp-action="Index" class="footer-nav-link"><i class="fas fa-chevron-right text-neon-purple"></i> <span>Tech Logs</span></a></li>
-                        <li><a href="/#contact-section" class="footer-nav-link"><i class="fas fa-chevron-right text-neon-purple"></i> <span>Contact</span></a></li>
+                        <li><a asp-controller="Home" asp-action="Contact" class="footer-nav-link"><i class="fas fa-chevron-right text-neon-purple"></i> <span>Contact</span></a></li>
                     </ul>
                 </div>
 

@@ -1264,6 +1264,51 @@ body.light-theme .ai-input-field::placeholder {
     transform: translateY(-2px);
 }
 
+/* Executive Navigation Collab Button */
+.btn-nav-connect {
+    background: linear-gradient(135deg, rgba(168, 85, 247, 0.15) 0%, rgba(0, 243, 255, 0.15) 100%);
+    border: 1px solid rgba(0, 243, 255, 0.5);
+    color: #ffffff !important;
+    padding: 6px 18px;
+    border-radius: 20px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.6px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 0 12px rgba(0, 243, 255, 0.2);
+}
+
+.btn-nav-connect:hover {
+    background: linear-gradient(135deg, #00f3ff, #a855f7);
+    color: #000000 !important;
+    border-color: #00f3ff;
+    box-shadow: 0 0 25px rgba(0, 243, 255, 0.7);
+    transform: translateY(-2px);
+}
+
+.nav-connect-pulse {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background-color: #10b981;
+    box-shadow: 0 0 8px #10b981;
+    animation: connectPulse 1.8s infinite;
+}
+
+@keyframes connectPulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.3; transform: scale(0.75); }
+}
+
+/* Base Main Layout Spacing (Eliminates Empty Abyss) */
+.site-main {
+    padding-top: 76px;
+    min-height: calc(100vh - 280px);
+}
+
 /* Under Development Interactive Card States */
 .under-dev-card {
     transition: all 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
@@ -1274,9 +1319,23 @@ body.light-theme .ai-input-field::placeholder {
     transition: opacity 0.35s ease, transform 0.35s ease;
 }
 
+.under-dev-normal-view.is-hidden {
+    display: none !important;
+}
+
 .under-dev-hidden-view {
+    display: none !important;
     background: radial-gradient(circle at center, rgba(245, 158, 11, 0.08) 0%, rgba(13, 8, 25, 0.95) 75%);
     border-radius: 0 0 12px 12px;
+}
+
+.under-dev-hidden-view.is-revealed {
+    display: flex !important;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 380px;
+    animation: fadeInScale 0.3s ease forwards;
 }
 
 .under-dev-hidden-view i.fa-eye-slash {
