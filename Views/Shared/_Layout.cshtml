@@ -504,6 +504,35 @@
         <button type="button" class="btn btn-outline-danger px-4 py-2 mt-4 font-monospace" id="danger-close-btn" style="border-radius: 0; text-transform: uppercase;">Abort Handshake</button>
     </div>
 
+    <!-- Floating Cyber Telemetry HUD (Viewport Diagnostics) -->
+    <div id="cyber-telemetry-hud" class="cyber-telemetry-hud d-none d-md-flex" aria-label="Live System Telemetry HUD">
+        <div class="hud-top-strip">
+            <span class="hud-live-beacon"></span>
+            <span class="hud-brand-tag">SYS.HUD // TELEMETRY</span>
+            <button type="button" class="hud-minimize-btn" id="hud-toggle-btn" title="Toggle Telemetry HUD">
+                <i class="fas fa-minus" id="hud-toggle-icon"></i>
+            </button>
+        </div>
+        <div class="hud-metrics-grid" id="hud-metrics-grid">
+            <div class="hud-metric">
+                <span class="hud-metric-label">FPS</span>
+                <span class="hud-metric-value text-neon-green" id="hud-fps-val">60</span>
+            </div>
+            <div class="hud-metric">
+                <span class="hud-metric-label">CURSOR</span>
+                <span class="hud-metric-value text-neon-cyan" id="hud-coords-val">0, 0</span>
+            </div>
+            <div class="hud-metric">
+                <span class="hud-metric-label">SCROLL</span>
+                <span class="hud-metric-value text-neon-purple" id="hud-scroll-val">0%</span>
+            </div>
+            <div class="hud-metric">
+                <span class="hud-metric-label">VELOCITY</span>
+                <span class="hud-metric-value text-white" id="hud-velocity-val">0 px/s</span>
+            </div>
+        </div>
+    </div>
+
     <!-- Script Assets -->
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
