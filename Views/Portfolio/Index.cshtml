@@ -9,37 +9,36 @@
     var totalPages = (int)ViewBag.TotalPages;
 }
 
-<div class="container py-5">
+<div class="container py-4">
     <!-- Header Page Description -->
-    <div class="text-center mb-5" data-aos="fade-up">
-        <h1 class="display-4 text-white fw-bold"><span class="text-neon-purple">//</span> Projects Databank</h1>
-        <p class="text-muted">Explore system deployments, services architectures, and source repositories.</p>
+    <div class="text-center mb-4" data-aos="fade-up">
+        <h1 class="display-5 text-white fw-bold"><span class="text-neon-purple">//</span> Projects Databank</h1>
+        <p class="text-muted mb-0">Explore production system deployments, web architectures, and autonomous AI modules.</p>
     </div>
 
-    <!-- Filter Controls Panel -->
-    <div class="glass-panel p-4 mb-5 text-center" data-aos="fade-up">
-        <div class="d-flex flex-wrap justify-content-center align-items-center gap-2">
-            <a asp-action="Index" class="btn btn-sm @(currentCategory == null ? "btn-neon text-white" : "btn-outline-secondary rounded-pill text-white") px-4 py-2">
-                All Projects
-            </a>
-            @if (categories != null)
-            {
-                foreach (var cat in categories)
-                {
-                    var isSelected = currentCategory == cat.Id;
-                    <a asp-action="Index" asp-route-categoryId="@cat.Id" class="btn btn-sm @(isSelected ? "btn-neon text-white" : "btn-outline-secondary rounded-pill text-white") px-4 py-2">
-                        @cat.Name
-                    </a>
-                }
-            }
+    <!-- Filter Controls Panel: 4 Smart Architectural Groups -->
+    <div class="glass-panel p-3 mb-4 text-center" data-aos="fade-up" id="portfolio-filter-panel">
+        <div class="d-flex flex-wrap justify-content-center align-items-center gap-2" id="portfolio-filter-group">
+            <button type="button" class="btn btn-sm btn-neon text-white px-4 py-2 rounded-pill project-filter-btn active" data-filter="all">
+                All Systems <span class="badge bg-dark ms-1 text-neon-cyan border border-secondary">5</span>
+            </button>
+            <button type="button" class="btn btn-sm btn-outline-secondary text-white px-4 py-2 rounded-pill project-filter-btn" data-filter="dotnet">
+                Enterprise .NET &amp; Web <span class="badge bg-dark ms-1 text-neon-purple border border-secondary">3</span>
+            </button>
+            <button type="button" class="btn btn-sm btn-outline-secondary text-white px-4 py-2 rounded-pill project-filter-btn" data-filter="cyber">
+                Cybersecurity &amp; Kernel <span class="badge bg-dark ms-1 text-neon-blue border border-secondary">1</span>
+            </button>
+            <button type="button" class="btn btn-sm btn-outline-secondary text-white px-4 py-2 rounded-pill project-filter-btn" data-filter="ai">
+                AI &amp; Distributed Systems <span class="badge bg-dark ms-1 text-warning border border-secondary">1</span>
+            </button>
         </div>
     </div>
 
     <!-- Projects Grid -->
-    <div class="row g-4">
+    <div class="row g-4" id="portfolio-grid">
         @if (Model == null || !Model.Any())
         {
-            <div class="col-12 text-center py-5" data-aos="fade-up">
+            <div class="col-12 text-center py-4" data-aos="fade-up">
                 <div class="fs-1 text-neon-purple mb-3"><i class="fas fa-folder-open"></i></div>
                 <h3 class="text-white">Query Returned Zero Nodes</h3>
                 <p class="text-muted">No projects match the specified filter queries.</p>
@@ -49,10 +48,21 @@
         {
             foreach (var project in Model)
             {
+                var title = project.Title ?? "";
                 var isUnderDev = project.Description?.Contains("UNDER DEVELOPMENT", StringComparison.OrdinalIgnoreCase) == true ||
-                                 project.Title?.Contains("CyberSentinel", StringComparison.OrdinalIgnoreCase) == true ||
-                                 project.Title?.Contains("NeuralMesh", StringComparison.OrdinalIgnoreCase) == true;
-                <div class="col-md-6 col-lg-4" data-aos="fade-up">
+                                 title.Contains("CyberSentinel", StringComparison.OrdinalIgnoreCase) ||
+                                 title.Contains("NeuralMesh", StringComparison.OrdinalIgnoreCase);
+
+                var categoryGroup = "dotnet";
+                if (title.Contains("CyberSentinel", StringComparison.OrdinalIgnoreCase))
+                {
+                    categoryGroup = "cyber";
+                }
+                else if (title.Contains("NeuralMesh", StringComparison.OrdinalIgnoreCase))
+                {
+                    categoryGroup = "ai";
+                }
+                <div class="col-md-6 col-lg-4 project-card-item" data-category-group="@categoryGroup" data-aos="fade-up">
                     <div class="card project-terminal-card h-100 border-0 cyber-hud-card @(isUnderDev ? "under-dev-card" : "")">
                         <div class="project-window-bar">
                             <span class="p-dot red"></span>

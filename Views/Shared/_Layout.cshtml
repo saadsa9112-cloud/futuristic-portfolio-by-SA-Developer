@@ -28,13 +28,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
 
-    <!-- Immediate Scroll Lock to prevent background index page scroll during welcome/loader -->
+    <!-- Immediate Scroll Lock to prevent background index page scroll only on initial first load -->
     <script>
         (function() {
-            var path = window.location.pathname.toLowerCase();
-            var isHome = path === "/" || path === "" || path.endsWith("/index.html") || path.endsWith("/futuristic-portfolio-by-sa-developer/") || path.endsWith("/dist/");
-            var hasSeen = sessionStorage.getItem("saad_welcome_shown") === "true";
-            if (isHome || !hasSeen) {
+            var hasSeen = (sessionStorage.getItem("saad_welcome_shown") === "true") || (localStorage.getItem("saad_welcome_shown") === "true");
+            if (!hasSeen) {
                 document.documentElement.classList.add("lock-scroll");
             }
         })();
@@ -182,25 +180,25 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse justify-content-end">
-                    <ul class="navbar-nav gap-2 align-items-center">
+                    <ul class="navbar-nav gap-3 align-items-center">
                         <li class="nav-item">
-                            <a class="nav-link" asp-controller="Home" asp-action="Index"><i class="fas fa-home-alt me-1.5 opacity-75"></i> Home</a>
+                            <a class="nav-link" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" asp-controller="Home" asp-action="About"><i class="fas fa-user-astronaut me-1.5 opacity-75"></i> About</a>
+                            <a class="nav-link" asp-controller="Home" asp-action="About">About</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" asp-controller="Portfolio" asp-action="Index"><i class="fas fa-laptop-code me-1.5 opacity-75"></i> Projects</a>
+                            <a class="nav-link" asp-controller="Portfolio" asp-action="Index">Projects</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" asp-controller="Blog" asp-action="Index"><i class="fas fa-newspaper me-1.5 opacity-75"></i> Blog</a>
+                            <a class="nav-link" asp-controller="Blog" asp-action="Index">Blog</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/#contact-section"><i class="fas fa-paper-plane me-1.5 opacity-75"></i> Contact</a>
+                            <a class="nav-link" href="/#contact-section">Contact</a>
                         </li>
-                        <li class="nav-item d-none d-lg-block ms-lg-1">
+                        <li class="nav-item d-none d-lg-block ms-lg-2">
                             <a href="/#contact-section" class="btn btn-neon-cta font-monospace text-decoration-none">
-                                <i class="fas fa-bolt text-warning me-1"></i> HIRE ME
+                                HIRE ME
                             </a>
                         </li>
                         <li class="nav-item d-flex align-items-center ms-lg-2 me-lg-1">
@@ -539,6 +537,28 @@
             <div class="hud-metric">
                 <span class="hud-metric-label">VELOCITY</span>
                 <span class="hud-metric-value text-white" id="hud-velocity-val">0 px/s</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Developer Light Mode Roast Toast -->
+    <div id="developer-roast-toast" class="developer-roast-toast" role="alert" aria-live="assertive" style="display: none;">
+        <div class="roast-toast-inner">
+            <div class="roast-top-bar">
+                <span class="roast-badge"><i class="fas fa-radiation text-warning me-1"></i> FLASHBANG ALERT</span>
+                <button type="button" class="roast-dismiss-btn" id="roast-dismiss-btn" title="Dismiss">&times;</button>
+            </div>
+            <div class="roast-content-body">
+                <div class="roast-avatar">😎💥</div>
+                <h5 class="roast-headline">Are You Sure You're A Developer?</h5>
+                <p class="roast-subline">
+                    "Real engineers code in the dark! Turning on Light Mode feels like you haven't touched a terminal today. Your eyes might regret this flashbang..."
+                </p>
+                <div class="roast-actions">
+                    <button type="button" class="btn btn-sm btn-revert-dark font-monospace" id="roast-revert-btn">
+                        <i class="fas fa-moon me-1"></i> I'm A Real Developer (Revert To Dark Mode)
+                    </button>
+                </div>
             </div>
         </div>
     </div>
