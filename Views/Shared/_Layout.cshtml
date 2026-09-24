@@ -28,11 +28,13 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
 
-    <!-- Immediate Scroll Lock to prevent background index page scroll only on initial first load -->
+    <!-- Immediate Scroll Lock to prevent background index page scroll during welcome/loader -->
     <script>
         (function() {
-            var hasSeen = (sessionStorage.getItem("saad_welcome_shown") === "true") || (localStorage.getItem("saad_welcome_shown") === "true");
-            if (!hasSeen) {
+            var path = window.location.pathname.toLowerCase();
+            var isHome = path === "/" || path === "" || path.endsWith("/index.html") || path.endsWith("/futuristic-portfolio-by-sa-developer/") || path.endsWith("/dist/");
+            var hasSeen = sessionStorage.getItem("saad_welcome_shown") === "true";
+            if (isHome || !hasSeen) {
                 document.documentElement.classList.add("lock-scroll");
             }
         })();

@@ -36,8 +36,12 @@ document.addEventListener("DOMContentLoaded", () => {
     const welcomeScreen = document.getElementById("welcome-screen");
 
     if (loader && logBody) {
-        const hasSeenWelcome = (sessionStorage.getItem("saad_welcome_shown") === "true") || (localStorage.getItem("saad_welcome_shown") === "true");
-        const runFullWelcomeSequence = !hasSeenWelcome;
+        const path = window.location.pathname.toLowerCase();
+        const isHomePage = path === "/" || path === "" || path.endsWith("/index.html") || path.endsWith("/futuristic-portfolio-by-sa-developer/") || path.endsWith("/dist/");
+        const hasSeenWelcome = sessionStorage.getItem("saad_welcome_shown") === "true";
+
+        // Always run the full 3-stage sequence on Home page OR on first visit of session
+        const runFullWelcomeSequence = isHomePage || !hasSeenWelcome;
 
         if (runFullWelcomeSequence) {
             // Stage 1: The exact original developer terminal boot sequence
@@ -145,7 +149,6 @@ document.addEventListener("DOMContentLoaded", () => {
                                         setTimeout(() => {
                                             welcomeScreen.classList.add("welcome-dismiss");
                                             sessionStorage.setItem("saad_welcome_shown", "true");
-                                            localStorage.setItem("saad_welcome_shown", "true");
 
                                             setTimeout(() => {
                                                 welcomeScreen.style.display = "none";
@@ -157,7 +160,6 @@ document.addEventListener("DOMContentLoaded", () => {
                                     } else {
                                         welcomeScreen.classList.add("welcome-dismiss");
                                         sessionStorage.setItem("saad_welcome_shown", "true");
-                                        localStorage.setItem("saad_welcome_shown", "true");
                                         setTimeout(() => {
                                             welcomeScreen.style.display = "none";
                                             unlockPageScroll();
@@ -180,8 +182,6 @@ document.addEventListener("DOMContentLoaded", () => {
                                 document.addEventListener("keydown", handleKey);
                             } else {
                                 loader.classList.add("fade-out");
-                                sessionStorage.setItem("saad_welcome_shown", "true");
-                                localStorage.setItem("saad_welcome_shown", "true");
                                 setTimeout(() => {
                                     loader.style.display = "none";
                                     unlockPageScroll();
