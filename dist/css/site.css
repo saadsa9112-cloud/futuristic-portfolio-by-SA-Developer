@@ -13,6 +13,24 @@
     --font-heading: 'Space Grotesk', sans-serif;
     --font-body: 'Outfit', sans-serif;
     --transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    --header-total-height: 108px;
+}
+
+@media (max-width: 991px) {
+    :root {
+        --header-total-height: 122px;
+    }
+}
+
+@media (max-width: 576px) {
+    :root {
+        --header-total-height: 132px;
+    }
+}
+
+/* Universal scroll margin to ensure section headings are NEVER obscured by fixed navbar on anchor scroll */
+section[id], div[id], [id] {
+    scroll-margin-top: calc(var(--header-total-height) + 24px);
 }
 
 .text-muted, 
@@ -1303,10 +1321,20 @@ body.light-theme .ai-input-field::placeholder {
     50% { opacity: 0.3; transform: scale(0.75); }
 }
 
-/* Base Main Layout Spacing (Eliminates Empty Abyss) */
+/* Base Main Layout Spacing (Clears fixed navbar + ribbon completely with breathing room) */
 .site-main {
-    padding-top: 76px;
-    min-height: calc(100vh - 280px);
+    padding-top: calc(var(--header-total-height) + 24px);
+    min-height: calc(100vh - 200px);
+    display: flex;
+    flex-direction: column;
+}
+
+/* Page Centralized Wrappers: Sits content in the optical center on high-res displays */
+.page-centered-wrapper {
+    min-height: calc(100vh - var(--header-total-height) - 200px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 /* Under Development Interactive Card States */

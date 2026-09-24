@@ -9,15 +9,15 @@
     var totalPages = (int)ViewBag.TotalPages;
 }
 
-<div class="container py-3">
+<div class="container py-4 my-auto page-centered-wrapper">
     <!-- Header Page Description -->
-    <div class="text-center mb-3" data-aos="fade-up">
+    <div class="text-center mb-4" data-aos="fade-up">
         <h1 class="display-5 text-white fw-bold"><span class="text-neon-purple">//</span> Projects Databank</h1>
         <p class="text-muted mb-0">Explore production system deployments, web architectures, and autonomous AI modules.</p>
     </div>
 
     <!-- Filter Controls Panel: 4 Smart Architectural Groups -->
-    <div class="glass-panel p-3 mb-4 text-center" data-aos="fade-up" id="portfolio-filter-panel">
+    <div class="glass-panel p-3 mb-4 text-center mx-auto" style="max-width: 960px;" data-aos="fade-up" id="portfolio-filter-panel">
         <div class="d-flex flex-wrap justify-content-center align-items-center gap-2" id="portfolio-filter-group">
             <button type="button" class="btn btn-sm btn-neon text-white px-4 py-2 rounded-pill project-filter-btn active" data-filter="all">
                 All Systems <span class="badge bg-dark ms-1 text-neon-cyan border border-secondary">5</span>
@@ -35,7 +35,7 @@
     </div>
 
     <!-- Projects Grid -->
-    <div class="row g-4" id="portfolio-grid">
+    <div class="row g-4 justify-content-center" id="portfolio-grid">
         @if (Model == null || !Model.Any())
         {
             <div class="col-12 text-center py-4" data-aos="fade-up">
