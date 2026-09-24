@@ -251,7 +251,7 @@
                                              featuredProject.Title?.Contains("CyberSentinel", StringComparison.OrdinalIgnoreCase) == true ||
                                              featuredProject.Title?.Contains("NeuralMesh", StringComparison.OrdinalIgnoreCase) == true;
                     <div class="col-md-6" data-aos="fade-up" data-aos-delay="100">
-                        <div class="card project-terminal-card h-100 cyber-hud-card">
+                        <div class="card project-terminal-card h-100 cyber-hud-card @(isFeaturedUnderDev ? "under-dev-card" : "")">
                             <div class="project-window-bar">
                                 <span class="p-dot red"></span>
                                 <span class="p-dot yellow"></span>
@@ -259,64 +259,109 @@
                                 <span class="project-window-title">~/projects/@(featuredProject.Title.ToLower().Replace(" ", "-").Replace("(", "").Replace(")", ""))</span>
                                 @if (isFeaturedUnderDev)
                                 {
-                                    <span class="project-window-badge" style="background: rgba(245, 158, 11, 0.2); color: #f59e0b; border: 1px solid #f59e0b;"><i class="fas fa-hammer me-1"></i> UNDER DEV</span>
+                                    <span class="project-window-badge" style="background: rgba(245, 158, 11, 0.2); color: #f59e0b; border: 1px solid #f59e0b;"><i class="fas fa-tools me-1"></i> UNDER DEV</span>
                                 }
                                 else
                                 {
                                     <span class="project-window-badge">FEATURED</span>
                                 }
                             </div>
-                            <div class="position-relative overflow-hidden" style="height: 230px;">
-                                <img src="@featuredProject.ThumbnailPath" alt="@featuredProject.Title" class="project-thumb-img" />
-                                <div class="position-absolute top-0 end-0 m-3">
-                                    @if (featuredProject.Category != null)
-                                    {
-                                        <span class="badge bg-dark bg-opacity-80 border border-secondary text-neon-cyan font-monospace">@featuredProject.Category.Name</span>
-                                    }
-                                </div>
-                                @if (isFeaturedUnderDev)
-                                {
-                                    <div class="position-absolute bottom-0 start-0 end-0 p-1.5 text-center font-monospace small" style="background: rgba(245, 158, 11, 0.92); color: #000; font-weight: 800; letter-spacing: 1px;">
-                                        <i class="fas fa-tools me-1"></i> UNDER DEVELOPMENT · LABS PREVIEW
-                                    </div>
-                                }
-                            </div>
-                            <div class="card-body d-flex flex-column p-4">
-                                <h4 class="card-title text-white fw-bold">@featuredProject.Title</h4>
-                                <p class="card-text text-muted small flex-grow-1">@featuredProject.Subtitle</p>
 
-                                @if (isFeaturedUnderDev)
-                                {
-                                    <div class="mb-3 p-2 rounded font-monospace" style="background: rgba(245, 158, 11, 0.1); border: 1px solid rgba(245, 158, 11, 0.3);">
-                                        <div class="d-flex justify-content-between text-warning small mb-1">
-                                            <span><i class="fas fa-microchip me-1"></i> Sprint Architecture</span>
-                                            <span class="fw-bold">75% Complete</span>
-                                        </div>
-                                        <div class="progress" style="height: 5px; background: rgba(255,255,255,0.1);">
-                                            <div class="progress-bar bg-warning" style="width: 75%; box-shadow: 0 0 8px #f59e0b;"></div>
-                                        </div>
-                                    </div>
-                                }
-
-                                <div class="mt-auto pt-3">
-                                    <div class="d-flex flex-wrap gap-1 mb-3">
-                                        @if (featuredProject.Technologies != null)
-                                        {
-                                            foreach (var tag in featuredProject.Technologies.Split(','))
+                            @if (isFeaturedUnderDev)
+                            {
+                                <!-- State A: Sleek Normal View -->
+                                <div class="under-dev-normal-view d-flex flex-column flex-grow-1">
+                                    <div class="position-relative overflow-hidden" style="height: 230px;">
+                                        <img src="@featuredProject.ThumbnailPath" alt="@featuredProject.Title" class="project-thumb-img" />
+                                        <div class="position-absolute top-0 end-0 m-3">
+                                            @if (featuredProject.Category != null)
                                             {
-                                                <span class="badge bg-dark border border-secondary text-neon-cyan font-monospace small px-2 py-1">@tag.Trim()</span>
+                                                <span class="badge bg-dark bg-opacity-80 border border-secondary text-neon-cyan font-monospace">@featuredProject.Category.Name</span>
                                             }
-                                        }
+                                        </div>
+                                        <div class="position-absolute bottom-0 start-0 end-0 p-2 text-center font-monospace small" style="background: rgba(10, 8, 20, 0.85); backdrop-filter: blur(8px); border-top: 1px solid rgba(245, 158, 11, 0.4); color: #f59e0b; font-weight: 600;">
+                                            <i class="fas fa-tools me-1"></i> Under Active Development
+                                        </div>
                                     </div>
-                                    <div class="d-flex gap-2">
-                                        <a asp-controller="Portfolio" asp-action="Details" asp-route-id="@featuredProject.Id" class="btn btn-outline-light btn-sm flex-grow-1 border-secondary rounded-pill hover-bg-light hover-text-dark font-monospace"><i class="fas fa-terminal me-1"></i> Inspect System</a>
-                                        @if (!string.IsNullOrEmpty(featuredProject.GitHubLink))
+                                    <div class="card-body d-flex flex-column p-4">
+                                        <h4 class="card-title text-white fw-bold">@featuredProject.Title</h4>
+                                        <p class="card-text text-muted small flex-grow-1">@featuredProject.Subtitle</p>
+
+                                        <div class="mt-auto pt-3">
+                                            <div class="d-flex flex-wrap gap-1 mb-3">
+                                                @if (featuredProject.Technologies != null)
+                                                {
+                                                    foreach (var tag in featuredProject.Technologies.Split(','))
+                                                    {
+                                                        <span class="badge bg-dark border border-secondary text-neon-cyan font-monospace small px-2 py-1">@tag.Trim()</span>
+                                                    }
+                                                }
+                                            </div>
+                                            <div class="d-flex gap-2">
+                                                <button type="button" class="btn btn-outline-warning btn-sm flex-grow-1 border-warning rounded-pill text-warning font-monospace trigger-under-dev-btn">
+                                                    <i class="fas fa-terminal me-1"></i> Inspect System
+                                                </button>
+                                                @if (!string.IsNullOrEmpty(featuredProject.GitHubLink))
+                                                {
+                                                    <a href="@featuredProject.GitHubLink" target="_blank" class="btn btn-outline-info btn-sm rounded-circle" title="View Source"><i class="fab fa-github"></i></a>
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- State B: Witty Under Development Notice (Reveals on Click) -->
+                                <div class="under-dev-hidden-view text-center p-4 d-flex flex-column align-items-center justify-content-center flex-grow-1" style="display: none; min-height: 380px;">
+                                    <div class="mb-3">
+                                        <i class="fas fa-eye-slash text-warning" style="font-size: 2.8rem; filter: drop-shadow(0 0 15px rgba(245, 158, 11, 0.7));"></i>
+                                    </div>
+                                    <h4 class="text-white fw-bold font-monospace mb-2">Didn't You Read Above? 😉</h4>
+                                    <div class="p-3 rounded mb-3 font-monospace small text-warning" style="background: rgba(245, 158, 11, 0.1); border: 1px dashed rgba(245, 158, 11, 0.5); max-width: 90%;">
+                                        "Perhaps you didn't notice the tag above — this project is currently UNDER DEVELOPMENT!"
+                                    </div>
+                                    <p class="text-muted small mb-4 px-2 leading-relaxed">
+                                        Saad is actively building and architecting this system. Live access and production deployment will be unlocked soon.
+                                    </p>
+                                    <button type="button" class="btn btn-outline-warning btn-sm font-monospace rounded-pill px-4 py-2 restore-under-dev-btn">
+                                        <i class="fas fa-undo me-2"></i> Show Project Card Again
+                                    </button>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="position-relative overflow-hidden" style="height: 230px;">
+                                    <img src="@featuredProject.ThumbnailPath" alt="@featuredProject.Title" class="project-thumb-img" />
+                                    <div class="position-absolute top-0 end-0 m-3">
+                                        @if (featuredProject.Category != null)
                                         {
-                                            <a href="@featuredProject.GitHubLink" target="_blank" class="btn btn-outline-info btn-sm rounded-circle" title="View Source"><i class="fab fa-github"></i></a>
+                                            <span class="badge bg-dark bg-opacity-80 border border-secondary text-neon-cyan font-monospace">@featuredProject.Category.Name</span>
                                         }
                                     </div>
                                 </div>
-                            </div>
+                                <div class="card-body d-flex flex-column p-4">
+                                    <h4 class="card-title text-white fw-bold">@featuredProject.Title</h4>
+                                    <p class="card-text text-muted small flex-grow-1">@featuredProject.Subtitle</p>
+
+                                    <div class="mt-auto pt-3">
+                                        <div class="d-flex flex-wrap gap-1 mb-3">
+                                            @if (featuredProject.Technologies != null)
+                                            {
+                                                foreach (var tag in featuredProject.Technologies.Split(','))
+                                                {
+                                                    <span class="badge bg-dark border border-secondary text-neon-cyan font-monospace small px-2 py-1">@tag.Trim()</span>
+                                                }
+                                            }
+                                        </div>
+                                        <div class="d-flex gap-2">
+                                            <a asp-controller="Portfolio" asp-action="Details" asp-route-id="@featuredProject.Id" class="btn btn-outline-light btn-sm flex-grow-1 border-secondary rounded-pill hover-bg-light hover-text-dark font-monospace"><i class="fas fa-terminal me-1"></i> Inspect System</a>
+                                            @if (!string.IsNullOrEmpty(featuredProject.GitHubLink))
+                                            {
+                                                <a href="@featuredProject.GitHubLink" target="_blank" class="btn btn-outline-info btn-sm rounded-circle" title="View Source"><i class="fab fa-github"></i></a>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            }
                         </div>
                     </div>
                 }
@@ -329,7 +374,7 @@
                                          project.Title?.Contains("CyberSentinel", StringComparison.OrdinalIgnoreCase) == true ||
                                          project.Title?.Contains("NeuralMesh", StringComparison.OrdinalIgnoreCase) == true;
                         <div class="col-md-6" data-aos="fade-up" data-aos-delay="200">
-                            <div class="card project-terminal-card h-100 cyber-hud-card">
+                            <div class="card project-terminal-card h-100 cyber-hud-card @(isUnderDev ? "under-dev-card" : "")">
                                 <div class="project-window-bar">
                                     <span class="p-dot red"></span>
                                     <span class="p-dot yellow"></span>
@@ -337,64 +382,109 @@
                                     <span class="project-window-title">~/projects/@(project.Title.ToLower().Replace(" ", "-").Replace("(", "").Replace(")", ""))</span>
                                     @if (isUnderDev)
                                     {
-                                        <span class="project-window-badge" style="background: rgba(245, 158, 11, 0.2); color: #f59e0b; border: 1px solid #f59e0b;"><i class="fas fa-hammer me-1"></i> UNDER DEV</span>
+                                        <span class="project-window-badge" style="background: rgba(245, 158, 11, 0.2); color: #f59e0b; border: 1px solid #f59e0b;"><i class="fas fa-tools me-1"></i> UNDER DEV</span>
                                     }
                                     else
                                     {
                                         <span class="project-window-badge">PRODUCTION</span>
                                     }
                                 </div>
-                                <div class="position-relative overflow-hidden" style="height: 230px;">
-                                    <img src="@project.ThumbnailPath" alt="@project.Title" class="project-thumb-img" />
-                                    <div class="position-absolute top-0 end-0 m-3">
-                                        @if (project.Category != null)
-                                        {
-                                            <span class="badge bg-dark bg-opacity-80 border border-secondary text-neon-cyan font-monospace">@project.Category.Name</span>
-                                        }
-                                    </div>
-                                    @if (isUnderDev)
-                                    {
-                                        <div class="position-absolute bottom-0 start-0 end-0 p-1.5 text-center font-monospace small" style="background: rgba(245, 158, 11, 0.92); color: #000; font-weight: 800; letter-spacing: 1px;">
-                                            <i class="fas fa-tools me-1"></i> UNDER DEVELOPMENT · LABS PREVIEW
-                                        </div>
-                                    }
-                                </div>
-                                <div class="card-body d-flex flex-column p-4">
-                                    <h4 class="card-title text-white fw-bold">@project.Title</h4>
-                                    <p class="card-text text-muted small flex-grow-1">@project.Subtitle</p>
 
-                                    @if (isUnderDev)
-                                    {
-                                        <div class="mb-3 p-2 rounded font-monospace" style="background: rgba(245, 158, 11, 0.1); border: 1px solid rgba(245, 158, 11, 0.3);">
-                                            <div class="d-flex justify-content-between text-warning small mb-1">
-                                                <span><i class="fas fa-microchip me-1"></i> Sprint Architecture</span>
-                                                <span class="fw-bold">75% Complete</span>
-                                            </div>
-                                            <div class="progress" style="height: 5px; background: rgba(255,255,255,0.1);">
-                                                <div class="progress-bar bg-warning" style="width: 75%; box-shadow: 0 0 8px #f59e0b;"></div>
-                                            </div>
-                                        </div>
-                                    }
-
-                                    <div class="mt-auto pt-3">
-                                        <div class="d-flex flex-wrap gap-1 mb-3">
-                                            @if (project.Technologies != null)
-                                            {
-                                                foreach (var tag in project.Technologies.Split(','))
+                                @if (isUnderDev)
+                                {
+                                    <!-- State A: Sleek Normal View -->
+                                    <div class="under-dev-normal-view d-flex flex-column flex-grow-1">
+                                        <div class="position-relative overflow-hidden" style="height: 230px;">
+                                            <img src="@project.ThumbnailPath" alt="@project.Title" class="project-thumb-img" />
+                                            <div class="position-absolute top-0 end-0 m-3">
+                                                @if (project.Category != null)
                                                 {
-                                                    <span class="badge bg-dark border border-secondary text-neon-cyan font-monospace small px-2 py-1">@tag.Trim()</span>
+                                                    <span class="badge bg-dark bg-opacity-80 border border-secondary text-neon-cyan font-monospace">@project.Category.Name</span>
                                                 }
-                                            }
+                                            </div>
+                                            <div class="position-absolute bottom-0 start-0 end-0 p-2 text-center font-monospace small" style="background: rgba(10, 8, 20, 0.85); backdrop-filter: blur(8px); border-top: 1px solid rgba(245, 158, 11, 0.4); color: #f59e0b; font-weight: 600;">
+                                                <i class="fas fa-tools me-1"></i> Under Active Development
+                                            </div>
                                         </div>
-                                        <div class="d-flex gap-2">
-                                            <a asp-controller="Portfolio" asp-action="Details" asp-route-id="@project.Id" class="btn btn-outline-light btn-sm flex-grow-1 border-secondary rounded-pill hover-bg-light hover-text-dark font-monospace"><i class="fas fa-terminal me-1"></i> Inspect System</a>
-                                            @if (!string.IsNullOrEmpty(project.GitHubLink))
+                                        <div class="card-body d-flex flex-column p-4">
+                                            <h4 class="card-title text-white fw-bold">@project.Title</h4>
+                                            <p class="card-text text-muted small flex-grow-1">@project.Subtitle</p>
+
+                                            <div class="mt-auto pt-3">
+                                                <div class="d-flex flex-wrap gap-1 mb-3">
+                                                    @if (project.Technologies != null)
+                                                    {
+                                                        foreach (var tag in project.Technologies.Split(','))
+                                                        {
+                                                            <span class="badge bg-dark border border-secondary text-neon-cyan font-monospace small px-2 py-1">@tag.Trim()</span>
+                                                        }
+                                                    }
+                                                </div>
+                                                <div class="d-flex gap-2">
+                                                    <button type="button" class="btn btn-outline-warning btn-sm flex-grow-1 border-warning rounded-pill text-warning font-monospace trigger-under-dev-btn">
+                                                        <i class="fas fa-terminal me-1"></i> Inspect System
+                                                    </button>
+                                                    @if (!string.IsNullOrEmpty(project.GitHubLink))
+                                                    {
+                                                        <a href="@project.GitHubLink" target="_blank" class="btn btn-outline-info btn-sm rounded-circle" title="View Source"><i class="fab fa-github"></i></a>
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- State B: Witty Under Development Notice (Reveals on Click) -->
+                                    <div class="under-dev-hidden-view text-center p-4 d-flex flex-column align-items-center justify-content-center flex-grow-1" style="display: none; min-height: 380px;">
+                                        <div class="mb-3">
+                                            <i class="fas fa-eye-slash text-warning" style="font-size: 2.8rem; filter: drop-shadow(0 0 15px rgba(245, 158, 11, 0.7));"></i>
+                                        </div>
+                                        <h4 class="text-white fw-bold font-monospace mb-2">Didn't You Read Above? 😉</h4>
+                                        <div class="p-3 rounded mb-3 font-monospace small text-warning" style="background: rgba(245, 158, 11, 0.1); border: 1px dashed rgba(245, 158, 11, 0.5); max-width: 90%;">
+                                            "Perhaps you didn't notice the tag above — this project is currently UNDER DEVELOPMENT!"
+                                        </div>
+                                        <p class="text-muted small mb-4 px-2 leading-relaxed">
+                                            Saad is actively building and architecting this system. Live access and production deployment will be unlocked soon.
+                                        </p>
+                                        <button type="button" class="btn btn-outline-warning btn-sm font-monospace rounded-pill px-4 py-2 restore-under-dev-btn">
+                                            <i class="fas fa-undo me-2"></i> Show Project Card Again
+                                        </button>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="position-relative overflow-hidden" style="height: 230px;">
+                                        <img src="@project.ThumbnailPath" alt="@project.Title" class="project-thumb-img" />
+                                        <div class="position-absolute top-0 end-0 m-3">
+                                            @if (project.Category != null)
                                             {
-                                                <a href="@project.GitHubLink" target="_blank" class="btn btn-outline-info btn-sm rounded-circle" title="View Source"><i class="fab fa-github"></i></a>
+                                                <span class="badge bg-dark bg-opacity-80 border border-secondary text-neon-cyan font-monospace">@project.Category.Name</span>
                                             }
                                         </div>
                                     </div>
-                                </div>
+                                    <div class="card-body d-flex flex-column p-4">
+                                        <h4 class="card-title text-white fw-bold">@project.Title</h4>
+                                        <p class="card-text text-muted small flex-grow-1">@project.Subtitle</p>
+
+                                        <div class="mt-auto pt-3">
+                                            <div class="d-flex flex-wrap gap-1 mb-3">
+                                                @if (project.Technologies != null)
+                                                {
+                                                    foreach (var tag in project.Technologies.Split(','))
+                                                    {
+                                                        <span class="badge bg-dark border border-secondary text-neon-cyan font-monospace small px-2 py-1">@tag.Trim()</span>
+                                                    }
+                                                }
+                                            </div>
+                                            <div class="d-flex gap-2">
+                                                <a asp-controller="Portfolio" asp-action="Details" asp-route-id="@project.Id" class="btn btn-outline-light btn-sm flex-grow-1 border-secondary rounded-pill hover-bg-light hover-text-dark font-monospace"><i class="fas fa-terminal me-1"></i> Inspect System</a>
+                                                @if (!string.IsNullOrEmpty(project.GitHubLink))
+                                                {
+                                                    <a href="@project.GitHubLink" target="_blank" class="btn btn-outline-info btn-sm rounded-circle" title="View Source"><i class="fab fa-github"></i></a>
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
                             </div>
                         </div>
                     }

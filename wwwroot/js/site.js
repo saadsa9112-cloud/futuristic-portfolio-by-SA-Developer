@@ -798,6 +798,65 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // ==========================================
+    // 3C. Under Development Interactive Witty Flip / Notice Engine
+    // ==========================================
+    document.addEventListener("click", (e) => {
+        // 1. Trigger witty under-dev warning
+        const triggerBtn = e.target.closest(".trigger-under-dev-btn") || e.target.closest(".under-dev-card .project-thumb-img");
+        if (triggerBtn) {
+            e.preventDefault();
+            e.stopPropagation();
+            const card = triggerBtn.closest(".project-terminal-card");
+            if (card) {
+                const normalView = card.querySelector(".under-dev-normal-view");
+                const hiddenView = card.querySelector(".under-dev-hidden-view");
+                if (normalView && hiddenView) {
+                    playSynthSound('click');
+                    normalView.style.display = "none";
+                    hiddenView.style.display = "flex";
+                }
+            }
+            return;
+        }
+
+        // 2. Restore normal project card view
+        const restoreBtn = e.target.closest(".restore-under-dev-btn");
+        if (restoreBtn) {
+            e.preventDefault();
+            e.stopPropagation();
+            const card = restoreBtn.closest(".project-terminal-card");
+            if (card) {
+                const normalView = card.querySelector(".under-dev-normal-view");
+                const hiddenView = card.querySelector(".under-dev-hidden-view");
+                if (normalView && hiddenView) {
+                    playSynthSound('click');
+                    hiddenView.style.display = "none";
+                    normalView.style.display = "flex";
+                }
+            }
+            return;
+        }
+    });
+
+    // ==========================================
+    // 3D. Active Navigation Highlighting & Route Detection
+    // ==========================================
+    try {
+        const curPath = window.location.pathname.toLowerCase();
+        const navLinks = document.querySelectorAll(".navbar-futuristic .nav-link");
+        navLinks.forEach(link => {
+            const href = link.getAttribute("href")?.toLowerCase();
+            if (!href) return;
+            const isHome = curPath === "/" || curPath === "" || curPath.endsWith("/index.html") || curPath.endsWith("/dist/") || curPath.endsWith("/futuristic-portfolio-by-sa-developer/");
+            if (isHome && (href === "/" || href.endsWith("/home") || href.endsWith("/index") || href.endsWith("/index.html"))) {
+                link.classList.add("active");
+            } else if (!isHome && href !== "/" && curPath.includes(href.replace("/index", ""))) {
+                link.classList.add("active");
+            }
+        });
+    } catch (e) {}
+
+    // ==========================================
     // 4. Scroll Progress Indicator
     // ==========================================
     const scrollBar = document.getElementById("scroll-progress");

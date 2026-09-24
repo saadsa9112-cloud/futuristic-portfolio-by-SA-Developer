@@ -83,19 +83,22 @@ async function run() {
         const portfolioHtml = await fetchPage('/Portfolio');
         const blogHtml = await fetchPage('/Blog');
 
-        // Extract detail routes using regex (case-insensitive)
-        const projectRegex = /\/[Pp]ortfolio\/[Dd]etails\/\d+/g;
+        // Extract detail routes using regex (case-insensitive) or known project IDs
+        const projectRegex = /\/[Pp]ortfolio\/[Dd]etails\/\d+/gi;
         const blogRegex = /\/[Bb]log\/[Dd]etails(?:\?slug=|\/)([a-zA-Z0-9_-]+)/gi;
 
-        const projectRoutes = [...new Set(portfolioHtml.match(projectRegex) || [])];
+        const combinedHtml = homeHtml + ' ' + portfolioHtml;
+        const detectedProjects = combinedHtml.match(projectRegex) || [];
+        const allProjectIds = new Set(['2', '1002', '2002', '2003', '2004']);
+        detectedProjects.forEach(p => allProjectIds.add(p.split('/').pop()));
+
         const blogMatches = [...blogHtml.matchAll(blogRegex)];
         const blogRoutes = [...new Set(blogMatches.map(m => m[0]))];
 
-        console.log(`Found ${projectRoutes.length} projects and ${blogRoutes.length} blog posts to harvest.`);
+        console.log(`Found ${allProjectIds.size} projects and ${blogRoutes.length} blog posts to harvest.`);
 
-        projectRoutes.forEach(route => {
-            const id = route.split('/').pop();
-            pages.push({ route: route, dest: `portfolio/details/${id}/index.html` });
+        allProjectIds.forEach(id => {
+            pages.push({ route: `/Portfolio/Details/${id}`, dest: `portfolio/details/${id}/index.html` });
         });
 
         blogRoutes.forEach(route => {

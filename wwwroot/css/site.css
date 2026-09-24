@@ -1175,26 +1175,117 @@ body.light-theme .ai-input-field::placeholder {
     color: var(--primary);
 }
 
-/* Glass Header / Navbar */
+/* ==========================================================================
+   ULTRA-PREMIUM CYBER NAVBAR SYSTEM
+   ========================================================================== */
 .navbar-futuristic {
-    background: rgba(9, 5, 20, 0.7);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-    transition: var(--transition-smooth);
+    background: rgba(7, 4, 15, 0.85) !important;
+    backdrop-filter: blur(20px) saturate(190%);
+    -webkit-backdrop-filter: blur(20px) saturate(190%);
+    border-bottom: 1px solid rgba(0, 240, 255, 0.18);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.6), 0 0 20px rgba(0, 240, 255, 0.05);
+    transition: all 0.3s ease;
+}
+
+.cyber-brand-logo-frame {
+    width: 34px;
+    height: 34px;
+    border-radius: 8px;
+    background: rgba(0, 240, 255, 0.08);
+    border: 1px solid rgba(0, 240, 255, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 12px rgba(0, 240, 255, 0.25);
+    transition: all 0.3s ease;
+}
+
+.navbar-brand:hover .cyber-brand-logo-frame {
+    transform: scale(1.08) rotate(4deg);
+    border-color: #00f0ff;
+    box-shadow: 0 0 20px #00f0ff;
+}
+
+.cyber-brand-text {
+    font-size: 1.05rem;
+    letter-spacing: 0.5px;
+}
+
+.cyber-brand-sub {
+    font-size: 0.62rem;
+    color: #64748b;
+    letter-spacing: 1.5px;
 }
 
 .navbar-futuristic .nav-link {
     font-family: var(--font-heading);
+    font-size: 0.88rem;
     font-weight: 500;
-    color: var(--text-muted);
-    transition: var(--transition-smooth);
+    color: #94a3b8;
+    padding: 6px 14px !important;
+    border-radius: 20px;
+    position: relative;
+    transition: all 0.25s ease;
+    display: inline-flex;
+    align-items: center;
 }
 
-.navbar-futuristic .nav-link:hover, 
+.navbar-futuristic .nav-link:hover {
+    color: #00f0ff;
+    background: rgba(0, 240, 255, 0.08);
+    text-shadow: 0 0 10px rgba(0, 240, 255, 0.6);
+    transform: translateY(-1px);
+}
+
 .navbar-futuristic .nav-link.active {
-    color: var(--primary);
-    text-shadow: 0 0 10px rgba(168, 85, 247, 0.4);
+    color: #fff !important;
+    background: linear-gradient(135deg, rgba(0, 240, 255, 0.2), rgba(168, 85, 247, 0.2));
+    border: 1px solid rgba(0, 240, 255, 0.5);
+    box-shadow: 0 0 15px rgba(0, 240, 255, 0.35);
+    text-shadow: 0 0 8px rgba(0, 240, 255, 0.8);
+}
+
+.btn-neon-cta {
+    background: linear-gradient(135deg, rgba(0, 240, 255, 0.2), rgba(168, 85, 247, 0.3));
+    border: 1px solid #00f0ff;
+    color: #fff;
+    padding: 5px 16px;
+    border-radius: 20px;
+    font-size: 0.78rem;
+    letter-spacing: 0.5px;
+    transition: all 0.25s ease;
+    box-shadow: 0 0 12px rgba(0, 240, 255, 0.25);
+}
+
+.btn-neon-cta:hover {
+    background: linear-gradient(135deg, #00f0ff, #a855f7);
+    color: #000;
+    box-shadow: 0 0 25px rgba(0, 240, 255, 0.7);
+    transform: translateY(-2px);
+}
+
+/* Under Development Interactive Card States */
+.under-dev-card {
+    transition: all 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.under-dev-normal-view,
+.under-dev-hidden-view {
+    transition: opacity 0.35s ease, transform 0.35s ease;
+}
+
+.under-dev-hidden-view {
+    background: radial-gradient(circle at center, rgba(245, 158, 11, 0.08) 0%, rgba(13, 8, 25, 0.95) 75%);
+    border-radius: 0 0 12px 12px;
+}
+
+.under-dev-hidden-view i.fa-eye-slash {
+    animation: underDevPulseIcon 2s infinite alternate;
+}
+
+@keyframes underDevPulseIcon {
+    0% { transform: scale(1); filter: drop-shadow(0 0 8px rgba(245, 158, 11, 0.5)); }
+    100% { transform: scale(1.1); filter: drop-shadow(0 0 20px rgba(245, 158, 11, 0.9)); }
 }
 
 /* Page transitions */
