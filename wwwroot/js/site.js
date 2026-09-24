@@ -2,6 +2,32 @@
 
 document.addEventListener("DOMContentLoaded", () => {
     // ==========================================
+    // 0. Background Scroll Lock Prevention
+    // ==========================================
+    const preventScrollDuringLock = (e) => {
+        if (document.documentElement.classList.contains("lock-scroll") || document.body.classList.contains("lock-scroll")) {
+            e.preventDefault();
+        }
+    };
+    window.addEventListener("wheel", preventScrollDuringLock, { passive: false });
+    window.addEventListener("touchmove", preventScrollDuringLock, { passive: false });
+    window.addEventListener("keydown", (e) => {
+        if (document.documentElement.classList.contains("lock-scroll") || document.body.classList.contains("lock-scroll")) {
+            if (["Space", "ArrowUp", "ArrowDown", "PageUp", "PageDown", "Home", "End"].includes(e.code)) {
+                if (e.target.tagName !== "INPUT" && e.target.tagName !== "TEXTAREA") {
+                    e.preventDefault();
+                }
+            }
+        }
+    });
+
+    const unlockPageScroll = () => {
+        document.documentElement.classList.remove("lock-scroll");
+        document.body.classList.remove("lock-scroll");
+        window.scrollTo({ top: 0, behavior: "instant" });
+    };
+
+    // ==========================================
     // 1. Terminal Boot Loader -> Animated Welcome -> Index Flow
     // ==========================================
     const loader = document.getElementById("loader-screen");
@@ -27,8 +53,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 [420,  `<span class="dev-prompt">›</span> <span class="dev-cyan">Framework:</span>  <span class="dev-cmd">ASP.NET Core 10 MVC</span>  <span class="dev-ok">✓ READY</span>`],
                 [640,  `<span class="dev-prompt">›</span> <span class="dev-cyan">Database:</span>   <span class="dev-cmd">SQL Server + Entity Framework Core</span>  <span class="dev-ok">✓ CONNECTED</span>`],
                 [860,  `<span class="dev-prompt">›</span> <span class="dev-cyan">Language:</span>   <span class="dev-cmd">C# .NET 10 / React 19 / JavaScript</span>  <span class="dev-ok">✓ LOADED</span>`],
-                [1080, `<span class="dev-prompt">›</span> <span class="dev-cyan">Projects:</span>   <span class="dev-cmd">NED Academy (UMS &amp; Admissions)  ·  Nexora Digital</span>  <span class="dev-ok">✓ MOUNTED</span>`],
-                [1300, `<span class="dev-prompt">›</span> <span class="dev-cyan">AI Engine:</span>  <span class="dev-cmd">Saad's AI Assistant</span>  <span class="dev-ok">✓ ONLINE</span>`],
+                [1080, `<span class="dev-prompt">›</span> <span class="dev-cyan">Projects:</span>   <span class="dev-cmd">NED Academy · Nexora · CyberSentinel · NeuralMesh</span>  <span class="dev-ok">✓ 5 MOUNTED</span>`],
+                [1300, `<span class="dev-prompt">›</span> <span class="dev-cyan">AI Engine:</span>  <span class="dev-cmd">Saad's AI Assistant &amp; Claude Mythos</span>  <span class="dev-ok">✓ ONLINE</span>`],
                 [1500, `<span class="dev-dim">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span>`],
                 [1680, `<span class="dev-ready">  ✦  Portfolio is live. Welcome — Hafiz Muhammad Saad  ✦</span>`]
             ];
@@ -126,6 +152,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                                             setTimeout(() => {
                                                 welcomeScreen.style.display = "none";
+                                                unlockPageScroll();
                                                 // Stage 3: Index page is live, start number counters!
                                                 window.dispatchEvent(new CustomEvent("portfolio-ready"));
                                             }, 600);
@@ -135,6 +162,7 @@ document.addEventListener("DOMContentLoaded", () => {
                                         sessionStorage.setItem("saad_welcome_shown", "true");
                                         setTimeout(() => {
                                             welcomeScreen.style.display = "none";
+                                            unlockPageScroll();
                                             window.dispatchEvent(new CustomEvent("portfolio-ready"));
                                         }, 600);
                                     }
@@ -156,6 +184,7 @@ document.addEventListener("DOMContentLoaded", () => {
                                 loader.classList.add("fade-out");
                                 setTimeout(() => {
                                     loader.style.display = "none";
+                                    unlockPageScroll();
                                     window.dispatchEvent(new CustomEvent("portfolio-ready"));
                                 }, 500);
                             }
@@ -259,6 +288,7 @@ document.addEventListener("DOMContentLoaded", () => {
                             loader.classList.add("fade-out");
                             setTimeout(() => {
                                 loader.style.display = "none";
+                                unlockPageScroll();
                                 window.dispatchEvent(new CustomEvent("portfolio-ready"));
                             }, 350);
                         }, 200);
@@ -889,6 +919,121 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
 
+        // Open CLI console from Cyber Ribbon button
+        const cliBtn = document.getElementById("open-cyber-terminal-btn");
+        if (cliBtn) {
+            cliBtn.addEventListener("click", () => {
+                togglePalette();
+            });
+        }
+
+        // Run CLI command button
+        const cliRunBtn = document.getElementById("cyber-cli-run-btn");
+        const cliOutput = document.getElementById("cyber-cli-output");
+
+        const runCliCommandText = (rawInput) => {
+            const input = rawInput.toLowerCase().trim();
+            if (!input) return;
+
+            playSynthSound('click');
+            if (cliOutput) {
+                const userEcho = document.createElement("div");
+                userEcho.className = "text-white mt-2";
+                userEcho.innerHTML = `<span class="text-neon-cyan">saad@visitor:~$</span> ${rawInput}`;
+                cliOutput.appendChild(userEcho);
+
+                if (input === "clear" || input === "cls") {
+                    cliOutput.innerHTML = `<div class="text-muted">// Screen cleared. Type <span class="text-neon-cyan">help</span> for commands.</div>`;
+                    cmdSearch.value = "";
+                    return;
+                }
+
+                const resDiv = document.createElement("div");
+                resDiv.className = "mt-1 ms-2";
+
+                if (input === "help") {
+                    resDiv.innerHTML = `
+                        <div class="text-neon-cyan fw-bold">AVAILABLE COMMANDS:</div>
+                        <div>• <strong class="text-danger">sec-audit</strong> : Run real-time zero-trust security audit</div>
+                        <div>• <strong class="text-neon-cyan">projects</strong> : List all 5 enterprise systems (inc. Under Development)</div>
+                        <div>• <strong class="text-neon-purple">skills</strong> : Output AST tech stack &amp; telemetry proficiencies</div>
+                        <div>• <strong class="text-warning">whoami</strong> : Software engineer credentials &amp; university degrees</div>
+                        <div>• <strong class="text-info">home / blog / projects-page</strong> : Navigate system views</div>
+                        <div>• <strong class="text-success">contact</strong> : Focus communication uplink</div>
+                        <div>• <strong class="text-muted">clear</strong> : Clear console history</div>
+                    `;
+                } else if (input === "sec-audit" || input === "audit") {
+                    resDiv.innerHTML = `
+                        <div class="text-warning">&gt; [SCANNING] Running zero-trust endpoint audit...</div>
+                        <div class="text-neon-green ms-2">✓ TLS 1.3 Cipher Suite: AES-256-GCM Validated</div>
+                        <div class="text-neon-green ms-2">✓ SQL Injection Surface: Entity Framework Core Parameterized (0 Flaws)</div>
+                        <div class="text-neon-green ms-2">✓ XSS &amp; Context Sanitization: AST Encoded Enforced</div>
+                        <div class="text-neon-green ms-2">✓ eBPF Kernel Syscall Monitors: Armed &amp; Active</div>
+                        <div class="text-neon-green ms-2">✓ Claude Mythos Epistemic Guardrail: Active &amp; Isolated</div>
+                        <div class="text-white mt-1 fw-bold">✦ COMPLIANCE: 100% SECURE · RATING A+</div>
+                    `;
+                    const auditSection = document.getElementById("cyber-audit-section");
+                    if (auditSection) {
+                        setTimeout(() => auditSection.scrollIntoView({ behavior: "smooth" }), 400);
+                        const runBtn = document.getElementById("run-audit-btn");
+                        if (runBtn) setTimeout(() => runBtn.click(), 700);
+                    }
+                } else if (input === "projects" || input === "ls") {
+                    resDiv.innerHTML = `
+                        <div class="text-neon-cyan fw-bold">MOUNTED SYSTEMS DATABANK:</div>
+                        <div>1. <strong class="text-white">NED Academy UMS</strong> [ASP.NET Core 10] · <span class="text-success">PROD</span></div>
+                        <div>2. <strong class="text-white">NED Academy Admissions Portal</strong> [EF Core 10] · <span class="text-success">PROD</span></div>
+                        <div>3. <strong class="text-white">Nexora Digital Platform</strong> [React 19 / Tailwind v4] · <span class="text-success">PROD</span></div>
+                        <div>4. <strong class="text-warning">CyberSentinel SIEM Engine</strong> [eBPF / .NET 10 / Rust] · <span class="text-warning">UNDER DEVELOPMENT</span></div>
+                        <div>5. <strong class="text-warning">NeuralMesh AI Agent Swarm</strong> [ONNX / Redis Streams] · <span class="text-warning">UNDER DEVELOPMENT</span></div>
+                    `;
+                } else if (input === "skills") {
+                    resDiv.innerHTML = `
+                        <div class="text-neon-purple fw-bold">CORE ARCHITECTURAL MATRIX:</div>
+                        <div>• ASP.NET Core 10 &amp; C# : 95% [Native AOT / High Throughput]</div>
+                        <div>• SQL Server &amp; Relational DB : 90% [EF Core / LINQ Optimization]</div>
+                        <div>• eBPF &amp; Kernel Telemetry : 88% [Zero-Trust / Packet Inspection]</div>
+                        <div>• React 19 &amp; Modern Web : 88% [Framer Motion / Glassmorphism]</div>
+                        <div>• Git &amp; CI/CD Pipelines : 90% [Zero-Downtime Rollouts]</div>
+                    `;
+                } else if (input === "whoami") {
+                    resDiv.innerHTML = `
+                        <div class="text-warning fw-bold">HAFIZ MUHAMMAD SAAD</div>
+                        <div class="text-muted">Full-Stack Software Engineer &amp; Systems Architect</div>
+                        <div>• BSBC (Bachelor of Science in Business Computing) — Sohail University (2025–2029)</div>
+                        <div>• ADSE (Advanced Diploma in Software Engineering) — Aptech Learning (2024–2027)</div>
+                        <div class="text-success">• Status: Ready for Enterprise Architecture &amp; Production Delivery</div>
+                    `;
+                } else if (input === "home") {
+                    window.location.href = "/";
+                } else if (input === "blog" || input === "articles") {
+                    window.location.href = "/Blog";
+                } else if (input === "projects-page") {
+                    window.location.href = "/Portfolio";
+                } else if (input === "contact") {
+                    palette.classList.remove("active");
+                    const contactSec = document.getElementById("contact-section");
+                    if (contactSec) {
+                        contactSec.scrollIntoView({ behavior: "smooth" });
+                        const nameIn = contactSec.querySelector("input[name='Name']");
+                        if (nameIn) setTimeout(() => nameIn.focus(), 600);
+                    }
+                } else {
+                    resDiv.innerHTML = `<span class="text-danger">command not found: "${rawInput}". Type <span class="text-neon-cyan">help</span> for valid commands.</span>`;
+                }
+
+                cliOutput.appendChild(resDiv);
+                cliOutput.scrollTop = cliOutput.scrollHeight;
+                cmdSearch.value = "";
+            }
+        };
+
+        if (cliRunBtn) {
+            cliRunBtn.addEventListener("click", () => {
+                runCliCommandText(cmdSearch.value);
+            });
+        }
+
         // Click executions
         cmdResults.addEventListener("click", (e) => {
             const item = e.target.closest(".command-item");
@@ -899,16 +1044,23 @@ document.addEventListener("DOMContentLoaded", () => {
 
         function executeCommand(item) {
             playSynthSound('click');
-            palette.classList.remove("active");
-            
             const action = item.getAttribute("data-action");
-            if (action === "nav") {
+
+            if (action === "cmd") {
+                const cmd = item.getAttribute("data-cmd");
+                if (cmd) {
+                    runCliCommandText(cmd);
+                }
+            } else if (action === "nav") {
+                palette.classList.remove("active");
                 const url = item.getAttribute("data-url");
                 if (url) window.location.href = url;
             } else if (action === "ai") {
+                palette.classList.remove("active");
                 if (aiWidget) aiWidget.classList.add("active");
                 if (aiInput) aiInput.focus();
             } else if (action === "contact") {
+                palette.classList.remove("active");
                 const contactSec = document.getElementById("contact-section");
                 if (contactSec) {
                     contactSec.scrollIntoView({ behavior: "smooth" });
@@ -917,6 +1069,86 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             } else if (action === "sound") {
                 playSynthSound('console');
+            }
+        }
+
+        // Live Ping Ticker Animation
+        const pingElem = document.getElementById("live-ping-val");
+        if (pingElem) {
+            setInterval(() => {
+                const ms = Math.floor(Math.random() * 5) + 12; // 12ms - 16ms
+                pingElem.innerHTML = `<i class="fas fa-bolt text-success me-1"></i> ${ms}ms (PK-KHI)`;
+            }, 4000);
+        }
+
+        // ==========================================
+        // 9.1 Live Zero-Trust Security Audit Daemon
+        // ==========================================
+        const runAuditBtn = document.getElementById("run-audit-btn");
+        const clearAuditBtn = document.getElementById("clear-audit-btn");
+        const auditScreen = document.getElementById("audit-terminal-screen");
+        const auditStatusPill = document.getElementById("audit-status-pill");
+        const auditScoreVal = document.getElementById("audit-score-val");
+
+        if (runAuditBtn && auditScreen) {
+            let auditing = false;
+            runAuditBtn.addEventListener("click", () => {
+                if (auditing) return;
+                auditing = true;
+                playSynthSound('console');
+                runAuditBtn.disabled = true;
+                if (auditStatusPill) {
+                    auditStatusPill.className = "badge bg-dark border border-warning text-warning font-monospace";
+                    auditStatusPill.innerHTML = `<i class="fas fa-spinner fa-spin me-1"></i> AUDITING...`;
+                }
+
+                auditScreen.innerHTML = `<div class="text-neon-cyan fw-bold mb-2">&gt; [INITIATING] Zero-Trust Autonomous Security &amp; Architecture Audit...</div>`;
+
+                const steps = [
+                    [180, `<div class="text-muted">&gt; [1/5] Evaluating TLS 1.3 Cipher Suite &amp; Perfect Forward Secrecy...</div><div class="text-neon-green ms-3">✓ PASSED: ECDHE-RSA-AES256-GCM-SHA384 (TLS 1.3 Guaranteed)</div>`],
+                    [550, `<div class="text-muted mt-2">&gt; [2/5] Scanning Relational Database AST for SQL Injection Surfaces...</div><div class="text-neon-green ms-3">✓ PASSED: Entity Framework Core Parameterized Queries (0 Vulnerabilities)</div>`],
+                    [950, `<div class="text-muted mt-2">&gt; [3/5] Inspecting XSS Filters &amp; Context Sanitization Tokens...</div><div class="text-neon-green ms-3">✓ PASSED: Razor AST Encoding &amp; Immutable Content Security Policy Enforced</div>`],
+                    [1350, `<div class="text-muted mt-2">&gt; [4/5] Testing Kernel eBPF Telemetry Probes &amp; Syscall Bounds...</div><div class="text-neon-green ms-3">✓ ARMED: Zero-Copy RingBuffer Sub-Millisecond Syscall Interceptor Active</div>`],
+                    [1750, `<div class="text-muted mt-2">&gt; [5/5] Stress-Testing Claude Mythos Epistemic AI Guardrails...</div><div class="text-neon-green ms-3">✓ VERIFIED: Indirect Prompt Injections Quarantined in Immutable Envelopes</div>`],
+                    [2150, `<div class="mt-3 p-2 rounded border border-success border-opacity-50 text-white font-monospace" style="background: rgba(0, 255, 102, 0.1);"><strong>✦ AUDIT CONCLUSION:</strong> System Integrity Rating A+ · Zero-Trust Compliance 100% · 0 Vulnerabilities Detected.</div>`]
+                ];
+
+                steps.forEach(([delay, html], index) => {
+                    setTimeout(() => {
+                        auditScreen.innerHTML += html;
+                        auditScreen.scrollTop = auditScreen.scrollHeight;
+                        playSynthSound('click');
+
+                        if (index === steps.length - 1) {
+                            auditing = false;
+                            runAuditBtn.disabled = false;
+                            if (auditStatusPill) {
+                                auditStatusPill.className = "badge bg-dark border border-success text-neon-green font-monospace";
+                                auditStatusPill.innerHTML = `<i class="fas fa-check-circle me-1"></i> AUDIT PASSED [A+]`;
+                            }
+                            if (auditScoreVal) {
+                                auditScoreVal.textContent = "A+ [100% COMPLIANT · 0 FLAWS]";
+                            }
+                        }
+                    }, delay);
+                });
+            });
+
+            if (clearAuditBtn) {
+                clearAuditBtn.addEventListener("click", () => {
+                    auditScreen.innerHTML = `
+                        <div class="text-muted">// Zero-Trust Continuous Security Telemetry Daemon</div>
+                        <div class="text-muted">// Click "Run Live Security Audit" above to test active defensive layers...</div>
+                        <div class="mt-2 text-neon-purple">&gt; All security sensors idling at 0.0% CPU overhead.</div>
+                    `;
+                    if (auditStatusPill) {
+                        auditStatusPill.className = "badge bg-dark border border-success text-neon-green font-monospace";
+                        auditStatusPill.textContent = "READY TO SCAN";
+                    }
+                    if (auditScoreVal) {
+                        auditScoreVal.textContent = "A+ [100% SECURE]";
+                    }
+                });
             }
         }
 

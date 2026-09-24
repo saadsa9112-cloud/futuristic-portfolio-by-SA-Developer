@@ -237,6 +237,62 @@ namespace FuturisticPortfolio.Data
             p3.Challenges = "Delivering complex fluid scroll animations and real-time currency conversions while maintaining sub-second load times and zero layout shifts.";
             p3.Solutions = "Leveraged React 19 concurrent features with Tailwind CSS v4 and Framer Motion state management for performant interactive UI components.";
 
+            // Project 4: CyberSentinel (Under Development)
+            var cyberCat = await context.Categories.FirstOrDefaultAsync(c => c.Name == "Cybersecurity & Systems");
+            if (cyberCat == null)
+            {
+                cyberCat = new Category { Name = "Cybersecurity & Systems", Type = "Project" };
+                await context.Categories.AddAsync(cyberCat);
+                await context.SaveChangesAsync();
+            }
+
+            var p4 = await context.Projects.FirstOrDefaultAsync(p => p.Title.Contains("CyberSentinel"));
+            if (p4 == null)
+            {
+                p4 = new Project();
+                await context.Projects.AddAsync(p4);
+            }
+            p4.Title = "CyberSentinel: Autonomous Threat Hunting & SIEM Telemetry";
+            p4.Subtitle = "High-Throughput eBPF Kernel Telemetry, Zero-Day Anomaly Detection & AI Incident Mitigation";
+            p4.Description = "[UNDER DEVELOPMENT // ACTIVE DEV] An enterprise-scale autonomous cyber defense engine engineered to monitor cloud-native workloads at the kernel level. CyberSentinel intercepts suspicious syscalls, blocks indirect prompt injections, and automatically triggers cryptographic quarantines.";
+            p4.Technologies = ".NET 10, C#, eBPF, Rust, gRPC, PostgreSQL, Docker, Zero-Trust";
+            p4.GitHubLink = "https://github.com/saadsa9112-cloud";
+            p4.Status = "Published";
+            p4.FeaturedOption = true;
+            p4.DisplayOrder = 4;
+            p4.ThumbnailPath = "/images/projects/cybersentinel-siem.svg";
+            p4.CategoryId = cyberCat.Id;
+            p4.Challenges = "Intercepting 500,000+ kernel events per second with sub-millisecond anomaly detection and zero CPU overhead.";
+            p4.Solutions = "Architected a zero-copy RingBuffer pipeline using C# Native AOT and Rust eBPF probes, streaming signed telemetry vectors into a distributed SIEM.";
+
+            // Project 5: NeuralMesh (Under Development)
+            var aiCat = await context.Categories.FirstOrDefaultAsync(c => c.Name == "AI & Distributed Systems");
+            if (aiCat == null)
+            {
+                aiCat = new Category { Name = "AI & Distributed Systems", Type = "Project" };
+                await context.Categories.AddAsync(aiCat);
+                await context.SaveChangesAsync();
+            }
+
+            var p5 = await context.Projects.FirstOrDefaultAsync(p => p.Title.Contains("NeuralMesh"));
+            if (p5 == null)
+            {
+                p5 = new Project();
+                await context.Projects.AddAsync(p5);
+            }
+            p5.Title = "NeuralMesh: Decentralized AI Agent Orchestration & Model Sharding";
+            p5.Subtitle = "Multi-Agent Swarm Orchestration, Epistemic Verification & Distributed Model Sharding";
+            p5.Description = "[UNDER DEVELOPMENT // BETA LABS] A next-generation agentic orchestration framework enabling cooperative AI swarms to solve complex enterprise refactoring, security audits, and continuous verification tasks under strict constitutional constraints.";
+            p5.Technologies = "ASP.NET Core, C#, Python, Redis Streams, WebSockets, ONNX Runtime, Vector DB";
+            p5.GitHubLink = "https://github.com/saadsa9112-cloud";
+            p5.Status = "Published";
+            p5.FeaturedOption = true;
+            p5.DisplayOrder = 5;
+            p5.ThumbnailPath = "/images/projects/neuralmesh-ai.svg";
+            p5.CategoryId = aiCat.Id;
+            p5.Challenges = "Synchronizing multi-agent memory states and preventing context hallucinations across concurrent reasoning cycles.";
+            p5.Solutions = "Engineered an event-sourced distributed state machine with deterministic schema validators and Redis Streams memory boundaries.";
+
             // Explicitly remove HMS Analytics and Portfolio Website as requested
             var toRemove = await context.Projects
                 .Where(p => p.Title.Contains("HMS Analytics") || 
@@ -250,11 +306,11 @@ namespace FuturisticPortfolio.Data
 
             await context.SaveChangesAsync();
 
-            // Sync enterprise projects count in statistics to 3
+            // Sync enterprise projects count in statistics to 5
             var enterpriseProjStat = await context.Statistics.FirstOrDefaultAsync(s => s.Title.Contains("Enterprise Projects"));
             if (enterpriseProjStat != null)
             {
-                enterpriseProjStat.Value = 3;
+                enterpriseProjStat.Value = 5;
                 await context.SaveChangesAsync();
             }
 
@@ -291,7 +347,7 @@ namespace FuturisticPortfolio.Data
             }
             blog1.Title = "Software Development in 2027: The Era of Autonomous AI Agents & Post-Syntax Architecture";
             blog1.CategoryId = seBlogCat.Id;
-            blog1.ImagePath = "/images/blogs/software-development-2027.jpg";
+            blog1.ImagePath = "/images/blogs/software-development-2027.svg";
             blog1.Tags = "AI, Dotnet10, Architecture, AutonomousAgents, CleanCode, FutureTech";
             blog1.MetaTitle = "Software Development in 2027 | Hafiz Muhammad Saad";
             blog1.MetaDescription = "Explore how software engineering is evolving in 2027: from manual syntax writing to multi-agent choreography, formal verification, and deterministic cloud runtimes.";
@@ -363,7 +419,7 @@ namespace FuturisticPortfolio.Data
             }
             blog2.Title = "Cybersecurity in the Age of Claude Mythos: Autonomous SecOps, Defense-in-Depth & Zero-Trust AI";
             blog2.CategoryId = cyberBlogCat.Id;
-            blog2.ImagePath = "/images/blogs/cybersecurity-claude-mythos.jpg";
+            blog2.ImagePath = "/images/blogs/cybersecurity-claude-mythos.svg";
             blog2.Tags = "CyberSecurity, ClaudeMythos, AppSec, ZeroTrust, PromptInjection, SecOps";
             blog2.MetaTitle = "Cybersecurity & Claude Mythos | Hafiz Muhammad Saad";
             blog2.MetaDescription = "A deep architectural investigation into AI security surfaces, prompt injection telemetry, defensive guardrails, and how Claude Mythos constructs resilient autonomous cyber defense fabrics.";

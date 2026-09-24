@@ -27,6 +27,18 @@
     <!-- CDNs for Premium Libraries -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
+
+    <!-- Immediate Scroll Lock to prevent background index page scroll during welcome/loader -->
+    <script>
+        (function() {
+            var path = window.location.pathname.toLowerCase();
+            var isHome = path === "/" || path === "" || path.endsWith("/index.html") || path.endsWith("/futuristic-portfolio-by-sa-developer/") || path.endsWith("/dist/");
+            var hasSeen = sessionStorage.getItem("saad_welcome_shown") === "true";
+            if (isHome || !hasSeen) {
+                document.documentElement.classList.add("lock-scroll");
+            }
+        })();
+    </script>
 </head>
 <body>
     <!-- Scroll Progress Bar -->
@@ -150,8 +162,8 @@
     <div id="particles-js"></div>
 
     <!-- Header Navigation -->
-    <header>
-        <nav class="navbar navbar-expand-lg navbar-dark navbar-futuristic fixed-top py-3">
+    <header class="fixed-top">
+        <nav class="navbar navbar-expand-lg navbar-dark navbar-futuristic py-2">
             <div class="container">
                 <a class="navbar-brand text-neon-purple fw-bold" asp-controller="Home" asp-action="Index">
                     @if (settings != null && !string.IsNullOrEmpty(settings.LogoPath))
@@ -165,7 +177,7 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse justify-content-end">
-                    <ul class="navbar-nav gap-2">
+                    <ul class="navbar-nav gap-2 align-items-center">
                         <li class="nav-item">
                             <a class="nav-link" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
@@ -191,15 +203,50 @@
                                 <i class="fas fa-cog text-neon-cyan"></i>
                             </button>
                         </li>
-
                     </ul>
                 </div>
             </div>
         </nav>
+
+        <!-- Cyber Security & Architectural Telemetry Ribbon -->
+        <div class="cyber-telemetry-ribbon font-monospace" id="cyber-telemetry-ribbon">
+            <div class="container d-flex align-items-center justify-content-between py-1 px-3">
+                <div class="d-flex align-items-center gap-2 gap-md-3 overflow-hidden text-nowrap">
+                    <span class="cyber-status-pulse">
+                        <span class="pulse-dot-green"></span>
+                        <strong class="text-neon-green">SEC-OPS: ARMED</strong>
+                    </span>
+                    <span class="text-secondary opacity-50 d-none d-sm-inline">|</span>
+                    <span class="cyber-metric-item d-none d-sm-inline">
+                        <i class="fas fa-shield-alt text-neon-cyan me-1"></i> ZERO-TRUST: <span class="text-white">ENFORCED</span>
+                    </span>
+                    <span class="text-secondary opacity-50 d-none d-md-inline">|</span>
+                    <span class="cyber-metric-item d-none d-md-inline">
+                        <i class="fas fa-microchip text-neon-purple me-1"></i> eBPF KERNEL: <span class="text-white">MONITORING</span>
+                    </span>
+                    <span class="text-secondary opacity-50 d-none d-lg-inline">|</span>
+                    <span class="cyber-metric-item d-none d-lg-inline">
+                        <i class="fas fa-lock text-info me-1"></i> TLS 1.3 / AES-256-GCM
+                    </span>
+                    <span class="text-secondary opacity-50 d-none d-xl-inline">|</span>
+                    <span class="cyber-metric-item d-none d-xl-inline">
+                        <i class="fas fa-robot text-warning me-1"></i> CLAUDE MYTHOS GUARD
+                    </span>
+                </div>
+                <div class="d-flex align-items-center gap-2 flex-shrink-0 ms-2">
+                    <span class="cyber-ping-badge" id="live-ping-val">
+                        <i class="fas fa-bolt text-success me-1"></i> 14ms (PK-KHI)
+                    </span>
+                    <button type="button" class="btn btn-outline-cyan cyber-cli-btn py-0 px-2 font-monospace" id="open-cyber-terminal-btn" title="Launch Interactive Cyber Security Console (Ctrl+K)">
+                        <i class="fas fa-terminal me-1"></i> CLI
+                    </button>
+                </div>
+            </div>
+        </div>
     </header>
 
     <!-- Main Content Grid -->
-    <main role="main" class="pt-5 mt-4 page-transition">
+    <main role="main" class="pt-5 mt-5 page-transition">
         @RenderBody()
     </main>
 
@@ -338,22 +385,38 @@
         </div>
     </footer>
 
-    <!-- Command Palette Overlay -->
+    <!-- Interactive Cyber Security Terminal Console Overlay -->
     <div class="command-palette-overlay" id="command-palette">
-        <div class="command-palette-box glass-panel p-4">
-            <div class="d-flex justify-content-between align-items-center mb-3">
-                <span class="badge bg-secondary"><i class="fas fa-terminal me-1"></i> CONTROL CONSOLE</span>
+        <div class="command-palette-box glass-panel p-4 font-monospace">
+            <div class="d-flex justify-content-between align-items-center mb-3 pb-2 border-bottom border-secondary border-opacity-30">
+                <div class="d-flex align-items-center gap-2">
+                    <span class="pulse-dot-green"></span>
+                    <span class="text-neon-cyan fw-bold"><i class="fas fa-terminal me-1"></i> SAAD@CYBER-CONSOLE ~ v2.4</span>
+                </div>
                 <span class="small text-muted">Press <kbd class="bg-dark text-neon-cyan px-2">ESC</kbd> to exit</span>
             </div>
-            <input type="text" class="form-control bg-dark border-secondary text-white mb-3 py-2" id="command-search" placeholder="Type a command or navigate..." autocomplete="off" />
+            
+            <!-- Terminal Output History Screen -->
+            <div class="cyber-terminal-screen mb-3 p-3 rounded" id="cyber-cli-output" style="max-height: 220px; overflow-y: auto; background: rgba(5, 3, 12, 0.9); border: 1px solid rgba(0, 240, 255, 0.2); font-size: 0.82rem; color: #a5f3fc;">
+                <div class="text-muted mb-1">// Type <span class="text-neon-cyan">help</span> for all security &amp; system commands. Quick shortcuts below:</div>
+                <div class="text-neon-purple">&gt; System initialized. All security telemetry channels active.</div>
+            </div>
+
+            <!-- CLI Command Input -->
+            <div class="input-group mb-3">
+                <span class="input-group-text bg-dark border-secondary text-neon-green"><i class="fas fa-angle-right"></i></span>
+                <input type="text" class="form-control bg-dark border-secondary text-white py-2" id="command-search" placeholder="Type a command (help, sec-audit, projects, skills, whoami)..." autocomplete="off" />
+                <button class="btn btn-outline-cyan px-3" type="button" id="cyber-cli-run-btn">EXECUTE</button>
+            </div>
+
             <div class="command-list" id="command-results">
-                <div class="command-item clickable" data-action="nav" data-url="/"><i class="fas fa-home me-2 text-neon-purple"></i> Go to Homepage <span class="badge bg-dark ms-auto">G + H</span></div>
-                <div class="command-item clickable" data-action="nav" data-url="/Portfolio"><i class="fas fa-folder-open me-2 text-neon-cyan"></i> Browse Projects Databank <span class="badge bg-dark ms-auto">G + P</span></div>
-                <div class="command-item clickable" data-action="nav" data-url="/Blog"><i class="fas fa-file-alt me-2 text-neon-blue"></i> Read Tech Logs <span class="badge bg-dark ms-auto">G + B</span></div>
-                <div class="command-item clickable" data-action="ai"><i class="fas fa-robot me-2 text-warning"></i> Query AI Portfolio Agent <span class="badge bg-dark ms-auto">A + I</span></div>
-                <div class="command-item clickable" data-action="contact"><i class="fas fa-satellite-dish me-2 text-success"></i> Establish Comms Link (Contact) <span class="badge bg-dark ms-auto">C + O</span></div>
-                <div class="command-item clickable" data-action="sound"><i class="fas fa-volume-up me-2 text-neon-cyan"></i> Synthesize Audio Test <span class="badge bg-dark ms-auto">S + N</span></div>
-                <div class="command-item clickable text-danger border-danger" data-action="nav" data-url="/Admin/Dashboard"><i class="fas fa-terminal me-2 text-danger"></i> sudo admin <span class="badge bg-dark ms-auto">S + A</span></div>
+                <div class="command-item clickable" data-action="cmd" data-cmd="sec-audit"><i class="fas fa-shield-alt me-2 text-danger"></i> sec-audit <span class="text-muted ms-2">// Execute Live Vulnerability &amp; Architecture Audit</span> <span class="badge bg-dark ms-auto">RUN</span></div>
+                <div class="command-item clickable" data-action="cmd" data-cmd="projects"><i class="fas fa-folder-open me-2 text-neon-cyan"></i> projects <span class="text-muted ms-2">// List All 5 Enterprise Systems (Inc. Under Dev)</span> <span class="badge bg-dark ms-auto">LIST</span></div>
+                <div class="command-item clickable" data-action="cmd" data-cmd="skills"><i class="fas fa-code me-2 text-neon-purple"></i> skills <span class="text-muted ms-2">// Inspect .NET 10, C#, eBPF &amp; Security Stack</span> <span class="badge bg-dark ms-auto">AST</span></div>
+                <div class="command-item clickable" data-action="cmd" data-cmd="whoami"><i class="fas fa-user-shield me-2 text-warning"></i> whoami <span class="text-muted ms-2">// Hafiz Muhammad Saad Credentials &amp; Degrees</span> <span class="badge bg-dark ms-auto">BIO</span></div>
+                <div class="command-item clickable" data-action="nav" data-url="/"><i class="fas fa-home me-2 text-info"></i> nav home <span class="badge bg-dark ms-auto">G + H</span></div>
+                <div class="command-item clickable" data-action="nav" data-url="/Blog"><i class="fas fa-file-alt me-2 text-neon-blue"></i> nav tech-logs <span class="badge bg-dark ms-auto">G + B</span></div>
+                <div class="command-item clickable" data-action="contact"><i class="fas fa-satellite-dish me-2 text-success"></i> contact <span class="badge bg-dark ms-auto">C + O</span></div>
             </div>
         </div>
     </div>
