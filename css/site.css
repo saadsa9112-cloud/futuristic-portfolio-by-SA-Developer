@@ -230,7 +230,7 @@ h1, h2, h3, h4, h5, h6 {
 .dev-terminal-title {
     flex: 1;
     text-align: center;
-    color: rgba(255,255,255,0.35);
+    color: rgba(255,255,255,0.7);
     font-size: 0.75rem;
     letter-spacing: 0.1em;
 }
@@ -268,7 +268,7 @@ h1, h2, h3, h4, h5, h6 {
 .dev-ok       { color: #27c93f; font-weight: 700; }
 .dev-warn     { color: #ffbd2e; }
 .dev-cyan     { color: #00D9FF; }
-.dev-dim      { color: rgba(255,255,255,0.35); }
+.dev-dim      { color: rgba(255,255,255,0.65); }
 .dev-purple   { color: #a855f7; }
 .dev-ready    { color: #27c93f; font-weight: 700; letter-spacing: 0.05em; }
 
@@ -300,7 +300,7 @@ h1, h2, h3, h4, h5, h6 {
     display: flex;
     justify-content: space-between;
     font-size: 0.72rem;
-    color: rgba(255,255,255,0.3);
+    color: rgba(255,255,255,0.7);
     margin-bottom: 6px;
 }
 
@@ -370,7 +370,7 @@ h1, h2, h3, h4, h5, h6 {
     transform: translate(-50%, -50%);
     filter: blur(50px);
     pointer-events: none;
-    animation: glow-pulse 4s ease-in-out infinite alternate;
+    animation: none;
 }
 
 @keyframes glow-pulse {
@@ -443,7 +443,7 @@ h1, h2, h3, h4, h5, h6 {
     color: #00D9FF;
     font-size: 1.3rem;
     box-shadow: 0 0 25px rgba(0, 217, 255, 0.4);
-    animation: icon-float 2.5s ease-in-out infinite alternate;
+    /* animation removed - was distracting */
 }
 
 @keyframes icon-float {
@@ -485,7 +485,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .welcome-meta-sub {
     font-family: 'Consolas', monospace;
-    color: rgba(255, 255, 255, 0.4);
+    color: rgba(255, 255, 255, 0.7);
     font-size: 0.82rem;
     letter-spacing: 0.2em;
     margin-bottom: 6px;
@@ -518,7 +518,7 @@ h1, h2, h3, h4, h5, h6 {
     background-size: 200% auto;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    animation: text-shimmer 4s linear infinite;
+    /* animation: text-shimmer removed */
     text-shadow: 0 0 35px rgba(0, 217, 255, 0.3);
     font-family: 'Space Grotesk', system-ui, sans-serif;
     text-transform: uppercase;
@@ -616,7 +616,7 @@ h1, h2, h3, h4, h5, h6 {
     box-shadow: 0 0 25px rgba(0, 217, 255, 0.35), 0 0 50px rgba(139, 61, 255, 0.2);
     position: relative;
     overflow: hidden;
-    animation: btn-pulse-glow 2.2s infinite alternate;
+    /* animation: btn-pulse-glow removed */
 }
 
 @keyframes btn-pulse-glow {
@@ -627,8 +627,6 @@ h1, h2, h3, h4, h5, h6 {
 .welcome-enter-btn:hover {
     background: linear-gradient(135deg, rgba(139, 61, 255, 0.6) 0%, rgba(0, 217, 255, 0.5) 100%);
     border-color: #00D9FF;
-    transform: translateY(-2px) scale(1.05);
-    box-shadow: 0 0 50px rgba(0, 217, 255, 0.8), 0 0 85px rgba(139, 61, 255, 0.55);
 }
 
 /* ============================================================
@@ -673,7 +671,7 @@ h1, h2, h3, h4, h5, h6 {
     margin-bottom: 12px;
     line-height: 1;
     display: inline-block;
-    animation: icon-bounce 1s ease infinite alternate;
+    /* animation: icon-bounce removed */
 }
 
 @keyframes icon-bounce {
@@ -2061,7 +2059,7 @@ body.light-theme .cookie-banner {
 .code-keyword { color: #A855F7; font-weight: bold; }
 .code-type    { color: #00D9FF; }
 .code-string  { color: #34D399; }
-.code-comment { color: rgba(255, 255, 255, 0.35); font-style: italic; }
+.code-comment { color: rgba(255, 255, 255, 0.65); font-style: italic; }
 .code-method  { color: #F59E0B; }
 .code-var     { color: #60A5FA; }
 
@@ -2076,13 +2074,12 @@ body.light-theme .cookie-banner {
 }
 
 .project-terminal-card:hover {
-    transform: translateY(-6px) !important;
     border-color: rgba(0, 240, 255, 0.5) !important;
-    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.7), 0 0 25px rgba(0, 240, 255, 0.2) !important;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6) !important;
 }
 
 .project-terminal-card:hover .project-thumb-img {
-    transform: scale(1.05);
+    /* scale removed */
 }
 
 .project-window-bar {
@@ -2107,7 +2104,7 @@ body.light-theme .cookie-banner {
 .project-window-bar .p-dot.green { background: #27c93f; }
 
 .project-window-title {
-    color: rgba(255, 255, 255, 0.45);
+    color: rgba(255, 255, 255, 0.75);
     flex: 1;
     white-space: nowrap;
     overflow: hidden;
@@ -2157,15 +2154,14 @@ body.light-theme .cookie-banner {
 
 .stat-dev-card:hover {
     border-color: rgba(0, 240, 255, 0.5);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5), 0 0 20px rgba(0, 240, 255, 0.15);
-    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
 }
 
 .stat-metric-id {
     font-family: 'Courier New', 'Consolas', monospace;
     font-size: 0.68rem;
     letter-spacing: 0.15em;
-    color: rgba(255, 255, 255, 0.3);
+    color: rgba(255, 255, 255, 0.7);
     text-transform: uppercase;
     margin-bottom: 6px;
     display: block;
