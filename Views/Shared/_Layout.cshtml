@@ -198,7 +198,13 @@
                         <li class="nav-item">
                             <a class="nav-link" asp-controller="Home" asp-action="Contact">Contact</a>
                         </li>
-                        <li class="nav-item d-flex align-items-center ms-lg-2 me-lg-1">
+                        <li class="nav-item d-flex align-items-center ms-lg-2">
+                            <button type="button" class="btn btn-link text-white p-2 border-0" id="sfx-toggle-btn" style="text-decoration: none; box-shadow: none;" title="Toggle Cyber Audio FX">
+                                <i class="fas fa-volume-mute text-secondary" id="sfx-icon"></i>
+                                <span class="d-none d-xl-inline font-monospace small ms-1 text-muted" id="sfx-label" style="font-size: 0.72rem;">SFX: OFF</span>
+                            </button>
+                        </li>
+                        <li class="nav-item d-flex align-items-center ms-lg-1 me-lg-1">
                             <button type="button" class="btn btn-link text-white p-2 border-0" id="theme-toggle-btn" style="text-decoration: none; box-shadow: none;" title="Toggle Theme">
                                 <i class="fas fa-sun" id="theme-icon"></i>
                             </button>
@@ -557,6 +563,31 @@
                     </button>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <!-- Architecture Quick-Scan Slide-out Drawer -->
+    <div id="arch-scan-overlay" class="arch-scan-backdrop" style="display: none;"></div>
+    <div id="arch-scan-drawer" class="arch-scan-panel" style="display: none;" role="dialog" aria-modal="true" aria-labelledby="arch-drawer-title">
+        <div class="arch-drawer-header d-flex justify-content-between align-items-center p-3 border-bottom border-secondary bg-dark">
+            <div class="d-flex align-items-center gap-2">
+                <span class="badge bg-secondary border border-secondary text-neon-cyan font-monospace px-2 py-1">
+                    <i class="fas fa-microchip me-1"></i> ARCH-SCAN v2.0
+                </span>
+                <h5 class="text-white mb-0 font-monospace" id="arch-drawer-title">System Architecture Topology</h5>
+            </div>
+            <button type="button" class="btn btn-sm btn-link text-white text-decoration-none fs-4 p-0 px-2" id="arch-drawer-close" aria-label="Close Drawer">&times;</button>
+        </div>
+        <div class="arch-drawer-body p-4" id="arch-drawer-content">
+            <!-- Dynamically populated by site.js -->
+        </div>
+    </div>
+
+    <!-- Matrix Rain Canvas Overlay -->
+    <div id="matrix-rain-overlay" class="matrix-canvas-wrapper" style="display: none;">
+        <canvas id="matrix-canvas"></canvas>
+        <div class="matrix-exit-hint font-monospace">
+            <span>[MATRIX MODE ACTIVE // PRESS ESC OR CLICK SCREEN TO EXIT]</span>
         </div>
     </div>
 
