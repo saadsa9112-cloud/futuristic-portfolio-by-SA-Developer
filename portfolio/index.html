@@ -15,7 +15,7 @@
 
     <!-- Style Assets -->
     <link rel="stylesheet" href="../lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="../css/site.css?v=1790342587648" />
+    <link rel="stylesheet" href="../css/site.css?v=1790353482275" />
     <link rel="stylesheet" href="../FuturisticPortfolio.styles.css?v=cXSw8uWbeBRRKqQImmDtUF9PgLFcp0jNpAJVcYp-LoE" />
     
     <!-- CDNs for Premium Libraries -->
@@ -192,7 +192,13 @@
                         <li b-tjezjmjmzt class="nav-item">
                             <a class="nav-link" href="../contact/">Contact</a>
                         </li>
-                        <li b-tjezjmjmzt class="nav-item d-flex align-items-center ms-lg-2 me-lg-1">
+                        <li b-tjezjmjmzt class="nav-item d-flex align-items-center ms-lg-2">
+                            <button b-tjezjmjmzt type="button" class="btn btn-link text-white p-2 border-0" id="sfx-toggle-btn" style="text-decoration: none; box-shadow: none;" title="Toggle Cyber Audio FX">
+                                <i b-tjezjmjmzt class="fas fa-volume-mute text-secondary" id="sfx-icon"></i>
+                                <span b-tjezjmjmzt class="d-none d-xl-inline font-monospace small ms-1 text-muted" id="sfx-label" style="font-size: 0.72rem;">SFX: OFF</span>
+                            </button>
+                        </li>
+                        <li b-tjezjmjmzt class="nav-item d-flex align-items-center ms-lg-1 me-lg-1">
                             <button b-tjezjmjmzt type="button" class="btn btn-link text-white p-2 border-0" id="theme-toggle-btn" style="text-decoration: none; box-shadow: none;" title="Toggle Theme">
                                 <i b-tjezjmjmzt class="fas fa-sun" id="theme-icon"></i>
                             </button>
@@ -813,13 +819,38 @@
         </div>
     </div>
 
+    <!-- Architecture Quick-Scan Slide-out Drawer -->
+    <div b-tjezjmjmzt id="arch-scan-overlay" class="arch-scan-backdrop" style="display: none;"></div>
+    <div b-tjezjmjmzt id="arch-scan-drawer" class="arch-scan-panel" style="display: none;" role="dialog" aria-modal="true" aria-labelledby="arch-drawer-title">
+        <div b-tjezjmjmzt class="arch-drawer-header d-flex justify-content-between align-items-center p-3 border-bottom border-secondary bg-dark">
+            <div b-tjezjmjmzt class="d-flex align-items-center gap-2">
+                <span b-tjezjmjmzt class="badge bg-secondary border border-secondary text-neon-cyan font-monospace px-2 py-1">
+                    <i b-tjezjmjmzt class="fas fa-microchip me-1"></i> ARCH-SCAN v2.0
+                </span>
+                <h5 b-tjezjmjmzt class="text-white mb-0 font-monospace" id="arch-drawer-title">System Architecture Topology</h5>
+            </div>
+            <button b-tjezjmjmzt type="button" class="btn btn-sm btn-link text-white text-decoration-none fs-4 p-0 px-2" id="arch-drawer-close" aria-label="Close Drawer">&times;</button>
+        </div>
+        <div b-tjezjmjmzt class="arch-drawer-body p-4" id="arch-drawer-content">
+            <!-- Dynamically populated by site.js?v=1790353482275 -->
+        </div>
+    </div>
+
+    <!-- Matrix Rain Canvas Overlay -->
+    <div b-tjezjmjmzt id="matrix-rain-overlay" class="matrix-canvas-wrapper" style="display: none;">
+        <canvas b-tjezjmjmzt id="matrix-canvas"></canvas>
+        <div b-tjezjmjmzt class="matrix-exit-hint font-monospace">
+            <span b-tjezjmjmzt>[MATRIX MODE ACTIVE // PRESS ESC OR CLICK SCREEN TO EXIT]</span>
+        </div>
+    </div>
+
     <!-- Script Assets -->
     <script src="../lib/jquery/dist/jquery.min.js"></script>
     <script src="../lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="../js/site.js?v=1790342587648"></script>
+    <script src="../js/site.js?v=1790353482275"></script>
     <script src="../js/hms-telemetry.js?v=5hUu86zj9Iv2YHukAHxmlvrlFy4NbzNsW7A5vJsOc1s"></script>
     
 </body>

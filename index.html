@@ -15,7 +15,7 @@
 
     <!-- Style Assets -->
     <link rel="stylesheet" href="./lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="./css/site.css?v=1790342587550" />
+    <link rel="stylesheet" href="./css/site.css?v=1790353482213" />
     <link rel="stylesheet" href="./FuturisticPortfolio.styles.css?v=cXSw8uWbeBRRKqQImmDtUF9PgLFcp0jNpAJVcYp-LoE" />
     
     <!-- CDNs for Premium Libraries -->
@@ -192,7 +192,13 @@
                         <li b-tjezjmjmzt class="nav-item">
                             <a class="nav-link" href="./contact/">Contact</a>
                         </li>
-                        <li b-tjezjmjmzt class="nav-item d-flex align-items-center ms-lg-2 me-lg-1">
+                        <li b-tjezjmjmzt class="nav-item d-flex align-items-center ms-lg-2">
+                            <button b-tjezjmjmzt type="button" class="btn btn-link text-white p-2 border-0" id="sfx-toggle-btn" style="text-decoration: none; box-shadow: none;" title="Toggle Cyber Audio FX">
+                                <i b-tjezjmjmzt class="fas fa-volume-mute text-secondary" id="sfx-icon"></i>
+                                <span b-tjezjmjmzt class="d-none d-xl-inline font-monospace small ms-1 text-muted" id="sfx-label" style="font-size: 0.72rem;">SFX: OFF</span>
+                            </button>
+                        </li>
+                        <li b-tjezjmjmzt class="nav-item d-flex align-items-center ms-lg-1 me-lg-1">
                             <button b-tjezjmjmzt type="button" class="btn btn-link text-white p-2 border-0" id="theme-toggle-btn" style="text-decoration: none; box-shadow: none;" title="Toggle Theme">
                                 <i b-tjezjmjmzt class="fas fa-sun" id="theme-icon"></i>
                             </button>
@@ -403,79 +409,123 @@
     </div>
 </section>
 
-<!-- ZERO-TRUST CYBERSECURITY & ARCHITECTURAL AUDIT ENGINE -->
+<!-- INTERACTIVE CYBER DEFENSE LAB & THREAT SIMULATOR -->
 <section class="py-5 position-relative overflow-hidden" id="cyber-audit-section">
     <div class="container py-4" data-aos="fade-up">
-        <div class="glass-panel p-4 p-md-5 cyber-hud-card" style="border: 1px solid rgba(0, 240, 255, 0.3) !important;">
-            <div class="row align-items-center g-4">
-                <div class="col-lg-6">
-                    <div class="d-flex align-items-center gap-2 mb-2">
+        <div class="glass-panel p-4 p-md-5 cyber-hud-card" style="border: 1px solid rgba(0, 240, 255, 0.35) !important;">
+            <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-4 pb-3 border-bottom border-secondary border-opacity-30">
+                <div>
+                    <div class="d-flex align-items-center gap-2 mb-1">
                         <span class="pulse-dot-green"></span>
-                        <span class="badge bg-dark border border-info text-neon-cyan font-monospace">CYBERSECURITY SEC-OPS AUDIT</span>
+                        <span class="badge bg-dark border border-info text-neon-cyan font-monospace">INTERACTIVE SEC-OPS DEFENSE LAB</span>
                     </div>
-                    <h2 class="display-6 text-white fw-bold mb-3">Zero-Trust Security &amp; Architecture Audit</h2>
-                    <p class="text-muted leading-relaxed mb-4">
-                        Perform an instant, real-time cryptographic audit on portfolio endpoints, runtime memory invariant checks, EF Core SQL injection immunity, and Claude Mythos prompt defense layers.
+                    <h2 class="display-6 text-white fw-bold mb-1">Cyber Threat Simulator &amp; Defense Grid</h2>
+                    <p class="text-muted leading-relaxed mb-0 font-monospace small">
+                        Launch simulated cyber attacks against HMS Developer's infrastructure to observe real-time eBPF kernel mitigation and zero-trust quarantine.
                     </p>
+                </div>
+                <div class="text-end">
+                    <span class="badge bg-danger bg-opacity-20 border border-danger text-danger font-monospace px-3 py-2" id="threat-neutralized-badge">
+                        <i class="fas fa-shield-virus me-1"></i> NEUTRALIZED: <span id="threat-counter-num">142</span>
+                    </span>
+                </div>
+            </div>
+
+            <div class="row align-items-center g-4">
+                <!-- Left Column: Attack Simulation Triggers -->
+                <div class="col-lg-5">
+                    <h5 class="text-white font-monospace mb-3 small text-uppercase tracking-wider">
+                        <i class="fas fa-crosshairs text-danger me-1"></i> Select Attack Simulation Vector
+                    </h5>
                     
-                    <div class="d-flex flex-wrap gap-3 mb-4">
-                        <button type="button" class="btn btn-neon btn-neon-cyan text-white font-monospace px-4 py-2" id="run-audit-btn">
-                            <i class="fas fa-shield-virus me-2"></i> Run Live Security Audit
+                    <div class="d-flex flex-column gap-2 mb-4">
+                        <button type="button" class="btn threat-btn p-3 rounded text-white d-flex align-items-center justify-content-between" data-attack="sqli" id="btn-threat-sqli">
+                            <div>
+                                <strong class="d-block text-neon-cyan font-monospace"><i class="fas fa-database me-2"></i> SQL Injection Attack (UNION SELECT)</strong>
+                                <small class="text-muted">Attempts auth bypass via raw non-parameterized query payloads</small>
+                            </div>
+                            <i class="fas fa-play text-muted small"></i>
                         </button>
-                        <button type="button" class="btn btn-outline-light border-secondary text-white font-monospace px-3 py-2" id="clear-audit-btn">
-                            <i class="fas fa-redo-alt me-1"></i> Reset
+
+                        <button type="button" class="btn threat-btn p-3 rounded text-white d-flex align-items-center justify-content-between" data-attack="ddos" id="btn-threat-ddos">
+                            <div>
+                                <strong class="d-block text-warning font-monospace"><i class="fas fa-bolt me-2"></i> Layer-7 DDoS Request Flood</strong>
+                                <small class="text-muted">Floods HTTP endpoints with 120 concurrent requests within 10s</small>
+                            </div>
+                            <i class="fas fa-play text-muted small"></i>
+                        </button>
+
+                        <button type="button" class="btn threat-btn p-3 rounded text-white d-flex align-items-center justify-content-between" data-attack="prompt" id="btn-threat-prompt">
+                            <div>
+                                <strong class="d-block text-neon-purple font-monospace"><i class="fas fa-robot me-2"></i> Adversarial Prompt Injection</strong>
+                                <small class="text-muted">Simulates indirect LLM jailbreak attempts targeting system credentials</small>
+                            </div>
+                            <i class="fas fa-play text-muted small"></i>
+                        </button>
+
+                        <button type="button" class="btn threat-btn p-3 rounded text-white d-flex align-items-center justify-content-between" data-attack="audit" id="run-audit-btn">
+                            <div>
+                                <strong class="d-block text-success font-monospace"><i class="fas fa-shield-alt me-2"></i> Zero-Trust System Audit</strong>
+                                <small class="text-muted">Continuous cryptographical integrity verification sweep</small>
+                            </div>
+                            <i class="fas fa-check-double text-success small"></i>
                         </button>
                     </div>
 
                     <!-- Telemetry Metrics Grid -->
-                    <div class="row g-2 font-monospace" style="font-size: 0.8rem;">
+                    <div class="row g-2 font-monospace" style="font-size: 0.78rem;">
                         <div class="col-6">
-                            <div class="p-2.5 rounded bg-dark border border-secondary border-opacity-30">
-                                <span class="text-muted d-block mb-1">CIPHER SUITE</span>
-                                <span class="text-neon-cyan fw-bold"><i class="fas fa-lock me-1 text-success"></i> TLS 1.3 / AES-256</span>
+                            <div class="p-2 rounded bg-dark border border-secondary border-opacity-30">
+                                <span class="text-muted d-block mb-1">DEFENSE POLICY</span>
+                                <span class="text-neon-cyan fw-bold"><i class="fas fa-lock me-1 text-success"></i> Zero-Trust Enforced</span>
                             </div>
                         </div>
                         <div class="col-6">
-                            <div class="p-2.5 rounded bg-dark border border-secondary border-opacity-30">
-                                <span class="text-muted d-block mb-1">INJECTION SHIELD</span>
-                                <span class="text-neon-purple fw-bold"><i class="fas fa-shield-alt me-1 text-neon-purple"></i> EF Core Parameterized</span>
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="p-2.5 rounded bg-dark border border-secondary border-opacity-30">
-                                <span class="text-muted d-block mb-1">KERNEL PROBES</span>
-                                <span class="text-neon-green fw-bold"><i class="fas fa-microchip me-1 text-neon-green"></i> eBPF RingBuffer Active</span>
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="p-2.5 rounded bg-dark border border-secondary border-opacity-30">
-                                <span class="text-muted d-block mb-1">AI GUARDRAIL</span>
-                                <span class="text-warning fw-bold"><i class="fas fa-brain me-1 text-warning"></i> Claude Mythos Strict</span>
+                            <div class="p-2 rounded bg-dark border border-secondary border-opacity-30">
+                                <span class="text-muted d-block mb-1">LATENCY PENALTY</span>
+                                <span class="text-neon-green fw-bold">&lt; 0.4ms Overhead</span>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Right Side: Live Terminal Scan Screen -->
-                <div class="col-lg-6">
+                <!-- Middle Column: Radar Sweep Visualizer -->
+                <div class="col-lg-3 text-center">
+                    <div class="radar-container" id="radar-screen">
+                        <div class="radar-crosshair-h"></div>
+                        <div class="radar-crosshair-v"></div>
+                        <div class="radar-circle-inner"></div>
+                        <div class="radar-sweep-line"></div>
+                        <div id="radar-blip" style="position: absolute; width: 10px; height: 10px; background: #ff0055; border-radius: 50%; box-shadow: 0 0 10px #ff0055; display: none;"></div>
+                    </div>
+                    <div class="mt-3 font-monospace small">
+                        <span class="badge bg-dark border border-secondary text-neon-cyan px-2 py-1" id="radar-status-label">
+                            <i class="fas fa-broadcast-tower text-success me-1"></i> RADAR: SCANNING AIRSPACE
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Right Column: Live Terminal Scan Screen -->
+                <div class="col-lg-4">
                     <div class="cyber-terminal-card shadow-lg p-0 overflow-hidden" style="background: #06030f; border: 1px solid rgba(0, 240, 255, 0.4); border-radius: 12px;">
                         <div class="project-window-bar d-flex align-items-center justify-content-between px-3 py-2" style="background: rgba(18, 11, 35, 0.95); border-bottom: 1px solid rgba(0, 240, 255, 0.2);">
                             <div class="d-flex align-items-center gap-2">
                                 <span class="p-dot red"></span>
                                 <span class="p-dot yellow"></span>
                                 <span class="p-dot green"></span>
-                                <span class="project-window-title text-muted font-monospace small">secops@audit-daemon ~ bash</span>
+                                <span class="project-window-title text-muted font-monospace small">secops@defense-grid ~ live</span>
                             </div>
-                            <span class="badge bg-dark border border-success text-neon-green font-monospace" style="font-size: 0.65rem;" id="audit-status-pill">READY TO SCAN</span>
+                            <span class="badge bg-dark border border-success text-neon-green font-monospace" style="font-size: 0.65rem;" id="audit-status-pill">DEFENSE ARMED</span>
                         </div>
-                        <div class="p-3 font-monospace" id="audit-terminal-screen" style="height: 250px; overflow-y: auto; font-size: 0.8rem; line-height: 1.6; color: #a5f3fc; background: #070414;">
-                            <div class="text-muted">// Zero-Trust Continuous Security Telemetry Daemon</div>
-                            <div class="text-muted">// Click "Run Live Security Audit" above to test active defensive layers...</div>
-                            <div class="mt-2 text-neon-purple">&gt; All security sensors idling at 0.0% CPU overhead.</div>
+                        <div class="p-3 font-monospace" id="audit-terminal-screen" style="height: 240px; overflow-y: auto; font-size: 0.78rem; line-height: 1.5; color: #a5f3fc; background: #070414;">
+                            <div class="text-muted">// HMS Cyber Defense Telemetry Kernel active.</div>
+                            <div class="text-muted">// Click any attack vector on the left to test live response...</div>
+                            <div class="mt-2 text-neon-green">&gt; eBPF Probes: Monitoring syscalls on ring buffer.</div>
+                            <div class="text-neon-purple">&gt; Zero-Trust Firewall: Standing guard.</div>
                         </div>
                         <div class="p-2.5 bg-dark border-top border-secondary border-opacity-30 d-flex justify-content-between align-items-center font-monospace" style="font-size: 0.75rem;">
-                            <span class="text-muted">OVERALL COMPLIANCE SCORE:</span>
-                            <span class="text-neon-green fw-bold" id="audit-score-val">A+ [100% SECURE]</span>
+                            <span class="text-muted">FIREWALL VERDICT:</span>
+                            <span class="text-neon-green fw-bold" id="audit-score-val">STANDBY // READY</span>
                         </div>
                     </div>
                 </div>
@@ -526,6 +576,7 @@
                                         </div>
                                         <div class="d-flex gap-2">
                                             <a class="btn btn-outline-light btn-sm flex-grow-1 border-secondary rounded-pill hover-bg-light hover-text-dark font-monospace" href="./portfolio/details/2/"><i class="fas fa-terminal me-1"></i> Inspect System</a>
+                                            <button type="button" class="btn btn-outline-info btn-sm rounded-pill font-monospace arch-scan-trigger" data-title="NED Academy University Management System (UMS)" title="Quick Architecture Topology Scan"><i class="fas fa-microchip me-1"></i> Arch Scan</button>
                                                 <a href="https://github.com/saadsa9112-cloud" target="_blank" class="btn btn-outline-info btn-sm rounded-circle" title="View Source"><i class="fab fa-github"></i></a>
                                         </div>
                                     </div>
@@ -563,6 +614,7 @@
                                             </div>
                                             <div class="d-flex gap-2">
                                                 <a class="btn btn-outline-light btn-sm flex-grow-1 border-secondary rounded-pill hover-bg-light hover-text-dark font-monospace" href="./portfolio/details/2002/"><i class="fas fa-terminal me-1"></i> Inspect System</a>
+                                                <button type="button" class="btn btn-outline-info btn-sm rounded-pill font-monospace arch-scan-trigger" data-title="NED Academy Admissions &amp; Public University Portal" title="Quick Architecture Topology Scan"><i class="fas fa-microchip me-1"></i> Arch Scan</button>
                                                     <a href="https://github.com/saadsa9112-cloud" target="_blank" class="btn btn-outline-info btn-sm rounded-circle" title="View Source"><i class="fab fa-github"></i></a>
                                             </div>
                                         </div>
@@ -599,6 +651,7 @@
                                             </div>
                                             <div class="d-flex gap-2">
                                                 <a class="btn btn-outline-light btn-sm flex-grow-1 border-secondary rounded-pill hover-bg-light hover-text-dark font-monospace" href="./portfolio/details/1002/"><i class="fas fa-terminal me-1"></i> Inspect System</a>
+                                                <button type="button" class="btn btn-outline-info btn-sm rounded-pill font-monospace arch-scan-trigger" data-title="Nexora Digital Agency &amp; Client Solutions Platform" title="Quick Architecture Topology Scan"><i class="fas fa-microchip me-1"></i> Arch Scan</button>
                                                     <a href="https://github.com/saadsa9112-cloud" target="_blank" class="btn btn-outline-info btn-sm rounded-circle" title="View Source"><i class="fab fa-github"></i></a>
                                             </div>
                                         </div>
@@ -644,6 +697,7 @@
                                                     <button type="button" class="btn btn-outline-warning btn-sm flex-grow-1 border-warning rounded-pill text-warning font-monospace trigger-under-dev-btn">
                                                         <i class="fas fa-terminal me-1"></i> Inspect System
                                                     </button>
+                                                    <button type="button" class="btn btn-outline-info btn-sm rounded-pill font-monospace arch-scan-trigger" data-title="CyberSentinel: Autonomous Threat Hunting &amp; SIEM Telemetry" title="Quick Architecture Topology Scan"><i class="fas fa-microchip me-1"></i> Arch Scan</button>
                                                         <a href="https://github.com/saadsa9112-cloud" target="_blank" class="btn btn-outline-info btn-sm rounded-circle" title="View Source"><i class="fab fa-github"></i></a>
                                                 </div>
                                             </div>
@@ -705,6 +759,7 @@
                                                     <button type="button" class="btn btn-outline-warning btn-sm flex-grow-1 border-warning rounded-pill text-warning font-monospace trigger-under-dev-btn">
                                                         <i class="fas fa-terminal me-1"></i> Inspect System
                                                     </button>
+                                                    <button type="button" class="btn btn-outline-info btn-sm rounded-pill font-monospace arch-scan-trigger" data-title="NeuralMesh: Decentralized AI Agent Orchestration &amp; Model Sharding" title="Quick Architecture Topology Scan"><i class="fas fa-microchip me-1"></i> Arch Scan</button>
                                                         <a href="https://github.com/saadsa9112-cloud" target="_blank" class="btn btn-outline-info btn-sm rounded-circle" title="View Source"><i class="fab fa-github"></i></a>
                                                 </div>
                                             </div>
@@ -802,6 +857,90 @@
                     <h5 class="text-white fw-bold mb-1">Dual Database Tier</h5>
                     <p class="text-muted small mb-3">Normalized SQL Server 3NF for transactional enterprise data + MongoDB for unstructured rapid document payloads.</p>
                     <div class="font-monospace small text-warning opacity-75">ACID Compliant + EF Core 10</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- INTERACTIVE LATENCY & PERFORMANCE BENCHMARK PLAYGROUND -->
+<section id="perf-benchmark-playground" class="py-5" style="border-top: 1px solid rgba(255,255,255,0.05); background: radial-gradient(circle at 80% 50%, rgba(139, 92, 246, 0.04) 0%, transparent 60%);">
+    <div class="container py-3">
+        <div class="text-center mb-5" data-aos="fade-up">
+            <span class="badge bg-dark border border-secondary text-neon-cyan font-monospace mb-2">TELEMETRY BENCHMARK ENGINE</span>
+            <h2 class="display-5 text-white fw-bold"><span class="text-neon-cyan">//</span> Query Latency &amp; Throughput Benchmark</h2>
+            <p class="text-muted mb-0">Simulate payload stress tests across EF Core 10 ORM, Compiled Dapper Micro-ORM, and In-Memory Distributed Cache.</p>
+        </div>
+
+        <div class="glass-panel p-4 max-w-4xl mx-auto shadow-lg" data-aos="zoom-in">
+            <!-- Controls & Payload Slider -->
+            <div class="row align-items-center mb-4 pb-4 border-bottom border-secondary border-opacity-30">
+                <div class="col-lg-6 mb-3 mb-lg-0">
+                    <label for="benchmark-volume-slider" class="form-label font-monospace text-neon-cyan d-flex justify-content-between">
+                        <span><i class="fas fa-sliders-h me-2"></i>Simulated Record Payload Volume:</span>
+                        <strong id="benchmark-volume-display" class="text-warning">10,000 Rows</strong>
+                    </label>
+                    <input type="range" class="form-range" id="benchmark-volume-slider" min="1000" max="100000" step="1000" value="10000">
+                    <div class="d-flex justify-content-between font-monospace text-muted" style="font-size: 0.75rem;">
+                        <span>1K (Single Entity)</span>
+                        <span>50K (Batch Sync)</span>
+                        <span>100K (Enterprise ETL)</span>
+                    </div>
+                </div>
+                <div class="col-lg-6 text-lg-end">
+                    <button type="button" id="btn-run-benchmark" class="btn btn-outline-info font-monospace px-4 py-2 rounded-pill shadow-sm">
+                        <i class="fas fa-bolt me-2"></i>Run Benchmark Stress-Test
+                    </button>
+                    <div class="font-monospace text-muted mt-2 small" id="benchmark-status-indicator">
+                        <span class="text-success"><i class="fas fa-circle me-1" style="font-size: 0.6rem;"></i> ENGINE READY</span> &bull; Buffer Warm
+                    </div>
+                </div>
+            </div>
+
+            <!-- Comparison Bars -->
+            <div class="row g-4 font-monospace">
+                <!-- EF Core -->
+                <div class="col-12">
+                    <div class="d-flex justify-content-between align-items-center mb-1">
+                        <span class="text-white"><i class="fas fa-cube text-neon-purple me-2"></i>EF Core 10 (Full Tracking + ChangeTracker)</span>
+                        <span class="text-warning fw-bold" id="latency-ef-val">42.8 ms</span>
+                    </div>
+                    <div class="progress" style="height: 14px; background: rgba(255,255,255,0.06); border-radius: 6px;">
+                        <div id="bar-ef-core" class="progress-bar bg-warning progress-bar-striped progress-bar-animated" role="progressbar" style="width: 78%;"></div>
+                    </div>
+                    <div class="text-muted small mt-1" style="font-size: 0.72rem;">Full ORM overhead, navigational property mapping &amp; dynamic expression tree compilation.</div>
+                </div>
+
+                <!-- Dapper -->
+                <div class="col-12">
+                    <div class="d-flex justify-content-between align-items-center mb-1">
+                        <span class="text-white"><i class="fas fa-bolt text-neon-cyan me-2"></i>Dapper Micro-ORM (Raw SQL + Native Deserialization)</span>
+                        <span class="text-info fw-bold" id="latency-dapper-val">14.2 ms</span>
+                    </div>
+                    <div class="progress" style="height: 14px; background: rgba(255,255,255,0.06); border-radius: 6px;">
+                        <div id="bar-dapper" class="progress-bar bg-info progress-bar-striped progress-bar-animated" role="progressbar" style="width: 32%;"></div>
+                    </div>
+                    <div class="text-muted small mt-1" style="font-size: 0.72rem;">Zero tracking overhead, compiled IL byte emission, 3x faster than traditional ORM.</div>
+                </div>
+
+                <!-- In-Memory Cache -->
+                <div class="col-12">
+                    <div class="d-flex justify-content-between align-items-center mb-1">
+                        <span class="text-white"><i class="fas fa-memory text-success me-2"></i>Distributed / In-Memory Cache (RAM Hash Store)</span>
+                        <span class="text-success fw-bold" id="latency-cache-val">1.1 ms</span>
+                    </div>
+                    <div class="progress" style="height: 14px; background: rgba(255,255,255,0.06); border-radius: 6px;">
+                        <div id="bar-cache" class="progress-bar bg-success progress-bar-striped progress-bar-animated" role="progressbar" style="width: 5%;"></div>
+                    </div>
+                    <div class="text-muted small mt-1" style="font-size: 0.72rem;">Zero I/O disk latency, O(1) hash map retrieval, sub-millisecond execution.</div>
+                </div>
+            </div>
+
+            <!-- Insights Banner -->
+            <div class="mt-4 p-3 rounded font-monospace small d-flex align-items-center gap-3" style="background: rgba(0, 243, 255, 0.05); border: 1px solid rgba(0, 243, 255, 0.2);">
+                <i class="fas fa-lightbulb text-neon-cyan fs-4"></i>
+                <div class="text-muted">
+                    <strong class="text-neon-cyan">Architecture Strategy:</strong> In HMS Developer's architecture, transactional writes route through EF Core with validation guards, while high-velocity analytical dashboards leverage Dapper + In-Memory Caching for max throughput.
                 </div>
             </div>
         </div>
@@ -1104,7 +1243,7 @@
                         </div>
                         
                         <button type="submit" class="btn btn-neon w-100 text-white"><i class="fas fa-paper-plane me-2"></i> Send Message</button>
-                    <input name="__RequestVerificationToken" type="hidden" value="CfDJ8G4mfT-tyH5KmFrg4xby0PpKMiw1T89GEv23WzxLw_qrEtuZwJIIpkrGAIKPs2SzdR1DsxUQ-ymqZQiRmTHGqQfAJPo8xc4QTDf-y7kD7DLgD4E9TnxF3ST390KMGqMk2j5kXgpNeFnpmBnmBgQSCFU" /></form>
+                    <input name="__RequestVerificationToken" type="hidden" value="CfDJ8G4mfT-tyH5KmFrg4xby0PomRqpdQL3TYmJrj1hRtlvfSmJ7nfGsL9vDYx-mZUmjibkiWofCEWAauJ8iv4tQ-_gCzzpxjoicCxVG6TsHOYN9Mr0kVk97sVLX3TKgM3Df3yPYjM1vuX8kmgF0u5_kEc0" /></form>
                     <div id="contact-submit-status" class="mt-3" style="display: none;"></div>
                 </div>
             </div>
@@ -1431,13 +1570,38 @@
         </div>
     </div>
 
+    <!-- Architecture Quick-Scan Slide-out Drawer -->
+    <div b-tjezjmjmzt id="arch-scan-overlay" class="arch-scan-backdrop" style="display: none;"></div>
+    <div b-tjezjmjmzt id="arch-scan-drawer" class="arch-scan-panel" style="display: none;" role="dialog" aria-modal="true" aria-labelledby="arch-drawer-title">
+        <div b-tjezjmjmzt class="arch-drawer-header d-flex justify-content-between align-items-center p-3 border-bottom border-secondary bg-dark">
+            <div b-tjezjmjmzt class="d-flex align-items-center gap-2">
+                <span b-tjezjmjmzt class="badge bg-secondary border border-secondary text-neon-cyan font-monospace px-2 py-1">
+                    <i b-tjezjmjmzt class="fas fa-microchip me-1"></i> ARCH-SCAN v2.0
+                </span>
+                <h5 b-tjezjmjmzt class="text-white mb-0 font-monospace" id="arch-drawer-title">System Architecture Topology</h5>
+            </div>
+            <button b-tjezjmjmzt type="button" class="btn btn-sm btn-link text-white text-decoration-none fs-4 p-0 px-2" id="arch-drawer-close" aria-label="Close Drawer">&times;</button>
+        </div>
+        <div b-tjezjmjmzt class="arch-drawer-body p-4" id="arch-drawer-content">
+            <!-- Dynamically populated by site.js?v=1790353482213 -->
+        </div>
+    </div>
+
+    <!-- Matrix Rain Canvas Overlay -->
+    <div b-tjezjmjmzt id="matrix-rain-overlay" class="matrix-canvas-wrapper" style="display: none;">
+        <canvas b-tjezjmjmzt id="matrix-canvas"></canvas>
+        <div b-tjezjmjmzt class="matrix-exit-hint font-monospace">
+            <span b-tjezjmjmzt>[MATRIX MODE ACTIVE // PRESS ESC OR CLICK SCREEN TO EXIT]</span>
+        </div>
+    </div>
+
     <!-- Script Assets -->
     <script src="./lib/jquery/dist/jquery.min.js"></script>
     <script src="./lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="./js/site.js?v=1790342587550"></script>
+    <script src="./js/site.js?v=1790353482213"></script>
     <script src="./js/hms-telemetry.js?v=5hUu86zj9Iv2YHukAHxmlvrlFy4NbzNsW7A5vJsOc1s"></script>
     
     <script src="https://unpkg.com/typed.js@2.0.16/dist/typed.umd.js"></script>
