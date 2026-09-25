@@ -74,9 +74,16 @@ namespace FuturisticPortfolio.Services
             }
         }
 
+        private static bool IsLocalhost(string ip)
+        {
+            if (string.IsNullOrWhiteSpace(ip)) return false;
+            var clean = ip.Trim();
+            return clean == "::1" || clean == "127.0.0.1" || clean.StartsWith("127.") || clean.Equals("localhost", StringComparison.OrdinalIgnoreCase);
+        }
+
         public void BlockIp(string ip)
         {
-            if (string.IsNullOrWhiteSpace(ip)) return;
+            if (string.IsNullOrWhiteSpace(ip) || IsLocalhost(ip)) return;
             ip = ip.Trim();
             if (BlockedIps.TryAdd(ip, 0))
             {
@@ -98,7 +105,7 @@ namespace FuturisticPortfolio.Services
 
         public bool IsIpBlocked(string ip)
         {
-            if (string.IsNullOrWhiteSpace(ip)) return false;
+            if (string.IsNullOrWhiteSpace(ip) || IsLocalhost(ip)) return false;
             return BlockedIps.ContainsKey(ip.Trim());
         }
 
@@ -110,7 +117,7 @@ namespace FuturisticPortfolio.Services
         public bool RecordRequestAndCheckRateLimit(string ip, out bool isDdosLevel)
         {
             isDdosLevel = false;
-            if (string.IsNullOrWhiteSpace(ip)) return true; // Safe fallback
+            if (string.IsNullOrWhiteSpace(ip) || IsLocalhost(ip)) return true; // Localhost exempt from rate-limits
 
             var now = DateTime.UtcNow;
             var windowStart = now.AddSeconds(-10);
