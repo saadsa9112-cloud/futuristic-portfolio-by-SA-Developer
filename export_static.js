@@ -43,7 +43,7 @@ async function run() {
 
     // 2. Copy all static assets from wwwroot
     console.log('Copying static assets (css, js, images, libraries)...');
-    const assets = ['css', 'js', 'images', 'lib'];
+    const assets = ['css', 'js', 'images', 'lib', 'files'];
     assets.forEach(folder => {
         const src = path.join(__dirname, 'wwwroot', folder);
         const dest = path.join(DIST_DIR, folder);

@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hafiz Muhammad Saad - Resume</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @page {
+            size: A4 portrait;
+            margin: 10mm 12mm 10mm 12mm;
+        }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+        }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: #ffffff;
+            color: #1e293b;
+            font-size: 9pt;
+            line-height: 1.45;
+        }
+        .resume-page {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            background: #ffffff;
+        }
+        
+        /* Header */
+        .resume-header {
+            border-bottom: 2px solid #0f172a;
+            padding-bottom: 12px;
+            margin-bottom: 14px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+        .header-main h1 {
+            font-size: 22pt;
+            font-weight: 800;
+            color: #0f172a;
+            letter-spacing: -0.5px;
+            text-transform: uppercase;
+        }
+        .header-main .brand-subtitle {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10.5pt;
+            font-weight: 700;
+            color: #6366f1;
+            margin-top: 1px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .header-main .brand-tag {
+            background: #0f172a;
+            color: #38bdf8;
+            padding: 2px 7px;
+            border-radius: 4px;
+            font-size: 8pt;
+            letter-spacing: 0.5px;
+        }
+        .header-contact {
+            text-align: right;
+            font-size: 8.5pt;
+            color: #475569;
+            line-height: 1.6;
+        }
+        .header-contact a {
+            color: #475569;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .header-contact a:hover {
+            color: #2563eb;
+        }
+        .header-contact i {
+            width: 14px;
+            color: #6366f1;
+            margin-right: 3px;
+        }
+
+        /* Section Styling */
+        .section {
+            margin-bottom: 12px;
+        }
+        .section-title {
+            font-size: 10.5pt;
+            font-weight: 700;
+            color: #0f172a;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            border-bottom: 1.5px solid #e2e8f0;
+            padding-bottom: 3px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .section-title i {
+            color: #6366f1;
+            font-size: 10pt;
+        }
+
+        /* Summary */
+        .summary-text {
+            color: #334155;
+            font-size: 8.8pt;
+            text-align: justify;
+            line-height: 1.5;
+        }
+
+        /* Skills Grid */
+        .skills-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 5px;
+            font-size: 8.5pt;
+        }
+        .skill-group {
+            display: flex;
+            align-items: baseline;
+            gap: 6px;
+        }
+        .skill-category {
+            font-weight: 700;
+            color: #0f172a;
+            min-width: 155px;
+            font-size: 8.5pt;
+        }
+        .skill-list {
+            color: #334155;
+            flex: 1;
+        }
+
+        /* Project Entry */
+        .project-item {
+            margin-bottom: 10px;
+            page-break-inside: avoid;
+        }
+        .project-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 2px;
+        }
+        .project-title {
+            font-size: 9.5pt;
+            font-weight: 700;
+            color: #0f172a;
+        }
+        .project-badge {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 7.5pt;
+            background: #f1f5f9;
+            color: #475569;
+            padding: 1px 6px;
+            border-radius: 3px;
+            border: 1px solid #cbd5e1;
+            font-weight: 600;
+        }
+        .project-badge.active-dev {
+            background: #fef3c7;
+            color: #b45309;
+            border-color: #fde68a;
+        }
+        .project-tech {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 7.8pt;
+            color: #4f46e5;
+            font-weight: 600;
+            margin-bottom: 3px;
+        }
+        .project-desc {
+            font-size: 8.5pt;
+            color: #334155;
+            margin-bottom: 2px;
+        }
+        .bullet-list {
+            list-style-type: none;
+            padding-left: 0;
+            margin-top: 2px;
+        }
+        .bullet-list li {
+            position: relative;
+            padding-left: 14px;
+            font-size: 8.5pt;
+            color: #334155;
+            margin-bottom: 2px;
+            line-height: 1.4;
+        }
+        .bullet-list li::before {
+            content: "•";
+            position: absolute;
+            left: 3px;
+            color: #6366f1;
+            font-size: 11pt;
+            line-height: 1;
+        }
+
+        /* Education Entry */
+        .edu-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 6px;
+            page-break-inside: avoid;
+        }
+        .edu-degree {
+            font-weight: 700;
+            color: #0f172a;
+            font-size: 9pt;
+        }
+        .edu-institution {
+            color: #475569;
+            font-size: 8.5pt;
+            font-weight: 500;
+        }
+        .edu-date {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 8pt;
+            color: #64748b;
+            font-weight: 600;
+            text-align: right;
+            white-space: nowrap;
+        }
+
+        /* Footer Stamp */
+        .resume-footer {
+            margin-top: 14px;
+            padding-top: 6px;
+            border-top: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: space-between;
+            font-size: 7.5pt;
+            color: #94a3b8;
+            font-family: 'JetBrains Mono', monospace;
+        }
+    </style>
+</head>
+<body>
+    <div class="resume-page">
+        <!-- Header -->
+        <header class="resume-header">
+            <div class="header-main">
+                <h1>Hafiz Muhammad Saad</h1>
+                <div class="brand-subtitle">
+                    <span class="brand-tag">&lt;HMS DEVELOPER /&gt;</span>
+                    <span>Full-Stack Software Engineer &amp; Systems Architect</span>
+                </div>
+            </div>
+            <div class="header-contact">
+                <div><i class="fas fa-envelope"></i> <a href="mailto:saad.sa9112@gmail.com">saad.sa9112@gmail.com</a></div>
+                <div><i class="fas fa-phone-alt"></i> <a href="tel:+923055188896">+92 305 5188896</a></div>
+                <div><i class="fas fa-map-marker-alt"></i> Karachi, Pakistan</div>
+                <div><i class="fab fa-github"></i> <a href="https://github.com/saadsa9112-cloud" target="_blank">github.com/saadsa9112-cloud</a></div>
+                <div><i class="fas fa-globe"></i> <a href="https://saadsa9112-cloud.github.io/futuristic-portfolio-by-SA-Developer/" target="_blank">Portfolio / HMS Developer</a></div>
+            </div>
+        </header>
+
+        <!-- Summary -->
+        <section class="section">
+            <div class="section-title"><i class="fas fa-user-shield"></i> Professional Summary</div>
+            <p class="summary-text">
+                Results-driven <strong>Full-Stack Software Engineer &amp; Systems Architect</strong> with deep engineering expertise across <strong>ASP.NET Core (.NET 10), C#, MERN Stack (MongoDB, Express, React, Node.js), Microsoft SQL Server, Graphic Designing (UI/UX / Figma), and Technical SEO</strong>. Experienced in designing resilient enterprise architectures, high-throughput relational schemas, RESTful APIs, and modern interactive web applications. Dedicated to writing clean, maintainable code with strict zero-trust cyber security principles, atomic database transactions, and sub-second page performance.
+            </p>
+        </section>
+
+        <!-- Core Skills -->
+        <section class="section">
+            <div class="section-title"><i class="fas fa-code"></i> Technical Competencies</div>
+            <div class="skills-container">
+                <div class="skill-group">
+                    <span class="skill-category">Backend &amp; Languages:</span>
+                    <span class="skill-list">C# (.NET 10, ASP.NET Core MVC / Web API), Node.js, Express.js, PHP, LINQ, Entity Framework Core 10</span>
+                </div>
+                <div class="skill-group">
+                    <span class="skill-category">Frontend &amp; UI Engineering:</span>
+                    <span class="skill-list">React 19, JavaScript (ES6+), HTML5, CSS3, Tailwind CSS v4, Bootstrap 5, Vite, Framer Motion</span>
+                </div>
+                <div class="skill-group">
+                    <span class="skill-category">Databases &amp; Caching:</span>
+                    <span class="skill-list">Microsoft SQL Server, MySQL, MongoDB, Redis In-Memory Caching, PostgreSQL</span>
+                </div>
+                <div class="skill-group">
+                    <span class="skill-category">Design &amp; UI/UX:</span>
+                    <span class="skill-list">Graphic Designing, Figma, Adobe Creative Cloud, Design Systems, Wireframing &amp; Interactive Prototyping</span>
+                </div>
+                <div class="skill-group">
+                    <span class="skill-category">SEO &amp; Web Performance:</span>
+                    <span class="skill-list">Technical SEO, Core Web Vitals, PageSpeed Optimization, Semantic Schema Markup, Speed Tuning</span>
+                </div>
+                <div class="skill-group">
+                    <span class="skill-category">Architecture &amp; Tools:</span>
+                    <span class="skill-list">MVC &amp; Repository Pattern, RESTful Microservices, Git/GitHub, Docker, Postman, Visual Studio 2022</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects -->
+        <section class="section">
+            <div class="section-title"><i class="fas fa-layer-group"></i> Key Engineering Projects</div>
+
+            <!-- Project 1 -->
+            <div class="project-item">
+                <div class="project-header">
+                    <span class="project-title">NED Academy University Management System (UMS)</span>
+                    <span class="project-badge">Published // Production</span>
+                </div>
+                <div class="project-tech">ASP.NET Core MVC, C#, Entity Framework Core, SQL Server, Bootstrap, LINQ</div>
+                <ul class="bullet-list">
+                    <li>Architected an enterprise-level university platform managing student enrollments, faculty allocations, course hierarchies, and real-time notice board announcements.</li>
+                    <li>Designed normalized relational SQL Server schema with EF Core repository pattern, preventing transaction deadlocks and ensuring ACID compliance.</li>
+                    <li>Built role-based authorization matrices separating administrative, faculty, and student access privileges with audit trails.</li>
+                </ul>
+            </div>
+
+            <!-- Project 2 -->
+            <div class="project-item">
+                <div class="project-header">
+                    <span class="project-title">NED Academy Admissions &amp; Public University Portal</span>
+                    <span class="project-badge">Published // Production</span>
+                </div>
+                <div class="project-tech">ASP.NET Core 10 MVC, C#, EF Core 10, SQL Server, Bootstrap 5, LINQ</div>
+                <ul class="bullet-list">
+                    <li>Engineered an end-to-end digital admission workflow featuring multi-step applicant registration, document verification queues, and automated fee voucher generators.</li>
+                    <li>Integrated dynamic departmental CMS engine enabling academic administrators to publish course curriculum updates and news with zero code redeployment.</li>
+                    <li>Implemented asynchronous validation pipelines and secure file upload sandboxing to prevent malicious payload uploads.</li>
+                </ul>
+            </div>
+
+            <!-- Project 3 -->
+            <div class="project-item">
+                <div class="project-header">
+                    <span class="project-title">Nexora Digital Agency &amp; Client Solutions Platform</span>
+                    <span class="project-badge">Published // Modern Web</span>
+                </div>
+                <div class="project-tech">React 19, Vite, Tailwind CSS v4, Framer Motion, JavaScript, Lucide Icons</div>
+                <ul class="bullet-list">
+                    <li>Developed high-conversion modern digital agency platform featuring dynamic multi-currency pricing (PKR/USD) and interactive scope estimator.</li>
+                    <li>Constructed sleek glassmorphic UI components and 60fps fluid scroll animations while achieving 98+ Google Lighthouse performance scores.</li>
+                    <li>Leveraged React 19 concurrent features with zero external heavy bundle overhead, optimizing initial paint times to sub-second thresholds.</li>
+                </ul>
+            </div>
+
+            <!-- Project 4 -->
+            <div class="project-item">
+                <div class="project-header">
+                    <span class="project-title">CyberSentinel: Autonomous Threat Hunting &amp; SIEM Telemetry</span>
+                    <span class="project-badge active-dev">Under Active Development</span>
+                </div>
+                <div class="project-tech">.NET 10, C#, eBPF, Rust, gRPC, PostgreSQL, Docker, Zero-Trust Architecture</div>
+                <ul class="bullet-list">
+                    <li>Designing kernel-level telemetry system to monitor cloud-native workloads, intercept suspicious syscalls, and mitigate AI prompt injection vectors.</li>
+                    <li>Building a zero-copy RingBuffer pipeline using C# Native AOT and Rust eBPF probes for sub-millisecond anomaly detection.</li>
+                </ul>
+            </div>
+
+            <!-- Project 5 -->
+            <div class="project-item">
+                <div class="project-header">
+                    <span class="project-title">NeuralMesh: Decentralized AI Agent Orchestration &amp; Model Sharding</span>
+                    <span class="project-badge active-dev">Under Development // Beta</span>
+                </div>
+                <div class="project-tech">ASP.NET Core, C#, Python, Redis Streams, WebSockets, ONNX Runtime, Vector DB</div>
+                <ul class="bullet-list">
+                    <li>Developing decentralized orchestration framework for cooperative AI agent swarms to execute automated codebase refactoring and compliance verification.</li>
+                    <li>Engineered event-sourced distributed state machines and Redis Streams memory boundaries to eliminate reasoning hallucinations.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Education -->
+        <section class="section">
+            <div class="section-title"><i class="fas fa-graduation-cap"></i> Education &amp; Training</div>
+
+            <div class="edu-item">
+                <div>
+                    <div class="edu-degree">Bachelor of Science in Business Computing (BSBC)</div>
+                    <div class="edu-institution">Sohail University, Karachi</div>
+                </div>
+                <div class="edu-date">2025 – 2029 (In Progress)</div>
+            </div>
+
+            <div class="edu-item">
+                <div>
+                    <div class="edu-degree">Advanced Diploma in Software Engineering (ADSE)</div>
+                    <div class="edu-institution">Aptech Learning, Karachi</div>
+                </div>
+                <div class="edu-date">2024 – 2027 (In Progress)</div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="resume-footer">
+            <span>HMS DEVELOPER // HAFIZ MUHAMMAD SAAD</span>
+            <span>VERIFIED PORTFOLIO RESUME • BUILT WITH .NET 10 &amp; MERN</span>
+            <span>UPDATED: SEPTEMBER 2026</span>
+        </footer>
+    </div>
+</body>
+</html>
