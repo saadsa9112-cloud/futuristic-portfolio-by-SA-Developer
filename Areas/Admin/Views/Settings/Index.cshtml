@@ -11,6 +11,128 @@
     <span class="badge bg-secondary px-3 py-2">CALIBRATIONS ENGINE</span>
 </div>
 
+@{
+    var featureFlags = ViewBag.FeatureFlags as FuturisticPortfolio.Services.SiteFeatureFlags ?? new FuturisticPortfolio.Services.SiteFeatureFlags();
+}
+
+<!-- Interactive Feature Modules & Lab Control -->
+<div class="glass-panel p-4 mb-4" style="border: 1px solid rgba(0, 240, 255, 0.4) !important;">
+    <div class="d-flex justify-content-between align-items-center mb-3 pb-2 border-bottom border-secondary border-opacity-30">
+        <div>
+            <h3 class="h5 text-white fw-bold mb-1">
+                <i class="fas fa-sliders-h text-neon-cyan me-2"></i> Interactive Frontend Feature Toggles
+            </h3>
+            <p class="text-muted small mb-0 font-monospace">Enable or disable interactive engineering modules across the live portfolio.</p>
+        </div>
+        <span class="badge bg-dark border border-info text-neon-cyan font-monospace">MODULAR SYSTEM</span>
+    </div>
+
+    <form asp-action="UpdateFeatureFlags" method="post">
+        @Html.AntiForgeryToken()
+        <div class="row g-3">
+            <!-- Estimator -->
+            <div class="col-md-6 col-lg-4">
+                <div class="p-3 rounded bg-dark border border-secondary border-opacity-25 h-100 d-flex flex-column justify-content-between">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <strong class="text-white small font-monospace"><i class="fas fa-calculator text-success me-2"></i>Cost Estimator</strong>
+                        <div class="form-check form-switch m-0">
+                            <input class="form-check-input" type="checkbox" name="EnableCostEstimator" value="true" @(featureFlags.EnableCostEstimator ? "checked" : "") role="switch" style="cursor: pointer;">
+                        </div>
+                    </div>
+                    <small class="text-muted" style="font-size: 0.75rem;">Interactive project scope &amp; budget estimation slip calculator on the homepage.</small>
+                </div>
+            </div>
+
+            <!-- Cyber Defense Lab -->
+            <div class="col-md-6 col-lg-4">
+                <div class="p-3 rounded bg-dark border border-secondary border-opacity-25 h-100 d-flex flex-column justify-content-between">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <strong class="text-white small font-monospace"><i class="fas fa-shield-virus text-danger me-2"></i>Cyber Threat Lab</strong>
+                        <div class="form-check form-switch m-0">
+                            <input class="form-check-input" type="checkbox" name="EnableCyberLab" value="true" @(featureFlags.EnableCyberLab ? "checked" : "") role="switch" style="cursor: pointer;">
+                        </div>
+                    </div>
+                    <small class="text-muted" style="font-size: 0.75rem;">Interactive attack simulator (SQLi, DDoS, Prompt Injection) with real-time radar.</small>
+                </div>
+            </div>
+
+            <!-- Performance Benchmark -->
+            <div class="col-md-6 col-lg-4">
+                <div class="p-3 rounded bg-dark border border-secondary border-opacity-25 h-100 d-flex flex-column justify-content-between">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <strong class="text-white small font-monospace"><i class="fas fa-tachometer-alt text-warning me-2"></i>Perf Benchmark</strong>
+                        <div class="form-check form-switch m-0">
+                            <input class="form-check-input" type="checkbox" name="EnablePerfBenchmark" value="true" @(featureFlags.EnablePerfBenchmark ? "checked" : "") role="switch" style="cursor: pointer;">
+                        </div>
+                    </div>
+                    <small class="text-muted" style="font-size: 0.75rem;">Interactive query latency stress-test slider (EF Core vs Dapper vs Cache).</small>
+                </div>
+            </div>
+
+            <!-- Dev Sandbox -->
+            <div class="col-md-6 col-lg-4">
+                <div class="p-3 rounded bg-dark border border-secondary border-opacity-25 h-100 d-flex flex-column justify-content-between">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <strong class="text-white small font-monospace"><i class="fas fa-terminal text-neon-cyan me-2"></i>SQL &amp; API Sandbox</strong>
+                        <div class="form-check form-switch m-0">
+                            <input class="form-check-input" type="checkbox" name="EnableDevSandbox" value="true" @(featureFlags.EnableDevSandbox ? "checked" : "") role="switch" style="cursor: pointer;">
+                        </div>
+                    </div>
+                    <small class="text-muted" style="font-size: 0.75rem;">Live SQL query runner and REST API endpoint inspector playground.</small>
+                </div>
+            </div>
+
+            <!-- Architecture Quick-Scan Drawer -->
+            <div class="col-md-6 col-lg-4">
+                <div class="p-3 rounded bg-dark border border-secondary border-opacity-25 h-100 d-flex flex-column justify-content-between">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <strong class="text-white small font-monospace"><i class="fas fa-microchip text-neon-purple me-2"></i>Arch Scan Drawer</strong>
+                        <div class="form-check form-switch m-0">
+                            <input class="form-check-input" type="checkbox" name="EnableArchScan" value="true" @(featureFlags.EnableArchScan ? "checked" : "") role="switch" style="cursor: pointer;">
+                        </div>
+                    </div>
+                    <small class="text-muted" style="font-size: 0.75rem;">Slide-out drawer displaying distributed topologies, schemas, and challenges on cards.</small>
+                </div>
+            </div>
+
+            <!-- Cyber Haptic SFX Audio -->
+            <div class="col-md-6 col-lg-4">
+                <div class="p-3 rounded bg-dark border border-secondary border-opacity-25 h-100 d-flex flex-column justify-content-between">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <strong class="text-white small font-monospace"><i class="fas fa-volume-up text-info me-2"></i>Cyber Audio SFX</strong>
+                        <div class="form-check form-switch m-0">
+                            <input class="form-check-input" type="checkbox" name="EnableAudioSfx" value="true" @(featureFlags.EnableAudioSfx ? "checked" : "") role="switch" style="cursor: pointer;">
+                        </div>
+                    </div>
+                    <small class="text-muted" style="font-size: 0.75rem;">Zero-dependency Web Audio API synthesized cyber sounds with navbar toggle.</small>
+                </div>
+            </div>
+
+            <!-- Matrix Rain & Terminal Easter Eggs -->
+            <div class="col-12">
+                <div class="p-3 rounded bg-dark border border-secondary border-opacity-25 d-flex flex-wrap justify-content-between align-items-center gap-3">
+                    <div class="d-flex align-items-center gap-3">
+                        <i class="fas fa-code text-neon-green fs-4"></i>
+                        <div>
+                            <strong class="text-white small font-monospace">Matrix Digital Rain &amp; CLI Easter Eggs</strong>
+                            <div class="text-muted small">Terminal command triggers ('matrix', 'theme', 'arch') and fullscreen canvas animation.</div>
+                        </div>
+                    </div>
+                    <div class="form-check form-switch m-0">
+                        <input class="form-check-input" type="checkbox" name="EnableMatrixRain" value="true" @(featureFlags.EnableMatrixRain ? "checked" : "") role="switch" style="cursor: pointer;">
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 text-end mt-2">
+                <button type="submit" class="btn btn-outline-info font-monospace px-4 rounded-pill">
+                    <i class="fas fa-save me-1"></i> Save Interactive Feature Toggles
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+
 <div class="row g-4">
     <!-- Main Configuration Panel -->
     <div class="col-lg-8">

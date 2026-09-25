@@ -1,5 +1,5 @@
 (function () {
-    const API_BASE = 'https://saad-dev-telemetry.localtunnel.me/api/telemetry';
+    const API_BASE = '/api/telemetry';
     let sessionActive = true;
     let heartbeatInterval = null;
     let scrollMilestones = { p25: false, p50: false, p75: false, p100: false };

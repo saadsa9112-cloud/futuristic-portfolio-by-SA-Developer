@@ -13,11 +13,13 @@ namespace FuturisticPortfolio.Areas.Admin.Controllers
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IFileService _fileService;
+        private readonly IFeatureFlagService _featureFlags;
 
-        public SettingsController(IUnitOfWork unitOfWork, IFileService fileService)
+        public SettingsController(IUnitOfWork unitOfWork, IFileService fileService, IFeatureFlagService featureFlags)
         {
             _unitOfWork = unitOfWork;
             _fileService = fileService;
+            _featureFlags = featureFlags;
         }
 
         [HttpGet]
@@ -32,8 +34,19 @@ namespace FuturisticPortfolio.Areas.Admin.Controllers
             }
 
             ViewBag.SocialLinks = (await _unitOfWork.SocialLinks.GetAllAsync()).ToList();
+            ViewBag.FeatureFlags = _featureFlags.GetFlags();
 
             return View(settings);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> UpdateFeatureFlags(SiteFeatureFlags flags)
+        {
+            await _featureFlags.UpdateFlagsAsync(flags);
+            await LogActivityAsync("Feature Flags Update", "Updated interactive frontend feature toggles");
+            TempData["Success"] = "Interactive feature flags updated successfully!";
+            return RedirectToAction(nameof(Index));
         }
 
         [HttpPost]

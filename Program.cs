@@ -51,6 +51,7 @@ builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IFileService, FileService>();
 builder.Services.AddScoped<IPortfolioAIService, PortfolioAIService>();
 builder.Services.AddSingleton<IIPSecurityService, IPSecurityService>();
+builder.Services.AddSingleton<IFeatureFlagService, FeatureFlagService>();
 
 // Visitor Analytics & Security Services
 builder.Services.AddCors(options =>

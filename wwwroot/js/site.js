@@ -2568,9 +2568,9 @@ document.addEventListener("DOMContentLoaded", () => {
     // ==========================================
     const archDrawer = document.getElementById("arch-scan-drawer");
     const archOverlay = document.getElementById("arch-scan-overlay");
-    const archCloseBtn = document.getElementById("arch-scan-close-btn");
+    const archCloseBtn = document.getElementById("arch-drawer-close");
     const archTitle = document.getElementById("arch-drawer-title");
-    const archBody = document.getElementById("arch-drawer-body");
+    const archBody = document.getElementById("arch-drawer-content");
 
     const systemArchitectures = {
         "ned academy": {

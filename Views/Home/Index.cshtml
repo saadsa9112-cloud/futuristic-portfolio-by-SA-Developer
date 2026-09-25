@@ -1,4 +1,5 @@
 @using FuturisticPortfolio.Models.Entities
+@inject FuturisticPortfolio.Services.IFeatureFlagService FeatureFlagService
 @{
     ViewData["Title"] = "Home";
     var settings = ViewBag.Settings as Settings;
@@ -6,6 +7,7 @@
     var statistics = ViewBag.Statistics as List<Statistic>;
     var featuredProject = ViewBag.FeaturedProject as Project;
     var latestProjects = ViewBag.LatestProjects as List<Project>;
+    var flags = FeatureFlagService.GetFlags();
 }
 
 <!-- HERO SECTION -->
@@ -152,6 +154,8 @@
 </section>
 
 <!-- INTERACTIVE CYBER DEFENSE LAB & THREAT SIMULATOR -->
+@if (flags.EnableCyberLab)
+{
 <section class="py-5 position-relative overflow-hidden" id="cyber-audit-section">
     <div class="container py-4" data-aos="fade-up">
         <div class="glass-panel p-4 p-md-5 cyber-hud-card" style="border: 1px solid rgba(0, 240, 255, 0.35) !important;">
@@ -275,6 +279,7 @@
         </div>
     </div>
 </section>
+}
 
 <!-- FEATURED & LATEST PROJECTS SECTION (TERMINAL WINDOW CARDS) -->
 @if (featuredProject != null || (latestProjects != null && latestProjects.Any()))
@@ -399,7 +404,10 @@
                                         </div>
                                         <div class="d-flex gap-2">
                                             <a asp-controller="Portfolio" asp-action="Details" asp-route-id="@featuredProject.Id" class="btn btn-outline-light btn-sm flex-grow-1 border-secondary rounded-pill hover-bg-light hover-text-dark font-monospace"><i class="fas fa-terminal me-1"></i> Inspect System</a>
-                                            <button type="button" class="btn btn-outline-info btn-sm rounded-pill font-monospace arch-scan-trigger" data-title="@featuredProject.Title" title="Quick Architecture Topology Scan"><i class="fas fa-microchip me-1"></i> Arch Scan</button>
+                                            @if (flags.EnableArchScan)
+                                            {
+                                                <button type="button" class="btn btn-outline-info btn-sm rounded-pill font-monospace arch-scan-trigger" data-title="@featuredProject.Title" title="Quick Architecture Topology Scan"><i class="fas fa-microchip me-1"></i> Arch Scan</button>
+                                            }
                                             @if (!string.IsNullOrEmpty(featuredProject.GitHubLink))
                                             {
                                                 <a href="@featuredProject.GitHubLink" target="_blank" class="btn btn-outline-info btn-sm rounded-circle" title="View Source"><i class="fab fa-github"></i></a>
@@ -470,7 +478,10 @@
                                                     <button type="button" class="btn btn-outline-warning btn-sm flex-grow-1 border-warning rounded-pill text-warning font-monospace trigger-under-dev-btn">
                                                         <i class="fas fa-terminal me-1"></i> Inspect System
                                                     </button>
-                                                    <button type="button" class="btn btn-outline-info btn-sm rounded-pill font-monospace arch-scan-trigger" data-title="@project.Title" title="Quick Architecture Topology Scan"><i class="fas fa-microchip me-1"></i> Arch Scan</button>
+                                                    @if (flags.EnableArchScan)
+                                                    {
+                                                        <button type="button" class="btn btn-outline-info btn-sm rounded-pill font-monospace arch-scan-trigger" data-title="@project.Title" title="Quick Architecture Topology Scan"><i class="fas fa-microchip me-1"></i> Arch Scan</button>
+                                                    }
                                                     @if (!string.IsNullOrEmpty(project.GitHubLink))
                                                     {
                                                         <a href="@project.GitHubLink" target="_blank" class="btn btn-outline-info btn-sm rounded-circle" title="View Source"><i class="fab fa-github"></i></a>
@@ -524,7 +535,10 @@
                                             </div>
                                             <div class="d-flex gap-2">
                                                 <a asp-controller="Portfolio" asp-action="Details" asp-route-id="@project.Id" class="btn btn-outline-light btn-sm flex-grow-1 border-secondary rounded-pill hover-bg-light hover-text-dark font-monospace"><i class="fas fa-terminal me-1"></i> Inspect System</a>
-                                                <button type="button" class="btn btn-outline-info btn-sm rounded-pill font-monospace arch-scan-trigger" data-title="@project.Title" title="Quick Architecture Topology Scan"><i class="fas fa-microchip me-1"></i> Arch Scan</button>
+                                                @if (flags.EnableArchScan)
+                                                {
+                                                    <button type="button" class="btn btn-outline-info btn-sm rounded-pill font-monospace arch-scan-trigger" data-title="@project.Title" title="Quick Architecture Topology Scan"><i class="fas fa-microchip me-1"></i> Arch Scan</button>
+                                                }
                                                 @if (!string.IsNullOrEmpty(project.GitHubLink))
                                                 {
                                                     <a href="@project.GitHubLink" target="_blank" class="btn btn-outline-info btn-sm rounded-circle" title="View Source"><i class="fab fa-github"></i></a>
@@ -619,6 +633,8 @@
 </section>
 
 <!-- INTERACTIVE LATENCY & PERFORMANCE BENCHMARK PLAYGROUND -->
+@if (flags.EnablePerfBenchmark)
+{
 <section id="perf-benchmark-playground" class="py-5" style="border-top: 1px solid rgba(255,255,255,0.05); background: radial-gradient(circle at 80% 50%, rgba(139, 92, 246, 0.04) 0%, transparent 60%);">
     <div class="container py-3">
         <div class="text-center mb-5" data-aos="fade-up">
@@ -701,8 +717,11 @@
         </div>
     </div>
 </section>
+}
 
 <!-- DEVELOPER SANDBOX & LIVE QUERY RUNNER -->
+@if (flags.EnableDevSandbox)
+{
 <section id="dev-sandbox-section" class="py-5">
     <div class="container py-3">
         <div class="text-center mb-5" data-aos="fade-up">
@@ -795,8 +814,11 @@
         </div>
     </div>
 </section>
+}
 
 <!-- INTERACTIVE PROJECT SCOPE & COST ESTIMATOR -->
+@if (flags.EnableCostEstimator)
+{
 <section id="estimator-section" class="py-5 bg-dark bg-opacity-30 border-top border-secondary border-opacity-20">
     <div class="container py-3">
         <div class="text-center mb-5" data-aos="fade-up">
@@ -923,7 +945,7 @@
                         <a href="https://wa.me/923055188896" target="_blank" class="btn btn-neon text-white font-monospace w-100 py-2.5" id="estimator-whatsapp-btn">
                             <i class="fab fa-whatsapp me-2"></i> Dispatch Scope via WhatsApp
                         </a>
-                        <a href="#contact-section" class="btn btn-outline-light border-secondary text-white font-monospace w-100 py-2" id="estimator-contact-btn">
+                        <a href="#contact-section" class="btn btn-outline-light border-secondary font-monospace w-100 py-2 hover-bg-light hover-text-dark" id="estimator-contact-btn">
                             <i class="fas fa-envelope-open-text me-2"></i> Load Scope into Contact Form
                         </a>
                     </div>
@@ -932,6 +954,7 @@
         </div>
     </div>
 </section>
+}
 
 <!-- LIVE GITHUB TELEMETRY STRIP -->
 <section class="py-4 border-top border-secondary border-opacity-20 bg-dark bg-opacity-20">

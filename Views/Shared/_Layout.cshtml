@@ -1,8 +1,10 @@
 @using FuturisticPortfolio.Models.Entities
+@inject FuturisticPortfolio.Services.IFeatureFlagService FeatureFlagService
 @{
     var settings = ViewBag.Settings as Settings;
     var socialLinks = ViewBag.SocialLinks as List<SocialLink>;
     var siteName = settings?.SiteName ?? "HMS Developer";
+    var flags = FeatureFlagService.GetFlags();
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -198,12 +200,15 @@
                         <li class="nav-item">
                             <a class="nav-link" asp-controller="Home" asp-action="Contact">Contact</a>
                         </li>
-                        <li class="nav-item d-flex align-items-center ms-lg-2">
-                            <button type="button" class="btn btn-link text-white p-2 border-0" id="sfx-toggle-btn" style="text-decoration: none; box-shadow: none;" title="Toggle Cyber Audio FX">
-                                <i class="fas fa-volume-mute text-secondary" id="sfx-icon"></i>
-                                <span class="d-none d-xl-inline font-monospace small ms-1 text-muted" id="sfx-label" style="font-size: 0.72rem;">SFX: OFF</span>
-                            </button>
-                        </li>
+                        @if (flags.EnableAudioSfx)
+                        {
+                            <li class="nav-item d-flex align-items-center ms-lg-2">
+                                <button type="button" class="btn btn-link text-white p-2 border-0" id="sfx-toggle-btn" style="text-decoration: none; box-shadow: none;" title="Toggle Cyber Audio FX">
+                                    <i class="fas fa-volume-mute text-secondary" id="sfx-icon"></i>
+                                    <span class="d-none d-xl-inline font-monospace small ms-1 text-muted" id="sfx-label" style="font-size: 0.72rem;">SFX: OFF</span>
+                                </button>
+                            </li>
+                        }
                         <li class="nav-item d-flex align-items-center ms-lg-1 me-lg-1">
                             <button type="button" class="btn btn-link text-white p-2 border-0" id="theme-toggle-btn" style="text-decoration: none; box-shadow: none;" title="Toggle Theme">
                                 <i class="fas fa-sun" id="theme-icon"></i>
@@ -566,6 +571,8 @@
         </div>
     </div>
 
+    @if (flags.EnableArchScan)
+    {
     <!-- Architecture Quick-Scan Slide-out Drawer -->
     <div id="arch-scan-overlay" class="arch-scan-backdrop" style="display: none;"></div>
     <div id="arch-scan-drawer" class="arch-scan-panel" style="display: none;" role="dialog" aria-modal="true" aria-labelledby="arch-drawer-title">
@@ -582,7 +589,10 @@
             <!-- Dynamically populated by site.js -->
         </div>
     </div>
+    }
 
+    @if (flags.EnableMatrixRain)
+    {
     <!-- Matrix Rain Canvas Overlay -->
     <div id="matrix-rain-overlay" class="matrix-canvas-wrapper" style="display: none;">
         <canvas id="matrix-canvas"></canvas>
@@ -590,6 +600,7 @@
             <span>[MATRIX MODE ACTIVE // PRESS ESC OR CLICK SCREEN TO EXIT]</span>
         </div>
     </div>
+    }
 
     <!-- Script Assets -->
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
