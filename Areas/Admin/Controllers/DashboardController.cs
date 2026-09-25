@@ -1,4 +1,5 @@
 using FuturisticPortfolio.Repositories;
+using FuturisticPortfolio.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,10 +10,12 @@ namespace FuturisticPortfolio.Areas.Admin.Controllers
     public class DashboardController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IIPSecurityService _ipSecurityService;
 
-        public DashboardController(IUnitOfWork unitOfWork)
+        public DashboardController(IUnitOfWork unitOfWork, IIPSecurityService ipSecurityService)
         {
             _unitOfWork = unitOfWork;
+            _ipSecurityService = ipSecurityService;
         }
 
         public async Task<IActionResult> Index()
@@ -35,6 +38,9 @@ namespace FuturisticPortfolio.Areas.Admin.Controllers
 
             var settings = (await _unitOfWork.Settings.GetAllAsync()).FirstOrDefault();
             ViewBag.CvDownloads = settings?.CvDownloadCount ?? 0;
+
+            // Security & Blocked Nodes
+            ViewBag.BlockedCount = _ipSecurityService.GetBlockedIps().Count;
 
             // Visitor calculations
             var visitors = (await _unitOfWork.Visitors.GetAllAsync()).ToList();

@@ -74,6 +74,29 @@
     </div>
 </div>
 
+<!-- SECURITY & FIREWALL ALERT BANNER -->
+<div class="glass-panel p-3 mb-4 d-flex justify-content-between align-items-center flex-wrap gap-3 border border-secondary" style="background: rgba(13, 10, 26, 0.7);">
+    <div class="d-flex align-items-center gap-3">
+        <div class="p-2.5 rounded-circle @(ViewBag.BlockedCount > 0 ? "bg-danger bg-opacity-25 text-danger" : "bg-success bg-opacity-25 text-success") fs-4">
+            <i class="fas @(ViewBag.BlockedCount > 0 ? "fa-shield-virus" : "fa-shield-alt")"></i>
+        </div>
+        <div>
+            <h6 class="text-white mb-0 font-monospace">
+                Cyber Threat Mitigation &amp; IP Firewall: 
+                <span class="@(ViewBag.BlockedCount > 0 ? "text-danger" : "text-success") fw-bold">
+                    @(ViewBag.BlockedCount > 0 ? $"{ViewBag.BlockedCount} Node(s) Quarantined" : "All Systems Verified / 0 Quarantined Threats")
+                </span>
+            </h6>
+            <small class="text-muted font-monospace">Zero-Trust perimeter active · Kernel DDoS flood detection armed</small>
+        </div>
+    </div>
+    <div>
+        <a asp-controller="Visitors" asp-action="Index" class="btn btn-sm btn-outline-danger font-monospace">
+            <i class="fas fa-sliders-h me-1"></i> Manage Firewall &amp; Blacklist
+        </a>
+    </div>
+</div>
+
 <div class="row g-4 mb-4">
     <!-- Today / All-time Visitors -->
     <div class="col-md-4">

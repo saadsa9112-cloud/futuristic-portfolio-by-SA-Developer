@@ -6,18 +6,26 @@ using FuturisticPortfolio.Models.Entities;
 
 namespace FuturisticPortfolio.Services
 {
+    public class BlockedNodeEntry
+    {
+        public string Ip { get; set; } = string.Empty;
+        public string Reason { get; set; } = "Permanent Blacklist";
+        public DateTime BlockedAt { get; set; } = DateTime.UtcNow;
+    }
+
     public interface IIPSecurityService
     {
-        void BlockIp(string ip);
+        void BlockIp(string ip, string reason = "Manual Admin Blacklist");
         void UnblockIp(string ip);
         bool IsIpBlocked(string ip);
         List<string> GetBlockedIps();
+        List<BlockedNodeEntry> GetBlockedNodes();
         bool RecordRequestAndCheckRateLimit(string ip, out bool isDdosLevel);
     }
 
     public class IPSecurityService : IIPSecurityService
     {
-        private static readonly ConcurrentDictionary<string, byte> BlockedIps = new();
+        private static readonly ConcurrentDictionary<string, BlockedNodeEntry> BlockedIps = new();
         private static readonly ConcurrentDictionary<string, List<DateTime>> RequestHistory = new();
         private readonly string _filePath;
         private readonly IServiceProvider _serviceProvider;
@@ -44,12 +52,35 @@ namespace FuturisticPortfolio.Services
                 if (File.Exists(_filePath))
                 {
                     var json = File.ReadAllText(_filePath);
+                    try
+                    {
+                        var structuredList = JsonSerializer.Deserialize<List<BlockedNodeEntry>>(json);
+                        if (structuredList != null && structuredList.Any())
+                        {
+                            foreach (var node in structuredList)
+                            {
+                                if (!IsLocalhost(node.Ip))
+                                {
+                                    BlockedIps.TryAdd(node.Ip, node);
+                                }
+                            }
+                            return;
+                        }
+                    }
+                    catch
+                    {
+                        // Fallback to simple string array if legacy format
+                    }
+
                     var list = JsonSerializer.Deserialize<List<string>>(json);
                     if (list != null)
                     {
                         foreach (var ip in list)
                         {
-                            BlockedIps.TryAdd(ip, 0);
+                            if (!IsLocalhost(ip))
+                            {
+                                BlockedIps.TryAdd(ip, new BlockedNodeEntry { Ip = ip, Reason = "Permanent Blacklist", BlockedAt = DateTime.UtcNow });
+                            }
                         }
                     }
                 }
@@ -64,8 +95,8 @@ namespace FuturisticPortfolio.Services
         {
             try
             {
-                var list = BlockedIps.Keys.ToList();
-                var json = JsonSerializer.Serialize(list);
+                var list = BlockedIps.Values.ToList();
+                var json = JsonSerializer.Serialize(list, new JsonSerializerOptions { WriteIndented = true });
                 File.WriteAllText(_filePath, json);
             }
             catch
@@ -81,14 +112,20 @@ namespace FuturisticPortfolio.Services
             return clean == "::1" || clean == "127.0.0.1" || clean.StartsWith("127.") || clean.Equals("localhost", StringComparison.OrdinalIgnoreCase);
         }
 
-        public void BlockIp(string ip)
+        public void BlockIp(string ip, string reason = "Manual Admin Blacklist")
         {
             if (string.IsNullOrWhiteSpace(ip) || IsLocalhost(ip)) return;
             ip = ip.Trim();
-            if (BlockedIps.TryAdd(ip, 0))
+            var entry = new BlockedNodeEntry
+            {
+                Ip = ip,
+                Reason = string.IsNullOrWhiteSpace(reason) ? "Permanent Blacklist" : reason,
+                BlockedAt = DateTime.UtcNow
+            };
+            if (BlockedIps.TryAdd(ip, entry))
             {
                 SaveBlockedIps();
-                LogActivity("Block IP", $"Permanently blacklisted IP Address: {ip}");
+                LogActivity("Block IP", $"Permanently blacklisted IP Address: {ip} | Reason: {entry.Reason}");
             }
         }
 
@@ -112,6 +149,11 @@ namespace FuturisticPortfolio.Services
         public List<string> GetBlockedIps()
         {
             return BlockedIps.Keys.ToList();
+        }
+
+        public List<BlockedNodeEntry> GetBlockedNodes()
+        {
+            return BlockedIps.Values.OrderByDescending(n => n.BlockedAt).ToList();
         }
 
         public bool RecordRequestAndCheckRateLimit(string ip, out bool isDdosLevel)
@@ -218,7 +260,7 @@ namespace FuturisticPortfolio.Services
                 if (isDdosLevel)
                 {
                     // Auto-block the IP dynamically!
-                    ipSecurityService.BlockIp(remoteIp);
+                    ipSecurityService.BlockIp(remoteIp, "Auto-Detected DDoS Flood (>80 req/10s)");
                     
                     context.Response.StatusCode = StatusCodes.Status403Forbidden;
                     context.Response.ContentType = "text/html";

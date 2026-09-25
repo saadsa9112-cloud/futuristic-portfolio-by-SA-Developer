@@ -37,6 +37,7 @@ namespace FuturisticPortfolio.Areas.Admin.Controllers
             ViewBag.SearchIp = searchIp;
             ViewBag.FilterCountry = filterCountry;
             ViewBag.BlockedIps = _ipSecurityService.GetBlockedIps();
+            ViewBag.BlockedNodes = _ipSecurityService.GetBlockedNodes();
 
             return View(visitors);
         }
@@ -62,10 +63,15 @@ namespace FuturisticPortfolio.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult BlockIp(string ip, string? returnUrl)
+        public IActionResult BlockIp(string ip, string? reason, string? returnUrl)
         {
-            _ipSecurityService.BlockIp(ip);
-            TempData["SuccessMessage"] = $"IP Node '{ip}' has been blacklisted successfully!";
+            if (string.IsNullOrWhiteSpace(ip))
+            {
+                TempData["ErrorMessage"] = "Please specify a valid IP address to blacklist.";
+                return RedirectToAction(nameof(Index));
+            }
+            _ipSecurityService.BlockIp(ip, string.IsNullOrWhiteSpace(reason) ? "Manual Admin Blacklist" : reason);
+            TempData["SuccessMessage"] = $"IP Node '{ip}' has been permanently blacklisted!";
             if (!string.IsNullOrEmpty(returnUrl)) return Redirect(returnUrl);
             return RedirectToAction(nameof(Index));
         }
@@ -74,6 +80,10 @@ namespace FuturisticPortfolio.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult UnblockIp(string ip, string? returnUrl)
         {
+            if (string.IsNullOrWhiteSpace(ip))
+            {
+                return RedirectToAction(nameof(Index));
+            }
             _ipSecurityService.UnblockIp(ip);
             TempData["SuccessMessage"] = $"IP Node '{ip}' has been removed from the blacklist.";
             if (!string.IsNullOrEmpty(returnUrl)) return Redirect(returnUrl);
