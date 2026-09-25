@@ -2288,13 +2288,47 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // Section 17: Universal CV / Resume Download Resolver
-    document.addEventListener("click", (e) => {
+    document.addEventListener("click", async (e) => {
         const link = e.target.closest("a[download*='Muhammad_Saad_CV'], a[download*='resume'], .cv-download-trigger, a[href*='Muhammad_Saad_CV.pdf'], a[href*='resume.pdf']");
         if (link && link.tagName === "A") {
+            e.preventDefault();
+
+            // Determine correct absolute and relative candidates
             const isGhPages = window.location.hostname.includes("github.io");
             const repoPrefix = isGhPages ? "/futuristic-portfolio-by-SA-Developer" : "";
-            const absolutePdfUrl = `${window.location.origin}${repoPrefix}/files/Muhammad_Saad_CV.pdf`;
-            link.href = absolutePdfUrl;
+            const directUrl = `${window.location.origin}${repoPrefix}/files/Muhammad_Saad_CV.pdf`;
+
+            // UI feedback
+            const originalHtml = link.innerHTML;
+            link.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i> Downloading...';
+            link.style.pointerEvents = 'none';
+
+            try {
+                const response = await fetch(directUrl);
+                if (!response.ok) throw new Error("HTTP " + response.status);
+                const blob = await response.blob();
+                const blobUrl = window.URL.createObjectURL(blob);
+
+                const downloadAnchor = document.createElement("a");
+                downloadAnchor.href = blobUrl;
+                downloadAnchor.download = "Muhammad_Saad_CV.pdf";
+                document.body.appendChild(downloadAnchor);
+                downloadAnchor.click();
+                document.body.removeChild(downloadAnchor);
+                setTimeout(() => window.URL.revokeObjectURL(blobUrl), 2000);
+
+                link.innerHTML = '<i class="fas fa-check me-2 text-success"></i> Downloaded!';
+                setTimeout(() => {
+                    link.innerHTML = originalHtml;
+                    link.style.pointerEvents = '';
+                }, 2500);
+            } catch (err) {
+                console.warn("Direct blob download failed, falling back to direct navigation", err);
+                link.innerHTML = originalHtml;
+                link.style.pointerEvents = '';
+                // Fallback: direct window.location navigation without blank tab
+                window.location.href = directUrl;
+            }
         }
     });
 });
