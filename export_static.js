@@ -105,18 +105,22 @@ async function run() {
         detectedProjects.forEach(p => allProjectIds.add(p.split('/').pop()));
 
         const blogMatches = [...blogHtml.matchAll(blogRegex)];
-        const blogRoutes = [...new Set(blogMatches.map(m => m[0]))];
+        const allBlogSlugs = new Set(['cybersecurity-and-claude-mythos', 'software-development-in-2027']);
+        blogMatches.forEach(m => {
+            const slug = m[0].includes('=') ? m[0].split('=').pop() : m[0].split('/').pop();
+            if (slug) allBlogSlugs.add(slug);
+        });
 
-        console.log(`Found ${allProjectIds.size} projects and ${blogRoutes.length} blog posts to harvest.`);
+        console.log(`Found ${allProjectIds.size} projects and ${allBlogSlugs.size} blog posts to harvest.`);
 
         allProjectIds.forEach(id => {
             pages.push({ route: `/Portfolio/Details/${id}`, dest: `portfolio/details/${id}/index.html` });
         });
 
-        blogRoutes.forEach(route => {
-            const slug = route.includes('=') ? route.split('=').pop() : route.split('/').pop();
-            pages.push({ route: route, dest: `blog/details/${slug}/index.html` });
+        allBlogSlugs.forEach(slug => {
+            pages.push({ route: `/Blog/Details?slug=${slug}`, dest: `blog/details/${slug}/index.html` });
         });
+
 
         // 5. Download and save HTML files
         for (const page of pages) {
