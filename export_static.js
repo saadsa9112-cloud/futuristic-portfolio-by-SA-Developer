@@ -52,6 +52,17 @@ async function run() {
         }
     });
 
+    // Copy files folder to subdirectories to guarantee relative links never 404
+    const subDirsWithFiles = ['about', 'portfolio', 'blog', 'contact'];
+    subDirsWithFiles.forEach(sub => {
+        const subFilesDest = path.join(DIST_DIR, sub, 'files');
+        const filesSrc = path.join(__dirname, 'wwwroot', 'files');
+        if (fs.existsSync(filesSrc)) {
+            copyFolderSync(filesSrc, subFilesDest);
+        }
+    });
+
+
     // Copy favicon.ico
     const faviconSrc = path.join(__dirname, 'wwwroot', 'favicon.ico');
     if (fs.existsSync(faviconSrc)) {
@@ -138,6 +149,8 @@ async function run() {
             html = html.replace(/url\('\/images\//g, `url('${relativePrefix}images/`);
             html = html.replace(/url\("\/images\//g, `url("${relativePrefix}images/`);
             html = html.replace(/href="\/FuturisticPortfolio.styles.css/gi, `href="${relativePrefix}FuturisticPortfolio.styles.css`);
+            html = html.replace(/href="(?:\.\/|\/)?files\//gi, `href="${relativePrefix}files/`);
+            html = html.replace(/src="(?:\.\/|\/)?files\//gi, `src="${relativePrefix}files/`);
 
             // Cache-busting query strings for mobile browser caches
             const cacheBuster = Date.now();

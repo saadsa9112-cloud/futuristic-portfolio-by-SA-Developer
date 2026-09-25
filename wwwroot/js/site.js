@@ -2286,4 +2286,15 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
     }
+
+    // Section 17: Universal CV / Resume Download Resolver
+    document.addEventListener("click", (e) => {
+        const link = e.target.closest("a[download*='Muhammad_Saad_CV'], a[download*='resume'], .cv-download-trigger, a[href*='Muhammad_Saad_CV.pdf'], a[href*='resume.pdf']");
+        if (link && link.tagName === "A") {
+            const isGhPages = window.location.hostname.includes("github.io");
+            const repoPrefix = isGhPages ? "/futuristic-portfolio-by-SA-Developer" : "";
+            const absolutePdfUrl = `${window.location.origin}${repoPrefix}/files/Muhammad_Saad_CV.pdf`;
+            link.href = absolutePdfUrl;
+        }
+    });
 });
