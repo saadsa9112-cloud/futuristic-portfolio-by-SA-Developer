@@ -16,8 +16,9 @@
         <div class="row align-items-center">
             <div class="col-lg-8" data-aos="fade-right">
                 <span class="badge bg-secondary mb-3 text-uppercase tracking-wider px-3 py-2 font-monospace">PROFESSIONAL PROFILE</span>
-                <h1 class="display-4 fw-bold text-white mb-2">About <span class="text-neon-purple">Hafiz Muhammad Saad</span></h1>
-                <p class="lead text-muted mb-0">Software Developer | ASP.NET Core &amp; Database Architecture Specialist</p>
+                <h1 class="display-4 fw-bold text-white mb-1">About <span class="text-neon-purple">HMS Developer</span></h1>
+                <div class="h5 text-white opacity-75 font-monospace mb-2">Hafiz Muhammad Saad</div>
+                <p class="lead text-muted mb-0">Full-Stack Software Engineer | ASP.NET Core, MERN Stack, Graphic Designing &amp; SEO Specialist</p>
             </div>
             <div class="col-lg-4 text-lg-end mt-4 mt-lg-0" data-aos="fade-left">
                 <a href="./files/Muhammad_Saad_CV.pdf" download="Muhammad_Saad_CV.pdf" target="_blank" class="btn btn-neon text-white"><i class="fas fa-file-download me-2"></i> Download Full Resume</a>
@@ -34,7 +35,7 @@
                 <div class="glass-panel p-4 p-md-5 h-100">
                     <h3 class="h4 text-white fw-bold mb-4"><i class="fas fa-user-tag text-neon-cyan me-2"></i> Biography &amp; Professional Mission</h3>
                     <div class="text-muted leading-relaxed mb-4">
-                        @Html.Raw(!string.IsNullOrEmpty(settings?.Biography) ? settings.Biography : "<p>Motivated and detail-oriented <strong>Software Developer</strong> with expertise in <strong>C#, C++, ASP.NET Core MVC (.NET), PHP, HTML5, CSS3, JavaScript, SQL Server, and MySQL</strong>.</p><p>Passionate about building scalable software solutions, solving complex algorithmic problems, and continuously mastering modern enterprise software patterns.</p>")
+                        @Html.Raw(!string.IsNullOrEmpty(settings?.Biography) ? settings.Biography : "<p>Motivated and detail-oriented <strong>Full-Stack Software Engineer &amp; Systems Architect</strong> with expertise in <strong>C#, ASP.NET Core MVC (.NET 10), MERN Stack (MongoDB, Express, React, Node.js), Graphic Designing (UI/UX, Figma), SEO Optimization, SQL Server, and relational databases</strong>.</p><p>Passionate about building scalable software solutions, solving complex algorithmic problems, and continuously mastering modern enterprise software patterns.</p>")
                     </div>
                     <div class="row g-3" id="about-stats-section">
                         <div class="col-6">
@@ -156,28 +157,42 @@
                             <div class="p-3 glass-panel rounded-3 h-100 skill-card d-flex flex-column justify-content-center">
                                 <div class="fs-3 text-neon-purple mb-2"><i class="fab fa-microsoft"></i></div>
                                 <h5 class="text-white h6 fw-semibold mb-1">ASP.NET Core 10 MVC</h5>
-                                <p class="text-muted small mb-0">Building web apps using C#, EF Core, and Dependency Injection.</p>
+                                <p class="text-muted small mb-0">High-throughput enterprise backends using C#, EF Core, and Dependency Injection.</p>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="p-3 glass-panel rounded-3 h-100 skill-card d-flex flex-column justify-content-center">
-                                <div class="fs-3 text-neon-cyan mb-2"><i class="fas fa-brain"></i></div>
-                                <h5 class="text-white h6 fw-semibold mb-1">AI Web Solutions</h5>
-                                <p class="text-muted small mb-0">Integrating AI chat agents and NLP assistants into web systems.</p>
+                                <div class="fs-3 text-success mb-2"><i class="fab fa-node-js"></i></div>
+                                <h5 class="text-white h6 fw-semibold mb-1">MERN Stack Engineering</h5>
+                                <p class="text-muted small mb-0">Dynamic full-stack web applications with React.js, Node.js, Express, and MongoDB.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="p-3 glass-panel rounded-3 h-100 skill-card d-flex flex-column justify-content-center">
+                                <div class="fs-3 text-danger mb-2"><i class="fas fa-palette"></i></div>
+                                <h5 class="text-white h6 fw-semibold mb-1">Graphic Designing &amp; UI/UX</h5>
+                                <p class="text-muted small mb-0">High-fidelity Figma prototypes, modern design systems, and creative visual identity.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="p-3 glass-panel rounded-3 h-100 skill-card d-flex flex-column justify-content-center">
+                                <div class="fs-3 text-warning mb-2"><i class="fas fa-chart-line"></i></div>
+                                <h5 class="text-white h6 fw-semibold mb-1">SEO &amp; Speed Optimization</h5>
+                                <p class="text-muted small mb-0">Technical on-page SEO, Core Web Vitals tuning, and search index rank engineering.</p>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="p-3 glass-panel rounded-3 h-100 skill-card d-flex flex-column justify-content-center">
                                 <div class="fs-3 text-neon-blue mb-2"><i class="fas fa-network-wired"></i></div>
-                                <h5 class="text-white h6 fw-semibold mb-1">RESTful APIs</h5>
-                                <p class="text-muted small mb-0">Building secure, normalized JSON endpoints and telemetry pipelines.</p>
+                                <h5 class="text-white h6 fw-semibold mb-1">RESTful APIs &amp; Microservices</h5>
+                                <p class="text-muted small mb-0">Building secure, normalized JSON endpoints and telemetry data pipelines.</p>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="p-3 glass-panel rounded-3 h-100 skill-card d-flex flex-column justify-content-center">
-                                <div class="fs-3 text-warning mb-2"><i class="fas fa-database"></i></div>
+                                <div class="fs-3 text-neon-cyan mb-2"><i class="fas fa-database"></i></div>
                                 <h5 class="text-white h6 fw-semibold mb-1">SQL Server Database Tuning</h5>
-                                <p class="text-muted small mb-0">Relational schema design, indexes, and EF Core migrations.</p>
+                                <p class="text-muted small mb-0">Relational schema design (3NF), indexing, and EF Core performance migrations.</p>
                             </div>
                         </div>
                     </div>

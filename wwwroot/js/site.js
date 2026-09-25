@@ -2030,4 +2030,260 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
     }
+
+    // ==========================================
+    // 15. Developer Sandbox (SQL & API Playground)
+    // ==========================================
+    const sandboxTabBtns = document.querySelectorAll(".sandbox-tab-btn");
+    const sqlTab = document.getElementById("sandbox-sql-tab");
+    const apiTab = document.getElementById("sandbox-api-tab");
+
+    if (sandboxTabBtns.length && sqlTab && apiTab) {
+        sandboxTabBtns.forEach(btn => {
+            btn.addEventListener("click", () => {
+                const target = btn.getAttribute("data-target");
+                sandboxTabBtns.forEach(b => {
+                    b.classList.remove("active", "btn-outline-info");
+                    b.classList.add("btn-outline-secondary");
+                });
+                btn.classList.add("active", "btn-outline-info");
+                btn.classList.remove("btn-outline-secondary");
+
+                if (target === "sql-tab") {
+                    sqlTab.style.display = "block";
+                    apiTab.style.display = "none";
+                } else {
+                    sqlTab.style.display = "none";
+                    apiTab.style.display = "block";
+                }
+                playSynthSound('click');
+            });
+        });
+    }
+
+    // SQL Preset Buttons
+    const sqlPresets = document.querySelectorAll(".sql-preset-btn");
+    const sqlInput = document.getElementById("sql-query-input");
+    const sqlExecBtn = document.getElementById("sql-execute-btn");
+    const sqlResult = document.getElementById("sql-result-display");
+    const sqlStat = document.getElementById("sql-execution-stat");
+
+    if (sqlPresets.length && sqlInput) {
+        sqlPresets.forEach(btn => {
+            btn.addEventListener("click", () => {
+                sqlPresets.forEach(b => b.classList.remove("active", "btn-neon"));
+                btn.classList.add("active", "btn-neon");
+                sqlInput.value = btn.getAttribute("data-query");
+                playSynthSound('click');
+            });
+        });
+    }
+
+    if (sqlExecBtn && sqlInput && sqlResult) {
+        sqlExecBtn.addEventListener("click", () => {
+            playSynthSound('console');
+            sqlExecBtn.disabled = true;
+            sqlExecBtn.innerHTML = `<i class="fas fa-circle-notch fa-spin me-2"></i> EXECUTING...`;
+            if (sqlStat) sqlStat.innerHTML = `<i class="fas fa-microchip text-warning me-1"></i> Parsing AST &amp; Query Optimizer...`;
+
+            setTimeout(() => {
+                const query = sqlInput.value.toLowerCase();
+                const latency = (Math.random() * (4.8 - 2.1) + 2.1).toFixed(1);
+
+                let outputText = "";
+                let rowCount = 3;
+
+                if (query.includes("skill")) {
+                    rowCount = 6;
+                    outputText = `[
+  { "Skill": "ASP.NET Core 10 MVC", "Proficiency": "95%", "Category": "Backend / Enterprise" },
+  { "Skill": "C# 13 & EF Core", "Proficiency": "95%", "Category": "Systems / Data" },
+  { "Skill": "MERN Stack (React, Node, Mongo)", "Proficiency": "92%", "Category": "Full-Stack Web" },
+  { "Skill": "Graphic Designing & UI/UX (Figma)", "Proficiency": "90%", "Category": "Design & Visuals" },
+  { "Skill": "SQL Server & Relational Architecture", "Proficiency": "90%", "Category": "Database Architecture" },
+  { "Skill": "SEO & Core Web Vitals Tuning", "Proficiency": "88%", "Category": "Search Optimization" }
+]`;
+                } else if (query.includes("telemetry") || query.includes("security") || query.includes("protocol")) {
+                    rowCount = 4;
+                    outputText = `[
+  { "Node": "Cloudflare CDN Edge", "TLS": "TLS 1.3", "Status": "ENFORCED", "Ping": "14ms" },
+  { "Node": "Kestrel ASP.NET 10 Pipeline", "Protocol": "HTTP/2 & HTTP/3", "Status": "ONLINE", "Ping": "2ms" },
+  { "Node": "Kernel eBPF Monitoring", "Filter": "Zero-Trust", "Status": "ARMED", "Ping": "0.4ms" },
+  { "Node": "SQL Server Enterprise", "Encryption": "TDE Active", "Status": "HEALTHY", "Ping": "1.2ms" }
+]`;
+                } else {
+                    rowCount = 3;
+                    outputText = `[
+  { "Title": "NED Academy University Management System", "Category": "University Projects", "Status": "Production", "Technologies": "ASP.NET Core, C#, EF Core, SQL Server" },
+  { "Title": "NED Academy Admissions & Public Portal", "Category": "University Projects", "Status": "Production", "Technologies": "ASP.NET Core MVC, SQL Server, LINQ" },
+  { "Title": "Nexora Digital Agency & Client Platform", "Category": "React & Modern Web", "Status": "Production", "Technologies": "React 18, Vite, Tailwind CSS, Framer Motion" }
+]`;
+                }
+
+                sqlResult.innerHTML = `
+                    <div class="text-neon-purple mb-2">// Query Output: ${rowCount} rows returned in ${latency}ms [200 OK]</div>
+                    <pre class="mb-0 text-white" style="font-family: inherit; font-size: 0.82rem; white-space: pre-wrap;">${outputText}</pre>
+                `;
+
+                if (sqlStat) {
+                    sqlStat.innerHTML = `<i class="fas fa-check-circle text-success me-1"></i> Executed in <strong>${latency}ms</strong> (Cost: 0.0032 CPU units)`;
+                }
+
+                sqlExecBtn.disabled = false;
+                sqlExecBtn.innerHTML = `<i class="fas fa-play me-2"></i> EXECUTE QUERY`;
+            }, 600);
+        });
+    }
+
+    // REST API Inspector Sender
+    const apiSendBtn = document.getElementById("api-send-btn");
+    const apiSelect = document.getElementById("api-endpoint-select");
+    const apiStatusCode = document.getElementById("api-status-code");
+    const apiLatency = document.getElementById("api-latency-val");
+    const apiResponseDisplay = document.getElementById("api-response-display");
+
+    if (apiSendBtn && apiSelect && apiResponseDisplay) {
+        apiSendBtn.addEventListener("click", () => {
+            playSynthSound('console');
+            apiSendBtn.disabled = true;
+            apiSendBtn.innerHTML = `<i class="fas fa-circle-notch fa-spin me-1"></i> SENDING...`;
+
+            setTimeout(() => {
+                const endpoint = apiSelect.value;
+                const latency = Math.floor(Math.random() * (18 - 8) + 8);
+                let jsonResponse = {};
+
+                if (endpoint.includes("health")) {
+                    jsonResponse = {
+                        status: "Healthy",
+                        engineer: "HMS Developer (Hafiz Muhammad Saad)",
+                        uptime: "99.98%",
+                        activeKernel: "eBPF Monitoring Active",
+                        securityProtocol: "TLS 1.3 / AES-256-GCM",
+                        timestamp: new Date().toISOString()
+                    };
+                } else if (endpoint.includes("skills")) {
+                    jsonResponse = {
+                        primarySpecialties: [
+                            "Enterprise ASP.NET Core 10 MVC",
+                            "MERN Stack (MongoDB, Express, React, Node)",
+                            "Graphic Designing & UI/UX (Figma, Adobe)",
+                            "Technical SEO & Speed Optimization",
+                            "SQL Server Normalized Architecture"
+                        ],
+                        totalVerifiedSkills: 11,
+                        certifications: ["BSBC - Sohail University", "ADSE - Aptech Learning"]
+                    };
+                } else {
+                    jsonResponse = {
+                        activeProjectsCount: 5,
+                        verifiedSystems: [
+                            "NED Academy University Management System (UMS)",
+                            "NED Academy Admissions & Public Portal",
+                            "Nexora Digital Agency Platform",
+                            "CyberSentinel Autonomous SIEM (Under Dev)",
+                            "NeuralMesh AI Swarm Orchestration (Under Dev)"
+                        ]
+                    };
+                }
+
+                if (apiStatusCode) apiStatusCode.textContent = "200 OK";
+                if (apiLatency) apiLatency.textContent = `${latency}ms`;
+
+                apiResponseDisplay.innerHTML = `
+                    <pre class="mb-0" style="font-family: inherit; font-size: 0.82rem; white-space: pre-wrap;">${JSON.stringify(jsonResponse, null, 2)}</pre>
+                `;
+
+                apiSendBtn.disabled = false;
+                apiSendBtn.innerHTML = `<i class="fas fa-paper-plane me-1"></i> SEND`;
+            }, 500);
+        });
+    }
+
+    // ==========================================
+    // 16. Project Scope & Cost Estimator Controller
+    // ==========================================
+    const estimatorChecks = document.querySelectorAll(".estimator-check");
+    const urgencyRadios = document.querySelectorAll("input[name='estimator-urgency']");
+    const totalDisplay = document.getElementById("estimator-total-val");
+    const modulesCountDisplay = document.getElementById("estimator-modules-count");
+    const deliveryTimeDisplay = document.getElementById("estimator-delivery-time");
+    const estimatorWhatsappBtn = document.getElementById("estimator-whatsapp-btn");
+    const estimatorContactBtn = document.getElementById("estimator-contact-btn");
+
+    const calculateScope = () => {
+        let baseTotal = 0;
+        let count = 0;
+        let selectedNames = [];
+
+        estimatorChecks.forEach(ch => {
+            if (ch.checked) {
+                baseTotal += parseInt(ch.getAttribute("data-price") || "0", 10);
+                count++;
+                selectedNames.push(ch.getAttribute("data-name"));
+            }
+        });
+
+        let urgencyMultiplier = 1;
+        let urgencyText = "Standard (3–4 Weeks)";
+        urgencyRadios.forEach(radio => {
+            if (radio.checked) {
+                urgencyMultiplier = parseFloat(radio.value);
+                if (urgencyMultiplier > 1) {
+                    urgencyText = "Express Fast-Track (1–2 Weeks)";
+                }
+            }
+        });
+
+        const calculatedTotal = Math.round(baseTotal * urgencyMultiplier);
+
+        if (totalDisplay) totalDisplay.textContent = `$${calculatedTotal}`;
+        if (modulesCountDisplay) modulesCountDisplay.textContent = `${count} Module${count === 1 ? '' : 's'}`;
+        if (deliveryTimeDisplay) deliveryTimeDisplay.textContent = urgencyText;
+
+        // Update WhatsApp button URL
+        if (estimatorWhatsappBtn) {
+            const waMsg = encodeURIComponent(
+                `Hello HMS Developer! I am interested in building a project with the following scope:\n\n` +
+                `Modules (${count}):\n- ` + selectedNames.join('\n- ') + `\n\n` +
+                `Timeline: ${urgencyText}\n` +
+                `Estimated Investment: $${calculatedTotal}\n\n` +
+                `Can we discuss details and timeline?`
+            );
+            estimatorWhatsappBtn.href = `https://wa.me/923055188896?text=${waMsg}`;
+        }
+
+        return { count, calculatedTotal, urgencyText, selectedNames };
+    };
+
+    if (estimatorChecks.length) {
+        estimatorChecks.forEach(ch => {
+            ch.addEventListener("change", () => {
+                calculateScope();
+                playSynthSound('click');
+            });
+        });
+        urgencyRadios.forEach(r => {
+            r.addEventListener("change", () => {
+                calculateScope();
+                playSynthSound('click');
+            });
+        });
+
+        calculateScope();
+    }
+
+    if (estimatorContactBtn) {
+        estimatorContactBtn.addEventListener("click", () => {
+            const scope = calculateScope();
+            const contactSubject = document.querySelector("#contact-form input[name='Subject']");
+            const contactBody = document.querySelector("#contact-form textarea[name='Body']");
+            if (contactSubject) {
+                contactSubject.value = `Project Scope (${scope.count} Modules - ~$${scope.calculatedTotal})`;
+            }
+            if (contactBody) {
+                contactBody.value = `Hello HMS Developer,\n\nI would like to initiate a project with the following requirements:\n\nModules:\n- ${scope.selectedNames.join('\n- ')}\n\nDelivery Urgency: ${scope.urgencyText}\nEstimated Budget: $${scope.calculatedTotal}\n\nPlease let me know your availability for a kick-off discussion.`;
+            }
+        });
+    }
 });

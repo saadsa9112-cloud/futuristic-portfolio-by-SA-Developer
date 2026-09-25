@@ -2,22 +2,22 @@
 @{
     var settings = ViewBag.Settings as Settings;
     var socialLinks = ViewBag.SocialLinks as List<SocialLink>;
-    var siteName = settings?.SiteName ?? "Futuristic Portfolio";
+    var siteName = settings?.SiteName ?? "HMS Developer";
 }
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - @siteName</title>
+    <title>@(ViewData["Title"] != null ? $"{ViewData["Title"]} - {siteName}" : $"{siteName} | Software Engineer & Systems Architect")</title>
     <link rel="icon" type="image/x-icon" href="@(settings?.FaviconPath ?? "/favicon.ico")" />
     
     <!-- Meta SEO & Anti-Caching for Mobile Browsers -->
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
     <meta http-equiv="Pragma" content="no-cache" />
     <meta http-equiv="Expires" content="0" />
-    <meta name="title" content="@(ViewData["MetaTitle"] ?? settings?.MetaTitle ?? "Hafiz Muhammad Saad | Software Developer Portfolio")" />
-    <meta name="description" content="@(ViewData["MetaDescription"] ?? settings?.MetaDescription ?? "Motivated and detail-oriented Software Developer specializing in ASP.NET Core MVC, C#, PHP, SQL Server, MySQL, and modern web development.")" />
+    <meta name="title" content="@(ViewData["MetaTitle"] ?? settings?.MetaTitle ?? "HMS Developer | Software Engineer & Systems Architect")" />
+    <meta name="description" content="@(ViewData["MetaDescription"] ?? settings?.MetaDescription ?? "HMS Developer (Hafiz Muhammad Saad) — Software Developer & Systems Architect specializing in ASP.NET Core MVC, MERN Stack, SQL Server, Graphic Designing, and SEO.")" />
 
     <!-- Style Assets -->
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
@@ -91,25 +91,25 @@
                 <div class="welcome-meta-sub">// HELLO WORLD</div>
                 <h1 class="welcome-hero-title">
                     <span class="welcome-lead-text">WELCOME TO</span>
-                    <span class="welcome-name-glow">HAFIZ MUHAMMAD SAAD</span>
-                    <span class="welcome-sub-text">PORTFOLIO</span>
+                    <span class="welcome-name-glow">HMS DEVELOPER</span>
+                    <span class="welcome-sub-text">HAFIZ MUHAMMAD SAAD</span>
                 </h1>
 
                 <!-- Catchy Tagline -->
                 <p class="welcome-hero-tagline">
-                    "Architecting Resilient Enterprise Solutions, High-Throughput .NET Systems &amp; Autonomous AI Architectures"
+                    "Architecting Resilient Enterprise Solutions, .NET &amp; MERN Stack Systems, UI/UX Design &amp; SEO-Engineered Platforms"
                 </p>
 
                 <!-- Specs Grid -->
                 <div class="welcome-specs-grid">
                     <div class="spec-pill">
-                        <i class="fas fa-bolt text-neon-cyan me-1"></i> High-Performance Architecture
+                        <i class="fas fa-bolt text-neon-cyan me-1"></i> ASP.NET Core &amp; MERN Stack
                     </div>
                     <div class="spec-pill">
-                        <i class="fas fa-code text-neon-purple me-1"></i> Full-Stack Software Engineer
+                        <i class="fas fa-palette text-neon-purple me-1"></i> Graphic Designing &amp; UI/UX
                     </div>
                     <div class="spec-pill">
-                        <i class="fas fa-shield-alt text-neon-blue me-1"></i> Enterprise Production Ready
+                        <i class="fas fa-chart-line text-neon-blue me-1"></i> SEO &amp; Enterprise Performance
                     </div>
                 </div>
 
@@ -172,9 +172,9 @@
                     </div>
                     <div class="d-flex flex-column text-start">
                         <span class="cyber-brand-text fw-bold">
-                            <span class="text-neon-cyan">&lt;</span><span class="text-white">H. M. SAAD</span><span class="text-neon-purple"> /&gt;</span>
+                            <span class="text-neon-cyan">&lt;</span><span class="text-white">HMS DEVELOPER</span><span class="text-neon-purple"> /&gt;</span>
                         </span>
-                        <span class="cyber-brand-sub font-monospace">FULL-STACK // SYSTEMS</span>
+                        <span class="cyber-brand-sub font-monospace">H. M. SAAD // SOFTWARE ENGINEER</span>
                     </div>
                 </a>
                 <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -327,9 +327,9 @@
                 <!-- Brand Info Column (4 cols) -->
                 <div class="col-lg-4 col-md-6">
                     <div class="footer-brand-box mb-3">
-                        <h4 class="text-neon-purple fw-bold mb-2">&lt; Hafiz Muhammad Saad /&gt;</h4>
+                        <h4 class="text-neon-purple fw-bold mb-2">&lt; HMS Developer /&gt;</h4>
                         <p class="text-muted small leading-relaxed mb-3">
-                            Software Developer specializing in ASP.NET Core MVC, C#, SQL Server, normalized database architectures, and modern web application engineering.
+                            Hafiz Muhammad Saad — Software Developer specializing in ASP.NET Core MVC, MERN Stack, SQL Server, Graphic Designing, and SEO-engineered web systems.
                         </p>
                         <div class="d-inline-flex align-items-center gap-2 px-3 py-1.5 rounded-pill border border-success border-opacity-30 bg-success bg-opacity-10">
                             <span class="pulse-dot bg-success rounded-circle" style="width: 8px; height: 8px; box-shadow: 0 0 10px #10b981;"></span>
@@ -402,7 +402,7 @@
             <div class="d-flex justify-content-between align-items-center mb-3 pb-2 border-bottom border-secondary border-opacity-30">
                 <div class="d-flex align-items-center gap-2">
                     <span class="pulse-dot-green"></span>
-                    <span class="text-neon-cyan fw-bold"><i class="fas fa-terminal me-1"></i> SAAD@CYBER-CONSOLE ~ v2.4</span>
+                    <span class="text-neon-cyan fw-bold"><i class="fas fa-terminal me-1"></i> HMS-DEVELOPER@CYBER-CONSOLE ~ v2.4</span>
                 </div>
                 <span class="small text-muted">Press <kbd class="bg-dark text-neon-cyan px-2">ESC</kbd> to exit</span>
             </div>
@@ -423,8 +423,8 @@
             <div class="command-list" id="command-results">
                 <div class="command-item clickable" data-action="cmd" data-cmd="sec-audit"><i class="fas fa-shield-alt me-2 text-danger"></i> sec-audit <span class="text-muted ms-2">// Execute Live Vulnerability &amp; Architecture Audit</span> <span class="badge bg-dark ms-auto">RUN</span></div>
                 <div class="command-item clickable" data-action="cmd" data-cmd="projects"><i class="fas fa-folder-open me-2 text-neon-cyan"></i> projects <span class="text-muted ms-2">// List All 5 Enterprise Systems (Inc. Under Dev)</span> <span class="badge bg-dark ms-auto">LIST</span></div>
-                <div class="command-item clickable" data-action="cmd" data-cmd="skills"><i class="fas fa-code me-2 text-neon-purple"></i> skills <span class="text-muted ms-2">// Inspect .NET 10, C#, eBPF &amp; Security Stack</span> <span class="badge bg-dark ms-auto">AST</span></div>
-                <div class="command-item clickable" data-action="cmd" data-cmd="whoami"><i class="fas fa-user-shield me-2 text-warning"></i> whoami <span class="text-muted ms-2">// Hafiz Muhammad Saad Credentials &amp; Degrees</span> <span class="badge bg-dark ms-auto">BIO</span></div>
+                <div class="command-item clickable" data-action="cmd" data-cmd="skills"><i class="fas fa-code me-2 text-neon-purple"></i> skills <span class="text-muted ms-2">// Inspect .NET 10, MERN, C# &amp; Security Stack</span> <span class="badge bg-dark ms-auto">AST</span></div>
+                <div class="command-item clickable" data-action="cmd" data-cmd="whoami"><i class="fas fa-user-shield me-2 text-warning"></i> whoami <span class="text-muted ms-2">// HMS Developer (Hafiz Muhammad Saad) Credentials</span> <span class="badge bg-dark ms-auto">BIO</span></div>
                 <div class="command-item clickable" data-action="nav" data-url="/"><i class="fas fa-home me-2 text-info"></i> nav home <span class="badge bg-dark ms-auto">G + H</span></div>
                 <div class="command-item clickable" data-action="nav" data-url="/Blog"><i class="fas fa-file-alt me-2 text-neon-blue"></i> nav tech-logs <span class="badge bg-dark ms-auto">G + B</span></div>
                 <div class="command-item clickable" data-action="contact"><i class="fas fa-satellite-dish me-2 text-success"></i> contact <span class="badge bg-dark ms-auto">C + O</span></div>

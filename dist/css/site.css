@@ -2842,3 +2842,52 @@ html.lock-scroll, body.lock-scroll {
         transform: scale(1);
     }
 }
+
+/* ===================================================
+   12. Architecture Blueprint & Interactive Sandbox Styles
+   =================================================== */
+.arch-node-card {
+    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    background: rgba(13, 10, 26, 0.75) !important;
+}
+
+.arch-node-card:hover {
+    transform: translateY(-5px);
+    border-color: rgba(0, 240, 255, 0.5) !important;
+    box-shadow: 0 10px 30px rgba(0, 240, 255, 0.15);
+}
+
+.sandbox-tab-btn.active {
+    background: rgba(0, 240, 255, 0.15) !important;
+    border-color: #00f0ff !important;
+    color: #ffffff !important;
+    box-shadow: 0 0 12px rgba(0, 240, 255, 0.3);
+}
+
+.sql-preset-btn {
+    font-size: 0.76rem !important;
+    transition: all 0.25s ease;
+}
+
+.sql-preset-btn.active {
+    background: linear-gradient(135deg, rgba(168, 85, 247, 0.25), rgba(0, 240, 255, 0.25));
+    border-color: #00f0ff !important;
+    color: #ffffff !important;
+}
+
+/* ===================================================
+   13. Project Scope Estimator Styles
+   =================================================== */
+.estimator-item {
+    background: rgba(255, 255, 255, 0.02);
+    transition: all 0.25s ease;
+}
+
+.estimator-item:hover {
+    background: rgba(168, 85, 247, 0.08);
+    border-color: rgba(168, 85, 247, 0.4) !important;
+}
+
+.estimator-check:checked ~ div span {
+    color: #00f0ff !important;
+}

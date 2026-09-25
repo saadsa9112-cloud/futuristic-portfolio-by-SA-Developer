@@ -57,17 +57,17 @@ namespace FuturisticPortfolio.Data
             {
                 settings = new Settings
                 {
-                    SiteName = "Hafiz Muhammad Saad | Software Developer",
+                    SiteName = "HMS Developer | Software Engineer & Systems Architect",
                     LogoPath = "/images/logo.png",
                     FaviconPath = "/favicon.ico",
                     CvFilePath = "/files/Muhammad_Saad_CV.pdf",
                     Theme = "dark",
                     PrimaryColorHex = "#8B3DFF",
-                    FooterText = "© 2026 Hafiz Muhammad Saad. All Rights Reserved. Built with ASP.NET Core MVC.",
-                    MetaTitle = "Hafiz Muhammad Saad | Full-Stack Software Developer",
-                    MetaDescription = "Full-Stack Software Developer specializing in C#, ASP.NET Core MVC, SQL Server, Entity Framework Core, and modern web application development.",
+                    FooterText = "© 2026 HMS Developer (Hafiz Muhammad Saad). All Rights Reserved. Built with ASP.NET Core MVC & SQL Server.",
+                    MetaTitle = "HMS Developer | Software Engineer & Systems Architect",
+                    MetaDescription = "HMS Developer (Hafiz Muhammad Saad) — Software Developer & Systems Architect specializing in ASP.NET Core MVC, MERN Stack, SQL Server, Graphic Designing, and SEO.",
                     Biography = cvSummary,
-                    YearsOfExperience = 1,
+                    YearsOfExperience = 2,
                     EducationShort = "BSBC - Sohail University & ADSE - Aptech Learning, Karachi",
                     Journey = "Pursuing Bachelor of Science in Business Computing (BSBC) at Sohail University and Advanced Diploma in Software Engineering (ADSE) at Aptech Learning, focusing on modern software engineering, web development, object-oriented programming, databases, and cloud technologies.",
                     Goals = "Passionate about building scalable software solutions, solving real-world problems, and continuously learning modern technologies to contribute to innovative software development projects.",
@@ -81,6 +81,9 @@ namespace FuturisticPortfolio.Data
             }
             else
             {
+                settings.SiteName = "HMS Developer | Software Engineer & Systems Architect";
+                settings.MetaTitle = "HMS Developer | Software Engineer & Systems Architect";
+                settings.FooterText = "© 2026 HMS Developer (Hafiz Muhammad Saad). All Rights Reserved. Built with ASP.NET Core MVC & SQL Server.";
                 settings.OpenStreetMapEmbedUrl = "https://www.openstreetmap.org/export/embed.html?bbox=66.8500%2C24.7500%2C67.2500%2C25.0500&layer=mapnik&marker=24.8607%2C67.0011";
                 settings.ContactAddress = "Karachi, Pakistan";
                 await context.SaveChangesAsync();
@@ -138,6 +141,26 @@ namespace FuturisticPortfolio.Data
                 await context.Skills.AddRangeAsync(skills);
                 await context.SaveChangesAsync();
             }
+
+            // Ensure newly added skills are present (MERN Stack, Graphic Designing, SEO)
+            var mernSkill = await context.Skills.FirstOrDefaultAsync(s => s.Name.Contains("MERN"));
+            if (mernSkill == null)
+            {
+                await context.Skills.AddAsync(new Skill { Name = "MERN Stack (MongoDB, Express, React, Node)", Percentage = 92, IconClass = "fab fa-node-js", ColorHex = "#10B981", DisplayOrder = 9 });
+            }
+
+            var designSkill = await context.Skills.FirstOrDefaultAsync(s => s.Name.Contains("Graphic"));
+            if (designSkill == null)
+            {
+                await context.Skills.AddAsync(new Skill { Name = "Graphic Designing & UI/UX (Figma/Adobe)", Percentage = 90, IconClass = "fas fa-palette", ColorHex = "#EC4899", DisplayOrder = 10 });
+            }
+
+            var seoSkill = await context.Skills.FirstOrDefaultAsync(s => s.Name.Contains("SEO"));
+            if (seoSkill == null)
+            {
+                await context.Skills.AddAsync(new Skill { Name = "SEO & Performance Tuning", Percentage = 88, IconClass = "fas fa-chart-line", ColorHex = "#F59E0B", DisplayOrder = 11 });
+            }
+            await context.SaveChangesAsync();
 
             // 8. Seed Educations (Non-destructive: Only if missing)
             if (!await context.Educations.AnyAsync())
