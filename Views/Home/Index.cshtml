@@ -647,7 +647,7 @@
             <!-- Controls & Payload Slider -->
             <div class="row align-items-center mb-4 pb-4 border-bottom border-secondary border-opacity-30">
                 <div class="col-lg-6 mb-3 mb-lg-0">
-                    <label for="benchmark-volume-slider" class="form-label font-monospace text-neon-cyan d-flex justify-content-between">
+                    <label for="benchmark-volume-slider" class="form-label font-monospace text-neon-cyan d-flex flex-wrap justify-content-between gap-1">
                         <span><i class="fas fa-sliders-h me-2"></i>Simulated Record Payload Volume:</span>
                         <strong id="benchmark-volume-display" class="text-warning">10,000 Rows</strong>
                     </label>
@@ -672,7 +672,7 @@
             <div class="row g-4 font-monospace">
                 <!-- EF Core -->
                 <div class="col-12">
-                    <div class="d-flex justify-content-between align-items-center mb-1">
+                    <div class="d-flex flex-wrap justify-content-between align-items-center mb-1 gap-1">
                         <span class="text-white"><i class="fas fa-cube text-neon-purple me-2"></i>EF Core 10 (Full Tracking + ChangeTracker)</span>
                         <span class="text-warning fw-bold" id="latency-ef-val">42.8 ms</span>
                     </div>
@@ -684,7 +684,7 @@
 
                 <!-- Dapper -->
                 <div class="col-12">
-                    <div class="d-flex justify-content-between align-items-center mb-1">
+                    <div class="d-flex flex-wrap justify-content-between align-items-center mb-1 gap-1">
                         <span class="text-white"><i class="fas fa-bolt text-neon-cyan me-2"></i>Dapper Micro-ORM (Raw SQL + Native Deserialization)</span>
                         <span class="text-info fw-bold" id="latency-dapper-val">14.2 ms</span>
                     </div>
@@ -696,7 +696,7 @@
 
                 <!-- In-Memory Cache -->
                 <div class="col-12">
-                    <div class="d-flex justify-content-between align-items-center mb-1">
+                    <div class="d-flex flex-wrap justify-content-between align-items-center mb-1 gap-1">
                         <span class="text-white"><i class="fas fa-memory text-success me-2"></i>Distributed / In-Memory Cache (RAM Hash Store)</span>
                         <span class="text-success fw-bold" id="latency-cache-val">1.1 ms</span>
                     </div>
@@ -897,7 +897,7 @@
                         <i class="fas fa-tachometer-alt text-neon-purple"></i>
                         <span>2. Delivery Urgency</span>
                     </h5>
-                    <div class="d-flex flex-wrap gap-4">
+                    <div class="d-flex flex-column flex-sm-row flex-wrap gap-3 gap-sm-4">
                         <label class="d-flex align-items-center gap-2 cursor-pointer text-white font-monospace small">
                             <input type="radio" name="estimator-urgency" value="1" checked class="form-check-input" />
                             <span>Standard Delivery (3–4 Weeks)</span>
