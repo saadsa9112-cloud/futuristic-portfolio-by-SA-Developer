@@ -25,24 +25,49 @@ namespace FuturisticPortfolio.Analytics.Infrastructure.Services
 
         public async Task<IpLocationResult> LookupAsync(string ipAddress)
         {
-            if (string.IsNullOrEmpty(ipAddress) || ipAddress == "::1" || ipAddress == "127.0.0.1" || ipAddress.StartsWith("192.168."))
-            {
-                return new IpLocationResult
-                {
-                    Country = "Localhost",
-                    City = "Internal",
-                    Region = "Loopback",
-                    Latitude = "0.0",
-                    Longitude = "0.0",
-                    TimeZone = "UTC"
-                };
-            }
+            bool isLocal = string.IsNullOrEmpty(ipAddress) || ipAddress == "::1" || ipAddress == "127.0.0.1" || ipAddress.StartsWith("192.168.") || ipAddress.StartsWith("10.") || ipAddress.StartsWith("172.");
 
             // Check in-memory cache
-            var cacheKey = $"GeoIP_{ipAddress}";
+            var cacheKey = isLocal ? "GeoIP_Localhost_Machine" : $"GeoIP_{ipAddress}";
             if (_cache.TryGetValue(cacheKey, out IpLocationResult? cachedResult) && cachedResult != null)
             {
                 return cachedResult;
+            }
+
+            if (isLocal)
+            {
+                try
+                {
+                    var response = await _httpClient.GetFromJsonAsync<IpWhoIsResponse>("https://ipwho.is/");
+                    if (response != null && response.Success && !string.IsNullOrEmpty(response.Country))
+                    {
+                        var result = new IpLocationResult
+                        {
+                            Country = response.Country ?? "Pakistan",
+                            City = response.City ?? "Karachi",
+                            Region = response.Region ?? "Sindh",
+                            Latitude = response.Latitude.ToString(CultureInfo.InvariantCulture),
+                            Longitude = response.Longitude.ToString(CultureInfo.InvariantCulture),
+                            TimeZone = response.Timezone?.Id ?? "Asia/Karachi"
+                        };
+                        _cache.Set(cacheKey, result, TimeSpan.FromHours(6));
+                        return result;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogWarning(ex, "Local machine public IP lookup via ipwho.is failed, applying default location.");
+                }
+
+                return new IpLocationResult
+                {
+                    Country = "Pakistan",
+                    City = "Karachi",
+                    Region = "Sindh",
+                    Latitude = "24.8607",
+                    Longitude = "67.0104",
+                    TimeZone = "Asia/Karachi"
+                };
             }
 
             // Provider 1: IPinfo.io (Best Enterprise Accuracy)

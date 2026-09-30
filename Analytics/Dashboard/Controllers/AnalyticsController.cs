@@ -16,6 +16,8 @@ using Microsoft.EntityFrameworkCore;
 namespace FuturisticPortfolio.Analytics.Dashboard.Controllers
 {
     // Adjust route as /Admin/Analytics for clean CMS navigation
+    [Area("Admin")]
+    [Authorize(Roles = "Admin")]
     [Route("Admin/Analytics")]
     public class AnalyticsController : Controller
     {

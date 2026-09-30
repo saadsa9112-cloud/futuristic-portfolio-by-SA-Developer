@@ -89,5 +89,21 @@ namespace FuturisticPortfolio.Areas.Admin.Controllers
             if (!string.IsNullOrEmpty(returnUrl)) return Redirect(returnUrl);
             return RedirectToAction(nameof(Index));
         }
+
+        [HttpGet]
+        public async Task<IActionResult> ExportJson()
+        {
+            var visitors = (await _unitOfWork.Visitors.GetAllAsync())
+                .OrderByDescending(v => v.VisitDate)
+                .ToList();
+
+            var options = new System.Text.Json.JsonSerializerOptions 
+            { 
+                WriteIndented = true, 
+                ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles 
+            };
+            var jsonBytes = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(visitors, options);
+            return File(jsonBytes, "application/json", $"Visitor_Nodes_Audit_{DateTime.UtcNow:yyyyMMdd_HHmm}.json");
+        }
     }
 }

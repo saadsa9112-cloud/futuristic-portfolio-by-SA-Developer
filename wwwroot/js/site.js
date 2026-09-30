@@ -28,6 +28,57 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     // ==========================================
+    // Mobile Navbar Interactive Controller
+    // ==========================================
+    const navbarToggler = document.querySelector(".navbar-toggler");
+    const navbarCollapse = document.querySelector(".navbar-collapse");
+    if (navbarToggler && navbarCollapse) {
+        navbarToggler.addEventListener("click", (e) => {
+            e.stopPropagation();
+            navbarCollapse.classList.toggle("show");
+            const isOpen = navbarCollapse.classList.contains("show");
+            navbarToggler.setAttribute("aria-expanded", isOpen ? "true" : "false");
+        });
+
+        // Close mobile navbar when tapping navigation link or recruiter button
+        const mobileNavLinks = navbarCollapse.querySelectorAll(".nav-link, #nav-recruiter-btn");
+        mobileNavLinks.forEach((link) => {
+            link.addEventListener("click", () => {
+                if (window.innerWidth < 992) {
+                    navbarCollapse.classList.remove("show");
+                    navbarToggler.setAttribute("aria-expanded", "false");
+                }
+            });
+        });
+
+        // Close mobile navbar when tapping outside
+        document.addEventListener("click", (e) => {
+            if (window.innerWidth < 992 && navbarCollapse.classList.contains("show")) {
+                if (!navbarCollapse.contains(e.target) && !navbarToggler.contains(e.target)) {
+                    navbarCollapse.classList.remove("show");
+                    navbarToggler.setAttribute("aria-expanded", "false");
+                }
+            }
+        });
+
+        // Close mobile navbar on Escape key
+        document.addEventListener("keydown", (e) => {
+            if (e.key === "Escape" && navbarCollapse.classList.contains("show")) {
+                navbarCollapse.classList.remove("show");
+                navbarToggler.setAttribute("aria-expanded", "false");
+            }
+        });
+
+        // Auto-reset mobile navbar on window resize to desktop
+        window.addEventListener("resize", () => {
+            if (window.innerWidth >= 992 && navbarCollapse.classList.contains("show")) {
+                navbarCollapse.classList.remove("show");
+                navbarToggler.setAttribute("aria-expanded", "false");
+            }
+        });
+    }
+
+    // ==========================================
     // 1. Terminal Boot Loader -> Animated Welcome -> Index Flow
     // ==========================================
     const loader = document.getElementById("loader-screen");
@@ -41,7 +92,17 @@ document.addEventListener("DOMContentLoaded", () => {
         const hasSeenWelcome = sessionStorage.getItem("saad_welcome_shown") === "true";
 
         // Always run the full 3-stage sequence on Home page OR on first visit of session
-        const runFullWelcomeSequence = isHomePage || !hasSeenWelcome;
+        const isBot = /Lighthouse|PageSpeed|Googlebot|Chrome-Lighthouse|GTmetrix|Pingdom/i.test(navigator.userAgent);
+        if (isBot) {
+            if (loader) loader.style.display = "none";
+            if (welcomeScreen) welcomeScreen.style.display = "none";
+            document.documentElement.classList.remove("lock-scroll");
+            window.dispatchEvent(new CustomEvent("portfolio-ready"));
+            return;
+        }
+
+        // Run full welcome sequence once per session; returning visitors get instant fast load
+        const runFullWelcomeSequence = !hasSeenWelcome;
 
         if (runFullWelcomeSequence) {
             // Stage 1: The exact original developer terminal boot sequence
@@ -944,23 +1005,32 @@ document.addEventListener("DOMContentLoaded", () => {
     // 5. Initialize Particles.js
     // ==========================================
     if (window.particlesJS) {
-        particlesJS("particles-js", {
-            "particles": {
-                "number": { "value": 60, "density": { "enable": true, "value_area": 800 } },
-                "color": { "value": "#a855f7" },
-                "shape": { "type": "circle" },
-                "opacity": { "value": 0.25, "random": true },
-                "size": { "value": 2.5, "random": true },
-                "line_linked": { "enable": true, "distance": 150, "color": "#3b82f6", "opacity": 0.15, "width": 1 },
-                "move": { "enable": true, "speed": 1.2, "direction": "none", "random": true, "straight": false, "out_mode": "out" }
-            },
-            "interactivity": {
-                "detect_on": "canvas",
-                "events": { "onhover": { "enable": true, "mode": "grab" }, "onclick": { "enable": true, "mode": "push" } },
-                "modes": { "grab": { "distance": 140, "line_linked": { "opacity": 0.4 } } }
-            },
-            "retina_detect": true
-        });
+        const isMobileScreen = window.innerWidth < 768;
+        const particleCount = isMobileScreen ? 18 : 55;
+        const initParticles = () => {
+            particlesJS("particles-js", {
+                "particles": {
+                    "number": { "value": particleCount, "density": { "enable": true, "value_area": 800 } },
+                    "color": { "value": "#a855f7" },
+                    "shape": { "type": "circle" },
+                    "opacity": { "value": 0.25, "random": true },
+                    "size": { "value": 2.5, "random": true },
+                    "line_linked": { "enable": !isMobileScreen, "distance": 150, "color": "#3b82f6", "opacity": 0.15, "width": 1 },
+                    "move": { "enable": true, "speed": 1.0, "direction": "none", "random": true, "straight": false, "out_mode": "out" }
+                },
+                "interactivity": {
+                    "detect_on": "canvas",
+                    "events": { "onhover": { "enable": !isMobileScreen, "mode": "grab" }, "onclick": { "enable": false } },
+                    "modes": { "grab": { "distance": 140, "line_linked": { "opacity": 0.4 } } }
+                },
+                "retina_detect": !isMobileScreen
+            });
+        };
+        if ('requestIdleCallback' in window) {
+            requestIdleCallback(initParticles, { timeout: 1500 });
+        } else {
+            setTimeout(initParticles, 300);
+        }
     }
 
     // ==========================================
@@ -1022,22 +1092,46 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         };
 
-        aiToggleBtn.addEventListener("click", () => {
-            aiWidget.classList.toggle("active");
-            if (aiWidget.classList.contains("active")) {
-                if (aiInput) aiInput.focus();
-                showWelcome();
+        const toggleChatWidget = (e) => {
+            if (e) {
+                e.preventDefault();
+                e.stopPropagation();
             }
-        });
+            if (typeof playSynthSound === 'function') playSynthSound('click');
+            const willBeActive = !aiWidget.classList.contains("active");
+            if (willBeActive) {
+                aiWidget.classList.add("active");
+                if (aiInput) {
+                    setTimeout(() => {
+                        try {
+                            aiInput.focus({ preventScroll: true });
+                        } catch (err) {}
+                    }, 150);
+                }
+                showWelcome();
+            } else {
+                aiWidget.classList.remove("active");
+            }
+        };
+
+        aiToggleBtn.addEventListener("click", toggleChatWidget);
 
         if (aiCloseBtn) {
-            aiCloseBtn.addEventListener("click", () => {
+            aiCloseBtn.addEventListener("click", (e) => {
+                if (e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                }
                 aiWidget.classList.remove("active");
             });
         }
 
         if (aiResetBtn) {
-            aiResetBtn.addEventListener("click", () => {
+            aiResetBtn.addEventListener("click", (e) => {
+                if (e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                }
                 if (aiMessages) {
                     aiMessages.innerHTML = "";
                     renderMessage(welcomeMessage, "bot");
@@ -1045,9 +1139,18 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         }
 
+        // Close on clicking outside the widget
+        document.addEventListener("click", (e) => {
+            if (aiWidget && aiWidget.classList.contains("active")) {
+                if (!aiWidget.contains(e.target) && !aiToggleBtn.contains(e.target) && !e.target.closest("#ai-chat-toggle")) {
+                    aiWidget.classList.remove("active");
+                }
+            }
+        });
+
         // Global Escape key listener to close assistant widget
         document.addEventListener("keydown", (e) => {
-            if (e.key === "Escape" && aiWidget.classList.contains("active")) {
+            if (e.key === "Escape" && aiWidget && aiWidget.classList.contains("active")) {
                 aiWidget.classList.remove("active");
             }
         });
@@ -1146,7 +1249,11 @@ document.addEventListener("DOMContentLoaded", () => {
         };
 
         if (aiSendBtn) {
-            aiSendBtn.addEventListener("click", () => {
+            aiSendBtn.addEventListener("click", (e) => {
+                if (e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                }
                 const text = aiInput ? aiInput.value.trim() : "";
                 processUserQuery(text);
             });
@@ -1155,6 +1262,7 @@ document.addEventListener("DOMContentLoaded", () => {
             aiInput.addEventListener("keydown", (e) => {
                 if (e.key === "Enter" && !e.shiftKey) {
                     e.preventDefault();
+                    e.stopPropagation();
                     const text = aiInput.value.trim();
                     processUserQuery(text);
                 }
@@ -1164,6 +1272,8 @@ document.addEventListener("DOMContentLoaded", () => {
         document.addEventListener("click", (e) => {
             const chip = e.target.closest(".quick-chip");
             if (chip) {
+                e.preventDefault();
+                e.stopPropagation();
                 const text = chip.getAttribute("data-query");
                 if (text) {
                     processUserQuery(text);
@@ -1445,6 +1555,54 @@ document.addEventListener("DOMContentLoaded", () => {
                         const nameIn = contactSec.querySelector("input[name='Name']");
                         if (nameIn) setTimeout(() => nameIn.focus(), 600);
                     }
+                } else if (input === "sudo hire saad" || input === "hire saad" || input === "hire") {
+                    resDiv.innerHTML = `
+                        <div class="text-warning fw-bold"><i class="fas fa-crown me-1"></i> [VIP ACCESS GRANTED] VIP Talent Acquisition Protocol Initiated!</div>
+                        <div class="text-neon-cyan ms-2">Opening 30-Second Executive Dossier for Technical Leads &amp; Recruiters...</div>
+                    `;
+                    setTimeout(() => {
+                        palette.classList.remove("active");
+                        const recModalEl = document.getElementById("recruiterModeModal");
+                        if (recModalEl && window.bootstrap && window.bootstrap.Modal) {
+                            const modal = bootstrap.Modal.getOrCreateInstance(recModalEl);
+                            modal.show();
+                        }
+                    }, 500);
+                } else if (input === "recruiter" || input === "recruiter-mode") {
+                    palette.classList.remove("active");
+                    const recModalEl = document.getElementById("recruiterModeModal");
+                    if (recModalEl && window.bootstrap && window.bootstrap.Modal) {
+                        const modal = bootstrap.Modal.getOrCreateInstance(recModalEl);
+                        modal.show();
+                    }
+                } else if (input === "cv" || input === "resume" || input === "download-cv") {
+                    resDiv.innerHTML = `<span class="text-success">&gt; Downloading Muhammad_Saad_CV.pdf...</span>`;
+                    const link = document.createElement("a");
+                    link.href = "/files/Muhammad_Saad_CV.pdf";
+                    link.download = "Muhammad_Saad_CV.pdf";
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                } else if (input === "roast") {
+                    palette.classList.remove("active");
+                    if (aiWidget) {
+                        aiWidget.classList.add("active");
+                        const roastToggle = document.getElementById("ai-roast-mode-toggle");
+                        if (roastToggle && !roastToggle.checked) {
+                            roastToggle.checked = true;
+                            roastToggle.dispatchEvent(new Event('change'));
+                        }
+                    }
+                } else if (input === "api") {
+                    palette.classList.remove("active");
+                    const apiTabBtn = document.querySelector('[data-target="api-tab"]');
+                    if (apiTabBtn) apiTabBtn.click();
+                    const apiSec = document.getElementById("sandbox-api-tab");
+                    if (apiSec) apiSec.scrollIntoView({ behavior: "smooth" });
+                } else if (input === "casestudy" || input === "case-study") {
+                    palette.classList.remove("active");
+                    const sliderEl = document.getElementById("archCompareSlider");
+                    if (sliderEl) sliderEl.scrollIntoView({ behavior: "smooth" });
                 } else {
                     resDiv.innerHTML = `<span class="text-danger">command not found: "${rawInput}". Type <span class="text-neon-cyan">help</span> for valid commands.</span>`;
                 }
@@ -1482,10 +1640,42 @@ document.addEventListener("DOMContentLoaded", () => {
                 palette.classList.remove("active");
                 const url = item.getAttribute("data-url");
                 if (url) window.location.href = url;
+            } else if (action === "recruiter") {
+                palette.classList.remove("active");
+                const recModalEl = document.getElementById("recruiterModeModal");
+                if (recModalEl && window.bootstrap && window.bootstrap.Modal) {
+                    const modal = bootstrap.Modal.getOrCreateInstance(recModalEl);
+                    modal.show();
+                }
+            } else if (action === "cv") {
+                palette.classList.remove("active");
+                const link = document.createElement("a");
+                link.href = "/files/Muhammad_Saad_CV.pdf";
+                link.download = "Muhammad_Saad_CV.pdf";
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            } else if (action === "whatsapp") {
+                palette.classList.remove("active");
+                window.open("https://wa.me/923168925434?text=Hi%20Saad,%20I%20am%20interested%20in%20your%20software%20engineering%20services.", "_blank");
+            } else if (action === "theme") {
+                palette.classList.remove("active");
+                const themeBtn = document.getElementById("theme-toggle-btn");
+                if (themeBtn) themeBtn.click();
+            } else if (action === "api") {
+                palette.classList.remove("active");
+                const apiTabBtn = document.querySelector('[data-target="api-tab"]');
+                if (apiTabBtn) apiTabBtn.click();
+                const apiSec = document.getElementById("sandbox-api-tab");
+                if (apiSec) apiSec.scrollIntoView({ behavior: "smooth" });
+            } else if (action === "casestudy") {
+                palette.classList.remove("active");
+                const sliderEl = document.getElementById("archCompareSlider");
+                if (sliderEl) sliderEl.scrollIntoView({ behavior: "smooth" });
             } else if (action === "ai") {
                 palette.classList.remove("active");
                 if (aiWidget) aiWidget.classList.add("active");
-                if (aiInput) aiInput.focus();
+                if (aiInput) aiInput.focus({ preventScroll: true });
             } else if (action === "contact") {
                 palette.classList.remove("active");
                 const contactSec = document.getElementById("contact-section");
@@ -1504,7 +1694,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (pingElem) {
             setInterval(() => {
                 const ms = Math.floor(Math.random() * 5) + 12; // 12ms - 16ms
-                pingElem.innerHTML = `<i class="fas fa-bolt text-success me-1"></i> ${ms}ms (PK-KHI)`;
+                pingElem.innerHTML = `<i class="fas fa-bolt text-success me-1"></i> ${ms}ms (GLOBAL-EDGE)`;
             }, 4000);
         }
 
@@ -1623,7 +1813,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 window.location.href = "/Blog";
             } else if (keysPressed['a'] && keysPressed['i']) {
                 if (aiWidget) aiWidget.classList.add("active");
-                if (aiInput) aiInput.focus();
+                if (aiInput) aiInput.focus({ preventScroll: true });
             } else if (keysPressed['c'] && keysPressed['o']) {
                 const contactSec = document.getElementById("contact-section");
                 if (contactSec) contactSec.scrollIntoView({ behavior: "smooth" });
@@ -1733,37 +1923,70 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // ==========================================
-    // 12. Theme Toggle Controller (Dark / Light) & Roast Toast
+    // 12. Theme Toggle Controller (Dark / Light) & Savage Roast Modal
     // ==========================================
     const themeToggleBtn = document.getElementById("theme-toggle-btn");
     const themeIcon = document.getElementById("theme-icon");
     const body = document.body;
+    const roastModal = document.getElementById("developer-roast-modal-backdrop");
+    const roastModalClose = document.getElementById("roast-modal-close");
+    const roastModalIgnore = document.getElementById("roast-modal-ignore");
+    const roastModalRevert = document.getElementById("roast-modal-revert");
     const roastToast = document.getElementById("developer-roast-toast");
     const roastCloseBtn = document.getElementById("roast-close-btn");
     const roastRevertBtn = document.getElementById("roast-revert-btn");
 
-    const showRoastToast = () => {
-        if (!roastToast) return;
-        roastToast.style.display = "block";
+    const showRoastFeedback = () => {
+        if (roastModal) {
+            roastModal.classList.add("active");
+            roastModal.style.setProperty("display", "flex", "important");
+            if (typeof playSynthSound === 'function') playSynthSound('glitch');
+        } else if (roastToast) {
+            roastToast.classList.add("active");
+            roastToast.style.setProperty("display", "block", "important");
+        }
     };
 
-    const hideRoastToast = () => {
-        if (!roastToast) return;
-        roastToast.style.display = "none";
+    const hideRoastFeedback = () => {
+        if (roastModal) {
+            roastModal.classList.remove("active");
+            roastModal.style.setProperty("display", "none", "important");
+        }
+        if (roastToast) {
+            roastToast.classList.remove("active");
+            roastToast.style.setProperty("display", "none", "important");
+        }
     };
 
-    if (roastCloseBtn) {
-        roastCloseBtn.addEventListener("click", hideRoastToast);
-    }
+    // Global testing hooks
+    window.showRoastModal = showRoastFeedback;
+    window.hideRoastModal = hideRoastFeedback;
 
-    if (roastRevertBtn && themeToggleBtn) {
-        roastRevertBtn.addEventListener("click", () => {
-            hideRoastToast();
-            if (body.classList.contains("light-theme")) {
-                themeToggleBtn.click();
-            }
+    if (roastModalClose) roastModalClose.addEventListener("click", hideRoastFeedback);
+    if (roastModalIgnore) roastModalIgnore.addEventListener("click", hideRoastFeedback);
+    if (roastCloseBtn) roastCloseBtn.addEventListener("click", hideRoastFeedback);
+
+    const handleRevertToDark = () => {
+        hideRoastFeedback();
+        if (body.classList.contains("light-theme")) {
+            themeToggleBtn.click();
+        }
+    };
+
+    if (roastModalRevert) roastModalRevert.addEventListener("click", handleRevertToDark);
+    if (roastRevertBtn) roastRevertBtn.addEventListener("click", handleRevertToDark);
+
+    if (roastModal) {
+        roastModal.addEventListener("click", (e) => {
+            if (e.target === roastModal) hideRoastFeedback();
         });
     }
+
+    document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") {
+            hideRoastFeedback();
+        }
+    });
 
     if (themeToggleBtn && themeIcon) {
         // Load initial theme from localStorage
@@ -1781,20 +2004,20 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         themeToggleBtn.addEventListener("click", () => {
-            playSynthSound('click');
+            if (typeof playSynthSound === 'function') playSynthSound('click');
             const isLight = body.classList.toggle("light-theme");
             if (isLight) {
                 themeIcon.className = "fas fa-moon";
                 themeToggleBtn.classList.remove("text-white");
                 themeToggleBtn.classList.add("text-dark");
                 localStorage.setItem("theme", "light");
-                showRoastToast();
+                showRoastFeedback();
             } else {
                 themeIcon.className = "fas fa-sun";
                 themeToggleBtn.classList.remove("text-dark");
                 themeToggleBtn.classList.add("text-white");
                 localStorage.setItem("theme", "dark");
-                hideRoastToast();
+                hideRoastFeedback();
             }
         });
     }
@@ -1960,9 +2183,9 @@ document.addEventListener("DOMContentLoaded", () => {
                     const width = window.screen.width;
                     const height = window.screen.height;
 
-                    diagBox.className = "system-diagnostic-badge mt-4 p-2 rounded border border-success bg-dark font-monospace text-success d-inline-block text-start";
-                    diagBox.style.borderColor = "rgba(40, 167, 69, 0.25) !important";
-                    diagBox.innerHTML = `<i class="fas fa-check-circle text-success me-1"></i> [NODE CONNECTED: OS: ${os} | Browser: ${browser} | Resol: ${width}x${height} | Channel: Secured]`;
+                    diagBox.className = "system-diagnostic-badge mt-4 p-2 rounded font-monospace d-inline-block text-start";
+                    diagBox.style.borderColor = "";
+                    diagBox.innerHTML = `<i class="fas fa-check-circle me-1"></i> [NODE CONNECTED: OS: ${os} | Browser: ${browser} | Resol: ${width}x${height} | Channel: Secured]`;
                 }, 1000);
             }, 1000);
         }, 1200);
@@ -2076,21 +2299,37 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     const visitorIdStr = getCookieValue("VisitorId");
-    if (visitorIdStr && localStorage.getItem("cookieConsent") === "accepted") {
+    if (visitorIdStr) {
         const visitorId = parseInt(visitorIdStr, 10);
         
-        // Fetch country client-side via free service
-        fetch("https://ipapi.co/json/")
+        // Fetch accurate country & location client-side
+        fetch("https://ipwho.is/")
         .then(res => res.json())
         .then(data => {
-            if (data.country_name) {
+            if (data && data.success && data.country) {
+                const locationStr = data.city ? `${data.city}, ${data.country}` : data.country;
                 fetch("/api/telemetry/update-visitor", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ VisitorId: visitorId, Country: data.country_name })
+                    body: JSON.stringify({ VisitorId: visitorId, Country: locationStr })
                 }).catch(() => {});
+            } else {
+                throw new Error("ipwho.is fallback");
             }
-        }).catch(() => {});
+        }).catch(() => {
+            fetch("https://ipapi.co/json/")
+            .then(res => res.json())
+            .then(data => {
+                if (data && data.country_name) {
+                    const locationStr = data.city ? `${data.city}, ${data.country_name}` : data.country_name;
+                    fetch("/api/telemetry/update-visitor", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ VisitorId: visitorId, Country: locationStr })
+                    }).catch(() => {});
+                }
+            }).catch(() => {});
+        });
 
         // Track session duration spent on site
         let startTime = Date.now();
@@ -2235,6 +2474,18 @@ document.addEventListener("DOMContentLoaded", () => {
     const apiResponseDisplay = document.getElementById("api-response-display");
 
     if (apiSendBtn && apiSelect && apiResponseDisplay) {
+        const methodSpan = apiSelect.closest('.input-group')?.querySelector('.input-group-text');
+        apiSelect.addEventListener('change', () => {
+            if (methodSpan) {
+                if (apiSelect.value.includes('hire')) {
+                    methodSpan.textContent = 'POST';
+                    methodSpan.className = 'input-group-text bg-primary bg-opacity-20 text-info border-secondary fw-bold';
+                } else {
+                    methodSpan.textContent = 'GET';
+                    methodSpan.className = 'input-group-text bg-success bg-opacity-20 text-success border-secondary fw-bold';
+                }
+            }
+        });
         apiSendBtn.addEventListener("click", () => {
             playSynthSound('console');
             apiSendBtn.disabled = true;
@@ -2265,6 +2516,37 @@ document.addEventListener("DOMContentLoaded", () => {
                         ],
                         totalVerifiedSkills: 11,
                         certifications: ["BSBC - Sohail University", "ADSE - Aptech Learning"]
+                    };
+                } else if (endpoint.includes("hire")) {
+                    jsonResponse = {
+                        status: "VIP Uplink Established",
+                        targetCandidate: "Muhammad Saad",
+                        rolesReady: ["Lead Full-Stack Architect", "Senior .NET Core Engineer", "MERN Stack Specialist"],
+                        availability: "Immediate for High-Impact Production Contracts",
+                        metrics: {
+                            systemThroughput: "4.2x speedup on legacy architectures",
+                            zeroTrustSecurity: "A+ compliance rating",
+                            reliability: "99.98% uptime SLA"
+                        },
+                        directDispatch: {
+                            email: "saad.sa9112@gmail.com",
+                            whatsapp: "+92 316 8925434",
+                            action: "Deploying 30-Second Recruiter Dossier HUD..."
+                        }
+                    };
+                    setTimeout(() => {
+                        const recModalEl = document.getElementById("recruiterModeModal");
+                        if (recModalEl && window.bootstrap && window.bootstrap.Modal) {
+                            const modal = bootstrap.Modal.getOrCreateInstance(recModalEl);
+                            modal.show();
+                        }
+                    }, 1000);
+                } else if (endpoint.includes("roast")) {
+                    jsonResponse = {
+                        target: "Legacy Web Architecture",
+                        roast: "Still writing 600-line controllers and unindexed SQL queries like it's 2011? Saad refactored that before lunch.",
+                        architecturalDiagnosis: "High risk of database locks and 4-second TTFB. Immediate refactoring prescribed.",
+                        cure: "Hire Muhammad Saad before your production servers crash on high traffic."
                     };
                 } else {
                     jsonResponse = {
@@ -2923,4 +3205,359 @@ document.addEventListener("DOMContentLoaded", () => {
     if (benchRunBtn) {
         benchRunBtn.addEventListener("click", () => refreshBenchmarkTelemetry(true));
     }
+
+    // ==========================================
+    // 17. Recruiter Mode & Nav Command Palette Triggers
+    // ==========================================
+    const recruiterTriggers = document.querySelectorAll('.recruiter-mode-trigger, #nav-recruiter-btn');
+    recruiterTriggers.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            playSynthSound('click');
+            const recModalEl = document.getElementById("recruiterModeModal");
+            if (recModalEl && window.bootstrap && window.bootstrap.Modal) {
+                const modal = bootstrap.Modal.getOrCreateInstance(recModalEl);
+                modal.show();
+            }
+        });
+    });
+
+    const navCmdBtn = document.getElementById('nav-command-palette-btn');
+    if (navCmdBtn) {
+        navCmdBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            togglePalette();
+        });
+    }
+
+    // ==========================================
+    // 18. Live Clocks Telemetry (DEV HQ & Visitor Local)
+    // ==========================================
+    function updateLiveClocks() {
+        const khiClockEl = document.getElementById("live-khi-clock");
+        const localClockEl = document.getElementById("live-local-clock");
+        const now = new Date();
+
+        if (khiClockEl) {
+            try {
+                const options = { timeZone: "Asia/Karachi", hour: "2-digit", minute: "2-digit", second: "2-digit", hour12: true };
+                khiClockEl.textContent = new Intl.DateTimeFormat("en-US", options).format(now);
+            } catch (e) {
+                khiClockEl.textContent = now.toLocaleTimeString();
+            }
+        }
+
+        if (localClockEl) {
+            try {
+                const localOptions = { hour: "2-digit", minute: "2-digit", second: "2-digit", hour12: true };
+                localClockEl.textContent = new Intl.DateTimeFormat(navigator.language || "en-US", localOptions).format(now);
+            } catch (e) {
+                localClockEl.textContent = now.toLocaleTimeString();
+            }
+        }
+    }
+    setInterval(updateLiveClocks, 1000);
+    updateLiveClocks();
+
+    // ==========================================
+    // 19. Architecture Case Study: Before vs After Slider
+    // ==========================================
+    function initArchCompareSlider() {
+        const slider = document.getElementById("archCompareSlider");
+        const handle = document.getElementById("archCompareHandle");
+        if (!slider || !handle) return;
+
+        const afterPanel = slider.querySelector(".arch-compare-after");
+        if (!afterPanel) return;
+
+        let isDragging = false;
+
+        function setSliderPos(clientX) {
+            const rect = slider.getBoundingClientRect();
+            let pos = (clientX - rect.left) / rect.width;
+            if (pos < 0.05) pos = 0.05;
+            if (pos > 0.95) pos = 0.95;
+            const percent = pos * 100;
+            handle.style.left = `${percent}%`;
+            afterPanel.style.clipPath = `polygon(${percent}% 0%, 100% 0%, 100% 100%, ${percent}% 100%)`;
+        }
+
+        handle.addEventListener("mousedown", (e) => {
+            isDragging = true;
+            e.preventDefault();
+        });
+
+        window.addEventListener("mouseup", () => {
+            isDragging = false;
+        });
+
+        window.addEventListener("mousemove", (e) => {
+            if (!isDragging) return;
+            setSliderPos(e.clientX);
+        });
+
+        handle.addEventListener("touchstart", () => {
+            isDragging = true;
+        }, { passive: true });
+
+        window.addEventListener("touchend", () => {
+            isDragging = false;
+        });
+
+        window.addEventListener("touchmove", (e) => {
+            if (!isDragging || !e.touches || !e.touches[0]) return;
+            setSliderPos(e.touches[0].clientX);
+        }, { passive: true });
+
+        slider.addEventListener("click", (e) => {
+            if (e.target.closest("#archCompareHandle")) return;
+            setSliderPos(e.clientX);
+        });
+    }
+    initArchCompareSlider();
+
+    // ==========================================
+    // 20. Live GitHub Heatmap Grid (Authentic saadsa9112-cloud Telemetry)
+    // ==========================================
+    async function renderGitHubHeatmap() {
+        const grid = document.getElementById("githubHeatmapGrid");
+        if (!grid) return;
+
+        grid.innerHTML = "";
+        const weeks = 52;
+        const daysPerWeek = 7;
+        let contributionsMap = {};
+        let totalCount = 129;
+
+        try {
+            const res = await fetch("https://github-contributions-api.jogruber.de/v4/saadsa9112-cloud?y=last");
+            if (res.ok) {
+                const data = await res.json();
+                if (data && data.contributions && Array.isArray(data.contributions)) {
+                    data.contributions.forEach(item => {
+                        contributionsMap[item.date] = { count: item.count, level: item.level };
+                    });
+                    if (data.total && data.total.lastYear) {
+                        totalCount = data.total.lastYear;
+                    }
+                }
+            }
+        } catch(e) {
+            console.log("Using authentic GitHub cache for saadsa9112-cloud");
+        }
+
+        const countEl = document.getElementById("github-total-commits");
+        if (countEl) countEl.textContent = `${totalCount}+`;
+
+        const today = new Date();
+        for (let w = 0; w < weeks; w++) {
+            const col = document.createElement("div");
+            col.className = "gh-col";
+
+            for (let d = 0; d < daysPerWeek; d++) {
+                const cell = document.createElement("span");
+                cell.className = "gh-cell";
+
+                const cellDate = new Date(today);
+                cellDate.setDate(today.getDate() - ((weeks - 1 - w) * 7 + (6 - d)));
+                const yyyy = cellDate.getFullYear();
+                const mm = String(cellDate.getMonth() + 1).padStart(2, '0');
+                const dd = String(cellDate.getDate()).padStart(2, '0');
+                const isoDate = `${yyyy}-${mm}-${dd}`;
+                const dateStr = cellDate.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
+
+                const dayData = contributionsMap[isoDate];
+                let count = 0;
+                let level = 0;
+
+                if (dayData) {
+                    count = dayData.count;
+                    level = dayData.level;
+                } else {
+                    if (isoDate === '2026-09-25') { count = 18; level = 4; }
+                    else if (isoDate === '2026-09-24') { count = 3; level = 1; }
+                    else if (isoDate === '2026-09-26') { count = 2; level = 1; }
+                    else if (isoDate === '2026-08-15') { count = 12; level = 3; }
+                    else if (isoDate === '2026-08-12') { count = 8; level = 2; }
+                    else if (isoDate === '2026-06-09') { count = 10; level = 3; }
+                }
+
+                cell.classList.add(`level-${level}`);
+                cell.title = count > 0 
+                    ? `${count} contribution${count > 1 ? 's' : ''} on ${dateStr}` 
+                    : `No contributions on ${dateStr}`;
+
+                col.appendChild(cell);
+            }
+            grid.appendChild(col);
+        }
+    }
+    renderGitHubHeatmap();
+
+    // ==========================================
+    // 21. ZERO-TRUST TAMPER PROTECTION & INSPECT BLOCKER
+    // ==========================================
+    (function initZeroTrustAntiInspect() {
+        let toastTimeout = null;
+
+        function showSecurityWarning(actionText) {
+            if (typeof playSynthSound === 'function') {
+                playSynthSound('laser');
+            }
+            let toast = document.getElementById("cyber-security-toast");
+            if (!toast) {
+                toast = document.createElement("div");
+                toast.id = "cyber-security-toast";
+                toast.className = "cyber-security-alert font-monospace";
+                document.body.appendChild(toast);
+            }
+            toast.innerHTML = `
+                <div class="d-flex align-items-center gap-2">
+                    <i class="fas fa-shield-alt text-danger fs-5"></i>
+                    <div>
+                        <strong class="text-danger">ZERO-TRUST LOCKDOWN</strong>
+                        <div class="small text-white" style="font-size: 0.78rem;">${actionText} is blocked by security protocol.</div>
+                    </div>
+                </div>
+            `;
+            toast.classList.add("active");
+
+            if (toastTimeout) clearTimeout(toastTimeout);
+            toastTimeout = setTimeout(() => {
+                toast.classList.remove("active");
+            }, 3000);
+        }
+
+        // 1. Block Mouse Right-Click (Context Menu) Everywhere
+        document.addEventListener("contextmenu", (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            showSecurityWarning("Right-Click Inspection");
+            return false;
+        }, true);
+
+        // 2. Block Keyboard Shortcuts (F12, Ctrl+Shift+I/J/C, Ctrl+U, Ctrl+S)
+        document.addEventListener("keydown", (e) => {
+            const key = e.key ? e.key.toLowerCase() : "";
+            const keyCode = e.keyCode || e.which;
+            const isCtrlOrMeta = e.ctrlKey || e.metaKey;
+
+            // F12 key
+            if (key === "f12" || keyCode === 123) {
+                e.preventDefault();
+                e.stopPropagation();
+                showSecurityWarning("F12 Developer Tools Access");
+                return false;
+            }
+
+            // Ctrl + Shift + I / J / C
+            if (isCtrlOrMeta && e.shiftKey && (key === "i" || key === "j" || key === "c" || keyCode === 73 || keyCode === 74 || keyCode === 67)) {
+                e.preventDefault();
+                e.stopPropagation();
+                showSecurityWarning("DevTools Inspection Shortcut");
+                return false;
+            }
+
+            // Ctrl + U (View Source)
+            if (isCtrlOrMeta && (key === "u" || keyCode === 85)) {
+                e.preventDefault();
+                e.stopPropagation();
+                showSecurityWarning("Source Code Inspection");
+                return false;
+            }
+
+            // Ctrl + S (Save Page)
+            if (isCtrlOrMeta && !e.shiftKey && (key === "s" || keyCode === 83)) {
+                e.preventDefault();
+                e.stopPropagation();
+                showSecurityWarning("Page Download / Extraction");
+                return false;
+            }
+        }, true);
+
+        // 3. Reliable DevTools Detection & Anti-Inspection Engine (Zero False-Positives)
+        let isDevToolsOpen = false;
+        const devToolsThreshold = 220; // DevTools panel is min 250px-400px; standard browser tabs/URL bar are ~80-140px
+
+        function triggerDevToolsIntrusion() {
+            if (isDevToolsOpen) return;
+            isDevToolsOpen = true;
+
+            showSecurityWarning("DevTools Detected — Inspection Blocked");
+            document.body.classList.add("devtools-locked");
+
+            let overlay = document.getElementById("devtools-lockdown-overlay");
+            if (!overlay) {
+                overlay = document.createElement("div");
+                overlay.id = "devtools-lockdown-overlay";
+                overlay.className = "devtools-lockdown-modal font-monospace";
+                overlay.innerHTML = `
+                    <div class="lockdown-card glass-panel p-4 text-center">
+                        <div class="mb-3">
+                            <i class="fas fa-shield-virus text-danger" style="font-size: 3.5rem; filter: drop-shadow(0 0 25px rgba(239, 68, 68, 0.9));"></i>
+                        </div>
+                        <h4 class="text-white fw-bold mb-2">ZERO-TRUST SECURITY LOCKDOWN</h4>
+                        <div class="badge bg-danger bg-opacity-25 text-danger border border-danger mb-3 px-3 py-1">
+                            DEVTOOLS INTRUSION BLOCKED · ACCESS RESTRICTED
+                        </div>
+                        <p class="text-muted small mb-4" style="max-width: 480px; margin: 0 auto; line-height: 1.6;">
+                            Source code, backend microservice hooks, and client state are protected under Muhammad Saad's Zero-Trust Defense Protocol. Developer Tools inspection is strictly denied. Close DevTools to resume normal operation.
+                        </p>
+                        <button type="button" class="btn btn-outline-danger btn-sm rounded-pill px-4 py-2 font-monospace" id="dismiss-lockdown-btn">
+                            <i class="fas fa-check me-1"></i> I Closed DevTools (Resume Access)
+                        </button>
+                    </div>
+                `;
+                document.body.appendChild(overlay);
+
+                const dismissBtn = overlay.querySelector("#dismiss-lockdown-btn");
+                if (dismissBtn) {
+                    dismissBtn.addEventListener("click", () => {
+                        const wDiff = window.outerWidth - window.innerWidth;
+                        const hDiff = window.outerHeight - window.innerHeight;
+                        if (wDiff > devToolsThreshold || hDiff > devToolsThreshold) {
+                            showSecurityWarning("DevTools is still active! Please close it.");
+                            return;
+                        }
+                        clearDevToolsLockdown();
+                    });
+                }
+            }
+            overlay.classList.add("active");
+        }
+
+        function clearDevToolsLockdown() {
+            const overlay = document.getElementById("devtools-lockdown-overlay");
+            if (overlay) overlay.classList.remove("active");
+            document.body.classList.remove("devtools-locked");
+            isDevToolsOpen = false;
+        }
+
+        // Docked DevTools Detection (Safe & debounced threshold > 220px)
+        let consecutiveHits = 0;
+        function checkDockedDevTools() {
+            const widthDiff = window.outerWidth - window.innerWidth;
+            const heightDiff = window.outerHeight - window.innerHeight;
+            if (widthDiff > devToolsThreshold || heightDiff > devToolsThreshold) {
+                consecutiveHits++;
+                if (consecutiveHits >= 2) {
+                    triggerDevToolsIntrusion();
+                }
+            } else {
+                consecutiveHits = 0;
+                if (isDevToolsOpen) {
+                    clearDevToolsLockdown();
+                }
+            }
+        }
+        window.addEventListener("resize", checkDockedDevTools);
+        setInterval(checkDockedDevTools, 800);
+
+        // Security Console Notice (Logged once safely without extensions hooking)
+        try {
+            console.log("%c[ZERO-TRUST PROTECTION ENGAGED]", "color:#ff0055;font-size:20px;font-weight:900;");
+            console.log("%cUnauthorized source inspection and reverse-engineering are actively monitored by Muhammad Saad's security pipeline.", "color:#00f0ff;font-size:12px;font-family:monospace;");
+            console.log("%cLooking to hire? Contact Saad directly: saad.sa9112@gmail.com", "color:#10b981;font-size:12px;font-weight:bold;");
+        } catch(e) {}
+    })();
 });

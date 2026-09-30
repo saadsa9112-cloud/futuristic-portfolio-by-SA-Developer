@@ -122,7 +122,10 @@
 </div>
 
 <div class="glass-panel p-4 mb-4">
-    <h5 class="text-white mb-3 font-monospace"><i class="fas fa-filter text-neon-purple me-1"></i> Filter Visitor Diagnostics</h5>
+    <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+        <h5 class="text-white mb-0 font-monospace"><i class="fas fa-filter text-neon-purple me-1"></i> Filter Visitor Diagnostics</h5>
+        <a asp-action="ExportJson" class="btn btn-sm btn-outline-info font-monospace px-3"><i class="fas fa-file-code me-1"></i> Export Nodes (JSON)</a>
+    </div>
     <form method="get" class="row g-3">
         <div class="col-md-5">
             <input type="text" name="searchIp" value="@searchIp" class="form-control bg-dark border-secondary text-white font-monospace" placeholder="Query IP Address..." />

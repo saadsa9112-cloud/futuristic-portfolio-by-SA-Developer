@@ -36,7 +36,7 @@
                 </div>
 
                 <!-- Diagnostic Badge -->
-                <div class="system-diagnostic-badge mt-4 p-2 rounded border border-secondary bg-dark font-monospace text-muted d-inline-block text-start" id="system-diagnostic" style="font-size: 0.75rem; border-color: rgba(0, 240, 255, 0.2) !important; background: rgba(13, 10, 26, 0.6) !important;">
+                <div class="system-diagnostic-badge mt-4 p-2 rounded font-monospace d-inline-block text-start" id="system-diagnostic">
                     <i class="fas fa-microchip text-neon-cyan me-1"></i> [SYS STATUS: Online | ASP.NET Core 10 &amp; SQL Server Active | 0 Warnings]
                 </div>
             </div>
@@ -556,6 +556,75 @@
     </section>
 }
 
+
+            <!-- ARCHITECTURE CASE STUDY: BEFORE VS AFTER RE-ENGINEERING SLIDER -->
+            <div class="mt-5 pt-4" data-aos="fade-up">
+                <div class="text-center mb-4">
+                    <span class="badge bg-dark border border-secondary text-neon-cyan font-monospace mb-2">CASE STUDY // RE-ENGINEERING PROOF</span>
+                    <h3 class="display-6 text-white fw-bold"><span class="text-neon-cyan">//</span> Architectural Transformation: Legacy vs Re-Engineered</h3>
+                    <p class="text-muted small mb-0">Drag or swipe the interactive slider below to see how Muhammad Saad transformed legacy academic monolithic software into high-speed architecture.</p>
+                </div>
+
+                <div class="arch-compare-wrapper mx-auto rounded shadow-lg overflow-hidden position-relative" id="archCompareSlider">
+                    <!-- BEFORE PANEL (Legacy Monolith) -->
+                    <div class="arch-compare-panel arch-compare-before p-4">
+                        <div class="arch-compare-content d-flex flex-column justify-content-between h-100">
+                            <div>
+                                <div class="d-flex align-items-center justify-content-between mb-3">
+                                    <span class="badge bg-danger bg-opacity-25 text-danger border border-danger border-opacity-40 font-monospace px-3 py-1">
+                                        <i class="fas fa-exclamation-triangle me-1"></i> BEFORE: LEGACY SYSTEM
+                                    </span>
+                                </div>
+                                <h4 class="text-danger fw-bold mb-3 fs-5">Monolithic Slow DB &amp; Unindexed Queries</h4>
+                                <ul class="list-unstyled d-flex flex-column gap-2 small font-monospace mb-3 arch-list-danger">
+                                    <li class="d-flex align-items-center gap-2"><i class="fas fa-times text-danger"></i> <span><strong class="text-danger">3,800ms</strong> Average Query TTFB</span></li>
+                                    <li class="d-flex align-items-center gap-2"><i class="fas fa-times text-danger"></i> <span>Unindexed SQL joins leading to lockups</span></li>
+                                    <li class="d-flex align-items-center gap-2"><i class="fas fa-times text-danger"></i> <span>Cluttered 2012 UI with no mobile support</span></li>
+                                    <li class="d-flex align-items-center gap-2"><i class="fas fa-times text-danger"></i> <span>Manual CSV exports prone to drift</span></li>
+                                    <li class="d-flex align-items-center gap-2"><i class="fas fa-times text-danger"></i> <span>Zero security telemetry &amp; RBAC</span></li>
+                                </ul>
+                            </div>
+                            <div class="p-2.5 rounded font-monospace small arch-code-box-danger" style="font-size: 0.78rem;">
+                                <code>[WARN] Deadlock detected. Query TTFB 3840ms. CPU 98%.</code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- AFTER PANEL (Saad's Engineered System) -->
+                    <div class="arch-compare-panel arch-compare-after p-4">
+                        <div class="arch-compare-content d-flex flex-column justify-content-between h-100">
+                            <div>
+                                <div class="d-flex align-items-center justify-content-between mb-3">
+                                    <span class="badge bg-success bg-opacity-25 text-success border border-success border-opacity-40 font-monospace px-3 py-1">
+                                        <i class="fas fa-check-circle me-1"></i> AFTER: SAAD'S ARCHITECTURE
+                                    </span>
+                                </div>
+                                <h4 class="text-neon-cyan fw-bold mb-3 fs-5">ASP.NET Core 10 &amp; Optimized SQL Server</h4>
+                                <ul class="list-unstyled d-flex flex-column gap-2 small font-monospace mb-3 arch-list-success">
+                                    <li class="d-flex align-items-center gap-2"><i class="fas fa-bolt text-success"></i> <span><strong class="text-success">160ms</strong> Sub-200ms latency via Redis</span></li>
+                                    <li class="d-flex align-items-center gap-2"><i class="fas fa-check text-success"></i> <span>Non-clustered indexing (0 deadlocks)</span></li>
+                                    <li class="d-flex align-items-center gap-2"><i class="fas fa-check text-success"></i> <span>Futuristic Cyber HUD interface</span></li>
+                                    <li class="d-flex align-items-center gap-2"><i class="fas fa-check text-success"></i> <span>Automated transactional grading pipeline</span></li>
+                                    <li class="d-flex align-items-center gap-2"><i class="fas fa-shield-alt text-neon-cyan"></i> <span>TLS 1.3 &amp; Zero-Trust security rating A+</span></li>
+                                </ul>
+                            </div>
+                            <div class="p-2.5 rounded font-monospace small arch-code-box-success" style="font-size: 0.78rem;">
+                                <code>[SYS OK] Transaction 142ms. 0 Deadlocks. 99.98% Uptime.</code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Draggable Handle Bar -->
+                    <div class="arch-compare-handle" id="archCompareHandle">
+                        <div class="arch-compare-handle-line"></div>
+                        <div class="arch-compare-handle-button">
+                            <i class="fas fa-arrows-alt-h"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
 <!-- TECH STACK ICONS -->
 <section class="py-5">
     <div class="container py-4 text-center">
@@ -789,6 +858,8 @@
                         <option value="/api/v1/system/health">/api/v1/system/health</option>
                         <option value="/api/v1/skills/stack">/api/v1/skills/stack (Includes MERN, UI/UX, SEO)</option>
                         <option value="/api/v1/projects/active">/api/v1/projects/active</option>
+                        <option value="/api/v1/career/hire">POST /api/v1/career/hire (Interactive Recruiter Uplink)</option>
+                        <option value="/api/v1/roast/developer">GET /api/v1/roast/developer (AI Roaster Output)</option>
                     </select>
                     <button class="btn btn-neon btn-neon-cyan text-white px-4" type="button" id="api-send-btn">
                         <i class="fas fa-paper-plane me-1"></i> SEND
@@ -816,137 +887,130 @@
 </section>
 }
 
-<!-- INTERACTIVE PROJECT SCOPE & COST ESTIMATOR -->
-@if (flags.EnableCostEstimator)
-{
-<section id="estimator-section" class="py-5 bg-dark bg-opacity-30 border-top border-secondary border-opacity-20">
+<!-- SYSTEM ARCHITECTURE BLUEPRINT & ENGINEERING PIPELINE -->
+<section id="engineering-workflow-section" class="py-5 bg-dark bg-opacity-30 border-top border-secondary border-opacity-20">
     <div class="container py-3">
         <div class="text-center mb-5" data-aos="fade-up">
-            <span class="badge bg-dark border border-secondary text-neon-green font-monospace mb-2">CLIENT SCOPE CALCULATOR</span>
-            <h2 class="display-5 text-white fw-bold"><span class="text-neon-purple">//</span> Project Cost &amp; Scope Estimator</h2>
-            <p class="text-muted mb-0">Customize your project requirements to calculate estimated investment and timeline instantly.</p>
+            <span class="badge bg-dark border border-secondary text-neon-cyan font-monospace mb-2">ENGINEERING LIFECYCLE // v3.2</span>
+            <h2 class="display-5 text-white fw-bold"><span class="text-neon-purple">//</span> System Architecture &amp; Development Pipeline</h2>
+            <p class="text-muted mb-0">How enterprise-grade portals and resilient web systems are engineered from blueprint to production.</p>
         </div>
 
         <div class="row g-4 justify-content-center align-items-stretch">
-            <!-- Left: Module Selector -->
+            <!-- Left: 4-Stage Interactive Pipeline -->
             <div class="col-lg-7" data-aos="fade-right">
-                <div class="glass-panel p-4 h-100 border-0">
-                    <h5 class="text-white fw-bold mb-3 font-monospace d-flex align-items-center gap-2">
-                        <i class="fas fa-sliders-h text-neon-cyan"></i>
-                        <span>1. Select Required Engineering Modules</span>
+                <div class="glass-panel p-4 h-100 border-0 d-flex flex-column justify-content-between">
+                    <h5 class="text-white fw-bold mb-4 font-monospace d-flex align-items-center gap-2">
+                        <i class="fas fa-network-wired text-neon-cyan"></i>
+                        <span>End-to-End Architectural Lifecycle</span>
                     </h5>
 
-                    <div class="d-flex flex-column gap-2 mb-4">
-                        <label class="estimator-item p-3 rounded-3 d-flex align-items-center justify-content-between cursor-pointer border border-secondary border-opacity-25">
-                            <div class="d-flex align-items-center gap-3">
-                                <input type="checkbox" class="form-check-input estimator-check" checked data-price="450" data-name="Enterprise ASP.NET Core 10 MVC Architecture" />
-                                <div>
-                                    <span class="text-white fw-semibold d-block">Enterprise ASP.NET Core 10 MVC Architecture</span>
-                                    <small class="text-muted">C#, EF Core 10, Dependency Injection, normalized architecture</small>
-                                </div>
+                    <div class="d-flex flex-column gap-3 mb-2">
+                        <!-- Stage 01 -->
+                        <div class="p-3 rounded-3 border border-secondary border-opacity-25" style="background: rgba(139, 61, 255, 0.05);">
+                            <div class="d-flex align-items-center justify-content-between mb-2">
+                                <span class="badge font-monospace" style="background: rgba(0, 217, 255, 0.15); color: #00D9FF; border: 1px solid rgba(0, 217, 255, 0.3);">
+                                    PHASE 01 // BLUEPRINT
+                                </span>
+                                <span class="text-secondary small font-monospace">Schema &amp; System Design</span>
                             </div>
-                            <span class="badge bg-dark text-neon-purple font-monospace border border-secondary">$450</span>
-                        </label>
+                            <h6 class="text-white fw-bold mb-1">Database Modeling &amp; Relational Topology</h6>
+                            <p class="text-muted small mb-0">Architecting 3NF normalized schemas in SQL Server &amp; high-throughput Mongoose models in MongoDB Atlas with zero data concurrency anomalies.</p>
+                        </div>
 
-                        <label class="estimator-item p-3 rounded-3 d-flex align-items-center justify-content-between cursor-pointer border border-secondary border-opacity-25">
-                            <div class="d-flex align-items-center gap-3">
-                                <input type="checkbox" class="form-check-input estimator-check" data-price="400" data-name="MERN Stack Dynamic Web Application" />
-                                <div>
-                                    <span class="text-white fw-semibold d-block">MERN Stack Dynamic Web Application</span>
-                                    <small class="text-muted">React 18 UI, Node.js Express backend, MongoDB Atlas storage</small>
-                                </div>
+                        <!-- Stage 02 -->
+                        <div class="p-3 rounded-3 border border-secondary border-opacity-25" style="background: rgba(16, 185, 129, 0.05);">
+                            <div class="d-flex align-items-center justify-content-between mb-2">
+                                <span class="badge font-monospace" style="background: rgba(16, 185, 129, 0.15); color: #10B981; border: 1px solid rgba(16, 185, 129, 0.3);">
+                                    PHASE 02 // ENGINE
+                                </span>
+                                <span class="text-secondary small font-monospace">Full-Stack Core</span>
                             </div>
-                            <span class="badge bg-dark text-success font-monospace border border-secondary">$400</span>
-                        </label>
+                            <h6 class="text-white fw-bold mb-1">Clean Architecture &amp; RESTful APIs</h6>
+                            <p class="text-muted small mb-0">Building decoupled controllers, repository patterns, asynchronous EF Core pipelines, and dynamic React UI interfaces with strict TypeScript/ES6 standards.</p>
+                        </div>
 
-                        <label class="estimator-item p-3 rounded-3 d-flex align-items-center justify-content-between cursor-pointer border border-secondary border-opacity-25">
-                            <div class="d-flex align-items-center gap-3">
-                                <input type="checkbox" class="form-check-input estimator-check" checked data-price="200" data-name="SQL Server Database Schema & Tuning" />
-                                <div>
-                                    <span class="text-white fw-semibold d-block">SQL Server Database Schema &amp; Tuning</span>
-                                    <small class="text-muted">Relational 3NF architecture, index optimization, stored procedures</small>
-                                </div>
+                        <!-- Stage 03 -->
+                        <div class="p-3 rounded-3 border border-secondary border-opacity-25" style="background: rgba(245, 158, 11, 0.05);">
+                            <div class="d-flex align-items-center justify-content-between mb-2">
+                                <span class="badge font-monospace" style="background: rgba(245, 158, 11, 0.15); color: #F59E0B; border: 1px solid rgba(245, 158, 11, 0.3);">
+                                    PHASE 03 // HARDENING
+                                </span>
+                                <span class="text-secondary small font-monospace">Security &amp; Performance</span>
                             </div>
-                            <span class="badge bg-dark text-neon-blue font-monospace border border-secondary">$200</span>
-                        </label>
+                            <h6 class="text-white fw-bold mb-1">Security Protocols &amp; Latency Tuning</h6>
+                            <p class="text-muted small mb-0">Implementing SQL injection guards, CSRF tokens, JWT authentication, query index tuning, and sub-second asset delivery.</p>
+                        </div>
 
-                        <label class="estimator-item p-3 rounded-3 d-flex align-items-center justify-content-between cursor-pointer border border-secondary border-opacity-25">
-                            <div class="d-flex align-items-center gap-3">
-                                <input type="checkbox" class="form-check-input estimator-check" data-price="180" data-name="Graphic Designing & Figma UI/UX Prototype" />
-                                <div>
-                                    <span class="text-white fw-semibold d-block">Graphic Designing &amp; Figma UI/UX Prototype</span>
-                                    <small class="text-muted">Modern design systems, mobile-first Figma prototypes, visual identity</small>
-                                </div>
+                        <!-- Stage 04 -->
+                        <div class="p-3 rounded-3 border border-secondary border-opacity-25" style="background: rgba(168, 85, 247, 0.05);">
+                            <div class="d-flex align-items-center justify-content-between mb-2">
+                                <span class="badge font-monospace" style="background: rgba(168, 85, 247, 0.15); color: #C084FC; border: 1px solid rgba(168, 85, 247, 0.3);">
+                                    PHASE 04 // LAUNCH
+                                </span>
+                                <span class="text-secondary small font-monospace">Cloud &amp; Telemetry</span>
                             </div>
-                            <span class="badge bg-dark text-danger font-monospace border border-secondary">$180</span>
-                        </label>
-
-                        <label class="estimator-item p-3 rounded-3 d-flex align-items-center justify-content-between cursor-pointer border border-secondary border-opacity-25">
-                            <div class="d-flex align-items-center gap-3">
-                                <input type="checkbox" class="form-check-input estimator-check" data-price="150" data-name="Technical SEO & Core Web Vitals Speed Tuning" />
-                                <div>
-                                    <span class="text-white fw-semibold d-block">Technical SEO &amp; Core Web Vitals Tuning</span>
-                                    <small class="text-muted">Search indexing optimization, meta tags, sub-second load times</small>
-                                </div>
-                            </div>
-                            <span class="badge bg-dark text-warning font-monospace border border-secondary">$150</span>
-                        </label>
-                    </div>
-
-                    <h5 class="text-white fw-bold mb-3 font-monospace d-flex align-items-center gap-2">
-                        <i class="fas fa-tachometer-alt text-neon-purple"></i>
-                        <span>2. Delivery Urgency</span>
-                    </h5>
-                    <div class="d-flex flex-column flex-sm-row flex-wrap gap-3 gap-sm-4">
-                        <label class="d-flex align-items-center gap-2 cursor-pointer text-white font-monospace small">
-                            <input type="radio" name="estimator-urgency" value="1" checked class="form-check-input" />
-                            <span>Standard Delivery (3–4 Weeks)</span>
-                        </label>
-                        <label class="d-flex align-items-center gap-2 cursor-pointer text-white font-monospace small">
-                            <input type="radio" name="estimator-urgency" value="1.25" class="form-check-input" />
-                            <span class="text-warning">Express Fast-Track (1–2 Weeks) [+25%]</span>
-                        </label>
+                            <h6 class="text-white fw-bold mb-1">Continuous Deployment &amp; Live Monitoring</h6>
+                            <p class="text-muted small mb-0">Automated builds, Docker containerization, cloud edge hosting, and real-time client-side telemetry HUD diagnostics.</p>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Right: Dynamic Scope Slip Card -->
+            <!-- Right: Architectural Benchmark HUD Card -->
             <div class="col-lg-5" data-aos="fade-left">
                 <div class="glass-panel p-4 h-100 d-flex flex-column justify-content-between border-0">
                     <div>
                         <div class="d-flex justify-content-between align-items-center pb-2 mb-3 border-bottom border-secondary border-opacity-30">
                             <h5 class="text-white fw-bold font-monospace mb-0">
-                                <i class="fas fa-file-invoice text-neon-green me-1"></i> Estimation Slip
+                                <i class="fas fa-microchip text-neon-cyan me-1"></i> Architecture Standards
                             </h5>
-                            <span class="badge bg-dark border border-secondary text-neon-cyan font-monospace">VERIFIED SLA</span>
+                            <span class="badge bg-dark border border-secondary text-neon-green font-monospace">ENTERPRISE GRADE</span>
                         </div>
 
-                        <div class="d-flex justify-content-between align-items-center mb-2 font-monospace small">
-                            <span class="text-muted">Selected Modules:</span>
-                            <span class="text-white fw-bold" id="estimator-modules-count">2 Modules</span>
-                        </div>
-                        <div class="d-flex justify-content-between align-items-center mb-3 font-monospace small">
-                            <span class="text-muted">Estimated Delivery:</span>
-                            <span class="text-neon-cyan fw-bold" id="estimator-delivery-time">3–4 Weeks</span>
+                        <!-- Benchmark Metrics -->
+                        <div class="p-3 rounded-3 mb-3" style="background: rgba(0, 217, 255, 0.06); border: 1px solid rgba(0, 217, 255, 0.25);">
+                            <div class="d-flex justify-content-between align-items-center mb-1 font-monospace">
+                                <span class="text-white small fw-bold"><i class="fas fa-tachometer-alt text-neon-cyan me-2"></i>Target API Latency</span>
+                                <span class="text-neon-cyan fw-bold">&lt; 100 ms</span>
+                            </div>
+                            <div class="progress" style="height: 5px; background: rgba(255,255,255,0.1);">
+                                <div class="progress-bar bg-info" style="width: 95%;"></div>
+                            </div>
                         </div>
 
-                        <div class="p-3 rounded-3 mb-4 text-center" style="background: rgba(16, 185, 129, 0.08); border: 1px dashed rgba(16, 185, 129, 0.4);">
-                            <span class="small font-monospace text-muted d-block mb-1">TOTAL ESTIMATED INVESTMENT</span>
-                            <h2 class="display-6 text-neon-green fw-bold mb-0 font-monospace" id="estimator-total-val">$650</h2>
+                        <div class="p-3 rounded-3 mb-3" style="background: rgba(16, 185, 129, 0.06); border: 1px solid rgba(16, 185, 129, 0.25);">
+                            <div class="d-flex justify-content-between align-items-center mb-1 font-monospace">
+                                <span class="text-white small fw-bold"><i class="fas fa-shield-alt text-neon-green me-2"></i>Security &amp; Data Integrity</span>
+                                <span class="text-neon-green fw-bold">99.9% SLA</span>
+                            </div>
+                            <div class="progress" style="height: 5px; background: rgba(255,255,255,0.1);">
+                                <div class="progress-bar bg-success" style="width: 98%;"></div>
+                            </div>
+                        </div>
+
+                        <div class="p-3 rounded-3 mb-4" style="background: rgba(168, 85, 247, 0.06); border: 1px solid rgba(168, 85, 247, 0.25);">
+                            <div class="d-flex justify-content-between align-items-center mb-1 font-monospace">
+                                <span class="text-white small fw-bold"><i class="fas fa-layer-group text-neon-purple me-2"></i>Code Modularity &amp; Clean Specs</span>
+                                <span class="text-neon-purple fw-bold">SOLID &amp; DRY</span>
+                            </div>
+                            <div class="progress" style="height: 5px; background: rgba(255,255,255,0.1);">
+                                <div class="progress-bar" style="width: 94%; background: #A855F7;"></div>
+                            </div>
                         </div>
 
                         <p class="text-muted small leading-relaxed mb-4">
-                            Transparent pricing based on production architecture complexity, code quality assurance, and post-deployment guarantee.
+                            All systems adhere to strict enterprise software standards, guaranteeing seamless maintainability, cloud adaptability, and robust architectural defense.
                         </p>
                     </div>
 
                     <!-- Action buttons -->
                     <div class="d-flex flex-column gap-2 pt-3 border-top border-secondary border-opacity-25">
-                        <a href="https://wa.me/923055188896" target="_blank" class="btn btn-neon text-white font-monospace w-100 py-2.5" id="estimator-whatsapp-btn">
-                            <i class="fab fa-whatsapp me-2"></i> Dispatch Scope via WhatsApp
+                        <a href="https://github.com/saadsa9112-cloud" target="_blank" class="btn btn-neon text-white font-monospace w-100 py-2.5">
+                            <i class="fab fa-github me-2"></i> Review Architecture Repositories
                         </a>
-                        <a href="#contact-section" class="btn btn-outline-light border-secondary font-monospace w-100 py-2 hover-bg-light hover-text-dark" id="estimator-contact-btn">
-                            <i class="fas fa-envelope-open-text me-2"></i> Load Scope into Contact Form
+                        <a href="#contact-section" class="btn btn-outline-light border-secondary font-monospace w-100 py-2 hover-bg-light hover-text-dark">
+                            <i class="fas fa-terminal me-2"></i> Request Technical Consultation
                         </a>
                     </div>
                 </div>
@@ -954,34 +1018,60 @@
         </div>
     </div>
 </section>
-}
 
-<!-- LIVE GITHUB TELEMETRY STRIP -->
-<section class="py-4 border-top border-secondary border-opacity-20 bg-dark bg-opacity-20">
+<!-- LIVE GITHUB TELEMETRY STRIP & INTERACTIVE HEATMAP MATRIX -->
+<section class="py-5 border-top border-secondary border-opacity-20 bg-dark bg-opacity-20 position-relative overflow-hidden" id="github-matrix-section">
     <div class="container py-2">
-        <div class="glass-panel p-3 p-md-4 d-flex flex-column flex-md-row align-items-center justify-content-between gap-3 font-monospace" data-aos="fade-up">
-            <div class="d-flex align-items-center gap-3">
-                <div class="fs-1 text-white"><i class="fab fa-github"></i></div>
-                <div>
-                    <div class="d-flex align-items-center gap-2">
-                        <h6 class="text-white fw-bold mb-0">saadsa9112-cloud</h6>
-                        <span class="badge bg-success bg-opacity-20 text-success border border-success border-opacity-40">ACTIVE CONTRIBUTOR</span>
+        <div class="glass-panel p-4 font-monospace shadow-lg" data-aos="fade-up">
+            <div class="d-flex flex-column flex-md-row align-items-start align-items-md-center justify-content-between gap-3 pb-3 border-bottom border-secondary border-opacity-25 mb-4">
+                <div class="d-flex align-items-center gap-3">
+                    <div class="fs-1 text-white github-hub-icon"><i class="fab fa-github"></i></div>
+                    <div>
+                        <div class="d-flex align-items-center gap-2">
+                            <h5 class="text-white fw-bold mb-0">saadsa9112-cloud</h5>
+                            <span class="badge bg-success bg-opacity-20 text-success border border-success border-opacity-40"><span class="pulse-dot-green me-1"></span>ACTIVE CONTRIBUTOR</span>
+                        </div>
+                        <small class="text-muted">C# · ASP.NET Core 10 · MERN Stack · SQL Server · Cloud Telemetry</small>
                     </div>
-                    <small class="text-muted">C# · ASP.NET Core · MERN Stack · SQL Server · Graphic Design</small>
+                </div>
+                    <div class="text-center px-3 py-1.5 rounded github-stat-card border">
+                        <span class="d-block text-neon-green fw-bold fs-6" id="github-total-commits">129+</span>
+                        <span class="small text-muted" style="font-size: 0.7rem;">YEAR COMMITS</span>
+                    </div>
+                    <div class="text-center px-3 py-1.5 rounded github-stat-card border">
+                        <span class="d-block text-neon-cyan fw-bold fs-6">5 Repos</span>
+                        <span class="small text-muted" style="font-size: 0.7rem;">PUBLIC SYSTEMS</span>
+                    </div>
+                    <div class="text-center px-3 py-1.5 rounded github-stat-card border">
+                        <span class="d-block text-warning fw-bold fs-6">100%</span>
+                        <span class="small text-muted" style="font-size: 0.7rem;">CI/CD VERIFIED</span>
+                    </div>
+                    <a href="https://github.com/saadsa9112-cloud" target="_blank" class="btn btn-outline-cyan rounded-pill px-3 py-2 small font-monospace">
+                        <i class="fab fa-github me-1"></i> Explore GitHub Profile
+                    </a>
                 </div>
             </div>
-            <div class="d-flex flex-wrap align-items-center gap-3">
-                <div class="text-center px-3 py-1 rounded bg-dark border border-secondary">
-                    <span class="d-block text-neon-cyan fw-bold">5+</span>
-                    <span class="small text-muted" style="font-size: 0.72rem;">REPOSITORIES</span>
+
+            <!-- Heatmap Commit Matrix Visualizer -->
+            <div class="github-matrix-container overflow-x-auto pb-2">
+                <div class="d-flex justify-content-between align-items-center mb-2 small text-muted">
+                    <span><i class="fas fa-chart-line text-neon-cyan me-1"></i> Interactive Production Commit Grid (Past 52 Weeks)</span>
+                    <div class="d-flex align-items-center gap-1.5 font-monospace" style="font-size: 0.7rem;">
+                        <span>Less</span>
+                        <span class="gh-cell level-0"></span>
+                        <span class="gh-cell level-1"></span>
+                        <span class="gh-cell level-2"></span>
+                        <span class="gh-cell level-3"></span>
+                        <span class="gh-cell level-4"></span>
+                        <span>More</span>
+                    </div>
                 </div>
-                <div class="text-center px-3 py-1 rounded bg-dark border border-secondary">
-                    <span class="d-block text-neon-purple fw-bold">100%</span>
-                    <span class="small text-muted" style="font-size: 0.72rem;">CI/CD VERIFIED</span>
-                </div>
-                <a href="https://github.com/saadsa9112-cloud" target="_blank" class="btn btn-outline-cyan rounded-pill px-3 py-1.5 small font-monospace">
-                    View GitHub Profile <i class="fas fa-external-link-alt ms-1"></i>
-                </a>
+                <div class="github-heatmap-grid" id="githubHeatmapGrid"></div>
+            </div>
+            
+            <div class="d-flex flex-wrap justify-content-between align-items-center mt-3 pt-2 text-muted small border-top border-secondary border-opacity-20" style="font-size: 0.75rem;">
+                <div><i class="fas fa-check text-success me-1"></i> Verified Commits: Zero-Trust signing enabled across all repositories</div>
+                <div class="font-monospace text-neon-cyan">Current Focus: eBPF Telemetry SIEM &amp; AI Sharding Core</div>
             </div>
         </div>
     </div>

@@ -19,10 +19,51 @@
     <meta http-equiv="Pragma" content="no-cache" />
     <meta http-equiv="Expires" content="0" />
     <meta name="title" content="@(ViewData["MetaTitle"] ?? settings?.MetaTitle ?? "HMS Developer | Software Engineer & Systems Architect")" />
-    <meta name="description" content="@(ViewData["MetaDescription"] ?? settings?.MetaDescription ?? "HMS Developer (Hafiz Muhammad Saad) — Software Developer & Systems Architect specializing in ASP.NET Core MVC, MERN Stack, SQL Server, Graphic Designing, and SEO.")" />
+        <meta name="description" content="@(ViewData["MetaDescription"] ?? settings?.MetaDescription ?? "HMS Developer (Hafiz Muhammad Saad) — Software Developer & Systems Architect specializing in ASP.NET Core MVC, MERN Stack, SQL Server, Graphic Designing, and SEO.")" />
+    <meta name="author" content="Hafiz Muhammad Saad (HMS Developer)" />
+    <meta name="keywords" content="Muhammad Saad, Full Stack Developer, ASP.NET Core MVC, MERN Stack, C#, SQL Server, Systems Architect, Karachi Pakistan, Cyber Security, UI UX Designer" />
+    <link rel="canonical" href="https://hmsdeveloper.com/" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://hmsdeveloper.com/" />
+    <meta property="og:title" content="@(ViewData["MetaTitle"] ?? settings?.MetaTitle ?? "HMS Developer | Software Engineer & Systems Architect")" />
+    <meta property="og:description" content="Portfolio of Hafiz Muhammad Saad — Full-Stack Software Engineer specializing in ASP.NET Core 10, MERN Stack, Zero-Trust Architecture & Enterprise Systems." />
+    <meta property="og:image" content="https://hmsdeveloper.com/favicon.svg" />
+    <meta property="og:site_name" content="HMS Developer Portfolio" />
+
+    <!-- Twitter Cards -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="https://hmsdeveloper.com/" />
+    <meta name="twitter:title" content="@(ViewData["MetaTitle"] ?? settings?.MetaTitle ?? "HMS Developer | Software Engineer & Systems Architect")" />
+    <meta name="twitter:description" content="Portfolio of Hafiz Muhammad Saad — Full-Stack Software Engineer specializing in ASP.NET Core 10, MERN Stack, Zero-Trust Architecture & Enterprise Systems." />
+    <meta name="twitter:image" content="https://hmsdeveloper.com/favicon.svg" />
+
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+      "@@context": "https://schema.org",
+      "@@type": "Person",
+      "name": "Hafiz Muhammad Saad",
+      "alternateName": "HMS Developer",
+      "url": "https://hmsdeveloper.com",
+      "email": "saad.sa9112@gmail.com",
+      "telephone": "+923055188896",
+      "jobTitle": "Full-Stack Software Engineer & Systems Architect",
+      "address": {
+        "@@type": "PostalAddress",
+        "addressLocality": "Karachi",
+        "addressCountry": "Pakistan"
+      },
+      "sameAs": [
+        "https://github.com/saadsa9112-cloud"
+      ],
+      "knowsAbout": ["C#", "ASP.NET Core", "React", "Node.js", "MongoDB", "SQL Server", "Zero-Trust Architecture", "SEO Optimization"]
+    }
+    </script>
 
     <!-- Style Assets -->
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" /><link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/FuturisticPortfolio.styles.css" asp-append-version="true" />
     
@@ -179,11 +220,11 @@
                         <span class="cyber-brand-sub font-monospace">H. M. SAAD // SOFTWARE ENGINEER</span>
                     </div>
                 </a>
-                <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbarNav" aria-controls="mainNavbarNav" id="mainNavbarToggler"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse justify-content-end">
+                <div class="navbar-collapse collapse justify-content-end" id="mainNavbarNav">
                     <ul class="navbar-nav gap-3 align-items-center">
                         <li class="nav-item">
                             <a class="nav-link" asp-controller="Home" asp-action="Index">Home</a>
@@ -203,6 +244,12 @@
                         @if (flags.EnableAudioSfx)
                         {
                             <li class="nav-item d-flex align-items-center ms-lg-2">
+                                <button type="button" class="btn btn-sm btn-neon-cyan font-monospace px-2.5 py-1 d-flex align-items-center gap-1 recruiter-mode-trigger shadow-sm" id="nav-recruiter-btn" title="Open 30-Second Recruiter Summary Dossier">
+                                    <i class="fas fa-bolt text-warning"></i>
+                                    <span class="fw-bold" style="font-size: 0.76rem;">Recruiter Mode</span>
+                                </button>
+                            </li>
+                            <li class="nav-item d-flex align-items-center ms-lg-1">
                                 <button type="button" class="btn btn-link text-white p-2 border-0" id="sfx-toggle-btn" style="text-decoration: none; box-shadow: none;" title="Toggle Cyber Audio FX">
                                     <i class="fas fa-volume-mute text-secondary" id="sfx-icon"></i>
                                     <span class="d-none d-xl-inline font-monospace small ms-1 text-muted" id="sfx-label" style="font-size: 0.72rem;">SFX: OFF</span>
@@ -250,6 +297,14 @@
                     </span>
                 </div>
                 <div class="d-flex align-items-center gap-2 flex-shrink-0 ms-2">
+                    <span class="cyber-metric-item d-none d-md-inline">
+                        <i class="fas fa-clock text-warning me-1"></i> KHI: <span id="live-khi-clock" class="text-white">--:--:--</span>
+                    </span>
+                    <span class="text-secondary opacity-50 d-none d-lg-inline">|</span>
+                    <span class="cyber-metric-item d-none d-lg-inline">
+                        <span class="pulse-dot-green me-1"></span><span class="text-neon-green">AVAILABLE FOR HIRE</span>
+                    </span>
+                    <span class="text-secondary opacity-50 d-none d-md-inline">|</span>
                     <span class="cyber-ping-badge" id="live-ping-val">
                         <i class="fas fa-bolt text-success me-1"></i> 14ms (PK-KHI)
                     </span>
@@ -283,10 +338,10 @@
                 </div>
             </div>
             <div class="d-flex align-items-center gap-1">
-                <button class="btn btn-sm text-muted p-1 hover-text-white transition border-0 bg-transparent" id="ai-chat-reset" title="Reset Chat" aria-label="Reset Conversation">
+                <button type="button" class="btn btn-sm text-muted p-1 hover-text-white transition border-0 bg-transparent" id="ai-chat-reset" title="Reset Chat" aria-label="Reset Conversation">
                     <i class="fas fa-redo-alt fs-6"></i>
                 </button>
-                <button class="btn btn-sm text-muted p-1 hover-text-white transition border-0 bg-transparent" id="ai-chat-close" title="Close" aria-label="Close Assistant">
+                <button type="button" class="btn btn-sm text-muted p-1 hover-text-white transition border-0 bg-transparent" id="ai-chat-close" title="Close" aria-label="Close Assistant">
                     <i class="fas fa-times fs-6"></i>
                 </button>
             </div>
@@ -300,27 +355,27 @@
         <!-- Quick Chips Bar -->
         <div class="ai-quick-bar px-3 py-2 border-top border-secondary border-opacity-20">
             <div class="quick-chips-container d-flex gap-1.5 overflow-x-auto pb-1" id="quick-action-chips">
-                <button class="quick-chip chip-whatsapp" data-query="WhatsApp Contact"><i class="fab fa-whatsapp me-1 text-success"></i> WhatsApp</button>
-                <button class="quick-chip chip-cv" data-query="Download CV"><i class="fas fa-file-download me-1 text-danger"></i> Download CV</button>
-                <button class="quick-chip" data-query="Projects"><i class="fas fa-folder-open me-1 text-neon-cyan"></i> Projects</button>
-                <button class="quick-chip" data-query="Tech Stack"><i class="fas fa-code me-1 text-neon-purple"></i> Tech Stack</button>
-                <button class="quick-chip" data-query="Education"><i class="fas fa-graduation-cap me-1 text-info"></i> Education</button>
-                <button class="quick-chip" data-query="Experience"><i class="fas fa-briefcase me-1 text-warning"></i> Experience</button>
-                <button class="quick-chip" data-query="About Saad"><i class="fas fa-user-check me-1 text-primary"></i> About Saad</button>
+                <button type="button" class="quick-chip chip-whatsapp" data-query="WhatsApp Contact"><i class="fab fa-whatsapp me-1 text-success"></i> WhatsApp</button>
+                <button type="button" class="quick-chip chip-cv" data-query="Download CV"><i class="fas fa-file-download me-1 text-danger"></i> Download CV</button>
+                <button type="button" class="quick-chip" data-query="Projects"><i class="fas fa-folder-open me-1 text-neon-cyan"></i> Projects</button>
+                <button type="button" class="quick-chip" data-query="Tech Stack"><i class="fas fa-code me-1 text-neon-purple"></i> Tech Stack</button>
+                <button type="button" class="quick-chip" data-query="Education"><i class="fas fa-graduation-cap me-1 text-info"></i> Education</button>
+                <button type="button" class="quick-chip" data-query="Experience"><i class="fas fa-briefcase me-1 text-warning"></i> Experience</button>
+                <button type="button" class="quick-chip" data-query="About Saad"><i class="fas fa-user-check me-1 text-primary"></i> About Saad</button>
             </div>
         </div>
 
         <!-- Input Area -->
         <div class="ai-chat-input p-2.5 d-flex align-items-center gap-2 border-top border-secondary border-opacity-20">
             <textarea class="form-control ai-input-field border-0 shadow-none text-white bg-transparent" placeholder="Ask me about Saad's projects, skills, education..." id="ai-user-message" rows="1" autocomplete="off" aria-label="Ask Saad's AI Assistant"></textarea>
-            <button class="btn btn-gradient-send rounded-circle d-flex align-items-center justify-content-center transition flex-shrink-0" id="ai-send-message" aria-label="Send Message">
+            <button type="button" class="btn btn-gradient-send rounded-circle d-flex align-items-center justify-content-center transition flex-shrink-0" id="ai-send-message" aria-label="Send Message">
                 <i class="fas fa-paper-plane fs-6"></i>
             </button>
         </div>
     </div>
 
     <!-- Floating Chat Trigger Button -->
-    <button class="fab-btn d-flex align-items-center justify-content-center shadow-lg" id="ai-chat-toggle" title="Saad's AI Assistant" aria-label="Ask Saad's AI Assistant">
+    <button type="button" class="fab-btn d-flex align-items-center justify-content-center shadow-lg" id="ai-chat-toggle" title="Saad's AI Assistant" aria-label="Ask Saad's AI Assistant">
         <i class="fas fa-robot fs-4 text-white"></i>
     </button>
 
@@ -347,12 +402,12 @@
                 <div class="col-lg-2 col-md-6">
                     <h5 class="text-white fw-semibold mb-3">Navigation</h5>
                     <ul class="list-unstyled mb-0 d-flex flex-column gap-2 footer-nav-list">
-                        <li><a asp-controller="Home" asp-action="Index" class="footer-nav-link"><i class="fas fa-chevron-right text-neon-purple"></i> <span>Home</span></a></li>
-                        <li><a asp-controller="Home" asp-action="About" class="footer-nav-link"><i class="fas fa-chevron-right text-neon-purple"></i> <span>About</span></a></li>
-                        <li><a href="/Home/About#skills-section" class="footer-nav-link"><i class="fas fa-chevron-right text-neon-purple"></i> <span>Skills</span></a></li>
-                        <li><a asp-controller="Portfolio" asp-action="Index" class="footer-nav-link"><i class="fas fa-chevron-right text-neon-purple"></i> <span>Projects</span></a></li>
-                        <li><a asp-controller="Blog" asp-action="Index" class="footer-nav-link"><i class="fas fa-chevron-right text-neon-purple"></i> <span>Tech Logs</span></a></li>
-                        <li><a asp-controller="Home" asp-action="Contact" class="footer-nav-link"><i class="fas fa-chevron-right text-neon-purple"></i> <span>Contact</span></a></li>
+                        <li><a asp-controller="Home" asp-action="Index" class="footer-nav-link"><i class="fas fa-chevron-right footer-nav-arrow"></i> <span>Home</span></a></li>
+                        <li><a asp-controller="Home" asp-action="About" class="footer-nav-link"><i class="fas fa-chevron-right footer-nav-arrow"></i> <span>About</span></a></li>
+                        <li><a asp-controller="Home" asp-action="About" asp-fragment="skills-section" class="footer-nav-link"><i class="fas fa-chevron-right footer-nav-arrow"></i> <span>Skills</span></a></li>
+                        <li><a asp-controller="Portfolio" asp-action="Index" class="footer-nav-link"><i class="fas fa-chevron-right footer-nav-arrow"></i> <span>Projects</span></a></li>
+                        <li><a asp-controller="Blog" asp-action="Index" class="footer-nav-link"><i class="fas fa-chevron-right footer-nav-arrow"></i> <span>Tech Logs</span></a></li>
+                        <li><a asp-controller="Home" asp-action="Contact" class="footer-nav-link"><i class="fas fa-chevron-right footer-nav-arrow"></i> <span>Contact</span></a></li>
                     </ul>
                 </div>
 
@@ -426,6 +481,14 @@
             </div>
 
             <div class="command-list" id="command-results">
+                <div class="command-item clickable" data-action="recruiter"><i class="fas fa-bolt me-2 text-warning"></i> recruiter-mode <span class="text-muted ms-2">// 30-Second Executive Summary Dossier</span> <span class="badge bg-warning text-dark ms-auto">HOT</span></div>
+                <div class="command-item clickable" data-action="cv"><i class="fas fa-file-pdf me-2 text-danger"></i> download-cv <span class="text-muted ms-2">// Download Official Muhammad_Saad_CV.pdf</span> <span class="badge bg-dark ms-auto">PDF</span></div>
+                <div class="command-item clickable" data-action="whatsapp"><i class="fab fa-whatsapp me-2 text-success"></i> chat-whatsapp <span class="text-muted ms-2">// Direct WhatsApp Uplink with Saad</span> <span class="badge bg-dark ms-auto">CHAT</span></div>
+                <div class="command-item clickable" data-action="cmd" data-cmd="sudo hire saad"><i class="fas fa-crown me-2 text-warning"></i> sudo hire saad <span class="text-muted ms-2">// VIP Talent Acquisition Protocol</span> <span class="badge bg-dark ms-auto">VIP</span></div>
+                <div class="command-item clickable" data-action="cmd" data-cmd="matrix"><i class="fas fa-terminal me-2 text-neon-green"></i> matrix <span class="text-muted ms-2">// Toggle Cyberpunk Digital Rain</span> <span class="badge bg-dark ms-auto">RAIN</span></div>
+                <div class="command-item clickable" data-action="theme"><i class="fas fa-sun me-2 text-warning"></i> toggle-theme <span class="text-muted ms-2">// Switch Dark Cyber / Light Blueprint</span> <span class="badge bg-dark ms-auto">THEME</span></div>
+                <div class="command-item clickable" data-action="api"><i class="fas fa-plug me-2 text-info"></i> api-playground <span class="text-muted ms-2">// Jump to Interactive REST API Inspector</span> <span class="badge bg-dark ms-auto">LAB</span></div>
+                <div class="command-item clickable" data-action="casestudy"><i class="fas fa-sliders-h me-2 text-neon-cyan"></i> case-study <span class="text-muted ms-2">// Before/After Re-engineering Slider</span> <span class="badge bg-dark ms-auto">DEMO</span></div>
                 <div class="command-item clickable" data-action="cmd" data-cmd="sec-audit"><i class="fas fa-shield-alt me-2 text-danger"></i> sec-audit <span class="text-muted ms-2">// Execute Live Vulnerability &amp; Architecture Audit</span> <span class="badge bg-dark ms-auto">RUN</span></div>
                 <div class="command-item clickable" data-action="cmd" data-cmd="projects"><i class="fas fa-folder-open me-2 text-neon-cyan"></i> projects <span class="text-muted ms-2">// List All 5 Enterprise Systems (Inc. Under Dev)</span> <span class="badge bg-dark ms-auto">LIST</span></div>
                 <div class="command-item clickable" data-action="cmd" data-cmd="skills"><i class="fas fa-code me-2 text-neon-purple"></i> skills <span class="text-muted ms-2">// Inspect .NET 10, MERN, C# &amp; Security Stack</span> <span class="badge bg-dark ms-auto">AST</span></div>
@@ -451,9 +514,148 @@
     </div>
 
     <!-- Site Preferences & Settings Modal -->
-    <div class="modal fade" id="preferencesModal" tabindex="-1" aria-labelledby="preferencesModalLabel" aria-hidden="true">
+        <!-- 30-Second Recruiter Mode Executive Dossier Modal -->
+    <div class="modal fade" id="recruiterModeModal" tabindex="-1" aria-labelledby="recruiterModeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content glass-panel border-secondary recruiter-modal-content">
+                <div class="modal-header border-secondary border-opacity-35 pb-3">
+                    <div class="d-flex align-items-center gap-2">
+                        <span class="pulse-dot-green"></span>
+                        <h5 class="modal-title font-monospace fw-bold text-neon-cyan mb-0" id="recruiterModeModalLabel">
+                            <i class="fas fa-bolt text-warning me-1"></i> RECRUITER MODE // 30-SECOND EXECUTIVE DOSSIER
+                        </h5>
+                    </div>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <!-- Quick Header Summary -->
+                    <div class="d-flex flex-column flex-md-row align-items-start align-items-md-center justify-content-between gap-3 p-3 rounded mb-4 recruiter-header-card">
+                        <div class="d-flex align-items-center gap-3">
+                            <div class="recruiter-avatar-badge position-relative">
+                                <img src="/images/profile/saad-profile-opt.jpg" alt="Muhammad Saad" class="rounded-circle border border-2 border-info" style="width: 58px; height: 58px; object-fit: cover;" onerror="this.onerror=null; this.src='https://ui-avatars.com/api/?name=Muhammad+Saad&background=0284c7&color=fff';" />
+                                <span class="position-absolute bottom-0 end-0 p-1 bg-success border border-light rounded-circle" title="Active"></span>
+                            </div>
+                            <div>
+                                <h4 class="text-white fw-bold mb-0">Hafiz Muhammad Saad</h4>
+                                <div class="text-neon-cyan font-monospace small">Senior Full-Stack Architect (.NET 10 / MERN / SQL)</div>
+                                <div class="text-muted small"><i class="fas fa-map-marker-alt text-danger me-1"></i> Karachi, PK · Open for Remote, Hybrid &amp; Global Contracts</div>
+                            </div>
+                        </div>
+                        <div class="d-flex flex-wrap gap-2">
+                            <a href="~/files/Muhammad_Saad_CV.pdf" download="Muhammad_Saad_CV.pdf" class="btn btn-sm btn-neon text-white font-monospace cv-download-trigger">
+                                <i class="fas fa-file-pdf me-1"></i> Download CV
+                            </a>
+                            <a href="https://wa.me/923168925434?text=Hi%20Saad,%20I%20reviewed%20your%20Recruiter%20Dossier%20and%20would%20like%20to%20discuss%20an%20opportunity." target="_blank" class="btn btn-sm btn-outline-success font-monospace">
+                                <i class="fab fa-whatsapp me-1"></i> WhatsApp
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- 4 Hard Numbers / Key Impact Metrics -->
+                    <div class="row g-3 mb-4 text-center">
+                        <div class="col-6 col-md-3">
+                            <div class="p-3 rounded recruiter-metric-box">
+                                <div class="display-6 fw-bold text-neon-green">5+</div>
+                                <div class="text-muted small font-monospace">Years Production Exp</div>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-3">
+                            <div class="p-3 rounded recruiter-metric-box">
+                                <div class="display-6 fw-bold text-neon-cyan">40+</div>
+                                <div class="text-muted small font-monospace">Shipped Deployments</div>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-3">
+                            <div class="p-3 rounded recruiter-metric-box">
+                                <div class="display-6 fw-bold text-neon-purple">99.98%</div>
+                                <div class="text-muted small font-monospace">High-Availability SLA</div>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-3">
+                            <div class="p-3 rounded recruiter-metric-box">
+                                <div class="display-6 fw-bold text-warning">&lt;180ms</div>
+                                <div class="text-muted small font-monospace">Avg DB/API Latency</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Top 3 Proof-of-Work Architectures -->
+                    <div class="mb-4">
+                        <div class="d-flex align-items-center justify-content-between mb-2">
+                            <h6 class="font-monospace text-neon-cyan fw-bold mb-0">
+                                <i class="fas fa-layer-group me-1"></i> TOP 3 FLAGSHIP ARCHITECTURES
+                            </h6>
+                            <a asp-controller="Portfolio" asp-action="Index" class="small text-muted font-monospace text-decoration-none">View All 40+ Projects &rarr;</a>
+                        </div>
+                        <div class="d-flex flex-column gap-2">
+                            <!-- Project 1 -->
+                            <div class="p-3 rounded recruiter-proj-item">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <strong class="text-white">1. NED Academy University Management System (UMS)</strong>
+                                    <span class="badge bg-success bg-opacity-25 text-success font-monospace">PRODUCTION</span>
+                                </div>
+                                <p class="text-muted small mb-2 mt-1">Multi-tenant academic portal managing 15,000+ students, dynamic courses, and automated grading with 4.2x faster query throughput via EF Core &amp; SQL indexing.</p>
+                                <div class="d-flex flex-wrap gap-1 font-monospace" style="font-size: 0.72rem;">
+                                    <span class="badge bg-dark text-info border border-secondary border-opacity-40">ASP.NET Core MVC</span>
+                                    <span class="badge bg-dark text-info border border-secondary border-opacity-40">SQL Server</span>
+                                    <span class="badge bg-dark text-info border border-secondary border-opacity-40">Entity Framework Core</span>
+                                    <a href="/portfolio/details/2/" class="ms-auto text-neon-cyan text-decoration-none">Deep Dive &rarr;</a>
+                                </div>
+                            </div>
+                            <!-- Project 2 -->
+                            <div class="p-3 rounded recruiter-proj-item">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <strong class="text-white">2. Futuristic Cloud Portfolio &amp; Telemetry Engine</strong>
+                                    <span class="badge bg-info bg-opacity-25 text-info font-monospace">LIVE FLAGSHIP</span>
+                                </div>
+                                <p class="text-muted small mb-2 mt-1">Dual-stack architecture (ASP.NET Core 10 + MERN) with interactive eBPF-style telemetry HUD, AI Roasting Assistant, and 100/100 Lighthouse performance.</p>
+                                <div class="d-flex flex-wrap gap-1 font-monospace" style="font-size: 0.72rem;">
+                                    <span class="badge bg-dark text-info border border-secondary border-opacity-40">React 19</span>
+                                    <span class="badge bg-dark text-info border border-secondary border-opacity-40">Node.js Express</span>
+                                    <span class="badge bg-dark text-info border border-secondary border-opacity-40">REST APIs</span>
+                                    <a href="/" class="ms-auto text-neon-cyan text-decoration-none">Explore Engine &rarr;</a>
+                                </div>
+                            </div>
+                            <!-- Project 3 -->
+                            <div class="p-3 rounded recruiter-proj-item">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <strong class="text-white">3. Nexora Digital Agency &amp; Enterprise Solutions</strong>
+                                    <span class="badge bg-warning bg-opacity-25 text-warning font-monospace">DEPLOYED</span>
+                                </div>
+                                <p class="text-muted small mb-2 mt-1">High-conversion client portal with fluid UI, zero CLS (Cumulative Layout Shift), and automated leads capture pipeline.</p>
+                                <div class="d-flex flex-wrap gap-1 font-monospace" style="font-size: 0.72rem;">
+                                    <span class="badge bg-dark text-info border border-secondary border-opacity-40">Next.js / Vite</span>
+                                    <span class="badge bg-dark text-info border border-secondary border-opacity-40">Tailwind CSS</span>
+                                    <span class="badge bg-dark text-info border border-secondary border-opacity-40">SEO 100%</span>
+                                    <a href="/portfolio/details/3/" class="ms-auto text-neon-cyan text-decoration-none">Deep Dive &rarr;</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Direct Hiring Action Bar -->
+                    <div class="p-3 rounded d-flex flex-wrap align-items-center justify-content-between gap-3 recruiter-action-bar">
+                        <div class="font-monospace small">
+                            <div class="text-white fw-bold"><i class="fas fa-check-circle text-success me-1"></i> Ready to interview or start immediately</div>
+                            <div class="text-muted">Direct Email: <a href="mailto:saad.sa9112@gmail.com" class="text-neon-cyan">saad.sa9112@gmail.com</a></div>
+                        </div>
+                        <div class="d-flex gap-2">
+                            <a href="mailto:saad.sa9112@gmail.com?subject=Opportunity%20Discussion%20-%20Muhammad%20Saad" class="btn btn-sm btn-neon btn-neon-cyan text-white font-monospace">
+                                <i class="fas fa-paper-plane me-1"></i> Send Email
+                            </a>
+                            <button type="button" class="btn btn-sm btn-outline-light border-secondary font-monospace" data-bs-dismiss="modal">
+                                Close &amp; Browse Site
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<div class="modal fade" id="preferencesModal" tabindex="-1" aria-labelledby="preferencesModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content glass-panel text-white border-secondary" style="background: rgba(17, 12, 28, 0.96) !important;">
+            <div class="modal-content glass-panel border-secondary">
                 <div class="modal-header border-secondary border-opacity-35">
                     <h5 class="modal-title font-monospace fw-bold text-neon-cyan" id="preferencesModalLabel">
                         <i class="fas fa-cog text-neon-purple me-2"></i> Site Preferences &amp; Settings
@@ -462,7 +664,7 @@
                 </div>
                 <div class="modal-body py-4">
                     <div class="d-flex flex-column gap-3">
-                        <div class="d-flex align-items-center justify-content-between p-3 rounded glass-panel">
+                        <div class="d-flex align-items-center justify-content-between pref-card-item">
                             <div>
                                 <h6 class="mb-0 text-white fw-semibold"><i class="fas fa-volume-up text-neon-purple me-2"></i> Click Sound Effects</h6>
                                 <small class="text-muted d-block">Synthesize audio beeps on interactive clicks</small>
@@ -472,7 +674,7 @@
                             </div>
                         </div>
 
-                        <div class="d-flex align-items-center justify-content-between p-3 rounded glass-panel">
+                        <div class="d-flex align-items-center justify-content-between pref-card-item">
                             <div>
                                 <h6 class="mb-0 text-white fw-semibold"><i class="fas fa-shield-alt text-danger me-2"></i> Security Breach Overlay Alert</h6>
                                 <small class="text-muted d-block">Allow security glitch overlay on rapid trigger</small>
@@ -482,7 +684,7 @@
                             </div>
                         </div>
 
-                        <div class="d-flex align-items-center justify-content-between p-3 rounded glass-panel">
+                        <div class="d-flex align-items-center justify-content-between pref-card-item">
                             <div>
                                 <h6 class="mb-0 text-white fw-semibold"><i class="fas fa-star text-warning me-2"></i> Particle Canvas Background</h6>
                                 <small class="text-muted d-block">Animate background particles</small>
@@ -492,7 +694,7 @@
                             </div>
                         </div>
 
-                        <div class="d-flex align-items-center justify-content-between p-3 rounded glass-panel">
+                        <div class="d-flex align-items-center justify-content-between pref-card-item">
                             <div>
                                 <h6 class="mb-0 text-white fw-semibold"><i class="fas fa-microchip text-neon-cyan me-2"></i> System Diagnostics Badge</h6>
                                 <small class="text-muted d-block">Display system status badge on Hero banner</small>
@@ -549,30 +751,100 @@
         </div>
     </div>
 
-    <!-- Developer Light Mode Roast Toast -->
-    <div id="developer-roast-toast" class="developer-roast-toast" role="alert" aria-live="assertive" style="display: none;">
-        <div class="roast-toast-inner">
-            <div class="roast-top-bar">
-                <span class="roast-badge"><i class="fas fa-radiation text-warning me-1"></i> FLASHBANG ALERT</span>
-                <button type="button" class="roast-dismiss-btn" id="roast-dismiss-btn" title="Dismiss">&times;</button>
+        <!-- Developer Light Mode Nuclear Savage Roast Modal (Tabahi Level) -->
+    <!-- Developer Light Mode Savage Roast Emergency Terminal Modal -->
+    <div id="developer-roast-modal-backdrop" class="developer-roast-modal-backdrop" style="display: none;" role="dialog" aria-modal="true" aria-labelledby="roast-modal-title">
+        <div class="developer-roast-modal position-relative">
+            <!-- Top Hazard Caution Strip -->
+            <div class="roast-hazard-strip"></div>
+
+            <!-- Modal Header Alert -->
+            <div class="d-flex justify-content-between align-items-center p-3 px-4 border-bottom border-danger border-opacity-30 roast-modal-topbar">
+                <div class="d-flex align-items-center gap-2">
+                    <span class="badge bg-danger text-white font-monospace fw-bold px-2.5 py-1 d-flex align-items-center gap-1.5 shadow-sm">
+                        <span class="roast-live-dot"></span>
+                        <i class="fas fa-radiation-alt"></i> EMERGENCY FLASHBANG DETECTED
+                    </span>
+                    <span class="text-danger font-monospace small fw-bold d-none d-sm-inline opacity-90">// SEVERE RETINA HAZARD</span>
+                </div>
+                <button type="button" class="btn btn-sm btn-link text-danger text-decoration-none fs-4 p-0 px-2" id="roast-modal-close" aria-label="Close Roast Modal">&times;</button>
             </div>
-            <div class="roast-content-body">
-                <div class="roast-avatar">😎💥</div>
-                <h5 class="roast-headline">Are You Sure You're A Developer?</h5>
-                <p class="roast-subline">
-                    "Real engineers code in the dark! Turning on Light Mode feels like you haven't touched a terminal today. Your eyes might regret this flashbang..."
-                </p>
-                <div class="roast-actions">
-                    <button type="button" class="btn btn-sm btn-revert-dark font-monospace" id="roast-revert-btn">
-                        <i class="fas fa-moon me-1"></i> I'm A Real Developer (Revert To Dark Mode)
+
+            <!-- Modal Content -->
+            <div class="p-3 p-md-4 text-center roast-modal-inner">
+                <!-- Holographic Hazard Icon Podium -->
+                <div class="roast-icon-podium mb-3">
+                    <div class="roast-glow-pulse"></div>
+                    <div class="roast-avatar-bubble">
+                        <span class="roast-emoji-main">🕶️</span>
+                        <span class="roast-emoji-burst">💥</span>
+                    </div>
+                </div>
+
+                <h3 class="text-white fw-black font-monospace mb-2 roast-headline" id="roast-modal-title">
+                    WHO TAUGHT YOU HOW TO USE A COMPUTER?!
+                </h3>
+
+                <div class="mb-3 d-inline-block">
+                    <span class="roast-badge-pill">
+                        <i class="fas fa-exclamation-triangle text-danger me-1"></i> [FATAL EXCEPTION: ZERO DEVELOPER CREDIBILITY FOUND]
+                    </span>
+                </div>
+
+                <!-- Live Hazard Diagnostics Ribbon -->
+                <div class="roast-telemetry-strip mb-3">
+                    <div class="roast-tele-col">
+                        <span class="tele-lbl">LUX OUTPUT</span>
+                        <span class="tele-val text-danger">9,999,999 cd/m²</span>
+                    </div>
+                    <div class="roast-tele-col">
+                        <span class="tele-lbl">DEV STATUS</span>
+                        <span class="tele-val text-warning">DISCREDITED</span>
+                    </div>
+                    <div class="roast-tele-col d-none d-sm-flex">
+                        <span class="tele-lbl">TARGET EDITOR</span>
+                        <span class="tele-val text-info">MS Word (.docx)</span>
+                    </div>
+                </div>
+
+                <!-- Savage Roast Grid -->
+                <div class="roast-cards-container text-start mb-3 d-flex flex-column gap-2">
+                    <div class="roast-mini-card">
+                        <div class="roast-mini-icon text-danger"><i class="fas fa-radiation"></i></div>
+                        <div class="roast-mini-text">
+                            <strong class="text-danger-light">Retina Flashbang Protocol:</strong>
+                            <span class="text-slate-light">Did you just scorch your retinas with 10,000,000 lumens of blinding white light? Are you debugging code or signaling an alien rescue ship?!</span>
+                        </div>
+                    </div>
+                    <div class="roast-mini-card">
+                        <div class="roast-mini-icon text-warning"><i class="fas fa-skull"></i></div>
+                        <div class="roast-mini-text">
+                            <strong class="text-warning-light">Pure Developer Heresy:</strong>
+                            <span class="text-slate-light">Real engineers haven't seen daylight since 2018. Light Mode makes you look like you write HTML in Word and debug with alert boxes.</span>
+                        </div>
+                    </div>
+                    <div class="roast-mini-card">
+                        <div class="roast-mini-icon text-danger"><i class="fas fa-ban"></i></div>
+                        <div class="roast-mini-text">
+                            <strong class="text-danger-light">Emergency Restraining Order:</strong>
+                            <span class="text-slate-light">Your IDE just crashed in second-hand embarrassment, and the SQL database server refused to execute your queries out of sheer disgust.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Savage Action Buttons -->
+                <div class="d-flex flex-column gap-2">
+                    <button type="button" class="btn roast-btn-revert py-2.5 px-3 rounded-pill fw-bold font-monospace d-flex align-items-center justify-content-center gap-2" id="roast-modal-revert">
+                        <i class="fas fa-moon fs-5"></i> 🌙 I APOLOGIZE TO MY EYES — GO BACK TO DARK MODE
+                    </button>
+                    <button type="button" class="btn roast-btn-ignore py-2 px-3 rounded-pill font-monospace small" id="roast-modal-ignore">
+                        🤡 No, I Enjoy Self-Harm &amp; Want To Go Completely Blind (Stay In Flashbang Mode)
                     </button>
                 </div>
             </div>
         </div>
     </div>
 
-    @if (flags.EnableArchScan)
-    {
     <!-- Architecture Quick-Scan Slide-out Drawer -->
     <div id="arch-scan-overlay" class="arch-scan-backdrop" style="display: none;"></div>
     <div id="arch-scan-drawer" class="arch-scan-panel" style="display: none;" role="dialog" aria-modal="true" aria-labelledby="arch-drawer-title">

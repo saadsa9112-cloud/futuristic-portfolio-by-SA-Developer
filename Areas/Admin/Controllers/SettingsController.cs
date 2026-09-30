@@ -179,8 +179,13 @@ namespace FuturisticPortfolio.Areas.Admin.Controllers
                 SocialLinks = await _unitOfWork.SocialLinks.GetAllAsync()
             };
 
-            var jsonBytes = JsonSerializer.SerializeToUtf8Bytes(exportObj, new JsonSerializerOptions { WriteIndented = true });
-            return File(jsonBytes, "application/json", "portfolio_databank_backup.json");
+            var options = new JsonSerializerOptions
+            {
+                WriteIndented = true,
+                ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles
+            };
+            var jsonBytes = JsonSerializer.SerializeToUtf8Bytes(exportObj, options);
+            return File(jsonBytes, "application/json", $"portfolio_databank_backup_{DateTime.UtcNow:yyyyMMdd_HHmm}.json");
         }
 
         // Database Import / Restore

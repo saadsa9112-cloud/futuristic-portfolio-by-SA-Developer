@@ -1,0 +1,43 @@
+# ==============================================================================
+# Robots.txt for Hafiz Muhammad Saad (HMS Developer Portfolio & Systems Architecture)
+# Production Live Host: https://hmsofficial.netlify.app
+# ==============================================================================
+
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /Admin/
+Disallow: /api/
+
+# Specialized Search Engine Bots (Full Access to Indexable Public Content)
+User-agent: Googlebot
+Allow: /
+Disallow: /admin/
+Disallow: /api/
+
+User-agent: Googlebot-Image
+Allow: /images/
+Allow: /favicon.svg
+Allow: /favicon.ico
+
+User-agent: Bingbot
+Allow: /
+Disallow: /admin/
+Disallow: /api/
+
+User-agent: Applebot
+Allow: /
+Disallow: /admin/
+
+User-agent: DuckDuckBot
+Allow: /
+
+User-agent: YandexBot
+Allow: /
+
+User-agent: Baiduspider
+Allow: /
+
+# Host & Canonical Sitemap
+Host: hmsofficial.netlify.app
+Sitemap: https://hmsofficial.netlify.app/sitemap.xml

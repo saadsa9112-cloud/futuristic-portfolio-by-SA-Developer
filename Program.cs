@@ -117,6 +117,9 @@ app.MapHub<AnalyticsHub>("/analyticsHub");
 
 app.MapStaticAssets();
 
+// Map attribute routed controllers (e.g. Analytics, Telemetry APIs)
+app.MapControllers();
+
 // Admin Area Route mapping
 app.MapControllerRoute(
     name: "areas",
