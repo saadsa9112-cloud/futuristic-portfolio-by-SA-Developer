@@ -2670,22 +2670,48 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // Section 17: Universal CV / Resume Download Resolver
+    // Section 17: Universal CV / Resume Download Resolver (IDM-Safe In-Memory Blob Engine)
+    window.downloadSaadCV = async function(e) {
+        if (e && e.preventDefault) e.preventDefault();
+
+        const isGhPages = window.location.hostname.includes("github.io");
+        const repoPrefix = isGhPages ? "/futuristic-portfolio-by-SA-Developer" : "";
+        const pdfUrl = `${repoPrefix}/files/Muhammad_Saad_CV.pdf`;
+
+        try {
+            const res = await fetch(pdfUrl, { cache: "no-cache" });
+            if (!res.ok) throw new Error("Fetch failed with status " + res.status);
+
+            const blob = await res.blob();
+            const blobUrl = window.URL.createObjectURL(blob);
+
+            const tempLink = document.createElement("a");
+            tempLink.style.display = "none";
+            tempLink.href = blobUrl;
+            tempLink.download = "Muhammad_Saad_CV.pdf";
+            document.body.appendChild(tempLink);
+            tempLink.click();
+
+            // Retain blob for 60 seconds to ensure the browser finishes writing to disk
+            setTimeout(() => {
+                tempLink.remove();
+                window.URL.revokeObjectURL(blobUrl);
+            }, 60000);
+            return;
+        } catch (err) {
+            console.warn("Direct blob download failed, falling back to direct navigation:", err);
+            window.open(pdfUrl, "_blank");
+        }
+    };
+
     document.addEventListener("click", (e) => {
         const link = e.target.closest(".cv-download-trigger, a[download*='Muhammad_Saad_CV'], a[download*='resume'], a[href*='Muhammad_Saad_CV.pdf'], a[href*='DownloadCv']");
         if (!link || link.tagName !== "A") return;
 
-        const isGhPages = window.location.hostname.includes("github.io");
-        const repoPrefix = isGhPages ? "/futuristic-portfolio-by-SA-Developer" : "";
-        
-        // On ASP.NET Core, /Home/DownloadCv sets Content-Disposition: attachment header
-        // On GitHub Pages (static), fallback to direct static PDF file path
-        const targetHref = isGhPages 
-            ? `${repoPrefix}/files/Muhammad_Saad_CV.pdf` 
-            : "/Home/DownloadCv";
+        // If user right-clicks or explicitly wants new tab, let native browser action occur
+        if (e.ctrlKey || e.metaKey || e.shiftKey) return;
 
-        link.setAttribute("href", targetHref);
-        link.setAttribute("download", "Muhammad_Saad_CV.pdf");
+        window.downloadSaadCV(e);
     });
 
     // ==========================================

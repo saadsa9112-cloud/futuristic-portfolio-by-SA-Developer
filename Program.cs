@@ -97,16 +97,7 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
-app.UseStaticFiles(new StaticFileOptions
-{
-    OnPrepareResponse = ctx =>
-    {
-        if (ctx.File.Name.EndsWith(".pdf", StringComparison.OrdinalIgnoreCase))
-        {
-            ctx.Context.Response.Headers.Append("Content-Disposition", $"attachment; filename=\"{ctx.File.Name}\"");
-        }
-    }
-});
+app.UseStaticFiles();
 
 // Visitor tracking middleware
 app.UseMiddleware<VisitorTrackerMiddleware>();
