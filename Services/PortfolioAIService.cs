@@ -25,7 +25,7 @@ namespace FuturisticPortfolio.Services
             // Fetch dynamic settings from Database
             var settings = (await _unitOfWork.Settings.GetAllAsync()).FirstOrDefault();
             var cvPath = !string.IsNullOrEmpty(settings?.CvFilePath) ? settings.CvFilePath : "/files/Muhammad_Saad_CV.pdf";
-            var phone = !string.IsNullOrEmpty(settings?.ContactPhone) ? settings.ContactPhone : "+92 305 5188896";
+            var phone = !string.IsNullOrEmpty(settings?.ContactPhone) ? settings.ContactPhone : "+92 345 3937195";
             var email = !string.IsNullOrEmpty(settings?.ContactEmail) ? settings.ContactEmail : "saad.sa9112@gmail.com";
 
             // 1. WhatsApp / Contact / Phone / Reach / Message / How can I reach you?
@@ -33,10 +33,10 @@ namespace FuturisticPortfolio.Services
             {
                 response.AppendLine("### 📞 Connect Direct with Saad");
                 response.AppendLine("\nSaad is a Full-Stack Software Developer based in **Karachi, Pakistan**.");
-                response.AppendLine($"\n• **WhatsApp Direct**: [{phone}](https://wa.me/923055188896?text=Hi%20Saad,%20I%20saw%20your%20portfolio%20and%20would%20like%20to%20connect!)");
+                response.AppendLine($"\n• **WhatsApp Direct**: [{phone}](https://wa.me/923453937195?text=Hi%20Saad,%20I%20saw%20your%20portfolio%20and%20would%20like%20to%20connect!)");
                 response.AppendLine($"• **Email**: {email}");
                 response.AppendLine("• **Location**: Karachi, Pakistan");
-                response.AppendLine("\n[Chat on WhatsApp](https://wa.me/923055188896?text=Hi%20Saad,%20I%20saw%20your%20portfolio%20and%20would%20like%20to%20connect!)");
+                response.AppendLine("\n[Chat on WhatsApp](https://wa.me/923453937195?text=Hi%20Saad,%20I%20saw%20your%20portfolio%20and%20would%20like%20to%20connect!)");
                 return response.ToString();
             }
 

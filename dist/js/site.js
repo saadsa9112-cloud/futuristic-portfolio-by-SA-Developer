@@ -1161,7 +1161,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             // 1. WhatsApp / Contact / Phone / Reach / Message / Hire / Number / Roman Urdu Contact
             if (query.includes("whatsapp") || query.includes("contact") || query.includes("phone") || query.includes("number") || query.includes("reach") || query.includes("email") || query.includes("location") || query.includes("address") || query.includes("rabta") || query.includes("baat")) {
-                return "### 📞 Connect Direct with Saad\n\nSaad is a Full-Stack Software Developer based in **Karachi, Pakistan**.\n\n• **WhatsApp Direct**: [+92 305 5188896](https://wa.me/923055188896?text=Hi%20Saad,%20I%20saw%20your%20portfolio%20and%20would%20like%20to%20connect!)\n• **Email**: saad.sa9112@gmail.com\n• **Location**: Karachi, Pakistan\n\n[Chat on WhatsApp](https://wa.me/923055188896?text=Hi%20Saad,%20I%20saw%20your%20portfolio%20and%20would%20like%20to%20connect!)";
+                return "### 📞 Connect Direct with Saad\n\nSaad is a Full-Stack Software Developer based in **Karachi, Pakistan**.\n\n• **WhatsApp Direct**: [+92 345 3937195](https://wa.me/923453937195?text=Hi%20Saad,%20I%20saw%20your%20portfolio%20and%20would%20like%20to%20connect!)\n• **Email**: saad.sa9112@gmail.com\n• **Location**: Karachi, Pakistan\n\n[Chat on WhatsApp](https://wa.me/923453937195?text=Hi%20Saad,%20I%20saw%20your%20portfolio%20and%20would%20like%20to%20connect!)";
             }
 
             // 2. CV / Resume / Download / PDF / File / Roman Urdu CV
@@ -1201,7 +1201,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             // 7. Services / Custom App / Build Website / Freelance / Hire Saad / Rates
             if (query.includes("build") || query.includes("develop") || query.includes("make") || query.includes("create") || query.includes("service") || query.includes("freelance") || query.includes("hire") || query.includes("cost") || query.includes("rate") || query.includes("can saad")) {
-                return "### ⚙️ Development Services & Solutions\n\nSaad engineers custom full-stack solutions including:\n• **Enterprise Web Applications** (C# ASP.NET Core MVC & SQL Server)\n• **RESTful APIs & Backend Services**\n• **Responsive Portfolios & Corporate Web Portals**\n• **Database Optimization & Schema Normalization**\n\n[Chat on WhatsApp](https://wa.me/923055188896?text=Hi%20Saad,%20I%20have%20a%20project%20inquiry!)";
+                return "### ⚙️ Development Services & Solutions\n\nSaad engineers custom full-stack solutions including:\n• **Enterprise Web Applications** (C# ASP.NET Core MVC & SQL Server)\n• **RESTful APIs & Backend Services**\n• **Responsive Portfolios & Corporate Web Portals**\n• **Database Optimization & Schema Normalization**\n\n[Chat on WhatsApp](https://wa.me/923453937195?text=Hi%20Saad,%20I%20have%20a%20project%20inquiry!)";
             }
 
             // 8. Greetings & Casual Intro ("Hi", "Hello", "Hey", "How are you", "Who are you", "Kaun ho", "Kaise ho")
@@ -1211,7 +1211,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             // 9. Intelligent Dynamic Fallback
             const smartFallbacks = [
-                `I understand you're asking about "${userMessage}". While I'm focused on Saad's software development portfolio, I can help you with:\n\n• **Projects**: *What has Saad built?*\n• **Skills**: *What is his tech stack?*\n• **Education**: *What are his qualifications?*\n• **CV**: *Download resume*\n• **Contact**: *Connect on WhatsApp*\n\n[Chat on WhatsApp](https://wa.me/923055188896?text=Hi%20Saad!)`,
+                `I understand you're asking about "${userMessage}". While I'm focused on Saad's software development portfolio, I can help you with:\n\n• **Projects**: *What has Saad built?*\n• **Skills**: *What is his tech stack?*\n• **Education**: *What are his qualifications?*\n• **CV**: *Download resume*\n• **Contact**: *Connect on WhatsApp*\n\n[Chat on WhatsApp](https://wa.me/923453937195?text=Hi%20Saad!)`,
                 `Thanks for your query! I specialize in providing details about Hafiz Muhammad Saad's technical work.\n\nTry asking:\n- *"What projects has Saad built?"*\n- *"What technologies does Saad use?"*\n- *"Where did Saad study?"*\n- *"Download CV"*`,
                 `I'd be glad to assist with details about Saad's development background! You can inquire about his **Projects**, **Tech Stack**, **Academic Degrees**, **Work Experience**, or **WhatsApp Contact**.`
             ];
@@ -1228,7 +1228,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const thinkingDelay = Math.floor(Math.random() * 500) + 750;
 
             setTimeout(() => {
-                fetch("https://saad-dev-telemetry.localtunnel.me/api/ai/chat", {
+                fetch("/api/ai/chat", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ message: text })
@@ -1296,7 +1296,7 @@ document.addEventListener("DOMContentLoaded", () => {
             .replace(/\[Download CV \(PDF\)\]\((.*?)\)/g, '<a href="$1" download="Muhammad_Saad_CV.pdf" class="btn btn-sm text-white px-3 py-1.5 rounded-pill shadow-sm d-inline-flex align-items-center gap-1.5 my-1.5 hover-scale transition" style="background: linear-gradient(135deg, #8B3DFF, #009FC2); font-weight: 600;"><i class="fas fa-file-download fs-6"></i> Download CV (PDF)</a>')
             .replace(/\[Download Resume \(PDF\)\]\((.*?)\)/g, '<a href="$1" download="Muhammad_Saad_CV.pdf" class="btn btn-sm text-white px-3 py-1.5 rounded-pill shadow-sm d-inline-flex align-items-center gap-1.5 my-1.5 hover-scale transition" style="background: linear-gradient(135deg, #8B3DFF, #009FC2); font-weight: 600;"><i class="fas fa-file-download fs-6"></i> Download CV (PDF)</a>')
             .replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2" class="text-neon-cyan fw-medium text-decoration-underline">$1</a>')
-            .replace(/(\+92\s?305\s?5188896|03055188896)/g, '<a href="https://wa.me/923055188896?text=Hi%20Saad,%20I%20saw%20your%20portfolio%20and%20would%20like%20to%20connect!" target="_blank" rel="noopener noreferrer" class="text-success fw-bold text-decoration-none d-inline-flex align-items-center gap-1"><i class="fab fa-whatsapp"></i> $1</a>')
+            .replace(/(\+92\s?345\s?3937195|03453937195|\+92\s?305\s?5188896|03055188896)/g, '<a href="https://wa.me/923453937195?text=Hi%20Saad,%20I%20saw%20your%20portfolio%20and%20would%20like%20to%20connect!" target="_blank" rel="noopener noreferrer" class="text-success fw-bold text-decoration-none d-inline-flex align-items-center gap-1"><i class="fab fa-whatsapp"></i> $1</a>')
             .replace(/\* (.*)/g, '<li class="mb-1">$1</li>')
             .replace(/• (.*)/g, '<li class="mb-1">$1</li>')
             .replace(/\n/g, '<br>');
@@ -1657,7 +1657,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 document.body.removeChild(link);
             } else if (action === "whatsapp") {
                 palette.classList.remove("active");
-                window.open("https://wa.me/923168925434?text=Hi%20Saad,%20I%20am%20interested%20in%20your%20software%20engineering%20services.", "_blank");
+                window.open("https://wa.me/923453937195?text=Hi%20Saad,%20I%20am%20interested%20in%20your%20software%20engineering%20services.", "_blank");
             } else if (action === "theme") {
                 palette.classList.remove("active");
                 const themeBtn = document.getElementById("theme-toggle-btn");
@@ -1880,7 +1880,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 const tokenInput = document.querySelector('input[name="__RequestVerificationToken"]');
                 const token = tokenInput ? tokenInput.value : '';
 
-                fetch("https://saad-dev-telemetry.localtunnel.me/Home/ContactSubmit", {
+                fetch("/Home/ContactSubmit", {
                     method: "POST",
                     headers: { "RequestVerificationToken": token },
                     body: formData
@@ -2120,7 +2120,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }
             const formData = new FormData(contactPageForm);
             try {
-                const res = await fetch("https://saad-dev-telemetry.localtunnel.me/Home/ContactSubmit", {
+                const res = await fetch("/Home/ContactSubmit", {
                     method: "POST",
                     body: formData
                 });
@@ -2624,7 +2624,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 `Estimated Investment: $${calculatedTotal}\n\n` +
                 `Can we discuss details and timeline?`
             );
-            estimatorWhatsappBtn.href = `https://wa.me/923055188896?text=${waMsg}`;
+            estimatorWhatsappBtn.href = `https://wa.me/923453937195?text=${waMsg}`;
         }
 
         return { count, calculatedTotal, urgencyText, selectedNames };
