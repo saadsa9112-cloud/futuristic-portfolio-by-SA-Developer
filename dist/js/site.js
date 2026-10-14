@@ -1166,7 +1166,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
             // 2. CV / Resume / Download / PDF / File / Roman Urdu CV
             if (query.includes("cv") || query.includes("resume") || query.includes("download") || query.includes("pdf") || query.includes("file")) {
-                return "### 📄 Download Saad's Official CV\n\nClick below to download Hafiz Muhammad Saad's updated resume in PDF format:\n\n[Download CV (PDF)](/files/Muhammad_Saad_CV.pdf)\n\n*Includes full details on C# ASP.NET Core 10 MVC, SQL Server, BSBC degree, and ADSE diploma.*";
+                const isGhPages = window.location.hostname.includes("github.io");
+                const repoPrefix = isGhPages ? "/futuristic-portfolio-by-SA-Developer" : "";
+                const downloadUrl = isGhPages ? `${repoPrefix}/files/Muhammad_Saad_CV.pdf` : "/Home/DownloadCv";
+                return `### 📄 Download Saad's Official CV\n\nClick below to download Hafiz Muhammad Saad's updated resume in PDF format:\n\n[Download CV (PDF)](${downloadUrl})\n\n*Includes full details on C# ASP.NET Core 10 MVC, SQL Server, BSBC degree, and ADSE diploma.*`;
             }
 
             // 3. Projects / Work / Portfolio / Apps / Systems / Built / Created / Roman Urdu Projects
@@ -1577,12 +1580,15 @@ document.addEventListener("DOMContentLoaded", () => {
                     }
                 } else if (input === "cv" || input === "resume" || input === "download-cv") {
                     resDiv.innerHTML = `<span class="text-success">&gt; Downloading Muhammad_Saad_CV.pdf...</span>`;
+                    const isGhPages = window.location.hostname.includes("github.io");
+                    const repoPrefix = isGhPages ? "/futuristic-portfolio-by-SA-Developer" : "";
+                    const pdfUrl = isGhPages ? `${repoPrefix}/files/Muhammad_Saad_CV.pdf` : "/Home/DownloadCv";
                     const link = document.createElement("a");
-                    link.href = "/files/Muhammad_Saad_CV.pdf";
+                    link.href = pdfUrl;
                     link.download = "Muhammad_Saad_CV.pdf";
                     document.body.appendChild(link);
                     link.click();
-                    document.body.removeChild(link);
+                    setTimeout(() => link.remove(), 1000);
                 } else if (input === "roast") {
                     palette.classList.remove("active");
                     if (aiWidget) {
@@ -1649,12 +1655,15 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             } else if (action === "cv") {
                 palette.classList.remove("active");
+                const isGhPages = window.location.hostname.includes("github.io");
+                const repoPrefix = isGhPages ? "/futuristic-portfolio-by-SA-Developer" : "";
+                const pdfUrl = isGhPages ? `${repoPrefix}/files/Muhammad_Saad_CV.pdf` : "/Home/DownloadCv";
                 const link = document.createElement("a");
-                link.href = "/files/Muhammad_Saad_CV.pdf";
+                link.href = pdfUrl;
                 link.download = "Muhammad_Saad_CV.pdf";
                 document.body.appendChild(link);
                 link.click();
-                document.body.removeChild(link);
+                setTimeout(() => link.remove(), 1000);
             } else if (action === "whatsapp") {
                 palette.classList.remove("active");
                 window.open("https://wa.me/923453937195?text=Hi%20Saad,%20I%20am%20interested%20in%20your%20software%20engineering%20services.", "_blank");
@@ -2663,27 +2672,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Section 17: Universal CV / Resume Download Resolver
     document.addEventListener("click", (e) => {
-        const link = e.target.closest(".cv-download-trigger, a[download*='Muhammad_Saad_CV'], a[download*='resume'], a[href*='Muhammad_Saad_CV.pdf']");
+        const link = e.target.closest(".cv-download-trigger, a[download*='Muhammad_Saad_CV'], a[download*='resume'], a[href*='Muhammad_Saad_CV.pdf'], a[href*='DownloadCv']");
         if (!link || link.tagName !== "A") return;
 
-        // Ensure correct path based on environment
         const isGhPages = window.location.hostname.includes("github.io");
         const repoPrefix = isGhPages ? "/futuristic-portfolio-by-SA-Developer" : "";
-        const targetHref = `${repoPrefix}/files/Muhammad_Saad_CV.pdf`;
+        
+        // On ASP.NET Core, /Home/DownloadCv sets Content-Disposition: attachment header
+        // On GitHub Pages (static), fallback to direct static PDF file path
+        const targetHref = isGhPages 
+            ? `${repoPrefix}/files/Muhammad_Saad_CV.pdf` 
+            : "/Home/DownloadCv";
 
         link.setAttribute("href", targetHref);
         link.setAttribute("download", "Muhammad_Saad_CV.pdf");
-
-        // Subtle UI feedback without interrupting browser download stream
-        if (!link.dataset.downloading) {
-            link.dataset.downloading = "true";
-            const originalHtml = link.innerHTML;
-            link.innerHTML = '<i class="fas fa-check text-success me-1"></i> Starting Download...';
-            setTimeout(() => {
-                link.innerHTML = originalHtml;
-                delete link.dataset.downloading;
-            }, 2500);
-        }
     });
 
     // ==========================================

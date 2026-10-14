@@ -144,9 +144,21 @@ namespace FuturisticPortfolio.Controllers
                     if (System.IO.File.Exists(filePath))
                     {
                         var contentType = "application/pdf";
-                        return PhysicalFile(filePath, contentType, Path.GetFileName(filePath));
+                        return PhysicalFile(filePath, contentType, "Muhammad_Saad_CV.pdf");
                     }
                 }
+            }
+
+            var fallbackPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "files", "Muhammad_Saad_CV.pdf");
+            if (System.IO.File.Exists(fallbackPath))
+            {
+                return PhysicalFile(fallbackPath, "application/pdf", "Muhammad_Saad_CV.pdf");
+            }
+
+            var resumeFallback = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "resume.pdf");
+            if (System.IO.File.Exists(resumeFallback))
+            {
+                return PhysicalFile(resumeFallback, "application/pdf", "Muhammad_Saad_CV.pdf");
             }
 
             return RedirectToAction(nameof(Index));
