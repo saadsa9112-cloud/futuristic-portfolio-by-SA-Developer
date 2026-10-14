@@ -2661,73 +2661,28 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // Section 17: Universal CV / Resume Download Resolver (With recursion guard & lock)
-    let isResumeDownloading = false;
-
-    document.addEventListener("click", async (e) => {
-        // Guard 1: Ignore our own programmatic download anchor to prevent infinite recursion
-        if (e.target.closest(".bypass-download-handler")) {
-            return;
-        }
-
-        const link = e.target.closest(".cv-download-trigger, a[download*='Muhammad_Saad_CV'], a[download*='resume'], a[href*='Muhammad_Saad_CV.pdf'], a[href*='resume.pdf']");
+    // Section 17: Universal CV / Resume Download Resolver
+    document.addEventListener("click", (e) => {
+        const link = e.target.closest(".cv-download-trigger, a[download*='Muhammad_Saad_CV'], a[download*='resume'], a[href*='Muhammad_Saad_CV.pdf']");
         if (!link || link.tagName !== "A") return;
 
-        // Guard 2: Prevent concurrent multiple downloads
-        if (isResumeDownloading) {
-            e.preventDefault();
-            return;
-        }
-
-        e.preventDefault();
-        e.stopPropagation();
-
-        isResumeDownloading = true;
-
-        // Determine correct URL based on environment
+        // Ensure correct path based on environment
         const isGhPages = window.location.hostname.includes("github.io");
         const repoPrefix = isGhPages ? "/futuristic-portfolio-by-SA-Developer" : "";
-        const pdfUrl = `${window.location.origin}${repoPrefix}/files/Muhammad_Saad_CV.pdf`;
+        const targetHref = `${repoPrefix}/files/Muhammad_Saad_CV.pdf`;
 
-        // UI feedback
-        const originalHtml = link.innerHTML;
-        link.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i> Downloading...';
-        link.style.pointerEvents = 'none';
+        link.setAttribute("href", targetHref);
+        link.setAttribute("download", "Muhammad_Saad_CV.pdf");
 
-        try {
-            const response = await fetch(pdfUrl);
-            if (!response.ok) throw new Error("HTTP " + response.status);
-            const blob = await response.blob();
-            const blobUrl = window.URL.createObjectURL(blob);
-
-            const downloadAnchor = document.createElement("a");
-            downloadAnchor.className = "bypass-download-handler";
-            downloadAnchor.style.display = "none";
-            downloadAnchor.href = blobUrl;
-            downloadAnchor.download = "Muhammad_Saad_CV.pdf";
-            document.body.appendChild(downloadAnchor);
-
-            downloadAnchor.click();
-
-            setTimeout(() => {
-                if (downloadAnchor.parentNode) {
-                    document.body.removeChild(downloadAnchor);
-                }
-                window.URL.revokeObjectURL(blobUrl);
-            }, 1000);
-
-            link.innerHTML = '<i class="fas fa-check me-2 text-success"></i> Downloaded!';
+        // Subtle UI feedback without interrupting browser download stream
+        if (!link.dataset.downloading) {
+            link.dataset.downloading = "true";
+            const originalHtml = link.innerHTML;
+            link.innerHTML = '<i class="fas fa-check text-success me-1"></i> Starting Download...';
             setTimeout(() => {
                 link.innerHTML = originalHtml;
-                link.style.pointerEvents = '';
-                isResumeDownloading = false;
-            }, 2000);
-        } catch (err) {
-            console.warn("Direct blob download failed, opening PDF directly", err);
-            link.innerHTML = originalHtml;
-            link.style.pointerEvents = '';
-            isResumeDownloading = false;
-            window.open(pdfUrl, "_blank");
+                delete link.dataset.downloading;
+            }, 2500);
         }
     });
 
