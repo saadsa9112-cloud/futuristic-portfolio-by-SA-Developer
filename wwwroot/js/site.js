@@ -1557,8 +1557,8 @@ document.addEventListener("DOMContentLoaded", () => {
                     }
                 } else if (input === "sudo hire saad" || input === "hire saad" || input === "hire") {
                     resDiv.innerHTML = `
-                        <div class="text-warning fw-bold"><i class="fas fa-crown me-1"></i> [VIP ACCESS GRANTED] VIP Talent Acquisition Protocol Initiated!</div>
-                        <div class="text-neon-cyan ms-2">Opening 30-Second Executive Dossier for Technical Leads &amp; Recruiters...</div>
+                        <div class="text-warning fw-bold"><i class="fas fa-briefcase me-1"></i> Opening Candidate Executive Briefing...</div>
+                        <div class="text-neon-cyan ms-2">Opening Overview for Technical Leads &amp; Recruiters...</div>
                     `;
                     setTimeout(() => {
                         palette.classList.remove("active");
@@ -1567,8 +1567,8 @@ document.addEventListener("DOMContentLoaded", () => {
                             const modal = bootstrap.Modal.getOrCreateInstance(recModalEl);
                             modal.show();
                         }
-                    }, 500);
-                } else if (input === "recruiter" || input === "recruiter-mode") {
+                    }, 400);
+                } else if (input === "recruiter" || input === "recruiter-mode" || input === "recruiter-brief") {
                     palette.classList.remove("active");
                     const recModalEl = document.getElementById("recruiterModeModal");
                     if (recModalEl && window.bootstrap && window.bootstrap.Modal) {
@@ -2530,8 +2530,8 @@ document.addEventListener("DOMContentLoaded", () => {
                         },
                         directDispatch: {
                             email: "saad.sa9112@gmail.com",
-                            whatsapp: "+92 316 8925434",
-                            action: "Deploying 30-Second Recruiter Dossier HUD..."
+                            whatsapp: "+92 345 3937195",
+                            action: "Opening Executive Recruiter Overview..."
                         }
                     };
                     setTimeout(() => {
