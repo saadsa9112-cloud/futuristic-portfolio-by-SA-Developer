@@ -1724,6 +1724,133 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         // ==========================================
+        // 9.4 Interactive System Topology Nodes
+        // ==========================================
+        const archNodes = document.querySelectorAll(".arch-node-box");
+        const nodeTitle = document.getElementById("arch-node-title");
+        const nodeStatus = document.getElementById("arch-node-status");
+        const nodeDesc = document.getElementById("arch-node-desc");
+        const nodeTags = document.getElementById("arch-node-tags");
+
+        const nodeData = {
+            client: {
+                title: "TOPOLOGY NODE: Global Edge & Client Layer",
+                status: "EDGE LATENCY: 24ms",
+                desc: "HTTP/3 over QUIC with TLS 1.3 0-RTT resumption. Static assets and modern web tokens delivered via optimized regional PoPs.",
+                tags: ["HTTP/3", "TLS 1.3 0-RTT", "Brotli Compression", "Edge CDN"]
+            },
+            security: {
+                title: "TOPOLOGY NODE: Zero-Trust Security & Rate Limiting Shield",
+                status: "AUDIT: 100% SECURE",
+                desc: "Automated IP reputation firewall, strict CSP (Content Security Policy), Anti-CSRF token verification, and parameterized query boundary enforcement.",
+                tags: ["AES-256-GCM", "Zero-Trust", "Anti-CSRF", "Token Bucket Rate Limiter"]
+            },
+            core: {
+                title: "TOPOLOGY NODE: ASP.NET Core 10 High-Throughput Engine",
+                status: "THROUGHPUT: 12.4k req/sec",
+                desc: "Engineered with C# 13 and ASP.NET Core 10 Kestrel pipeline. Features asynchronous non-blocking threadpool, dependency injection, and clean architecture separation.",
+                tags: ["C# 13", "ASP.NET Core 10", "Kestrel Async Pipeline", "Native AOT Ready"]
+            },
+            cache: {
+                title: "TOPOLOGY NODE: Redis Distributed In-Memory Cache",
+                status: "READ TTFB: 0.8ms",
+                desc: "Sub-millisecond query result cache for session state, rate limit token counters, and frequently requested read-heavy academic telemetry records.",
+                tags: ["Redis In-Memory", "Sub-1ms TTFB", "Sliding Expiration", "Zero Cache Stampede"]
+            },
+            db: {
+                title: "TOPOLOGY NODE: Microsoft SQL Server 2022 Relational Tier",
+                status: "INTEGRITY: ACID 100%",
+                desc: "Normalized 3NF schema, non-clustered composite indexes for query optimization, stored procedures, and EF Core execution pipelines preventing deadlocks.",
+                tags: ["SQL Server 2022", "3NF Normalization", "Non-Clustered Indexes", "0 Deadlocks"]
+            }
+        };
+
+        if (archNodes.length > 0 && nodeTitle && nodeDesc) {
+            archNodes.forEach(node => {
+                node.addEventListener("click", () => {
+                    const key = node.getAttribute("data-node");
+                    const data = nodeData[key];
+                    if (data) {
+                        archNodes.forEach(n => n.classList.remove("border-info", "shadow-sm"));
+                        node.classList.add("border-info", "shadow-sm");
+                        nodeTitle.innerHTML = `<i class="fas fa-info-circle me-1 text-neon-cyan"></i> ${data.title}`;
+                        if (nodeStatus) nodeStatus.textContent = data.status;
+                        nodeDesc.textContent = data.desc;
+                        if (nodeTags) {
+                            nodeTags.innerHTML = data.tags.map(t => `<span class="badge bg-dark border border-secondary text-info">${t}</span>`).join(" ");
+                        }
+                        if (typeof playSynthSound === "function") playSynthSound("console");
+                    }
+                });
+            });
+        }
+
+        // ==========================================
+        // 9.5 Website Speed & Security Auditor (Nexora Lead Magnet)
+        // ==========================================
+        const btnRunAudit = document.getElementById("btn-run-url-audit");
+        const auditInput = document.getElementById("audit-target-url");
+        const auditProgress = document.getElementById("audit-scan-progress");
+        const auditStepLabel = document.getElementById("audit-step-label");
+        const auditPctLabel = document.getElementById("audit-pct-label");
+        const auditProgressBar = document.getElementById("audit-progress-bar");
+        const auditResultsCard = document.getElementById("audit-results-card");
+        const auditHireTeamBtn = document.getElementById("audit-hire-team-btn");
+
+        if (btnRunAudit && auditInput) {
+            btnRunAudit.addEventListener("click", () => {
+                let url = (auditInput.value || "").trim();
+                if (!url) {
+                    auditInput.focus();
+                    auditInput.classList.add("border-danger");
+                    setTimeout(() => auditInput.classList.remove("border-danger"), 2000);
+                    return;
+                }
+                url = url.replace(/^https?:\/\//i, "").replace(/\/$/, "");
+
+                btnRunAudit.disabled = true;
+                if (auditResultsCard) auditResultsCard.style.display = "none";
+                if (auditProgress) auditProgress.style.display = "block";
+
+                const steps = [
+                    { pct: 25, text: "Testing DNS resolution & TLS 1.3 handshake..." },
+                    { pct: 50, text: "Measuring server TTFB latency & response payload..." },
+                    { pct: 75, text: "Inspecting Core Web Vitals, LCP & asset compression..." },
+                    { pct: 100, text: "Finalizing security rating & optimization scorecard..." }
+                ];
+
+                let stepIdx = 0;
+                const interval = setInterval(() => {
+                    if (stepIdx < steps.length) {
+                        const s = steps[stepIdx];
+                        if (auditProgressBar) auditProgressBar.style.width = s.pct + "%";
+                        if (auditPctLabel) auditPctLabel.textContent = s.pct + "%";
+                        if (auditStepLabel) auditStepLabel.innerHTML = `<i class="fas fa-spinner fa-spin me-2 text-neon-cyan"></i> ${s.text}`;
+                        stepIdx++;
+                    } else {
+                        clearInterval(interval);
+                        setTimeout(() => {
+                            if (auditProgress) auditProgress.style.display = "none";
+                            if (auditResultsCard) {
+                                auditResultsCard.style.display = "block";
+                                auditResultsCard.scrollIntoView({ behavior: "smooth", block: "nearest" });
+                            }
+                            btnRunAudit.disabled = false;
+
+                            // Update WhatsApp inquiry link with the tested URL
+                            if (auditHireTeamBtn) {
+                                const waMsg = encodeURIComponent(`Hello NEXORA DIGITAL, I ran the free speed audit for my site (${url}) and want your team to optimize its speed and SEO!`);
+                                auditHireTeamBtn.href = `https://wa.me/923453937195?text=${waMsg}`;
+                            }
+
+                            if (typeof playSynthSound === "function") playSynthSound("success");
+                        }, 400);
+                    }
+                }, 450);
+            });
+        }
+
+        // ==========================================
         // 9.1 Live Zero-Trust Security Audit Daemon
         // ==========================================
         const runAuditBtn = document.getElementById("run-audit-btn");

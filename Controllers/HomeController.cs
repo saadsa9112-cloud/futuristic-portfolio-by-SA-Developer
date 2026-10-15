@@ -164,6 +164,23 @@ namespace FuturisticPortfolio.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        public async Task<IActionResult> DownloadDossier()
+        {
+            var dossierPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "files", "Muhammad_Saad_Executive_Dossier.zip");
+            if (System.IO.File.Exists(dossierPath))
+            {
+                var settings = (await _unitOfWork.Settings.GetAllAsync()).FirstOrDefault();
+                if (settings != null)
+                {
+                    settings.CvDownloadCount++;
+                    _unitOfWork.Settings.Update(settings);
+                    await _unitOfWork.CompleteAsync();
+                }
+                return PhysicalFile(dossierPath, "application/zip", "Muhammad_Saad_Executive_Dossier.zip");
+            }
+            return RedirectToAction(nameof(DownloadCv));
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

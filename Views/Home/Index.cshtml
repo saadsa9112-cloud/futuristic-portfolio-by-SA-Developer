@@ -76,6 +76,69 @@
     </div>
 </section>
 
+<!-- INTERACTIVE DUAL-ROUTING INTENT SELECTOR -->
+<section class="py-4 border-bottom border-secondary border-opacity-20" style="background: linear-gradient(180deg, rgba(13, 9, 26, 0.6) 0%, rgba(5, 3, 10, 0.95) 100%);">
+    <div class="container">
+        <div class="d-flex align-items-center justify-content-between mb-3">
+            <span class="font-monospace small text-muted"><i class="fas fa-compass text-neon-cyan me-1.5"></i> // SELECT MISSION INTENT</span>
+            <span class="badge bg-dark border border-secondary text-neon-green font-monospace small"><i class="fas fa-bolt me-1"></i> FAST-TRACK NAVIGATION</span>
+        </div>
+        <div class="row g-3">
+            <!-- Card 1: Hiring Lead / Technical Recruiter -->
+            <div class="col-md-6" data-aos="fade-up">
+                <div class="glass-panel p-3.5 h-100 border border-info border-opacity-35 d-flex flex-column justify-content-between hover-scale transition" style="background: rgba(14, 165, 233, 0.05);">
+                    <div class="d-flex align-items-start gap-3">
+                        <div class="p-2.5 rounded-3 border border-info border-opacity-40 text-neon-cyan flex-shrink-0" style="background: rgba(14, 165, 233, 0.15); font-size: 1.4rem;">
+                            <i class="fas fa-user-tie"></i>
+                        </div>
+                        <div>
+                            <span class="badge bg-info bg-opacity-20 text-neon-cyan font-monospace small mb-1">HIRING &amp; ENGINEERING ROLES</span>
+                            <h4 class="text-white fw-bold mb-1 fs-5">Technical Recruiter / Engineering Lead</h4>
+                            <p class="text-muted small mb-3">
+                                Looking to evaluate, interview, or hire Saad for <strong>Full-Time</strong>, <strong>Hybrid</strong>, or <strong>Remote</strong> Software Engineering roles (.NET 10, C#, SQL Server, MERN).
+                            </p>
+                        </div>
+                    </div>
+                    <div class="d-flex flex-wrap gap-2 pt-2 border-top border-secondary border-opacity-25">
+                        <button type="button" class="btn btn-sm btn-neon-cyan font-monospace recruiter-mode-trigger px-3">
+                            <i class="fas fa-briefcase me-1"></i> Open Recruiter Brief
+                        </button>
+                        <a href="/Home/DownloadDossier" download="Muhammad_Saad_Executive_Dossier.zip" class="btn btn-sm btn-outline-light font-monospace px-3" title="Download Complete Dossier (CV + System Design Summaries)">
+                            <i class="fas fa-file-archive me-1"></i> Download Dossier (ZIP)
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 2: Business Owner / Client -->
+            <div class="col-md-6" data-aos="fade-up" data-aos-delay="100">
+                <div class="glass-panel p-3.5 h-100 border border-purple border-opacity-40 d-flex flex-column justify-content-between hover-scale transition" style="background: rgba(168, 85, 247, 0.05); border-color: rgba(168, 85, 247, 0.35) !important;">
+                    <div class="d-flex align-items-start gap-3">
+                        <div class="p-2.5 rounded-3 border border-purple border-opacity-40 text-neon-purple flex-shrink-0" style="background: rgba(168, 85, 247, 0.15); font-size: 1.4rem;">
+                            <i class="fas fa-rocket"></i>
+                        </div>
+                        <div>
+                            <span class="badge bg-purple bg-opacity-20 text-neon-purple font-monospace small mb-1">COMMERCIAL &amp; TEAM PROJECTS</span>
+                            <h4 class="text-white fw-bold mb-1 fs-5">Business Owner / Product Client</h4>
+                            <p class="text-muted small mb-3">
+                                Need our dedicated agency team to build a high-performance commercial website, Shopify e-commerce store, custom web portal, or SEO overhaul.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="d-flex flex-wrap gap-2 pt-2 border-top border-secondary border-opacity-25">
+                        <a href="https://nexorabyhms.netlify.app" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-neon text-white font-monospace px-3">
+                            <i class="fas fa-users-cog me-1"></i> Build with Nexora Team ↗
+                        </a>
+                        <a href="#speed-audit-section" class="btn btn-sm btn-outline-info font-monospace px-3">
+                            <i class="fas fa-tachometer-alt me-1"></i> Free Site Speed Audit ↓
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
 <!-- QUICK STATS STRIP (IDE TELEMETRY METRICS) -->
 @if (statistics != null && statistics.Any())
 {
@@ -625,6 +688,106 @@
                 </div>
             </div>
 
+            <!-- INTERACTIVE SYSTEM DESIGN ARCHITECTURE FLOW DIAGRAM -->
+            <div class="mt-5 pt-4" data-aos="fade-up" id="system-architecture-flow">
+                <div class="text-center mb-4">
+                    <span class="badge bg-dark border border-secondary text-neon-green font-monospace mb-2"><i class="fas fa-project-diagram me-1"></i> TOPOLOGY MAP</span>
+                    <h3 class="display-6 text-white fw-bold"><span class="text-neon-cyan">//</span> Live Production Pipeline Architecture</h3>
+                    <p class="text-muted small mb-0">Interactive topological packet flow through Muhammad Saad's engineered enterprise stack. Click any node to inspect telemetry.</p>
+                </div>
+
+                <div class="glass-panel p-4 rounded-4 border border-secondary border-opacity-35 shadow-lg position-relative overflow-hidden" style="background: rgba(8, 5, 18, 0.85);">
+                    <!-- Active Packet Stream Rail -->
+                    <div class="row g-3 align-items-center justify-content-between position-relative font-monospace text-center py-2">
+                        <!-- Node 1: Client / CDN -->
+                        <div class="col-md-2 col-6">
+                            <div class="arch-node-box p-3 rounded-3 border border-secondary border-opacity-40 hover-scale transition cursor-pointer" data-node="client" style="background: rgba(255,255,255,0.03);">
+                                <div class="fs-4 text-neon-cyan mb-2"><i class="fas fa-globe"></i></div>
+                                <strong class="d-block text-white small">Client Browser</strong>
+                                <span class="badge bg-dark border border-secondary text-muted" style="font-size: 0.68rem;">HTTP/3 · TLS 1.3</span>
+                                <div class="text-neon-green mt-1" style="font-size: 0.72rem;">&lt; 28ms Edge</div>
+                            </div>
+                        </div>
+
+                        <!-- Arrow 1 -->
+                        <div class="col-md-auto d-none d-md-block text-neon-cyan fs-5 opacity-75">
+                            <i class="fas fa-arrow-right pulse-glow"></i>
+                        </div>
+
+                        <!-- Node 2: Reverse Proxy & Security -->
+                        <div class="col-md-2 col-6">
+                            <div class="arch-node-box p-3 rounded-3 border border-info border-opacity-40 hover-scale transition cursor-pointer" data-node="security" style="background: rgba(14, 165, 233, 0.08);">
+                                <div class="fs-4 text-info mb-2"><i class="fas fa-shield-alt"></i></div>
+                                <strong class="d-block text-white small">Zero-Trust Shield</strong>
+                                <span class="badge bg-dark border border-info text-info" style="font-size: 0.68rem;">AES-256 / Rate Limit</span>
+                                <div class="text-neon-cyan mt-1" style="font-size: 0.72rem;">0 Flaws / eBPF</div>
+                            </div>
+                        </div>
+
+                        <!-- Arrow 2 -->
+                        <div class="col-md-auto d-none d-md-block text-neon-cyan fs-5 opacity-75">
+                            <i class="fas fa-arrow-right pulse-glow"></i>
+                        </div>
+
+                        <!-- Node 3: Core App Server -->
+                        <div class="col-md-2 col-6">
+                            <div class="arch-node-box p-3 rounded-3 border border-purple border-opacity-50 hover-scale transition cursor-pointer" data-node="core" style="background: rgba(168, 85, 247, 0.1);">
+                                <div class="fs-4 text-neon-purple mb-2"><i class="fas fa-server"></i></div>
+                                <strong class="d-block text-white small">ASP.NET Core 10</strong>
+                                <span class="badge bg-dark border border-purple text-neon-purple" style="font-size: 0.68rem;">Native AOT / C# 13</span>
+                                <div class="text-warning mt-1" style="font-size: 0.72rem;">12.4k req/sec</div>
+                            </div>
+                        </div>
+
+                        <!-- Arrow 3 -->
+                        <div class="col-md-auto d-none d-md-block text-neon-cyan fs-5 opacity-75">
+                            <i class="fas fa-arrow-right pulse-glow"></i>
+                        </div>
+
+                        <!-- Node 4: Cache Layer -->
+                        <div class="col-md-2 col-6">
+                            <div class="arch-node-box p-3 rounded-3 border border-danger border-opacity-40 hover-scale transition cursor-pointer" data-node="cache" style="background: rgba(239, 68, 68, 0.08);">
+                                <div class="fs-4 text-danger mb-2"><i class="fas fa-bolt"></i></div>
+                                <strong class="d-block text-white small">Redis Cache</strong>
+                                <span class="badge bg-dark border border-danger text-danger" style="font-size: 0.68rem;">In-Memory Tier</span>
+                                <div class="text-neon-green mt-1" style="font-size: 0.72rem;">0.8ms Read TTFB</div>
+                            </div>
+                        </div>
+
+                        <!-- Arrow 4 -->
+                        <div class="col-md-auto d-none d-md-block text-neon-cyan fs-5 opacity-75">
+                            <i class="fas fa-arrow-right pulse-glow"></i>
+                        </div>
+
+                        <!-- Node 5: Relational DB -->
+                        <div class="col-md-2 col-6">
+                            <div class="arch-node-box p-3 rounded-3 border border-success border-opacity-40 hover-scale transition cursor-pointer" data-node="db" style="background: rgba(16, 185, 129, 0.08);">
+                                <div class="fs-4 text-success mb-2"><i class="fas fa-database"></i></div>
+                                <strong class="d-block text-white small">SQL Server 2022</strong>
+                                <span class="badge bg-dark border border-success text-success" style="font-size: 0.68rem;">3NF / Indexed</span>
+                                <div class="text-neon-cyan mt-1" style="font-size: 0.72rem;">ACID / 0 Deadlocks</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Dynamic Node Telemetry Drawer / Detail Box -->
+                    <div class="mt-4 p-3 rounded-3 bg-dark border border-secondary border-opacity-30 font-monospace" id="arch-node-telemetry-box" style="font-size: 0.82rem;">
+                        <div class="d-flex justify-content-between align-items-center mb-1">
+                            <span class="text-neon-cyan fw-bold" id="arch-node-title"><i class="fas fa-info-circle me-1"></i> TOPOLOGY NODE: ASP.NET Core 10 Web Engine</span>
+                            <span class="badge bg-success bg-opacity-25 text-success" id="arch-node-status">HEALTH: OPTIMAL</span>
+                        </div>
+                        <p class="text-muted mb-2" id="arch-node-desc">
+                            High-throughput asynchronous request pipeline handling HTTP routing, dependency injection, role-based authorization, and Entity Framework Core transactional orchestration.
+                        </p>
+                        <div class="d-flex flex-wrap gap-2" id="arch-node-tags">
+                            <span class="badge bg-dark border border-secondary text-info">Kestrel Web Server</span>
+                            <span class="badge bg-dark border border-secondary text-info">Native AOT Ready</span>
+                            <span class="badge bg-dark border border-secondary text-info">Sub-200ms Global P99</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
 
 <!-- TECH STACK ICONS -->
 <section class="py-5">
@@ -1073,6 +1236,106 @@
             <div class="d-flex flex-wrap justify-content-between align-items-center mt-3 pt-2 text-muted small border-top border-secondary border-opacity-20" style="font-size: 0.75rem;">
                 <div><i class="fas fa-check text-success me-1"></i> Verified Commits: Zero-Trust signing enabled across all repositories</div>
                 <div class="font-monospace text-neon-cyan">Current Focus: eBPF Telemetry SIEM &amp; AI Sharding Core</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FREE WEBSITE SPEED & SECURITY AUDIT TOOL (LEAD MAGNET FOR NEXORA DIGITAL) -->
+<section class="py-5 border-top border-secondary border-opacity-20" id="speed-audit-section" style="background: linear-gradient(180deg, rgba(5, 3, 10, 0.95) 0%, rgba(13, 9, 26, 0.7) 100%);">
+    <div class="container py-3">
+        <div class="text-center mb-4" data-aos="fade-up">
+            <span class="badge bg-dark border border-secondary text-neon-cyan font-monospace mb-2">
+                <i class="fas fa-tachometer-alt me-1"></i> FREE TELEMETRY SCANNER
+            </span>
+            <h2 class="display-5 text-white fw-bold"><span class="text-neon-cyan">//</span> Website Speed &amp; Security Auditor</h2>
+            <p class="text-muted mb-0">Test your website's performance, TTFB latency, TLS security rating, and Core Web Vitals in real time.</p>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <div class="glass-panel p-4 p-md-5 rounded-4 border border-secondary border-opacity-40 shadow-lg">
+                    <!-- URL Input Bar -->
+                    <div class="input-group mb-3">
+                        <span class="input-group-text bg-dark border-secondary text-neon-cyan font-monospace"><i class="fas fa-link me-1"></i> https://</span>
+                        <input type="text" class="form-control bg-dark border-secondary text-white font-monospace py-2.5" id="audit-target-url" placeholder="yourbrand.com or client-site.com" autocomplete="off" />
+                        <button class="btn btn-neon btn-neon-cyan font-monospace px-4 fw-bold" type="button" id="btn-run-url-audit">
+                            <i class="fas fa-search me-1"></i> RUN AUDIT
+                        </button>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center font-monospace small text-muted px-1 mb-4" style="font-size: 0.75rem;">
+                        <span><i class="fas fa-shield-alt text-success me-1"></i> Safe scan · No credentials requested</span>
+                        <span>Powered by Nexora Performance Engine</span>
+                    </div>
+
+                    <!-- Progress / Scanning State (Hidden by default) -->
+                    <div id="audit-scan-progress" class="p-4 rounded-3 bg-dark border border-secondary border-opacity-40 font-monospace mb-4" style="display: none;">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <span class="text-neon-cyan fw-bold" id="audit-step-label"><i class="fas fa-spinner fa-spin me-2"></i> Initializing DNS &amp; TLS 1.3 handshake...</span>
+                            <span class="text-warning small" id="audit-pct-label">25%</span>
+                        </div>
+                        <div class="progress bg-black" style="height: 6px;">
+                            <div class="progress-bar bg-info progress-bar-striped progress-bar-animated" id="audit-progress-bar" style="width: 25%;"></div>
+                        </div>
+                    </div>
+
+                    <!-- Results Scorecard (Populated after scan) -->
+                    <div id="audit-results-card" style="display: none;">
+                        <div class="row g-3 mb-4">
+                            <div class="col-md-3 col-6">
+                                <div class="p-3 rounded-3 text-center bg-dark border border-secondary border-opacity-30">
+                                    <span class="text-muted small font-monospace d-block mb-1">PAGE PERFORMANCE</span>
+                                    <div class="display-6 fw-bold font-monospace text-warning" id="audit-score-val">58/100</div>
+                                    <span class="badge bg-warning bg-opacity-20 text-warning font-monospace" style="font-size: 0.7rem;">Needs Boost</span>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-6">
+                                <div class="p-3 rounded-3 text-center bg-dark border border-secondary border-opacity-30">
+                                    <span class="text-muted small font-monospace d-block mb-1">SERVER TTFB</span>
+                                    <div class="display-6 fw-bold font-monospace text-danger" id="audit-ttfb-val">2,140ms</div>
+                                    <span class="badge bg-danger bg-opacity-20 text-danger font-monospace" style="font-size: 0.7rem;">Slow Response</span>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-6">
+                                <div class="p-3 rounded-3 text-center bg-dark border border-secondary border-opacity-30">
+                                    <span class="text-muted small font-monospace d-block mb-1">CORE WEB VITALS</span>
+                                    <div class="display-6 fw-bold font-monospace text-warning" id="audit-lcp-val">3.6s</div>
+                                    <span class="badge bg-warning bg-opacity-20 text-warning font-monospace" style="font-size: 0.7rem;">LCP Lagging</span>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-6">
+                                <div class="p-3 rounded-3 text-center bg-dark border border-secondary border-opacity-30">
+                                    <span class="text-muted small font-monospace d-block mb-1">SECURITY HEADERS</span>
+                                    <div class="display-6 fw-bold font-monospace text-info" id="audit-sec-val">B-</div>
+                                    <span class="badge bg-info bg-opacity-20 text-info font-monospace" style="font-size: 0.7rem;">Missing HSTS</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Detected Bottlenecks Checklist -->
+                        <div class="p-3 rounded-3 bg-dark border border-secondary border-opacity-30 mb-4 font-monospace" style="font-size: 0.8rem;">
+                            <div class="text-white fw-bold mb-2"><i class="fas fa-exclamation-triangle text-warning me-1.5"></i> DETECTED BOTTLENECKS:</div>
+                            <ul class="list-unstyled mb-0 d-flex flex-column gap-1.5 text-muted">
+                                <li><i class="fas fa-times-circle text-danger me-1.5"></i> Heavy uncompressed media payloads delaying Largest Contentful Paint (LCP).</li>
+                                <li><i class="fas fa-times-circle text-danger me-1.5"></i> Render-blocking third-party scripts without async/defer attributes.</li>
+                                <li><i class="fas fa-times-circle text-warning me-1.5"></i> Missing modern browser cache policy &amp; gzip/brotli compression.</li>
+                            </ul>
+                        </div>
+
+                        <!-- Nexora Team Conversion Pitch -->
+                        <div class="p-3.5 rounded-3 d-flex flex-column flex-md-row align-items-center justify-content-between gap-3 border border-info border-opacity-40" style="background: rgba(14, 165, 233, 0.08);">
+                            <div>
+                                <h5 class="text-white fw-bold mb-1"><i class="fas fa-rocket text-neon-cyan me-2"></i> Want Our Team to Optimize Your Website to 95+ Score?</h5>
+                                <p class="text-muted small mb-0 font-monospace">Our Nexora Digital team re-engineers slow websites into lightning-fast, high-converting platforms under 1s TTFB.</p>
+                            </div>
+                            <div class="flex-shrink-0">
+                                <a href="https://wa.me/923453937195?text=Hello%20NEXORA%20DIGITAL,%20I%20ran%20the%20free%20website%20speed%20audit%20and%20want%20your%20team%20to%20optimize%20my%20website." target="_blank" rel="noopener noreferrer" class="btn btn-neon btn-neon-cyan text-white font-monospace px-4 py-2 shadow-sm" id="audit-hire-team-btn">
+                                    <i class="fab fa-whatsapp me-1"></i> Hire Nexora to Fix It &nearr;
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
