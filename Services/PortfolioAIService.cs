@@ -28,15 +28,31 @@ namespace FuturisticPortfolio.Services
             var phone = !string.IsNullOrEmpty(settings?.ContactPhone) ? settings.ContactPhone : "+92 345 3937195";
             var email = !string.IsNullOrEmpty(settings?.ContactEmail) ? settings.ContactEmail : "saad.sa9112@gmail.com";
 
+            // 0. Nexora Digital / Agency / Team / Build with team / Business projects
+            if (query.Contains("nexora") || query.Contains("team") || query.Contains("agency") || query.Contains("our team") || query.Contains("my team") || query.Contains("build with our team") || query.Contains("build with team"))
+            {
+                response.AppendLine("### 👥 Build Projects with Our Team (Nexora Digital)");
+                response.AppendLine("\nLooking for a dedicated agency team to build, launch, or scale complete web solutions, commercial platforms, Shopify stores, or SEO rankings? Saad collaborates with **Nexora Digital**:");
+                response.AppendLine("\n• **Agency Website**: [https://nexorabyhms.netlify.app](https://nexorabyhms.netlify.app)");
+                response.AppendLine("• **Services**: Full Commercial Web Apps, Shopify/WordPress, UI/UX Design, SEO & Custom Solutions");
+                response.AppendLine($"• **Direct Team WhatsApp**: [{phone}](https://wa.me/923453937195?text=Hello%20NEXORA%20DIGITAL,%20I%20would%20like%20to%20hire%20your%20team%20for%20a%20project.)");
+                response.AppendLine("\n[Visit Nexora Digital Website ↗](https://nexorabyhms.netlify.app)");
+                return response.ToString();
+            }
+
             // 1. WhatsApp / Contact / Phone / Reach / Message / How can I reach you?
             if (query.Contains("whatsapp") || query.Contains("contact") || query.Contains("phone") || query.Contains("reach") || query.Contains("email") || query.Contains("number") || query.Contains("call") || query.Contains("message"))
             {
-                response.AppendLine("### 📞 Connect Direct with Saad");
-                response.AppendLine("\nSaad is a Full-Stack Software Developer based in **Karachi, Pakistan**.");
-                response.AppendLine($"\n• **WhatsApp Direct**: [{phone}](https://wa.me/923453937195?text=Hi%20Saad,%20I%20saw%20your%20portfolio%20and%20would%20like%20to%20connect!)");
-                response.AppendLine($"• **Email**: {email}");
-                response.AppendLine("• **Location**: Karachi, Pakistan");
-                response.AppendLine("\n[Chat on WhatsApp](https://wa.me/923453937195?text=Hi%20Saad,%20I%20saw%20your%20portfolio%20and%20would%20like%20to%20connect!)");
+                response.AppendLine("### 📞 Contact & Direct Uplink");
+                response.AppendLine("\nChoose the best channel for your requirements:");
+                response.AppendLine("\n**1. Contact Saad Personally (1-on-1 Engineering Roles & Hire):**");
+                response.AppendLine($"• **WhatsApp Direct**: [{phone}](https://wa.me/923453937195?text=Hi%20Saad,%20I%20saw%20your%20portfolio%20and%20would%20like%20to%20connect!)");
+                response.AppendLine($"• **Email**: [{email}](mailto:{email})");
+                response.AppendLine("• **Location**: Karachi, Pakistan (Available for Remote, Hybrid & On-Site)");
+                response.AppendLine("\n**2. Build Projects with Our Team (Nexora Digital Agency):**");
+                response.AppendLine("• **Agency Platform**: [https://nexorabyhms.netlify.app](https://nexorabyhms.netlify.app)");
+                response.AppendLine("• Complete team for business websites, Shopify stores, and digital marketing.");
+                response.AppendLine($"\n[Chat on WhatsApp](https://wa.me/923453937195?text=Hi%20Saad,%20I%20saw%20your%20portfolio%20and%20would%20like%20to%20connect!)");
                 return response.ToString();
             }
 

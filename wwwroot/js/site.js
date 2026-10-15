@@ -1159,9 +1159,14 @@ document.addEventListener("DOMContentLoaded", () => {
             const query = (userMessage || "").toLowerCase().trim();
             const variantIndex = Math.floor(Math.random() * 3);
 
+            // 0. Nexora Digital / Agency / Team / Build with team
+            if (query.includes("nexora") || query.includes("team") || query.includes("agency") || query.includes("our team") || query.includes("my team") || query.includes("build with our team") || query.includes("build with team")) {
+                return "### 👥 Build Projects with Our Team (Nexora Digital)\n\nLooking for an entire specialized team to build, launch, or scale complete web solutions, commercial platforms, Shopify stores, or SEO engines? Saad collaborates with **Nexora Digital**:\n\n• **Agency Website**: [https://nexorabyhms.netlify.app](https://nexorabyhms.netlify.app)\n• **Services**: Full Commercial Web Apps, Shopify/WordPress, UI/UX Design, SEO & Custom Solutions\n• **Direct Team WhatsApp**: [+92 345 3937195](https://wa.me/923453937195?text=Hello%20NEXORA%20DIGITAL,%20I%20would%20like%20to%20hire%20your%20team%20for%20a%20project.)\n\n[Visit Nexora Digital Website ↗](https://nexorabyhms.netlify.app)";
+            }
+
             // 1. WhatsApp / Contact / Phone / Reach / Message / Hire / Number / Roman Urdu Contact
             if (query.includes("whatsapp") || query.includes("contact") || query.includes("phone") || query.includes("number") || query.includes("reach") || query.includes("email") || query.includes("location") || query.includes("address") || query.includes("rabta") || query.includes("baat")) {
-                return "### 📞 Connect Direct with Saad\n\nSaad is a Full-Stack Software Developer based in **Karachi, Pakistan**.\n\n• **WhatsApp Direct**: [+92 345 3937195](https://wa.me/923453937195?text=Hi%20Saad,%20I%20saw%20your%20portfolio%20and%20would%20like%20to%20connect!)\n• **Email**: saad.sa9112@gmail.com\n• **Location**: Karachi, Pakistan\n\n[Chat on WhatsApp](https://wa.me/923453937195?text=Hi%20Saad,%20I%20saw%20your%20portfolio%20and%20would%20like%20to%20connect!)";
+                return "### 📞 Contact & Direct Uplink\n\nChoose the right channel for your need:\n\n**1. Contact Saad Personally (1-on-1 Software Roles / Hire):**\n• **WhatsApp Direct**: [+92 345 3937195](https://wa.me/923453937195?text=Hi%20Saad,%20I%20saw%20your%20portfolio%20and%20would%20like%20to%20connect!)\n• **Email**: [saad.sa9112@gmail.com](mailto:saad.sa9112@gmail.com)\n• **Location**: Karachi, Pakistan (Remote / Hybrid / On-site)\n\n**2. Build Projects with Our Team (Nexora Digital Agency):**\n• **Agency Platform**: [https://nexorabyhms.netlify.app](https://nexorabyhms.netlify.app)\n• For full-scale commercial projects, Shopify stores, and team contracts.\n\n[Chat on WhatsApp](https://wa.me/923453937195?text=Hi%20Saad,%20I%20saw%20your%20portfolio%20and%20would%20like%20to%20connect!)";
             }
 
             // 2. CV / Resume / Download / PDF / File / Roman Urdu CV
@@ -1589,6 +1594,14 @@ document.addEventListener("DOMContentLoaded", () => {
                     document.body.appendChild(link);
                     link.click();
                     setTimeout(() => link.remove(), 1000);
+                } else if (input === "team" || input === "our-team" || input === "nexora" || input === "agency") {
+                    resDiv.innerHTML = `
+                        <div class="text-neon-cyan fw-bold"><i class="fas fa-users-cog me-1"></i> NEXORA DIGITAL AGENCY // CLIENT SYSTEMS:</div>
+                        <div class="text-white">Commercial web development, Shopify, WordPress &amp; SEO agency.</div>
+                        <div>• Direct Link: <a href="https://nexorabyhms.netlify.app" target="_blank" class="text-neon-cyan">https://nexorabyhms.netlify.app ↗</a></div>
+                        <div>• WhatsApp Team Inquiry: <a href="https://wa.me/923453937195?text=Hello%20NEXORA%20DIGITAL,%20I%20would%20like%20to%20hire%20your%20team%20for%20a%20project." target="_blank" class="text-success">+92 345 3937195</a></div>
+                    `;
+                    window.open("https://nexorabyhms.netlify.app", "_blank");
                 } else if (input === "roast") {
                     palette.classList.remove("active");
                     if (aiWidget) {
@@ -1667,6 +1680,9 @@ document.addEventListener("DOMContentLoaded", () => {
             } else if (action === "whatsapp") {
                 palette.classList.remove("active");
                 window.open("https://wa.me/923453937195?text=Hi%20Saad,%20I%20am%20interested%20in%20your%20software%20engineering%20services.", "_blank");
+            } else if (action === "team") {
+                palette.classList.remove("active");
+                window.open("https://nexorabyhms.netlify.app", "_blank");
             } else if (action === "theme") {
                 palette.classList.remove("active");
                 const themeBtn = document.getElementById("theme-toggle-btn");
