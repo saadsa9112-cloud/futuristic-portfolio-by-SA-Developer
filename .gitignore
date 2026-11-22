@@ -20,3 +20,8 @@ wwwroot/uploads/
 appsettings.Development.json
 *.log
 node_modules/
+**/node_modules/
+**/.env
+**/.env.local
+.vite/
+**/.vite/

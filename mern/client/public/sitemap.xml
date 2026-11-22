@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+
+  <!-- 1. Home Node (Root Landing) -->
+  <url>
+    <loc>https://hmsofficial.netlify.app/</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://hmsofficial.netlify.app/images/profile.png</image:loc>
+      <image:title>Hafiz Muhammad Saad - Full Stack Software Engineer</image:title>
+      <image:caption>Hafiz Muhammad Saad | Senior Full-Stack Engineer and Systems Architect</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://hmsofficial.netlify.app/images/projects/ned-academy-system.jpg</image:loc>
+      <image:title>NED Academy University Management System</image:title>
+    </image:image>
+  </url>
+
+  <!-- 2. Portfolio / Projects Showcase -->
+  <url>
+    <loc>https://hmsofficial.netlify.app/portfolio/</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+    <image:image>
+      <image:loc>https://hmsofficial.netlify.app/images/projects/ned-academy-system.jpg</image:loc>
+      <image:title>NED Academy University Management System Architecture</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://hmsofficial.netlify.app/images/projects/nexora-agency.jpg</image:loc>
+      <image:title>Nexora Digital Agency Platform</image:title>
+    </image:image>
+  </url>
+
+  <!-- 3. About / Biography & Qualifications -->
+  <url>
+    <loc>https://hmsofficial.netlify.app/about/</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+    <image:image>
+      <image:loc>https://hmsofficial.netlify.app/images/profile.png</image:loc>
+      <image:title>Hafiz Muhammad Saad Biography</image:title>
+    </image:image>
+  </url>
+
+  <!-- 4. Tech Logs / Engineering Blog -->
+  <url>
+    <loc>https://hmsofficial.netlify.app/blog/</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+  </url>
+
+  <!-- 5. Contact / Hire Operator -->
+  <url>
+    <loc>https://hmsofficial.netlify.app/contact/</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- Featured Project Detail Pages -->
+  <url>
+    <loc>https://hmsofficial.netlify.app/portfolio/details/2/</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
+  </url>
+  <url>
+    <loc>https://hmsofficial.netlify.app/portfolio/details/1002/</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
+  </url>
+  <url>
+    <loc>https://hmsofficial.netlify.app/portfolio/details/2002/</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
+  </url>
+
+  <!-- Featured Blog Articles -->
+  <url>
+    <loc>https://hmsofficial.netlify.app/blog/details/cybersecurity-and-claude-mythos/</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
+  </url>
+  <url>
+    <loc>https://hmsofficial.netlify.app/blog/details/software-development-in-2027/</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
+  </url>
+
+</urlset>

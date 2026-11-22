@@ -76,68 +76,6 @@
     </div>
 </section>
 
-<!-- INTERACTIVE DUAL-ROUTING INTENT SELECTOR -->
-<section class="py-4 border-bottom border-secondary border-opacity-20" style="background: linear-gradient(180deg, rgba(13, 9, 26, 0.6) 0%, rgba(5, 3, 10, 0.95) 100%);">
-    <div class="container">
-        <div class="d-flex align-items-center justify-content-between mb-3">
-            <span class="font-monospace small text-muted"><i class="fas fa-compass text-neon-cyan me-1.5"></i> // SELECT MISSION INTENT</span>
-            <span class="badge bg-dark border border-secondary text-neon-green font-monospace small"><i class="fas fa-bolt me-1"></i> FAST-TRACK NAVIGATION</span>
-        </div>
-        <div class="row g-3">
-            <!-- Card 1: Hiring Lead / Technical Recruiter -->
-            <div class="col-md-6" data-aos="fade-up">
-                <div class="glass-panel p-3.5 h-100 border border-info border-opacity-35 d-flex flex-column justify-content-between hover-scale transition" style="background: rgba(14, 165, 233, 0.05);">
-                    <div class="d-flex align-items-start gap-3">
-                        <div class="p-2.5 rounded-3 border border-info border-opacity-40 text-neon-cyan flex-shrink-0" style="background: rgba(14, 165, 233, 0.15); font-size: 1.4rem;">
-                            <i class="fas fa-user-tie"></i>
-                        </div>
-                        <div>
-                            <span class="badge bg-info bg-opacity-20 text-neon-cyan font-monospace small mb-1">HIRING &amp; ENGINEERING ROLES</span>
-                            <h4 class="text-white fw-bold mb-1 fs-5">Technical Recruiter / Engineering Lead</h4>
-                            <p class="text-muted small mb-3">
-                                Looking to evaluate, interview, or hire Saad for <strong>Full-Time</strong>, <strong>Hybrid</strong>, or <strong>Remote</strong> Software Engineering roles (.NET 10, C#, SQL Server, MERN).
-                            </p>
-                        </div>
-                    </div>
-                    <div class="d-flex flex-wrap gap-2 pt-2 border-top border-secondary border-opacity-25">
-                        <button type="button" class="btn btn-sm btn-neon-cyan font-monospace recruiter-mode-trigger px-3">
-                            <i class="fas fa-briefcase me-1"></i> Open Recruiter Brief
-                        </button>
-                        <a href="/Home/DownloadDossier" download="Muhammad_Saad_Executive_Dossier.zip" class="btn btn-sm btn-outline-light font-monospace px-3" title="Download Complete Dossier (CV + System Design Summaries)">
-                            <i class="fas fa-file-archive me-1"></i> Download Dossier (ZIP)
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Card 2: Business Owner / Client -->
-            <div class="col-md-6" data-aos="fade-up" data-aos-delay="100">
-                <div class="glass-panel p-3.5 h-100 border border-purple border-opacity-40 d-flex flex-column justify-content-between hover-scale transition" style="background: rgba(168, 85, 247, 0.05); border-color: rgba(168, 85, 247, 0.35) !important;">
-                    <div class="d-flex align-items-start gap-3">
-                        <div class="p-2.5 rounded-3 border border-purple border-opacity-40 text-neon-purple flex-shrink-0" style="background: rgba(168, 85, 247, 0.15); font-size: 1.4rem;">
-                            <i class="fas fa-rocket"></i>
-                        </div>
-                        <div>
-                            <span class="badge bg-purple bg-opacity-20 text-neon-purple font-monospace small mb-1">COMMERCIAL &amp; TEAM PROJECTS</span>
-                            <h4 class="text-white fw-bold mb-1 fs-5">Business Owner / Product Client</h4>
-                            <p class="text-muted small mb-3">
-                                Need our dedicated agency team to build a high-performance commercial website, Shopify e-commerce store, custom web portal, or SEO overhaul.
-                            </p>
-                        </div>
-                    </div>
-                    <div class="d-flex flex-wrap gap-2 pt-2 border-top border-secondary border-opacity-25">
-                        <a href="https://nexorabyhms.netlify.app" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-neon text-white font-monospace px-3">
-                            <i class="fas fa-users-cog me-1"></i> Build with Nexora Team ↗
-                        </a>
-                        <a href="#speed-audit-section" class="btn btn-sm btn-outline-info font-monospace px-3">
-                            <i class="fas fa-tachometer-alt me-1"></i> Free Site Speed Audit ↓
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
 
 <!-- QUICK STATS STRIP (IDE TELEMETRY METRICS) -->
 @if (statistics != null && statistics.Any())
@@ -702,10 +640,10 @@
                         <!-- Node 1: Client / CDN -->
                         <div class="col-md-2 col-6">
                             <div class="arch-node-box p-3 rounded-3 border border-secondary border-opacity-40 hover-scale transition cursor-pointer" data-node="client" style="background: rgba(255,255,255,0.03);">
-                                <div class="fs-4 text-neon-cyan mb-2"><i class="fas fa-globe"></i></div>
+                                <div class="fs-4 text-neon-cyan mb-2"><i class="fas fa-desktop"></i></div>
                                 <strong class="d-block text-white small">Client Browser</strong>
-                                <span class="badge bg-dark border border-secondary text-muted" style="font-size: 0.68rem;">HTTP/3 · TLS 1.3</span>
-                                <div class="text-neon-green mt-1" style="font-size: 0.72rem;">&lt; 28ms Edge</div>
+                                <span class="badge bg-dark border border-secondary text-muted" style="font-size: 0.68rem;">HTML5 · CSS3</span>
+                                <div class="text-neon-green mt-1" style="font-size: 0.72rem;">Responsive UI</div>
                             </div>
                         </div>
 
@@ -714,13 +652,13 @@
                             <i class="fas fa-arrow-right pulse-glow"></i>
                         </div>
 
-                        <!-- Node 2: Reverse Proxy & Security -->
+                        <!-- Node 2: Security & Transport -->
                         <div class="col-md-2 col-6">
                             <div class="arch-node-box p-3 rounded-3 border border-info border-opacity-40 hover-scale transition cursor-pointer" data-node="security" style="background: rgba(14, 165, 233, 0.08);">
                                 <div class="fs-4 text-info mb-2"><i class="fas fa-shield-alt"></i></div>
-                                <strong class="d-block text-white small">Zero-Trust Shield</strong>
-                                <span class="badge bg-dark border border-info text-info" style="font-size: 0.68rem;">AES-256 / Rate Limit</span>
-                                <div class="text-neon-cyan mt-1" style="font-size: 0.72rem;">0 Flaws / eBPF</div>
+                                <strong class="d-block text-white small">Security Layer</strong>
+                                <span class="badge bg-dark border border-info text-info" style="font-size: 0.68rem;">TLS 1.3 · Anti-CSRF</span>
+                                <div class="text-neon-cyan mt-1" style="font-size: 0.72rem;">Safe Transport</div>
                             </div>
                         </div>
 
@@ -734,8 +672,8 @@
                             <div class="arch-node-box p-3 rounded-3 border border-purple border-opacity-50 hover-scale transition cursor-pointer" data-node="core" style="background: rgba(168, 85, 247, 0.1);">
                                 <div class="fs-4 text-neon-purple mb-2"><i class="fas fa-server"></i></div>
                                 <strong class="d-block text-white small">ASP.NET Core 10</strong>
-                                <span class="badge bg-dark border border-purple text-neon-purple" style="font-size: 0.68rem;">Native AOT / C# 13</span>
-                                <div class="text-warning mt-1" style="font-size: 0.72rem;">12.4k req/sec</div>
+                                <span class="badge bg-dark border border-purple text-neon-purple" style="font-size: 0.68rem;">C# MVC · Async</span>
+                                <div class="text-warning mt-1" style="font-size: 0.72rem;">Clean Architecture</div>
                             </div>
                         </div>
 
@@ -744,13 +682,13 @@
                             <i class="fas fa-arrow-right pulse-glow"></i>
                         </div>
 
-                        <!-- Node 4: Cache Layer -->
+                        <!-- Node 4: ORM Layer -->
                         <div class="col-md-2 col-6">
                             <div class="arch-node-box p-3 rounded-3 border border-danger border-opacity-40 hover-scale transition cursor-pointer" data-node="cache" style="background: rgba(239, 68, 68, 0.08);">
-                                <div class="fs-4 text-danger mb-2"><i class="fas fa-bolt"></i></div>
-                                <strong class="d-block text-white small">Redis Cache</strong>
-                                <span class="badge bg-dark border border-danger text-danger" style="font-size: 0.68rem;">In-Memory Tier</span>
-                                <div class="text-neon-green mt-1" style="font-size: 0.72rem;">0.8ms Read TTFB</div>
+                                <div class="fs-4 text-danger mb-2"><i class="fas fa-layer-group"></i></div>
+                                <strong class="d-block text-white small">EF Core 10 ORM</strong>
+                                <span class="badge bg-dark border border-danger text-danger" style="font-size: 0.68rem;">Data Mapping</span>
+                                <div class="text-neon-green mt-1" style="font-size: 0.72rem;">Parameterized SQL</div>
                             </div>
                         </div>
 
@@ -764,8 +702,8 @@
                             <div class="arch-node-box p-3 rounded-3 border border-success border-opacity-40 hover-scale transition cursor-pointer" data-node="db" style="background: rgba(16, 185, 129, 0.08);">
                                 <div class="fs-4 text-success mb-2"><i class="fas fa-database"></i></div>
                                 <strong class="d-block text-white small">SQL Server 2022</strong>
-                                <span class="badge bg-dark border border-success text-success" style="font-size: 0.68rem;">3NF / Indexed</span>
-                                <div class="text-neon-cyan mt-1" style="font-size: 0.72rem;">ACID / 0 Deadlocks</div>
+                                <span class="badge bg-dark border border-success text-success" style="font-size: 0.68rem;">Relational DB</span>
+                                <div class="text-neon-cyan mt-1" style="font-size: 0.72rem;">ACID Persistence</div>
                             </div>
                         </div>
                     </div>

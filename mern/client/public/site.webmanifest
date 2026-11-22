@@ -1,0 +1,24 @@
+{
+  "name": "Hafiz Muhammad Saad | Senior Full-Stack Engineer",
+  "short_name": "HMS Developer",
+  "description": "High-octane systems architecture, ASP.NET Core 10, MERN Stack, Zero-Trust defense, and modern full-stack web engineering portfolio.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#090514",
+  "theme_color": "#a855f7",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "type": "image/svg+xml",
+      "sizes": "any"
+    },
+    {
+      "src": "/favicon.ico",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/x-icon"
+    }
+  ],
+  "categories": ["education", "developer", "business", "productivity"],
+  "lang": "en"
+}

@@ -1734,34 +1734,34 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const nodeData = {
             client: {
-                title: "TOPOLOGY NODE: Global Edge & Client Layer",
-                status: "EDGE LATENCY: 24ms",
-                desc: "HTTP/3 over QUIC with TLS 1.3 0-RTT resumption. Static assets and modern web tokens delivered via optimized regional PoPs.",
-                tags: ["HTTP/3", "TLS 1.3 0-RTT", "Brotli Compression", "Edge CDN"]
+                title: "TOPOLOGY NODE: Client Browser & Responsive UI",
+                status: "UI: RESPONSIVE",
+                desc: "Cross-platform user interface built with semantic HTML5, modern CSS3 design tokens, and JavaScript (ES6+), optimized for fast mobile and desktop rendering.",
+                tags: ["HTML5", "CSS3", "JavaScript ES6+", "Responsive UI"]
             },
             security: {
-                title: "TOPOLOGY NODE: Zero-Trust Security & Rate Limiting Shield",
-                status: "AUDIT: 100% SECURE",
-                desc: "Automated IP reputation firewall, strict CSP (Content Security Policy), Anti-CSRF token verification, and parameterized query boundary enforcement.",
-                tags: ["AES-256-GCM", "Zero-Trust", "Anti-CSRF", "Token Bucket Rate Limiter"]
+                title: "TOPOLOGY NODE: Security & Input Validation Layer",
+                status: "PROTECTION: ACTIVE",
+                desc: "Enforces TLS 1.3 encrypted transport, Anti-CSRF verification tokens on all form submissions, and strict model state validation.",
+                tags: ["TLS 1.3", "Anti-CSRF Tokens", "ModelState Validation", "Secure Cookies"]
             },
             core: {
-                title: "TOPOLOGY NODE: ASP.NET Core 10 High-Throughput Engine",
-                status: "THROUGHPUT: 12.4k req/sec",
-                desc: "Engineered with C# 13 and ASP.NET Core 10 Kestrel pipeline. Features asynchronous non-blocking threadpool, dependency injection, and clean architecture separation.",
-                tags: ["C# 13", "ASP.NET Core 10", "Kestrel Async Pipeline", "Native AOT Ready"]
+                title: "TOPOLOGY NODE: ASP.NET Core 10 MVC Application Engine",
+                status: "FRAMEWORK: .NET 10",
+                desc: "Asynchronous C# controllers orchestrating view rendering, business domain rules, dependency injection, and clean architectural separation.",
+                tags: ["C#", "ASP.NET Core 10", "Dependency Injection", "Async/Await Pipeline"]
             },
             cache: {
-                title: "TOPOLOGY NODE: Redis Distributed In-Memory Cache",
-                status: "READ TTFB: 0.8ms",
-                desc: "Sub-millisecond query result cache for session state, rate limit token counters, and frequently requested read-heavy academic telemetry records.",
-                tags: ["Redis In-Memory", "Sub-1ms TTFB", "Sliding Expiration", "Zero Cache Stampede"]
+                title: "TOPOLOGY NODE: Entity Framework Core 10 ORM Layer",
+                status: "ORM: EF CORE 10",
+                desc: "Translates high-level business queries into secure, parameterized database commands preventing SQL injection while maintaining strong entity typing.",
+                tags: ["EF Core 10", "Parameterized Queries", "Strongly Typed Models", "Transaction Handling"]
             },
             db: {
-                title: "TOPOLOGY NODE: Microsoft SQL Server 2022 Relational Tier",
-                status: "INTEGRITY: ACID 100%",
-                desc: "Normalized 3NF schema, non-clustered composite indexes for query optimization, stored procedures, and EF Core execution pipelines preventing deadlocks.",
-                tags: ["SQL Server 2022", "3NF Normalization", "Non-Clustered Indexes", "0 Deadlocks"]
+                title: "TOPOLOGY NODE: Microsoft SQL Server Relational Database",
+                status: "PERSISTENCE: SQL SERVER",
+                desc: "Relational table schemas storing academic records, project catalogs, messages, and visitor telemetry with full ACID transactional integrity.",
+                tags: ["SQL Server", "Relational Schema", "Primary / Foreign Keys", "ACID Compliance"]
             }
         };
 

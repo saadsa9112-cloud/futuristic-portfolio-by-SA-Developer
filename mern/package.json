@@ -1,0 +1,14 @@
+{
+  "name": "advanced-portfolio-mern",
+  "version": "1.0.0",
+  "description": "Futuristic Cyber Portfolio by Hafiz Muhammad Saad - MERN Stack Edition",
+  "scripts": {
+    "client": "npm --prefix client run dev",
+    "server": "node server/server.js",
+    "build": "npm --prefix client install && npm --prefix client run build",
+    "install-all": "npm --prefix client install && npm --prefix server install"
+  },
+  "keywords": ["mern", "portfolio", "react", "express", "mongodb", "nodejs"],
+  "author": "Hafiz Muhammad Saad",
+  "license": "ISC"
+}
